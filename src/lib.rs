@@ -40,10 +40,23 @@ pub fn main_js() -> Result<(), JsValue> {
 		let row = document.create_element("tr")?;
 		let made_row = make_row(&Missile);
 
+		if i % 2 == 0 {
+			row.set_attribute("class", "grey-tr");
+		}
+
 		for j in 0..17 {
+			let value = &made_row[j];
 			let cell = document.create_element("td")?;
-			cell.set_text_content(Some(&made_row[j]));
-			cell.set_id(&format!("{}_{}", i, j));
+			cell.set_text_content(Some(&value));
+
+
+			// if let Ok(results) = value.parse::<f64>() {
+			// 	if results == 0.0 {
+			// 		cell.set_attribute("bgcolor", "#ff0000");
+			// 	}
+			// }
+
+
 			row.append_child(&cell)?;
 		}
 		table.append_child(&row)?;
