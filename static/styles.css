@@ -1,13 +1,68 @@
+html {
+    --color-text: #ffffff;
+    --color-text-dark: #9b9b9b;
+    --color-background: #1c1c1c;
+    --color-background-bright: #3d3d3d;
+
+    --color-background-accent: rgba(47, 47, 47, 0.4);
+    --color-accent: #1a7979;
+
+    background-color: var(--color-background);
+}
+
 td {
-    border: 1px solid #000000;
+    border: 1px solid var(--color-text-dark);
     padding: 5px;
 }
 
-.main_table {
-    border: 1px solid #000000;
-    border-collapse: collapse;
+form input {
+    appearance: none;
+    outline: 0;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 100px;
+    height: 10px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    text-align: center;
+    font-size: 18px;
+    transition-duration: 0.25s;
+    font-weight: 300;
 }
 
-.grey-tr {
-    background-color: #c6c6c6;
+form input:hover {
+    background-color: var(--color-background-accent);
+
+
+}
+
+form input:focus {
+    background-color: var(--color-background-accent);
+    color: #ffffff;
+}
+
+.ir_table, .rd_table {
+    color: var(--color-text);
+
+    border: 1px solid var(--color-accent);
+
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+.bright-tr .top-tr .dark-tr {
+    font-size: 1rem;
+}
+
+.bright-tr {
+    background-color: var(--color-background-bright);
+}
+
+.dark-tr {
+    background-color: var(--color-background);
+}
+
+.top-tr {
+    background-color: var(--color-accent);
 }

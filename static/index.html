@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>FlareFlo's missile sheet</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <script src="index.js"></script>
-    <table class="main_table" id="table">
-      <thead>
-      <tr>
+</head>
+<body>
+<script src="index.js"></script>
+<form>
+    <input placeholder="Altitude">
+    <input placeholder="Launch speed">
+</form>
+<button id="start_calc" class="run_calc" onclick="start_calc()">
+</button>
+<script>
+    function start_calc() {
+        console.log("Starting calculation")
+        let text = document.getElementById("start_calc").firstChild;
+        text.data = "Running calculation...";
+    }
+</script>
+<table class="ir_table">
+    <thead>
+    <tr class="top-tr">
         <td>Name</td>
         <td>Range</td>
         <td>MaxSpeed</td>
@@ -27,8 +40,27 @@
         <td>WarmUpTime</td>
         <td>WorkTime</td>
         <td>uncage</td>
-      </tr>
-      </thead>
-    </table>
-  </body>
+    </tr>
+    </thead>
+</table>
+<table class="rd_table">
+    <thead>
+    <tr class="top-tr">
+        <td>Name</td>
+        <td>Range</td>
+        <td>MaxSpeed</td>
+        <td>DeltaV</td>
+        <td>LaunchG</td>
+        <td>FlightG</td>
+        <td>Fov</td>
+        <td>Gate</td>
+        <td>LaunchFov</td>
+        <td>FlightFov</td>
+        <td>WarmUpTime</td>
+        <td>WorkTime</td>
+        <td>uncage</td>
+    </tr>
+    </thead>
+</table>
+</body>
 </html>
