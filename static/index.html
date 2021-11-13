@@ -7,26 +7,33 @@
 </head>
 <body>
 <script src="index.js"></script>
-<form>
-    <input placeholder="Altitude">
-    <input placeholder="Launch speed">
-</form>
-<button id="start_calc" class="run_calc" onclick="start_calc()">
-</button>
-<script>
-    function start_calc() {
-        console.log("Starting calculation")
-        let text = document.getElementById("start_calc").firstChild;
-        text.data = "Running calculation...";
-    }
-</script>
+<div>
+    <label for="alt">Altitude (m)</label>
+    <input type="number" id="alt" value="">
+
+    <label for="vel">Velocity (m/s)</label>
+    <input type="number" id="vel" value="">
+    <button onclick="goto_calc()">Run calc</button>
+    <button onclick="reset_calc()">Reset values</button>
+    <script>
+        function goto_calc() {
+            let alt = document.getElementById("alt").value;
+            let vel = document.getElementById("vel").value;
+            window.location.href = "?alt=" + alt + "%vel=" + vel;
+        }
+        function reset_calc() {
+            window.location.href = "?alt=" + 0 + "%vel=" + 343;
+        }
+    </script>
+</div>
+<p>All colums with red titles are calculates values</p>
 <table class="ir_table">
     <thead>
     <tr class="top-tr">
         <td>Name</td>
-        <td>Range</td>
+        <td class="calculated">Range</td>
         <td>MaxSpeed</td>
-        <td>DeltaV</td>
+        <td class="calculated">DeltaV</td>
         <td>LaunchG</td>
         <td>FlightG</td>
         <td>rear aspect range</td>
@@ -47,9 +54,9 @@
     <thead>
     <tr class="top-tr">
         <td>Name</td>
-        <td>Range</td>
+        <td class="calculated">Range</td>
         <td>MaxSpeed</td>
-        <td>DeltaV</td>
+        <td class="calculated">DeltaV</td>
         <td>LaunchG</td>
         <td>FlightG</td>
         <td>Fov</td>

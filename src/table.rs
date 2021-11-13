@@ -1,9 +1,12 @@
 use wasm_bindgen::JsValue;
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
+use wt_ballistics_calc_lib;
+use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
+use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 
 static STATIC_MISSILES: &str =  include_str!("../../wt_missile_calc/index/all.json");
 
-pub fn make_table() -> Result<(), JsValue> {
+pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let window = web_sys::window().expect("no global `window` exists");
 	let document = window.document().expect("should have a document on window");
 	let body = document.body().expect("document should have a body");
@@ -22,7 +25,7 @@ pub fn make_table() -> Result<(), JsValue> {
 		match &Missile.seekertype {
 			SeekerType::Ir => {
 				let row = document.create_element("tr")?;
-				let made_row = make_row_ir(&Missile);
+				let made_row = make_row_ir(&Missile, &parameters);
 
 				if ir % 2 == 0 {
 					row.set_attribute("class", "bright-tr");
@@ -50,7 +53,7 @@ pub fn make_table() -> Result<(), JsValue> {
 			},
 			SeekerType::Radar => {
 				let row = document.create_element("tr")?;
-				let made_row = make_row_rd(&Missile);
+				let made_row = make_row_rd(&Missile, &parameters);
 
 				if rd % 2 == 0 {
 					row.set_attribute("class", "bright-tr");
@@ -85,10 +88,16 @@ pub fn make_table() -> Result<(), JsValue> {
 	Ok(())
 }
 
-fn make_row_ir(m: &Missile) -> [String; 17] {
+fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
+	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
+
+	let results = generate(&m, &parameters, 0.1, false);
+
+	let range = results.distance_flown.round();
+
 	[
 		m.name.split("/").collect::<Vec<&str>>()[3].split(".").collect::<Vec<&str>>()[0].to_string(),
-		"WIP".into(),
+		range.to_string(),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
@@ -107,10 +116,15 @@ fn make_row_ir(m: &Missile) -> [String; 17] {
 	]
 }
 
-fn make_row_rd(m: &Missile) -> [String; 13] {
+fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 13] {
+	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
+
+	let results = generate(&m, &parameters, 0.1, false);
+
+	let range = results.distance_flown.round();
 	[
 		m.name.split("/").collect::<Vec<&str>>()[3].split(".").collect::<Vec<&str>>()[0].to_string(),
-		"WIP".into(),
+		range.to_string(),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),

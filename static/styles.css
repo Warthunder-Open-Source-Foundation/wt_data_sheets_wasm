@@ -1,13 +1,30 @@
 html {
     --color-text: #ffffff;
     --color-text-dark: #9b9b9b;
-    --color-background: #1c1c1c;
+    --color-background: #282828;
     --color-background-bright: #3d3d3d;
 
     --color-background-accent: rgba(47, 47, 47, 0.4);
-    --color-accent: #1a7979;
+    --color-accent: #3500D3;
 
     background-color: var(--color-background);
+    font-family: Tahoma;
+}
+
+p {
+    color: var(--color-text);
+}
+
+button {
+    background-color: var(--color-accent);
+    border: none;
+    color: var(--color-text);
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    width: 7em;
+    font-size: 1rem;
+    border-radius: 4px;
 }
 
 td {
@@ -15,31 +32,38 @@ td {
     padding: 5px;
 }
 
-form input {
+label {
+    color: var(--color-text);
+}
+
+input {
     appearance: none;
     outline: 0;
     border: 1px solid rgba(255, 255, 255, 0.4);
     background-color: rgba(255, 255, 255, 0.2);
-    width: 100px;
-    height: 10px;
+    color: var(--color-text);
+    width: 4rem;
+    height: 0.1rem;
     border-radius: 3px;
-    padding: 10px 15px;
+    padding: 10px;
     margin: 0 auto 10px auto;
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
     transition-duration: 0.25s;
     font-weight: 300;
 }
 
-form input:hover {
+input:hover {
     background-color: var(--color-background-accent);
-
-
 }
 
-form input:focus {
+input:focus {
     background-color: var(--color-background-accent);
     color: #ffffff;
+}
+
+.calculated {
+    color: #ff0000;
 }
 
 .ir_table, .rd_table {
