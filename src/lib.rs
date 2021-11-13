@@ -39,6 +39,7 @@ pub fn main_js() -> Result<(), JsValue> {
 	let mut keys= "";
 
 	if pre_keys.len() >= 4 {
+		console::log_1(&JsValue::from_str("Using custom values"));
 		keys = url.split("/").collect::<Vec<&str>>()[3]; // seperates url.com/?yes to ?yes
 
 		let trimmed_keys = &keys[1..]; // removes ? from url
@@ -55,12 +56,11 @@ pub fn main_js() -> Result<(), JsValue> {
 				parameters.start_velocity = f64::from_str(parameer).unwrap();
 			}
 		}
-
-		document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string());
-		document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string());
-
-		make_table(&parameters);
 	}
+	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string());
+	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string());
+
+	make_table(&parameters);
 	// console::log_1(&JsValue::from_str(trimmed_keys));
 	// console::log_1(&JsValue::from_str(&format!("{:?}", parameters)));
 	Ok(())
