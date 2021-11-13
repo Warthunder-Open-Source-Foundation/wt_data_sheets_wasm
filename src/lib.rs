@@ -58,14 +58,10 @@ pub fn main_js() -> Result<(), JsValue> {
 
 		document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string());
 		document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string());
+
+		make_table(&parameters);
 	}
-
-
-
 	// console::log_1(&JsValue::from_str(trimmed_keys));
 	// console::log_1(&JsValue::from_str(&format!("{:?}", parameters)));
-
-	make_table(&parameters);
-
 	Ok(())
 }
