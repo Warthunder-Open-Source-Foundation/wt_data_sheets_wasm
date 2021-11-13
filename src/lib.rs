@@ -38,7 +38,7 @@ pub fn main_js() -> Result<(), JsValue> {
 
 	let mut keys= "";
 
-	if pre_keys.len() >= 4 {
+	if pre_keys.len() > 4 {
 		console::log_1(&JsValue::from_str("Using custom values"));
 		keys = url.split("/").collect::<Vec<&str>>()[3]; // seperates url.com/?yes to ?yes
 
