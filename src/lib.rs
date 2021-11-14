@@ -1,12 +1,14 @@
-mod table;
-
 use std::f64;
 use std::str::FromStr;
-use wasm_bindgen::prelude::*;
+
 use wasm_bindgen::{JsCast, JsValue};
+use wasm_bindgen::prelude::*;
 use web_sys::console;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
+
 use crate::table::make_table;
+
+mod table;
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -35,7 +37,7 @@ pub fn main_js() -> Result<(), JsValue> {
 	let url: String = document.url().unwrap(); // gets url from entire page
 
 	if url.contains("?") {
-		let mut keys= "";
+		let mut keys = "";
 
 		console::log_1(&JsValue::from_str("Using custom values"));
 
@@ -45,11 +47,11 @@ pub fn main_js() -> Result<(), JsValue> {
 
 		for value in values {
 			if value.contains("alt") {
-				let parameer =  &value.clone()[4..];
+				let parameer = &value.clone()[4..];
 				parameters.altitude = u32::from_str(parameer).unwrap();
 			}
 			if value.contains("vel") {
-				let parameer =  &value.clone()[4..];
+				let parameer = &value.clone()[4..];
 				parameters.start_velocity = f64::from_str(parameer).unwrap();
 			}
 		}

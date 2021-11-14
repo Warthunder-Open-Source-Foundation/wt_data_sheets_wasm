@@ -1,11 +1,11 @@
 use wasm_bindgen::JsValue;
 use web_sys::console;
-use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
+use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 
-static STATIC_MISSILES: &str =  include_str!("../../wt_missile_calc/index/all.json");
+static STATIC_MISSILES: &str = include_str!("../../wt_missile_calc/index/all.json");
 
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let window = web_sys::window().expect("no global `window` exists");
@@ -21,7 +21,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let (mut ir, mut rd) = (0, 0);
 
 	for Missile in missiles {
-
 		match &Missile.seekertype {
 			SeekerType::Ir => {
 				let row = document.create_element("tr")?;
@@ -42,7 +41,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 					row.append_child(&cell)?;
 				}
 				ir_table.append_child(&row)?;
-			},
+			}
 			SeekerType::Radar => {
 				let row = document.create_element("tr")?;
 				let made_row = make_row_rd(&Missile, &parameters);
@@ -72,10 +71,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				rd_table.append_child(&row)?;
 			}
 		}
-
-
-
-
 	}
 	Ok(())
 }
