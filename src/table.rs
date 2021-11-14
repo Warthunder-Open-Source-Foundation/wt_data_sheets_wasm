@@ -1,4 +1,5 @@
 use wasm_bindgen::JsValue;
+use web_sys::console;
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
@@ -9,7 +10,6 @@ static STATIC_MISSILES: &str =  include_str!("../../wt_missile_calc/index/all.js
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let window = web_sys::window().expect("no global `window` exists");
 	let document = window.document().expect("should have a document on window");
-	let body = document.body().expect("document should have a body");
 
 	let mut missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
 
@@ -18,10 +18,10 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let ir_table = document.query_selector(".ir_table").unwrap().unwrap();
 	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();
 
-	let mut ir = 0;
-	let mut rd = 0;
+	let (mut ir, mut rd) = (0, 0);
 
-	for (i, Missile) in missiles.iter().enumerate() {
+	for Missile in missiles {
+
 		match &Missile.seekertype {
 			SeekerType::Ir => {
 				let row = document.create_element("tr")?;

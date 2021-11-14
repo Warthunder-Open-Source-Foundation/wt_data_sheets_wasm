@@ -3,7 +3,7 @@ mod table;
 use std::f64;
 use std::str::FromStr;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsValue;
+use wasm_bindgen::{JsCast, JsValue};
 use web_sys::console;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use crate::table::make_table;
@@ -25,7 +25,7 @@ pub fn main_js() -> Result<(), JsValue> {
 		console_error_panic_hook::set_once();
 
 	// Your code goes here!
-	console::log_1(&JsValue::from_str("Hello world!"));
+	console::log_1(&JsValue::from_str("Hello rust!"));
 
 	let window = web_sys::window().expect("no global `window` exists");
 	let document = window.document().expect("should have a document on window");
@@ -34,15 +34,14 @@ pub fn main_js() -> Result<(), JsValue> {
 
 	let url: String = document.url().unwrap(); // gets url from entire page
 
-	let mut keys= "";
-
 	if url.contains("?") {
+		let mut keys= "";
+
 		console::log_1(&JsValue::from_str("Using custom values"));
+
 		keys = url.split("?").collect::<Vec<&str>>()[1]; // seperates url.com/?yes to ?yes
 
 		let values = keys.split("+").collect::<Vec<&str>>(); // seperates values like one=1+two=2
-
-		console::log_1(&JsValue::from_str(&format!("{:?}", values)));
 
 		for value in values {
 			if value.contains("alt") {

@@ -269,11 +269,6 @@ export function __wbg_URL_db6637e306672144() { return handleError(function (arg0
     getInt32Memory0()[arg0 / 4 + 0] = ptr0;
 }, arguments) };
 
-export function __wbg_body_78ae4fd43b446013() { return logError(function (arg0) {
-    var ret = getObject(arg0).body;
-    return isLikeNone(ret) ? 0 : addHeapObject(ret);
-}, arguments) };
-
 export function __wbg_createElement_86c152812a141a62() { return handleError(function (arg0, arg1, arg2) {
     var ret = getObject(arg0).createElement(getStringFromWasm0(arg1, arg2));
     return addHeapObject(ret);
