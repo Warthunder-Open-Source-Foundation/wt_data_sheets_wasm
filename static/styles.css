@@ -1,5 +1,6 @@
 html {
     --color-text: #ffffff;
+    --color-text-link: #ffffff;
     --color-text-dark: #9b9b9b;
     --color-background: #282828;
     --color-background-bright: #3d3d3d;
@@ -14,6 +15,14 @@ html {
 p {
     color: var(--color-text);
     margin: 0;
+}
+
+a {
+    color: var(--color-text-link);
+}
+
+a:hover {
+    color: aqua;
 }
 
 button {
