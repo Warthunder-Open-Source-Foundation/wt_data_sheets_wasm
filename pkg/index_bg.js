@@ -262,14 +262,18 @@ export function __wbg_setAttribute_1b533bf07966de55() { return handleError(funct
     getObject(arg0).setAttribute(getStringFromWasm0(arg1, arg2), getStringFromWasm0(arg3, arg4));
 }, arguments) };
 
-export function __wbg_settextContent_799ebbf96e16265d(arg0, arg1, arg2) {
-    getObject(arg0).textContent = arg1 === 0 ? undefined : getStringFromWasm0(arg1, arg2);
+export function __wbg_setinnerHTML_e5b817d6227a431c(arg0, arg1, arg2) {
+    getObject(arg0).innerHTML = getStringFromWasm0(arg1, arg2);
 };
 
 export function __wbg_appendChild_d318db34c4559916() { return handleError(function (arg0, arg1) {
     var ret = getObject(arg0).appendChild(getObject(arg1));
     return addHeapObject(ret);
 }, arguments) };
+
+export function __wbg_settextContent_799ebbf96e16265d(arg0, arg1, arg2) {
+    getObject(arg0).textContent = arg1 === 0 ? undefined : getStringFromWasm0(arg1, arg2);
+};
 
 export function __wbindgen_string_new(arg0, arg1) {
     var ret = getStringFromWasm0(arg0, arg1);

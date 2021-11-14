@@ -36,7 +36,16 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				for j in 0..17 {
 					let value = &made_row[j];
 					let cell = document.create_element("td")?;
-					cell.set_text_content(Some(&value));
+
+					if j == 0 {
+						cell.set_attribute("id", &Missile.name);
+						let a = document.create_element("a")?;
+						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &Missile.name));
+						a.set_inner_html(&Missile.name);
+						cell.append_child(&a)?;
+					} else {
+						cell.set_text_content(Some(&value));
+					}
 
 					row.append_child(&cell)?;
 				}
@@ -56,15 +65,16 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				for j in 0..11 {
 					let value = &made_row[j];
 					let cell = document.create_element("td")?;
-					cell.set_text_content(Some(&value));
 
-
-					// if let Ok(results) = value.parse::<f64>() {
-					// 	if results == 0.0 {
-					// 		cell.set_attribute("bgcolor", "#ff0000");
-					// 	}
-					// }
-
+					if j == 0 {
+						cell.set_attribute("id", &Missile.name);
+						let a = document.create_element("a")?;
+						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &Missile.name));
+						a.set_inner_html(&Missile.name);
+						cell.append_child(&a)?;
+					} else {
+						cell.set_text_content(Some(&value));
+					}
 
 					row.append_child(&cell)?;
 				}
@@ -83,7 +93,7 @@ fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 	let range = results.distance_flown.round();
 
 	[
-		m.name.split("/").collect::<Vec<&str>>()[3].split(".").collect::<Vec<&str>>()[0].to_string(),
+		m.name.to_string(),
 		range.to_string(),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
@@ -110,7 +120,7 @@ fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
 
 	let range = results.distance_flown.round();
 	[
-		m.name.split("/").collect::<Vec<&str>>()[3].split(".").collect::<Vec<&str>>()[0].to_string(),
+		m.name.to_string(),
 		range.to_string(),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
