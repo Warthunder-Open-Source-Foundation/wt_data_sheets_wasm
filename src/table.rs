@@ -39,14 +39,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 					let cell = document.create_element("td")?;
 					cell.set_text_content(Some(&value));
 
-
-					// if let Ok(results) = value.parse::<f64>() {
-					// 	if results == 0.0 {
-					// 		cell.set_attribute("bgcolor", "#ff0000");
-					// 	}
-					// }
-
-
 					row.append_child(&cell)?;
 				}
 				ir_table.append_child(&row)?;
@@ -62,7 +54,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				}
 				rd += 1;
 
-				for j in 0..13 {
+				for j in 0..11 {
 					let value = &made_row[j];
 					let cell = document.create_element("td")?;
 					cell.set_text_content(Some(&value));
@@ -116,7 +108,7 @@ fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 	]
 }
 
-fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 13] {
+fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(&m, &parameters, 0.1, false);
@@ -129,8 +121,6 @@ fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 13] {
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
 		m.reqaccelmax.to_string(),
-		m.fov.to_string(),
-		m.gate.to_string(),
 		m.lockanglemax.to_string(),
 		m.anglemax.to_string(),
 		m.warmuptime.to_string(),
