@@ -34,17 +34,15 @@ pub fn main_js() -> Result<(), JsValue> {
 
 	let url: String = document.url().unwrap(); // gets url from entire page
 
-	let mut pre_keys = url.split("/").collect::<Vec<&str>>();
-
 	let mut keys= "";
 
 	if url.contains("?") {
 		console::log_1(&JsValue::from_str("Using custom values"));
-		keys = url.split("/").collect::<Vec<&str>>()[3]; // seperates url.com/?yes to ?yes
+		keys = url.split("?").collect::<Vec<&str>>()[1]; // seperates url.com/?yes to ?yes
 
-		let trimmed_keys = &keys[1..]; // removes ? from url
+		let values = keys.split("+").collect::<Vec<&str>>(); // seperates values like one=1+two=2
 
-		let values = trimmed_keys.split("%").collect::<Vec<&str>>(); // seperates values like one=1%two=2
+		console::log_1(&JsValue::from_str(&format!("{:?}", values)));
 
 		for value in values {
 			if value.contains("alt") {
