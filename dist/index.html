@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>FlareFlo's missile sheet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script src="index.js"></script>
+<table class="ir_table">
+    <thead>
+    <tr>
+        <td colspan="99">
+            <div>
+                <label for="alt">Altitude (m)</label>
+                <input type="number" id="alt" value="">
+
+                <label for="vel">Velocity (m/s)</label>
+                <input type="number" id="vel" value="">
+
+                <button onclick="goto_calc()">Run calc</button>
+                <button onclick="reset_calc()">Reset values</button>
+
+                <p>All colums with red titles are calculates values</p>
+                <script>
+                    function goto_calc() {
+                        let alt = document.getElementById("alt").value;
+                        let vel = document.getElementById("vel").value;
+                        window.location.href = "?alt=" + alt + "+vel=" + vel;
+                    }
+                    function reset_calc() {
+                        window.location.href = "?alt=" + 0 + "+vel=" + 343;
+                    }
+                </script>
+            </div>
+        </td>
+    </tr>
+    <tr class="top-tr">
+        <td>Name</td>
+        <td class="calculated">Range</td>
+        <td>MaxSpeed</td>
+        <td class="calculated">DeltaV</td>
+        <td>LaunchG</td>
+        <td>FlightG</td>
+        <td>rear aspect range</td>
+        <td>all aspect</td>
+        <td>IR decoys</td>
+        <td>IRCM and Sun</td>
+        <td>Fov</td>
+        <td>Gate</td>
+        <td>LaunchFov</td>
+        <td>FlightFov</td>
+        <td>WarmUpTime</td>
+        <td>WorkTime</td>
+        <td>uncage</td>
+    </tr>
+    </thead>
+</table>
+<table class="rd_table">
+    <thead>
+    <tr class="top-tr">
+        <td>Name</td>
+        <td class="calculated">Range</td>
+        <td>MaxSpeed</td>
+        <td class="calculated">DeltaV</td>
+        <td>LaunchG</td>
+        <td>FlightG</td>
+        <td>Fov</td>
+        <td>Gate</td>
+        <td>LaunchFov</td>
+        <td>FlightFov</td>
+        <td>WarmUpTime</td>
+        <td>WorkTime</td>
+        <td>uncage</td>
+    </tr>
+    </thead>
+</table>
+</body>
+</html>
