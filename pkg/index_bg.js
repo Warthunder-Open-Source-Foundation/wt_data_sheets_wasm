@@ -190,6 +190,12 @@ export function main_js() {
     wasm.main_js();
 }
 
+/**
+*/
+export function test_bind() {
+    wasm.test_bind();
+}
+
 function isLikeNone(x) {
     return x === undefined || x === null;
 }

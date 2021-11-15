@@ -62,5 +62,11 @@ pub fn main_js() -> Result<(), JsValue> {
 	make_table(&parameters);
 	// console::log_1(&JsValue::from_str(trimmed_keys));
 	// console::log_1(&JsValue::from_str(&format!("{:?}", parameters)));
+
+	#[wasm_bindgen]
+		pub fn test_bind() {
+		console::log_1(&JsValue::from_str("Test bind succesful!"));
+	}
+
 	Ok(())
 }

@@ -3,3 +3,6 @@
 /**
 */
 export function main_js(): void;
+/**
+*/
+export function test_bind(): void;
