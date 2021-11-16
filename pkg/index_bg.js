@@ -191,9 +191,12 @@ export function main_js() {
 }
 
 /**
+* @param {string} message
 */
-export function test_bind() {
-    wasm.test_bind();
+export function test_bind(message) {
+    var ptr0 = passStringToWasm0(message, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    var len0 = WASM_VECTOR_LEN;
+    wasm.test_bind(ptr0, len0);
 }
 
 function isLikeNone(x) {

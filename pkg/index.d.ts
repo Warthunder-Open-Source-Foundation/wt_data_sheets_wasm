@@ -4,5 +4,6 @@
 */
 export function main_js(): void;
 /**
+* @param {string} message
 */
-export function test_bind(): void;
+export function test_bind(message: string): void;
