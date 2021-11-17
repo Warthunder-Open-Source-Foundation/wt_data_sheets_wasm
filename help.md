@@ -22,13 +22,13 @@ npm run build
 
 ```sh
 # Runs tests in Firefox
-npm test -- --firefox
+npm docs -- --firefox
 
 # Runs tests in Chrome
-npm test -- --chrome
+npm docs -- --chrome
 
 # Runs tests in Safari
-npm test -- --safari
+npm docs -- --safari
 ```
 
 ## What does each file do?

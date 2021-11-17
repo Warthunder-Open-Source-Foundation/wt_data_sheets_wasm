@@ -1,9 +1,8 @@
 # You must change these to your own details.
 [package]
-name = "rust-webpack-template"
-description = "My super awesome Rust, WebAssembly, and Webpack project!"
+name = "wt_data_sheets_wasm"
 version = "0.1.0"
-authors = ["You <you@example.com>"]
+authors = ["FlareFlo"]
 categories = ["wasm"]
 readme = "README.md"
 edition = "2018"
@@ -25,9 +24,10 @@ lto = true
 # to interact with JavaScript.
 wasm-bindgen = "0.2.45"
 
+wt_ballistics_calc = { git = "https://github.com/FlareFlo/wt_ballistics_calc" }
 
-wt_missile_calc = { path = "../wt_missile_calc" }
-wt_ballistics_calc = { path = "../wt_ballistics_calc" }
+wt_missile_calc = { git = "https://github.com/FlareFlo/wt_missile_calc" }
+
 
 serde_json = "*"
 serde = "*"

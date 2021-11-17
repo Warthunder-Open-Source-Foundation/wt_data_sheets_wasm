@@ -635,25 +635,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-webpack-template"
-version = "0.1.0"
-dependencies = [
- "console_error_panic_hook",
- "futures 0.1.31",
- "js-sys",
- "reqwest-wasm",
- "serde",
- "serde_json",
- "wasm-bindgen",
- "wasm-bindgen-futures 0.3.27",
- "wasm-bindgen-test",
- "web-sys",
- "wee_alloc",
- "wt_ballistics_calc",
- "wt_missile_calc",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1097,6 +1078,7 @@ dependencies = [
 [[package]]
 name = "wt_ballistics_calc"
 version = "0.1.0"
+source = "git+https://github.com/FlareFlo/wt_ballistics_calc#7cae72d94b38e2c40ac7e4256a3250592b242e0b"
 dependencies = [
  "pad",
  "serde",
@@ -1105,8 +1087,28 @@ dependencies = [
 ]
 
 [[package]]
+name = "wt_data_sheets_wasm"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "futures 0.1.31",
+ "js-sys",
+ "reqwest-wasm",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "wasm-bindgen-futures 0.3.27",
+ "wasm-bindgen-test",
+ "web-sys",
+ "wee_alloc",
+ "wt_ballistics_calc",
+ "wt_missile_calc",
+]
+
+[[package]]
 name = "wt_missile_calc"
 version = "0.1.0"
+source = "git+https://github.com/FlareFlo/wt_missile_calc#bc211ea8bdb4f2acde286d043ba0bd1a1756ba8c"
 dependencies = [
  "serde",
  "serde_json",
