@@ -24,9 +24,10 @@ lto = true
 # to interact with JavaScript.
 wasm-bindgen = "0.2.45"
 
+wt_ballistics_calc = { git = "https://github.com/FlareFlo/wt_ballistics_calc" }
 
-wt_missile_calc = { path = "../wt_missile_calc" }
-wt_ballistics_calc = { path = "../wt_ballistics_calc" }
+wt_missile_calc = { git = "https://github.com/FlareFlo/wt_missile_calc" }
+
 
 serde_json = "*"
 serde = "*"

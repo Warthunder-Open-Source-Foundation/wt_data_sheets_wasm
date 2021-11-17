@@ -14,14 +14,16 @@
 		<td colspan="99">
 			<div>
 				<label for="alt">Altitude (m)</label>
-				<input id="alt" type="number" value="" min="0">
+				<input id="alt" type="number" value="" min="0" class="input_number">
 
 				<label for="vel">Velocity (m/s)</label>
-				<input id="vel" type="number" value="" min="0">
+				<input id="vel" type="number" value="" min="0" class="input_number">
 
 				<button onclick="goto_calc()">Run calc</button>
 				<button onclick="reset_calc()">Reset values</button>
-				<button id="test">Test</button>
+				<a href="live_calc.html">
+					<button>Live simulation!</button>
+				</a>
 
 				<p>All colums with red titles are calculated values. Documentation on all values is <a
 						href="docs/documentation.html">here</a></p>

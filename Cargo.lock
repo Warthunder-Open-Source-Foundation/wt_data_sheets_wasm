@@ -1078,6 +1078,7 @@ dependencies = [
 [[package]]
 name = "wt_ballistics_calc"
 version = "0.1.0"
+source = "git+https://github.com/FlareFlo/wt_ballistics_calc#7cae72d94b38e2c40ac7e4256a3250592b242e0b"
 dependencies = [
  "pad",
  "serde",
@@ -1107,6 +1108,7 @@ dependencies = [
 [[package]]
 name = "wt_missile_calc"
 version = "0.1.0"
+source = "git+https://github.com/FlareFlo/wt_missile_calc#bc211ea8bdb4f2acde286d043ba0bd1a1756ba8c"
 dependencies = [
  "serde",
  "serde_json",
