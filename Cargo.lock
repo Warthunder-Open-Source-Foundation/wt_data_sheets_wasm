@@ -635,25 +635,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-webpack-template"
-version = "0.1.0"
-dependencies = [
- "console_error_panic_hook",
- "futures 0.1.31",
- "js-sys",
- "reqwest-wasm",
- "serde",
- "serde_json",
- "wasm-bindgen",
- "wasm-bindgen-futures 0.3.27",
- "wasm-bindgen-test",
- "web-sys",
- "wee_alloc",
- "wt_ballistics_calc",
- "wt_missile_calc",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1101,6 +1082,25 @@ dependencies = [
  "pad",
  "serde",
  "serde_json",
+ "wt_missile_calc",
+]
+
+[[package]]
+name = "wt_data_sheets_wasm"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "futures 0.1.31",
+ "js-sys",
+ "reqwest-wasm",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "wasm-bindgen-futures 0.3.27",
+ "wasm-bindgen-test",
+ "web-sys",
+ "wee_alloc",
+ "wt_ballistics_calc",
  "wt_missile_calc",
 ]
 

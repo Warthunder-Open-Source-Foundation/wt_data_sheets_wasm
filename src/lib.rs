@@ -3,7 +3,7 @@ use std::str::FromStr;
 
 use wasm_bindgen::{JsCast, JsValue};
 use wasm_bindgen::prelude::*;
-use web_sys::console;
+use web_sys::{console, Document, Window, window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 
 use crate::table::make_table;
@@ -14,9 +14,9 @@ mod table;
 // allocator.
 //
 // If you don't want to use `wee_alloc`, you can safely delete this.
-// #[cfg(feature = "wee_alloc")]
-// #[global_allocator]
-// static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+#[cfg(feature = "wee_alloc")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 // This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
@@ -26,11 +26,27 @@ pub fn main_js() -> Result<(), JsValue> {
 	#[cfg(debug_assertions)]
 		console_error_panic_hook::set_once();
 
-	// Your code goes here!
-	console::log_1(&JsValue::from_str("Hello rust!"));
+	let window: Window = web_sys::window().expect("no global `window` exists");
+	let document: Document = window.document().expect("should have a document on window");
+	let url: String = document.url().expect("should have a url");
 
-	let window = web_sys::window().expect("no global `window` exists");
-	let document = window.document().expect("should have a document on window");
+	let url_local: &str = url.split("/").collect::<Vec<&str>>()[3];
+
+	match url_local {
+		"" => { generate_main_tables(&document) },
+		_ => {}
+	}
+
+
+	#[wasm_bindgen]
+		pub fn console_log(message: &str) {
+		console::log_1(&JsValue::from_str(message));
+	}
+
+	Ok(())
+}
+
+fn generate_main_tables(document: &web_sys::Document) {
 
 	let mut parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
@@ -61,11 +77,4 @@ pub fn main_js() -> Result<(), JsValue> {
 	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string());
 
 	make_table(&parameters);
-
-	#[wasm_bindgen]
-		pub fn test_bind(message: &str) {
-		console::log_1(&JsValue::from_str(message));
-	}
-
-	Ok(())
 }

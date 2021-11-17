@@ -1,7 +1,10 @@
 async function main() {
 	const rust = await import ("../pkg/index.js").catch(console.error);
 
-	rust.test_bind("test bindgen rust call");
+
+	rust.console_log("This is rust!");
+
+
 
 	function fetch_stuff() {
 		fetch("http://localhost:8111/indicators").then(function (myJson) {
