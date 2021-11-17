@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap');
+
+html {
+	--color-text: #ffffff;
+	--color-text-link: #ffffff;
+	--color-text-dark: #9b9b9b;
+	--color-background: #282828;
+	--color-background-bright: #3d3d3d;
+
+	--color-background-accent: rgba(47, 47, 47, 0.4);
+	--color-accent: #3500D3;
+
+	background-color: var(--color-background);
+	font-family: 'Roboto Mono', monospace;
+	font-size: 15px;
+}
+
+p {
+	color: var(--color-text);
+	margin: 0;
+}
+
+a {
+	color: var(--color-text-link);
+}
+
+a:hover {
+	color: aqua;
+}
+
+button {
+	background-color: var(--color-accent);
+	border: none;
+	color: var(--color-text);
+	text-align: center;
+	text-decoration: none;
+	display: inline;
+	width: 7em;
+	font-size: 1rem;
+	border-radius: 4px;
+}
+
+td {
+	border: 1px solid var(--color-text-dark);
+	padding: 3px;
+	color: var(--color-text);
+}
+
+label {
+	color: var(--color-text);
+}
+
+.input_number {
+	appearance: none;
+	outline: 0;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.2);
+	color: var(--color-text);
+	width: 4rem;
+	height: 0.1rem;
+	border-radius: 3px;
+	padding: 10px;
+	margin: 0 auto 10px auto;
+	text-align: center;
+	font-size: 15px;
+	transition-duration: 0.25s;
+	font-weight: 300;
+}
+
+.input_number:hover {
+	background-color: var(--color-background-accent);
+}
+
+.input_number:focus {
+	background-color: var(--color-background-accent);
+	color: #ffffff;
+}
+
+.calculated {
+	color: #ff0000;
+}
+
+.ir_table, .rd_table {
+	color: var(--color-text);
+
+	border: 1px solid var(--color-accent);
+
+	border-collapse: collapse;
+	margin: 10px;
+}
+
+.bright-tr .top-tr .dark-tr {
+	font-size: 1rem;
+}
+
+.bright-tr {
+	background-color: var(--color-background-bright);
+}
+
+.dark-tr {
+	background-color: var(--color-background);
+}
+
+.top-tr {
+	background-color: var(--color-accent);
+}
