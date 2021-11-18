@@ -89,18 +89,22 @@ label {
 	margin: 10px;
 }
 
-.bright-tr .top-tr .dark-tr {
-	font-size: 1rem;
+table.ir_table tr:nth-child(odd) {
+	background-color: var(--color-background-bright);
 }
 
-.bright-tr {
-	background-color: var(--color-background-bright);
+table.ir_table tr:nth-child(even) {
+	background-color: var(--color-background);
+}
+
+.bright-tr .top-tr .dark-tr {
+	font-size: 1rem;
 }
 
 .dark-tr {
 	background-color: var(--color-background);
 }
 
-.top-tr {
+#ir_index, #rd_index {
 	background-color: var(--color-accent);
 }

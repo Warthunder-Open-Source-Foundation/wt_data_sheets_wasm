@@ -26,12 +26,12 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				let row = document.create_element("tr")?;
 				let made_row = make_row_ir(&Missile, &parameters);
 
-				if ir % 2 == 0 {
-					row.set_attribute("class", "bright-tr");
-				} else {
-					row.set_attribute("class", "dark-tr");
-				}
-				ir += 1;
+				// if ir % 2 == 0 {
+				// 	row.set_attribute("class", "bright-tr");
+				// } else {
+				// 	row.set_attribute("class", "dark-tr");
+				// }
+				// ir += 1;
 
 				for j in 0..17 {
 					let value = &made_row[j];
