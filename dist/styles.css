@@ -43,13 +43,14 @@ button {
 td {
 	border: 1px solid var(--color-text-dark);
 	padding: 3px;
+	color: var(--color-text);
 }
 
 label {
 	color: var(--color-text);
 }
 
-input {
+.input_number {
 	appearance: none;
 	outline: 0;
 	border: 1px solid rgba(255, 255, 255, 0.4);
@@ -66,11 +67,11 @@ input {
 	font-weight: 300;
 }
 
-input:hover {
+.input_number:hover {
 	background-color: var(--color-background-accent);
 }
 
-input:focus {
+.input_number:focus {
 	background-color: var(--color-background-accent);
 	color: #ffffff;
 }

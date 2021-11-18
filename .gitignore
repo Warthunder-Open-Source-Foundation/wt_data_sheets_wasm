@@ -4,3 +4,4 @@ node_modules
 .idea
 pkg
 Cargo.lock
+package-lock.json
