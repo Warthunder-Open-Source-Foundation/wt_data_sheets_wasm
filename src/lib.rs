@@ -8,11 +8,21 @@ use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults, Splash};
 use wt_missile_calc_lib::missiles::Missile;
 
+use lazy_static::lazy_static;
+
 use crate::table::make_table;
 
-const STATIC_MISSILES: &str = include_str!("../../wt_missile_calc/index/all.json");
-
 mod table;
+
+lazy_static! {
+	static ref MISSILES: Vec<Missile> = {
+		let json = include_str!("../../wt_missile_calc/index/all.json");
+		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
+		missiles.sort_by_key(|d| d.name.clone());
+
+		missiles
+	};
+}
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -53,8 +63,7 @@ pub fn main_js() -> Result<(), JsValue> {
 	pub fn constant_calc(velocity: f64, alt: u32, missile_select: usize, do_splash: bool) {
 		let mut parameters = LaunchParameter::new_from_parameters(false, (velocity / 3.6), 0.0, (velocity / 3.6), alt);
 
-		let missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
-		let mut results = generate(&missiles[missile_select], &parameters, 0.1, false);
+		let mut results = generate(&MISSILES[missile_select], &parameters, 0.1, false);
 
 		let window: Window = web_sys::window().expect("no global `window` exists");
 		let document: Document = window.document().expect("should have a document on window");
@@ -65,7 +74,7 @@ pub fn main_js() -> Result<(), JsValue> {
 
 		if do_splash {
 			while !results.splash.splash {
-				results = generate(&missiles[missile_select], &parameters, 0.1, false);
+				results = generate(&MISSILES[missile_select], &parameters, 0.1, false);
 				parameters.distance_to_target -= 10.0;
 			}
 			document.get_element_by_id("splash_at").unwrap().set_inner_html(&results.splash.at.round().to_string());
@@ -81,11 +90,9 @@ pub fn main_js() -> Result<(), JsValue> {
 		let window: Window = web_sys::window().expect("no global `window` exists");
 		let document: Document = window.document().expect("should have a document on window");
 
-		let missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
-
 		let select = document.get_element_by_id("missile_select").unwrap();
 
-		for (i, missile) in missiles.iter().enumerate() {
+		for (i, missile) in MISSILES.iter().enumerate() {
 			let missile_element = document.create_element("option").unwrap();
 			missile_element.set_attribute("value", &i.to_string());
 			missile_element.set_text_content(Some(&missile.name));
@@ -107,8 +114,7 @@ fn generate_main_tables(document: &web_sys::Document) {
 fn update_main_tables(alt: u32, vel: u32) {
 	let document: Document = web_sys::window().unwrap().document().expect("should have a document on window");
 
-	let missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
-	for missile in missiles {
+	for missile in MISSILES.iter() {
 		let parameters = LaunchParameter::new_from_parameters(false, vel as f64,0.0, 0.0, alt);
 		let results = generate(&missile, &parameters, 0.1, false);
 		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
