@@ -30,22 +30,11 @@
 				<label for="vel">Velocity (m/s)</label>
 				<input id="vel" type="number" value="" min="0" class="input_number">
 
-				<button onclick="goto_calc()">Run calc</button>
-				<button onclick="reset_calc()">Reset values</button>
+				<button id="run_calc">Run calc</button>
+				<button id="reset_values">Reset values</button>
 
 				<p>All colums with red titles are calculated values. Documentation on all values is <a
 						href="documentation.html">here</a></p>
-				<script>
-					function goto_calc() {
-						let alt = document.getElementById("alt").value;
-						let vel = document.getElementById("vel").value;
-						window.location.href = "?alt=" + alt + "+vel=" + vel;
-					}
-
-					function reset_calc() {
-						window.location.href = "?alt=" + 0 + "+vel=" + 343;
-					}
-				</script>
 			</div>
 		</td>
 	</tr>

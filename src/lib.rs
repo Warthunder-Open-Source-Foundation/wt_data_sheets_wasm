@@ -77,6 +77,8 @@ pub fn main_js() -> Result<(), JsValue> {
 	}
 
 	#[wasm_bindgen]
+	pub fn update_tables(alt: u32, vel: u32) {update_main_tables(alt, vel)}
+	#[wasm_bindgen]
 	pub fn make_option_inputs() {
 		let window: Window = web_sys::window().expect("no global `window` exists");
 		let document: Document = window.document().expect("should have a document on window");
@@ -92,38 +94,26 @@ pub fn main_js() -> Result<(), JsValue> {
 			select.append_child(&missile_element);
 		}
 	}
-
 	Ok(())
 }
 
 fn generate_main_tables(document: &web_sys::Document) {
 	let mut parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
-	let url: String = document.url().unwrap(); // gets url from entire page
-
-	if url.contains("?") {
-		let mut keys = "";
-
-		console::log_1(&JsValue::from_str("Using custom values"));
-
-		keys = url.split("?").collect::<Vec<&str>>()[1]; // separates url.com/?yes to ?yes
-
-		let values = keys.split("+").collect::<Vec<&str>>(); // separates values like one=1+two=2
-
-		for value in values {
-			if value.contains("alt") {
-				let parameer = &value.clone()[4..];
-				parameters.altitude = u32::from_str(parameer).unwrap();
-			}
-			if value.contains("vel") {
-				let parameer = &value.clone()[4..];
-				parameters.start_velocity = f64::from_str(parameer).unwrap();
-			}
-		}
-	}
-
 	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string());
 	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string());
 
 	make_table(&parameters);
+}
+
+fn update_main_tables(alt: u32, vel: u32) {
+	let document: Document = web_sys::window().unwrap().document().expect("should have a document on window");
+
+	let missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
+	for missile in missiles {
+		let parameters = LaunchParameter::new_from_parameters(false, vel as f64,0.0, 0.0, alt);
+		let results = generate(&missile, &parameters, 0.1, false);
+		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
+		cell.set_inner_html(&results.distance_flown.round().to_string());
+	}
 }

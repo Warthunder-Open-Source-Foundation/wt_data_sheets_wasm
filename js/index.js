@@ -7,6 +7,22 @@ async function main() {
 	// Custom section for each page to make sure it runs properly
 	if (url == "") {
 		rust = await import ("../pkg/index.js").catch(console.error);
+
+		document.getElementById("vel").addEventListener("input", update);
+		document.getElementById("alt").addEventListener("input", update);
+		document.getElementById("run_calc").addEventListener("input", update);
+
+		function update() {
+			let alt = parseInt(document.getElementById("alt").value);
+			let vel = parseInt(document.getElementById("vel").value);
+			rust.update_tables(alt, vel);
+		}
+		document.getElementById("reset_values").addEventListener("click", (ev) => {
+				document.getElementById("alt").value = "0";
+				document.getElementById("vel").value = "343";
+				rust.update_tables(0, 343);
+			}
+		);
 	}
 
 	if (url == "live_calc.html") {
@@ -34,23 +50,8 @@ async function main() {
 				await sleep(100);
 			}
 		})
-
-
 	}
-
-
 	rust.console_log("This is rust!");
-
-
-
-	function fetch_stuff() {
-		fetch("http://localhost:8111/indicators").then(function (myJson) {
-			console.log(myJson);
-		})
-		fetch("http://localhost:8111/state").then(function (myJson) {
-			console.log(myJson);
-		})
-	}
 
 	function sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
