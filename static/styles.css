@@ -14,7 +14,6 @@ html {
 			90deg, rgb(110, 16, 210) 0%, rgb(199, 10, 75) 100%);
 	--background-image-blue: linear-gradient(
 			90deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
-
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
 
 	background-color: var(--color-background);
