@@ -1,14 +1,12 @@
-use std::f64;
 use std::str::FromStr;
 
+use lazy_static::lazy_static;
 use wasm_bindgen::{JsCast, JsValue};
 use wasm_bindgen::prelude::*;
 use web_sys::{console, Document, Window, window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults, Splash};
 use wt_missile_calc_lib::missiles::Missile;
-
-use lazy_static::lazy_static;
 
 use crate::table::make_table;
 
@@ -70,21 +68,23 @@ pub fn main_js() -> Result<(), JsValue> {
 
 		document.get_element_by_id("range").unwrap().set_inner_html(&results.distance_flown.round().to_string());
 
-		let mut attempted_distance = results.distance_flown.round();
+		parameters.distance_to_target = results.distance_flown.round();
+		results.splash.splash = false;
 
 		if do_splash {
 			while !results.splash.splash {
 				results = generate(&MISSILES[missile_select], &parameters, 0.1, false);
-				parameters.distance_to_target -= 10.0;
+				parameters.distance_to_target -= 100.0;
 			}
 			document.get_element_by_id("splash_at").unwrap().set_inner_html(&results.splash.at.round().to_string());
-		}else {
+		} else {
 			document.get_element_by_id("splash_at").unwrap().set_inner_html("-");
 		}
 	}
 
 	#[wasm_bindgen]
-	pub fn update_tables(alt: u32, vel: u32) {update_main_tables(alt, vel)}
+	pub fn update_tables(alt: u32, vel: u32) { update_main_tables(alt, vel) }
+
 	#[wasm_bindgen]
 	pub fn make_option_inputs() {
 		let window: Window = web_sys::window().expect("no global `window` exists");
@@ -115,7 +115,7 @@ fn update_main_tables(alt: u32, vel: u32) {
 	let document: Document = web_sys::window().unwrap().document().expect("should have a document on window");
 
 	for missile in MISSILES.iter() {
-		let parameters = LaunchParameter::new_from_parameters(false, vel as f64,0.0, 0.0, alt);
+		let parameters = LaunchParameter::new_from_parameters(false, vel as f64, 0.0, 0.0, alt);
 		let results = generate(&missile, &parameters, 0.1, false);
 		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
 		cell.set_inner_html(&results.distance_flown.round().to_string());

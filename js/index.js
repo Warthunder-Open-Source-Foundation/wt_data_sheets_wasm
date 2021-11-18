@@ -17,6 +17,7 @@ async function main() {
 			let vel = parseInt(document.getElementById("vel").value);
 			rust.update_tables(alt, vel);
 		}
+
 		document.getElementById("reset_values").addEventListener("click", (ev) => {
 				document.getElementById("alt").value = "0";
 				document.getElementById("vel").value = "343";
@@ -34,7 +35,6 @@ async function main() {
 		missile_select.addEventListener('change', async (e) => {
 			let target = e.target;
 			while (missile_select.value !== -1) {
-				console.log(missile_select.value);
 				let do_splash = document.getElementById("use_splash").checked;
 				await fetch("http://localhost:8111/state").then(function (response) {
 					return response.json();
@@ -47,7 +47,7 @@ async function main() {
 				}).catch(function (error) {
 					console.log("error: " + error);
 				});
-				await sleep(100);
+				await sleep(16);
 			}
 		})
 	}

@@ -4,6 +4,7 @@ use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
+
 use crate::MISSILES;
 
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
@@ -29,7 +30,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &Missile.name));
 						a.set_inner_html(&Missile.name);
 						cell.append_child(&a)?;
-					} else if j ==1 {
+					} else if j == 1 {
 						cell.set_attribute("id", &format!("range_{}", &Missile.name));
 						cell.set_text_content(Some(&value));
 					} else {
@@ -54,7 +55,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &Missile.name));
 						a.set_inner_html(&Missile.name);
 						cell.append_child(&a)?;
-					} else if j ==1 {
+					} else if j == 1 {
 						cell.set_attribute("id", &format!("range_{}", &Missile.name));
 						cell.set_text_content(Some(&value));
 					} else {
