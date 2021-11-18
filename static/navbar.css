@@ -1,6 +1,4 @@
 body {
-	overflow-x: hidden;
-	font-family: "Roboto Mono";
 	margin: 0;
 }
 
@@ -8,14 +6,16 @@ body {
 	position: relative;
 	display: flex;
 	align-items: center;
-	margin-bottom: 10px;
-	background: var(--color-accent);
+	/*background: var(--color-accent);*/
+	background-image: var(--background-image-red);
+	background-color: initial;
 	color: var(--color-text);
 	padding: 10px;
 	z-index: 1;
 	-webkit-user-select: none;
 	user-select: none;
 	box-sizing: border-box;
+	margin-bottom: 10px;
 }
 
 .menu-logo {

@@ -10,7 +10,7 @@ use wt_missile_calc_lib::missiles::Missile;
 
 use crate::table::make_table;
 
-static STATIC_MISSILES: &str = include_str!("../../wt_missile_calc/index/all.json");
+const STATIC_MISSILES: &str = include_str!("../../wt_missile_calc/index/all.json");
 
 mod table;
 
@@ -51,9 +51,7 @@ pub fn main_js() -> Result<(), JsValue> {
 
 	#[wasm_bindgen]
 	pub fn constant_calc(velocity: f64, alt: u32, missile_select: usize, do_splash: bool) {
-
-		let mut attempted_distance = 10000.0;
-		let mut parameters = LaunchParameter::new_from_parameters(false, (velocity / 3.6), attempted_distance, (velocity / 3.6), alt);
+		let mut parameters = LaunchParameter::new_from_parameters(false, (velocity / 3.6), 0.0, (velocity / 3.6), alt);
 
 		let missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
 		let mut results = generate(&missiles[missile_select], &parameters, 0.1, false);
@@ -63,12 +61,12 @@ pub fn main_js() -> Result<(), JsValue> {
 
 		document.get_element_by_id("range").unwrap().set_inner_html(&results.distance_flown.round().to_string());
 
-		attempted_distance = results.distance_flown.round();
+		let mut attempted_distance = results.distance_flown.round();
 
 		if do_splash {
 			while !results.splash.splash {
 				results = generate(&missiles[missile_select], &parameters, 0.1, false);
-				parameters.distance_to_target -= 200.0;
+				parameters.distance_to_target -= 10.0;
 			}
 			document.get_element_by_id("splash_at").unwrap().set_inner_html(&results.splash.at.round().to_string());
 		}else {

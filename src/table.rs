@@ -4,8 +4,7 @@ use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
-
-static STATIC_MISSILES: &str = include_str!("../../wt_missile_calc/index/all.json");
+use crate::STATIC_MISSILES;
 
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let window = web_sys::window().expect("no global `window` exists");
@@ -18,20 +17,11 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let ir_table = document.query_selector(".ir_table").unwrap().unwrap();
 	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();
 
-	let (mut ir, mut rd) = (0, 0);
-
 	for Missile in missiles {
 		match &Missile.seekertype {
 			SeekerType::Ir => {
 				let row = document.create_element("tr")?;
 				let made_row = make_row_ir(&Missile, &parameters);
-
-				// if ir % 2 == 0 {
-				// 	row.set_attribute("class", "bright-tr");
-				// } else {
-				// 	row.set_attribute("class", "dark-tr");
-				// }
-				// ir += 1;
 
 				for j in 0..17 {
 					let value = &made_row[j];
@@ -57,13 +47,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 			SeekerType::Radar => {
 				let row = document.create_element("tr")?;
 				let made_row = make_row_rd(&Missile, &parameters);
-
-				if rd % 2 == 0 {
-					row.set_attribute("class", "bright-tr");
-				} else {
-					row.set_attribute("class", "dark-tr");
-				}
-				rd += 1;
 
 				for j in 0..11 {
 					let value = &made_row[j];
