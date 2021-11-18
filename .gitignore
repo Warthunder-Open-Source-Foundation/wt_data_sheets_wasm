@@ -3,5 +3,5 @@ node_modules
 /wasm-pack.log
 .idea
 pkg
-package-lock.json
 Cargo.lock
+package-lock.json
