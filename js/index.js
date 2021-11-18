@@ -34,20 +34,22 @@ async function main() {
 
 		missile_select.addEventListener('change', async (e) => {
 			let target = e.target;
-			while (missile_select.value !== -1) {
+			while (true) {
 				let do_splash = document.getElementById("use_splash").checked;
 				await fetch("http://localhost:8111/state").then(function (response) {
 					return response.json();
 
 				}).then(function (data) {
-					let velocity = data["IAS, km/h"];
-					let alt = data["H, m"];
-					rust.constant_calc(velocity, alt, parseInt(target.value), do_splash);
+					if (data["valid"] === true) {
+						let velocity = data["IAS, km/h"];
+						let alt = data["H, m"];
+						rust.constant_calc(velocity, alt, parseInt(target.value), do_splash);
+					}
 
 				}).catch(function (error) {
 					console.log("error: " + error);
 				});
-				await sleep(16);
+				await sleep(50);
 			}
 		})
 	}
