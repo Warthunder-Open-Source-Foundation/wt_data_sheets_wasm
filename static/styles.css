@@ -74,10 +74,6 @@ label {
 	color: var(--color-text);
 }
 
-tr {
-	transition: all 0.2s ease-in;
-}
-
 .input_number {
 	appearance: none;
 	outline: 0;
@@ -113,7 +109,6 @@ tr {
 
 	border-collapse: collapse;
 	margin: 10px;
-	transition: all 0.5s ease-in;
 }
 
 table tr:nth-child(even) {
@@ -126,10 +121,10 @@ table tr:nth-child(odd) {
 
 .ir_table tr:hover, .rd_table tr:hover {
 	background-image: var(--background-image-red);
-	animation: rainbow_animation 10s ease-in-out infinite;
 }
 
 #ir_index, #rd_index {
 	background-image: var(--background-image-red);
+	animation: rainbow_animation 10s ease-out infinite;
 	background-color: initial;
 }
