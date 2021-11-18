@@ -3,3 +3,4 @@ node_modules
 /wasm-pack.log
 .idea
 pkg
+Cargo.lock

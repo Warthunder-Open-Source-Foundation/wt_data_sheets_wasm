@@ -650,7 +650,7 @@ dependencies = [
  "web-sys",
  "wee_alloc",
  "wt_ballistics_calc",
- "wt_missile_calc",
+ "wt_missile_calc 0.1.0",
 ]
 
 [[package]]
@@ -1101,12 +1101,21 @@ dependencies = [
  "pad",
  "serde",
  "serde_json",
- "wt_missile_calc",
+ "wt_missile_calc 0.1.0 (git+https://github.com/FlareFlo/wt_missile_calc)",
 ]
 
 [[package]]
 name = "wt_missile_calc"
 version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "wt_missile_calc"
+version = "0.1.0"
+source = "git+https://github.com/FlareFlo/wt_missile_calc#5cb05e26f714901016dcde072dda86de098dd506"
 dependencies = [
  "serde",
  "serde_json",
