@@ -4,17 +4,28 @@
 	<meta charset="UTF-8">
 	<title>Live calculation</title>
 	<link href="styles.css" rel="stylesheet">
-	<link rel="shortcut icon" type="image/x-icon" href="metafiles/favicon.ico">
+	<link href="navbar.css" rel="stylesheet">
+	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<script src="index.js"></script>
 </head>
 <body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
 <form>
 	<select id="missile_select">
 		<option value="1">--</option>
 	</select>
 	<br>
 	<label>Use splash calculator (might slow down calculations)</label>
-	<input type="checkbox" id="use_splash">
+	<input id="use_splash" type="checkbox">
 </form>
 <table class="ir_table">
 	<tr class="bright-tr">

@@ -2,7 +2,7 @@
 
 html {
 	--color-text: #ffffff;
-	--color-text-link: #ffffff;
+	--color-text-link: #00ffdf;
 	--color-text-dark: #9b9b9b;
 	--color-background: #282828;
 	--color-background-bright: #3d3d3d;
@@ -10,9 +10,26 @@ html {
 	--color-background-accent: rgba(47, 47, 47, 0.4);
 	--color-accent: #3500D3;
 
+	--background-image-red: linear-gradient(
+			90deg, rgb(110, 16, 210) 0%, rgb(199, 10, 75) 100%);
+	--background-image-blue: linear-gradient(
+			90deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
+
+	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
+
 	background-color: var(--color-background);
 	font-family: 'Roboto Mono', monospace;
 	font-size: 15px;
+}
+
+@keyframes rainbow_animation {
+	0%, 100% {
+		background-position: 0 0;
+	}
+
+	50% {
+		background-position: 100% 0;
+	}
 }
 
 p {
@@ -21,15 +38,15 @@ p {
 }
 
 a {
-	color: var(--color-text-link);
+	color: var(--color-text);
 }
 
 a:hover {
-	color: aqua;
+	color: var(--color-text-link);
 }
 
 button {
-	background-color: var(--color-accent);
+	background-image: var(--background-image-blue);
 	border: none;
 	color: var(--color-text);
 	text-align: center;
@@ -38,6 +55,13 @@ button {
 	width: 7em;
 	font-size: 1rem;
 	border-radius: 4px;
+	height: 20px;
+}
+
+button:hover {
+	background-image: var(--background-image-blue);
+	background-size: 400%;
+	animation: rainbow_animation 1s ease-in-out infinite;
 }
 
 td {
@@ -50,11 +74,15 @@ label {
 	color: var(--color-text);
 }
 
+tr {
+	transition: all 0.2s ease-in;
+}
+
 .input_number {
 	appearance: none;
 	outline: 0;
 	border: 1px solid rgba(255, 255, 255, 0.4);
-	background-color: rgba(255, 255, 255, 0.2);
+	background-image: var(--background-image-blue);
 	color: var(--color-text);
 	width: 4rem;
 	height: 0.1rem;
@@ -83,24 +111,25 @@ label {
 .ir_table, .rd_table {
 	color: var(--color-text);
 
-	border: 1px solid var(--color-accent);
-
 	border-collapse: collapse;
 	margin: 10px;
+	transition: all 0.5s ease-in;
 }
 
-.bright-tr .top-tr .dark-tr {
-	font-size: 1rem;
-}
-
-.bright-tr {
+table tr:nth-child(even) {
 	background-color: var(--color-background-bright);
 }
 
-.dark-tr {
+table tr:nth-child(odd) {
 	background-color: var(--color-background);
 }
 
-.top-tr {
-	background-color: var(--color-accent);
+.ir_table tr:hover, .rd_table tr:hover {
+	background-image: var(--background-image-red);
+	animation: rainbow_animation 10s ease-in-out infinite;
+}
+
+#ir_index, #rd_index {
+	background-image: var(--background-image-red);
+	background-color: initial;
 }

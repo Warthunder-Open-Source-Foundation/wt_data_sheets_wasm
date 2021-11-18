@@ -5,33 +5,20 @@ use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 
-static STATIC_MISSILES: &str = include_str!("../../wt_missile_calc/index/all.json");
+use crate::MISSILES;
 
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let window = web_sys::window().expect("no global `window` exists");
 	let document = window.document().expect("should have a document on window");
 
-	let mut missiles: Vec<Missile> = serde_json::from_str(STATIC_MISSILES).unwrap();
-
-	missiles.sort_by_key(|d| d.name.clone());
-
 	let ir_table = document.query_selector(".ir_table").unwrap().unwrap();
 	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();
 
-	let (mut ir, mut rd) = (0, 0);
-
-	for Missile in missiles {
+	for Missile in MISSILES.iter() {
 		match &Missile.seekertype {
 			SeekerType::Ir => {
 				let row = document.create_element("tr")?;
 				let made_row = make_row_ir(&Missile, &parameters);
-
-				if ir % 2 == 0 {
-					row.set_attribute("class", "bright-tr");
-				} else {
-					row.set_attribute("class", "dark-tr");
-				}
-				ir += 1;
 
 				for j in 0..17 {
 					let value = &made_row[j];
@@ -43,6 +30,9 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &Missile.name));
 						a.set_inner_html(&Missile.name);
 						cell.append_child(&a)?;
+					} else if j == 1 {
+						cell.set_attribute("id", &format!("range_{}", &Missile.name));
+						cell.set_text_content(Some(&value));
 					} else {
 						cell.set_text_content(Some(&value));
 					}
@@ -55,13 +45,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				let row = document.create_element("tr")?;
 				let made_row = make_row_rd(&Missile, &parameters);
 
-				if rd % 2 == 0 {
-					row.set_attribute("class", "bright-tr");
-				} else {
-					row.set_attribute("class", "dark-tr");
-				}
-				rd += 1;
-
 				for j in 0..11 {
 					let value = &made_row[j];
 					let cell = document.create_element("td")?;
@@ -72,6 +55,9 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &Missile.name));
 						a.set_inner_html(&Missile.name);
 						cell.append_child(&a)?;
+					} else if j == 1 {
+						cell.set_attribute("id", &format!("range_{}", &Missile.name));
+						cell.set_text_content(Some(&value));
 					} else {
 						cell.set_text_content(Some(&value));
 					}

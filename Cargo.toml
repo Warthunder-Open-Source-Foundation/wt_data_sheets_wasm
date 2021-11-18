@@ -13,7 +13,16 @@ crate-type = ["cdylib"]
 [profile.release]
 # This makes the compiled code faster and smaller, but it makes compiling slower,
 # so it's only enabled in release mode.
+opt-level = "s"
+debug = false
+split-debuginfo = '...'  # Platform-specific.
+debug-assertions = false
+overflow-checks = false
 lto = true
+panic = 'abort'
+incremental = true
+codegen-units = 1
+rpath = false
 
 [features]
 # If you uncomment this line, it will enable `wee_alloc`:
@@ -28,9 +37,10 @@ wt_ballistics_calc = { git = "https://github.com/FlareFlo/wt_ballistics_calc" }
 
 wt_missile_calc = { git = "https://github.com/FlareFlo/wt_missile_calc" }
 
-
 serde_json = "*"
 serde = "*"
+
+lazy_static = "1.4.0"
 
 js-sys = "0.3.22"
 

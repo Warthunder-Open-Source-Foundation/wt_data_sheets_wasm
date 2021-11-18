@@ -3,130 +3,128 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FlareFlo's missile sheet</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
-	<link rel="shortcut icon" type="image/x-icon" href="metafiles/favicon.ico">
-	<script id="script" type="module" src="index.js"></script>
+	<link href="navbar.css" rel="stylesheet">
+	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<script id="script" src="index.js" type="module"></script>
 </head>
 <body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
 <table class="ir_table">
 	<thead>
 	<tr>
 		<td colspan="99">
 			<div>
 				<label for="alt">Altitude (m)</label>
-				<input id="alt" type="number" value="" min="0" class="input_number">
+				<input class="input_number" id="alt" min="0" type="number" value="">
 
 				<label for="vel">Velocity (m/s)</label>
-				<input id="vel" type="number" value="" min="0" class="input_number">
+				<input class="input_number" id="vel" min="0" type="number" value="">
 
-				<button onclick="goto_calc()">Run calc</button>
-				<button onclick="reset_calc()">Reset values</button>
-				<a href="live_calc.html">
-					<button>Live simulation!</button>
-				</a>
+				<button id="run_calc">Run calc</button>
+				<button id="reset_values">Reset values</button>
 
 				<p>All colums with red titles are calculated values. Documentation on all values is <a
-						href="docs/documentation.html">here</a></p>
-				<script>
-					function goto_calc() {
-						let alt = document.getElementById("alt").value;
-						let vel = document.getElementById("vel").value;
-						window.location.href = "?alt=" + alt + "+vel=" + vel;
-					}
-
-					function reset_calc() {
-						window.location.href = "?alt=" + 0 + "+vel=" + 343;
-					}
-				</script>
+						href="documentation.html">here</a></p>
 			</div>
 		</td>
 	</tr>
-	<tr class="top-tr">
+	<tr class="top-tr" id="ir_index">
 		<td>
-			<a href="docs/documentation.html#name">Name</a></td>
+			<a href="documentation.html#name">Name</a></td>
 		<td>
-			<a href="docs/documentation.html#range" class="calculated">Range</a>
+			<a class="calculated" href="documentation.html#range">Range</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#maxspeed">Max Speed</a></td>
+			<a href="documentation.html#maxspeed">Max Speed</a></td>
 		<td>
-			<a href="docs/documentation.html#deltav" class="calculated">DeltaV</a>
+			<a class="calculated" href="documentation.html#deltav">DeltaV</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#launchg">LaunchG</a>
+			<a href="documentation.html#launchg">LaunchG</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#flightg">FlightG</a>
+			<a href="documentation.html#flightg">FlightG</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#rearaspect">Rear aspect</a>
+			<a href="documentation.html#rearaspect">Rear aspect</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#allaspect">All aspect</a>
+			<a href="documentation.html#allaspect">All aspect</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#irdecoys">IR decoys</a>
+			<a href="documentation.html#irdecoys">IR decoys</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#ircm">IRCM</a>
+			<a href="documentation.html#ircm">IRCM</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#fov">Fov</a>
+			<a href="documentation.html#fov">Fov</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#fov">Gate</a>
+			<a href="documentation.html#fov">Gate</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#launchfov">LaunchFov</a>
+			<a href="documentation.html#launchfov">LaunchFov</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#flightfov">FlightFov</a>
+			<a href="documentation.html#flightfov">FlightFov</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#warmuptime">WarmUpTime</a>
+			<a href="documentation.html#warmuptime">WarmUpTime</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#worktime">WorkTime</a>
+			<a href="documentation.html#worktime">WorkTime</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#uncage">Uncage</a>
+			<a href="documentation.html#uncage">Uncage</a>
 		</td>
 	</tr>
 	</thead>
 </table>
 <table class="rd_table">
 	<thead>
-	<tr class="top-tr">
+	<tr class="top-tr" id="rd_index">
 		<td>
-			<a href="docs/documentation.html#name">Name</a></td>
+			<a href="documentation.html#name">Name</a></td>
 		<td>
-			<a href="docs/documentation.html#range" class="calculated">Range</a>
+			<a class="calculated" href="documentation.html#range">Range</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#maxspeed">Max Speed</a></td>
+			<a href="documentation.html#maxspeed">Max Speed</a></td>
 		<td>
-			<a href="docs/documentation.html#deltav" class="calculated">DeltaV</a>
+			<a class="calculated" href="documentation.html#deltav">DeltaV</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#launchg">LaunchG</a>
+			<a href="documentation.html#launchg">LaunchG</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#flightg">FlightG</a>
+			<a href="documentation.html#flightg">FlightG</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#launchfov">LaunchFov</a>
+			<a href="documentation.html#launchfov">LaunchFov</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#flightfov">FlightFov</a>
+			<a href="documentation.html#flightfov">FlightFov</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#warmuptime">WarmUpTime</a>
+			<a href="documentation.html#warmuptime">WarmUpTime</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#worktime">WorkTime</a>
+			<a href="documentation.html#worktime">WorkTime</a>
 		</td>
 		<td>
-			<a href="docs/documentation.html#uncage">Uncage</a>
+			<a href="documentation.html#uncage">Uncage</a>
 		</td>
 	</tr>
 	</thead>

@@ -3,12 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Documentation</title>
-	<link href="../styles.css" rel="stylesheet">
+	<link href="styles.css" rel="stylesheet">
+	<link href="navbar.css" rel="stylesheet">
+	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
 <body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
 <table class="ir_table">
 	<thead>
-	<tr class="top-tr">
+	<tr class="top-tr" id="ir_index">
 		<td>Name</td>
 		<td>Description</td>
 		<td>Unit<br></td>
