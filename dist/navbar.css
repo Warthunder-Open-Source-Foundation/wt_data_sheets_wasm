@@ -1,0 +1,187 @@
+body {
+	margin: 0;
+}
+
+.menu {
+	display: inline-block;
+	text-align: center;
+}
+
+.menu-container {
+	width: 100%;
+	position: relative;
+	display: grid;
+	align-items: center;
+	/*background: var(--color-accent);*/
+	background-image: var(--background-image-red);
+	background-color: initial;
+	color: var(--color-text);
+	padding: 10px;
+	z-index: 1;
+	-webkit-user-select: none;
+	user-select: none;
+	box-sizing: border-box;
+}
+
+.menu-logo {
+	line-height: 0;
+	margin: 0 20px;
+}
+
+.menu-logo img {
+	max-height: 40px;
+	max-width: 100px;
+	flex-shrink: 0;
+}
+
+.menu-container a {
+	text-decoration: none;
+	color: var(--color-text);
+	transition: color 0.3s ease;
+	font-weight: bold;
+	white-space: nowrap;
+}
+
+.menu-container a:hover {
+	color: var(--color-text-link);
+}
+
+.menu-container input {
+	display: block;
+	width: 50px;
+	height: 50px;
+	margin: 0;
+	position: absolute;
+	cursor: pointer;
+	opacity: 0; /* hide this */
+	z-index: 2; /* and place it over the hamburger */
+	-webkit-touch-callout: none;
+}
+
+/* Burger menu */
+.menu-container span {
+	display: block;
+	width: 33px;
+	height: 4px;
+	margin-bottom: 5px;
+	position: relative;
+	border-radius: 3px;
+	z-index: 1;
+	background-image: var(--background-image-blue);
+	animation: rainbow_animation 5s ease-in-out infinite;
+	transform-origin: 4px 0px;
+	transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+	background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0),
+	opacity 0.55s ease;
+}
+
+.menu-container span:first-child {
+	transform-origin: 0% 0%;
+}
+
+.menu-container span:nth-child(3) {
+	transform-origin: 0% 100%;
+}
+
+.menu-container input:checked ~ span {
+	opacity: 1;
+	transform: rotate(45deg) translate(3px, -1px);
+	background: var(--background-image-blue);
+	animation: rainbow_animation 5s ease-in-out infinite;
+}
+
+.menu-container input:checked ~ span:nth-child(4) {
+	opacity: 0;
+	transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.menu-container input:checked ~ span:nth-child(3) {
+	transform: rotate(-45deg) translate(-5px, 11px);
+}
+
+.menu ul {
+	list-style: none;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.menu li {
+	height: auto;
+	padding: 10px 0;
+	font-size: 15px;
+}
+
+
+/* TODO Navbar somehow bugs out on mobile after changing target res*/
+/* mobile styles */
+@media only screen and (max-width: 750px) {
+	.menu-container {
+		flex-direction: column;
+		align-items: flex-end;
+	}
+
+	.menu {
+		position: absolute;
+		box-sizing: border-box;
+		width: 100%;
+		/*right: -300px;*/
+		top: 0;
+		padding: 10px;
+		background: var(--background-image-red);
+		-webkit-font-smoothing: antialiased;
+		/* to stop flickering of text in safari */
+		transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+	}
+
+	.menu ul {
+		width: fit-content;
+	}
+
+	.menu-container input:not(:checked) ~ .menu {
+		opacity: 0;
+		transition: opacity 0.5s linear;
+		transform: translateX(-100%);
+	}
+
+	.menu-container input:checked ~ .menu {
+		opacity: 1;
+		transform: translateX(0%);
+	}
+}
+
+/* desktop styles */
+@media only screen and (min-width: 750px) {
+	.menu-container {
+		width: 100%;
+	}
+
+	.menu-container a {
+		color: #cdcdcd;
+	}
+
+	.menu-container input {
+		display: none;
+	}
+
+	/* Burger menu */
+	.menu-container span {
+		display: none;
+	}
+
+	.menu {
+		position: relative;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.menu ul {
+		display: flex;
+		padding: 0;
+	}
+
+	.menu li {
+		padding: 0 20px;
+	}
+}
