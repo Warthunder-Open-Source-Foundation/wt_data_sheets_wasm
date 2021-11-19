@@ -47,7 +47,13 @@ pub fn main_js() -> Result<(), JsValue> {
 	// Required as loading the functions via this module through the main is required (WASM doesnt support modules)
 	match url_local {
 		"" => { generate_main_tables(&document) }
-		"live_calc.html" => { console_log("live") }
+		"live_calc.html" => {
+			console_log("live");
+			make_option_inputs("missile_select")
+		}
+		"compare.html" => {
+			make_comparison();
+		}
 		_ => {}
 	}
 
@@ -55,6 +61,14 @@ pub fn main_js() -> Result<(), JsValue> {
 	#[wasm_bindgen]
 	pub fn console_log(message: &str) {
 		console::log_1(&JsValue::from_str(message));
+	}
+
+	#[wasm_bindgen]
+	pub fn make_comparison() {
+		let window: Window = web_sys::window().expect("no global `window` exists");
+		let document: Document = window.document().expect("should have a document on window");
+
+		make_option_inputs("compare_choose");
 	}
 
 	#[wasm_bindgen]
@@ -85,21 +99,21 @@ pub fn main_js() -> Result<(), JsValue> {
 	#[wasm_bindgen]
 	pub fn update_tables(alt: u32, vel: u32) { update_main_tables(alt, vel) }
 
-	#[wasm_bindgen]
-	pub fn make_option_inputs() {
-		let window: Window = web_sys::window().expect("no global `window` exists");
-		let document: Document = window.document().expect("should have a document on window");
-
-		let select = document.get_element_by_id("missile_select").unwrap();
-
-		for (i, missile) in MISSILES.iter().enumerate() {
-			let missile_element = document.create_element("option").unwrap();
-			missile_element.set_attribute("value", &i.to_string());
-			missile_element.set_text_content(Some(&missile.name));
-			select.append_child(&missile_element);
-		}
-	}
 	Ok(())
+}
+
+pub fn make_option_inputs(selector: &str) {
+	let window: Window = web_sys::window().expect("no global `window` exists");
+	let document: Document = window.document().expect("should have a document on window");
+
+	let select = document.get_element_by_id(selector).unwrap();
+
+	for (i, missile) in MISSILES.iter().enumerate() {
+		let missile_element = document.create_element("option").unwrap();
+		missile_element.set_attribute("value", &i.to_string());
+		missile_element.set_text_content(Some(&missile.name));
+		select.append_child(&missile_element);
+	}
 }
 
 fn generate_main_tables(document: &web_sys::Document) {

@@ -28,7 +28,6 @@ async function main() {
 
 	if (url == "live_calc.html") {
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_option_inputs();
 
 		let missile_select = document.getElementById("missile_select");
 
@@ -53,6 +52,10 @@ async function main() {
 			}
 		})
 	}
+	if (url == "compare.html") {
+		rust = await import ("../pkg/index.js").catch(console.error);
+	}
+
 	rust.console_log("This is rust!");
 
 	function sleep(ms) {

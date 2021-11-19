@@ -1,0 +1,114 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#dropdown {
+	display: flex;
+	flex-direction: column;
+	margin-left: auto;
+	margin-right: auto;
+	width: 20%;
+	height: 100vh;
+	align-items: center;
+	justify-content: flex-start;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 4px;
+	background: #1D1F20;
+}
+
+h1 {
+	margin-top: 10vh;
+	font-size: 2.5rem;
+	max-width: 500px;
+	letter-spacing: 3px;
+	text-align: center;
+	line-height: 1.5;
+	text-transform: capitalize;
+	font-weight: 800;
+	color: white;
+}
+h1 span {
+	color: #FF908B;
+}
+
+form {
+	position: relative;
+	width: 18rem;
+	margin-top: 8vh;
+}
+
+.chosen-value,
+.value-list {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.chosen-value {
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 4px;
+	height: 4rem;
+	font-size: 1.1rem;
+	padding: 1rem;
+	background-color: #FAFCFD;
+	border: 3px solid transparent;
+	transition: 0.3s ease-in-out;
+}
+.chosen-value::-webkit-input-placeholder {
+	color: #333;
+}
+.chosen-value:hover {
+	background-color: #FF908B;
+	cursor: pointer;
+}
+.chosen-value:hover::-webkit-input-placeholder {
+	color: #333;
+}
+.chosen-value:focus, .chosen-value.open {
+	box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+	outline: 0;
+	background-color: #FF908B;
+	color: #000;
+}
+.chosen-value:focus::-webkit-input-placeholder, .chosen-value.open::-webkit-input-placeholder {
+	color: #000;
+}
+
+.value-list {
+	list-style: none;
+	margin-top: 4rem;
+	box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	max-height: 0;
+	transition: 0.3s ease-in-out;
+}
+.value-list.open {
+	max-height: 320px;
+	overflow: auto;
+}
+.value-list li {
+	position: relative;
+	height: 4rem;
+	background-color: #FAFCFD;
+	padding: 1rem;
+	font-size: 1.1rem;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	opacity: 1;
+}
+.value-list li:hover {
+	background-color: #FF908B;
+}
+.value-list li.closed {
+	max-height: 0;
+	overflow: hidden;
+	padding: 0;
+	opacity: 0;
+}
