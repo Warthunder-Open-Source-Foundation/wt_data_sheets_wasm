@@ -28,6 +28,7 @@ async function main() {
 	}
 
 	if (url == "live_calc.html") {
+		console.log("run")
 		await fetch('missile_select.html')
 			.then(res => res.text())
 			.then(text => {
@@ -35,7 +36,9 @@ async function main() {
 				let newelem = document.createElement("div");
 				newelem.innerHTML = text;
 				oldelem.replaceWith(newelem, oldelem);
+				console.log("test");
 			});
+		console.log("run")
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.make_comparison();

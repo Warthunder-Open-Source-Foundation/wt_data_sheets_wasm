@@ -20,14 +20,6 @@
 		})
 </script>
 <script id="add_missile_select">
-	fetch('missile_select.html')
-		.then(res => res.text())
-		.then(text => {
-			let oldelem = document.querySelector("script#add_missile_select");
-			let newelem = document.createElement("div");
-			newelem.innerHTML = text;
-			oldelem.parentNode.replaceChild(newelem, oldelem);
-		});
 </script>
 <table id="calc-table" class="ir_table">
 	<tr class="bright-tr">
