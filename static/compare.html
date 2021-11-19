@@ -21,128 +21,81 @@
 		})
 </script>
 <form id="dropdown">
-	<input class="chosen-value" type="text" value="" placeholder="Type to filter">
-	<ul class="value-list">
-		<li>Alabama</li>
-		<li>Alaska</li>
-		<li>Arizona</li>
-		<li>Arkansas</li>
-		<li>California</li>
-		<li>Colorado</li>
-		<li>Connecticut</li>
-		<li>Delaware</li>
-		<li>Florida</li>
-		<li>Georgia</li>
-		<li>Hawaii</li>
-		<li>Idaho</li>
-		<li>Illinois</li>
-		<li>Indiana</li>
-		<li>Iowa</li>
-		<li>Kansas</li>
-		<li>Kentucky</li>
-		<li>Louisiana</li>
-		<li>Maine</li>
-		<li>Maryland</li>
-		<li>Massachusetts</li>
-		<li>Michigan</li>
-		<li>Minnesota</li>
-		<li>Mississippi</li>
-		<li>Missouri</li>
-		<li>Montana</li>
-		<li>Nebraska</li>
-		<li>Nevada</li>
-		<li>New Hampshire</li>
-		<li>New Jersey</li>
-		<li>New Mexico</li>
-		<li>New York</li>
-		<li>North Carolina</li>
-		<li>North Dakota</li>
-		<li>Ohio</li>
-		<li>Oklahoma</li>
-		<li>Oregon</li>
-		<li>Pennsylvania</li>
-		<li>Rhode Island</li>
-		<li>South Carolina</li>
-		<li>South Dakota</li>
-		<li>Tennessee</li>
-		<li>Texas</li>
-		<li>Utah</li>
-		<li>Vermont</li>
-		<li>Virginia</li>
-		<li>Washington</li>
-		<li>West Virginia</li>
-		<li>Wisconsin</li>
-		<li>Wyoming</li>
+	<input id="input_select" class="chosen-value" type="text" value="" placeholder="Type to filter" autocomplete="off">
+	<ul id="ul_input" class="value-list" selection="">
 	</ul>
 </form>
 <script>
-	const inputField = document.querySelector(".chosen-value");
-	const dropdown = document.querySelector(".value-list");
-	const dropdownArray = [...document.querySelectorAll("li")];
-	dropdown.classList.add("open");
-	let valueArray = [];
-	dropdownArray.forEach((item) => {
-		valueArray.push(item.textContent);
-	});
-
-	const closeDropdown = () => {
-		dropdown.classList.remove("open");
-	};
-
-	inputField.addEventListener("input", () => {
+	setTimeout(function(){
+		input_manager();
+	}, 250);
+	function input_manager() {
+		const inputField = document.querySelector(".chosen-value");
+		const dropdown = document.querySelector(".value-list");
+		const dropdownArray = [...document.querySelectorAll("li")];
 		dropdown.classList.add("open");
-		let inputValue = inputField.value.toLowerCase();
-		let valueSubstring;
-		if (inputValue.length > 0) {
-			for (let j = 0; j < valueArray.length; j++) {
-				if (
-					!(
-						inputValue.substring(0, inputValue.length) ===
-						valueArray[j].substring(0, inputValue.length).toLowerCase()
-					)
-				) {
-					dropdownArray[j].classList.add("closed");
-				} else {
-					dropdownArray[j].classList.remove("closed");
+		let valueArray = [];
+		dropdownArray.forEach((item) => {
+			valueArray.push(item.textContent);
+		});
+
+		inputField.addEventListener("input", () => {
+			dropdown.classList.add("open");
+			let inputValue = inputField.value.toLowerCase();
+			if (inputValue.length > 0) {
+				for (let j = 0; j < valueArray.length; j++) {
+					let input = inputValue.toLowerCase().substring(0, inputValue.length);
+					let refference = valueArray[j]
+						.replace(valueArray[j].split("_")[0], '').replaceAll('_', '')
+						.substring(0, inputValue.length).toLowerCase();
+					if (
+						!(
+						input === refference
+						)
+					) {
+						dropdownArray[j].classList.add("closed");
+					} else {
+						dropdownArray[j].classList.remove("closed");
+					}
+				}
+			} else {
+				for (let i = 0; i < dropdownArray.length; i++) {
+					dropdownArray[i].classList.remove("closed");
 				}
 			}
-		} else {
-			for (let i = 0; i < dropdownArray.length; i++) {
-				dropdownArray[i].classList.remove("closed");
-			}
-		}
-	});
+		});
 
-	dropdownArray.forEach((item) => {
-		item.addEventListener("click", (evt) => {
-			inputField.value = item.textContent;
-			dropdownArray.forEach((dropdown) => {
-				dropdown.classList.add("closed");
+		dropdownArray.forEach((item) => {
+			item.addEventListener("click", (_) => {
+				inputField.value = item.textContent;
+				document.getElementById("ul_input").setAttribute("selected", inputField.value);
+				dropdownArray.forEach((dropdown) => {
+					dropdown.classList.add("closed");
+				});
 			});
 		});
-	});
 
-	inputField.addEventListener("focus", () => {
-		inputField.placeholder = "Type to filter";
-		dropdown.classList.add("open");
-		dropdownArray.forEach((dropdown) => {
-			dropdown.classList.remove("closed");
+		inputField.addEventListener("focus", () => {
+			inputField.placeholder = "Type to filter";
+			dropdown.classList.add("open");
+			dropdownArray.forEach((dropdown) => {
+				dropdown.classList.remove("closed");
+			});
 		});
-	});
 
-	inputField.addEventListener("blur", () => {
-		inputField.placeholder = "Select state";
-		dropdown.classList.remove("open");
-	});
-
-	document.addEventListener("click", (evt) => {
-		const isDropdown = dropdown.contains(evt.target);
-		const isInput = inputField.contains(evt.target);
-		if (!isDropdown && !isInput) {
+		inputField.addEventListener("blur", () => {
+			inputField.placeholder = "Select Missile";
 			dropdown.classList.remove("open");
-		}
-	});
+		});
 
+		document.addEventListener("click", (evt) => {
+			const isDropdown = dropdown.contains(evt.target);
+			const isInput = inputField.contains(evt.target);
+			if (!isDropdown && !isInput) {
+				dropdown.classList.remove("open");
+			}
+		});
+	}
 </script>
 </body>
 </html>

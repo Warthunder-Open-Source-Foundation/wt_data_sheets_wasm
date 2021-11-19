@@ -49,7 +49,7 @@ pub fn main_js() -> Result<(), JsValue> {
 		"" => { generate_main_tables(&document) }
 		"live_calc.html" => {
 			console_log("live");
-			make_option_inputs("missile_select")
+			make_option_inputs("missile_select", "option")
 		}
 		"compare.html" => {
 			make_comparison();
@@ -68,7 +68,7 @@ pub fn main_js() -> Result<(), JsValue> {
 		let window: Window = web_sys::window().expect("no global `window` exists");
 		let document: Document = window.document().expect("should have a document on window");
 
-		make_option_inputs("compare_choose");
+		make_option_inputs("ul_input", "li");
 	}
 
 	#[wasm_bindgen]
@@ -102,14 +102,14 @@ pub fn main_js() -> Result<(), JsValue> {
 	Ok(())
 }
 
-pub fn make_option_inputs(selector: &str) {
+pub fn make_option_inputs(selector: &str, item: &str) {
 	let window: Window = web_sys::window().expect("no global `window` exists");
 	let document: Document = window.document().expect("should have a document on window");
 
 	let select = document.get_element_by_id(selector).unwrap();
 
 	for (i, missile) in MISSILES.iter().enumerate() {
-		let missile_element = document.create_element("option").unwrap();
+		let missile_element = document.create_element(item).unwrap();
 		missile_element.set_attribute("value", &i.to_string());
 		missile_element.set_text_content(Some(&missile.name));
 		select.append_child(&missile_element);
