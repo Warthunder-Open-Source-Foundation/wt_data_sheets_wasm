@@ -4,11 +4,14 @@ use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
+use wasm_bindgen::prelude::*;
 
 use crate::MISSILES;
+use crate::util::get_document;
 
+#[wasm_bindgen]
 pub fn update_tables(alt: u32, vel: u32) {
-	let document: Document = web_sys::window().unwrap().document().expect("should have a document on window");
+	let document = get_document();
 
 	for missile in MISSILES.iter() {
 		let parameters = LaunchParameter::new_from_parameters(false, vel as f64, 0.0, 0.0, alt);
@@ -18,9 +21,20 @@ pub fn update_tables(alt: u32, vel: u32) {
 	}
 }
 
+#[wasm_bindgen]
+pub fn generate_main_tables(document: &web_sys::Document) {
+	let document = get_document();
+
+	let mut parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
+
+	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string());
+	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string());
+
+	make_table(&parameters);
+}
+
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
-	let window = web_sys::window().expect("no global `window` exists");
-	let document = window.document().expect("should have a document on window");
+	let document = get_document();
 
 	let ir_table = document.query_selector(".ir_table").unwrap().unwrap();
 	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();

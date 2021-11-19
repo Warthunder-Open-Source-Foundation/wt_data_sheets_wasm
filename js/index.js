@@ -7,6 +7,7 @@ async function main() {
 	// Custom section for each page to make sure it runs properly
 	if (url == "") {
 		rust = await import ("../pkg/index.js").catch(console.error);
+		rust.generate_main_tables();
 
 		document.getElementById("vel").addEventListener("input", update);
 		document.getElementById("alt").addEventListener("input", update);
@@ -28,6 +29,7 @@ async function main() {
 
 	if (url == "live_calc.html") {
 		rust = await import ("../pkg/index.js").catch(console.error);
+		rust.generate_targets();
 
 		let missile_select = document.getElementById("missile_select");
 
@@ -54,6 +56,7 @@ async function main() {
 	}
 	if (url == "compare.html") {
 		rust = await import ("../pkg/index.js").catch(console.error);
+		rust.make_comparison();
 	}
 
 	rust.console_log("This is rust!");
