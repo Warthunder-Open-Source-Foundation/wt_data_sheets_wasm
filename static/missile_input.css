@@ -10,8 +10,8 @@
 	flex-direction: column;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50vw;
-	height: 100vh;
+	width: 50vh;
+	height: 10vh;
 	align-items: center;
 	justify-content: flex-start;
 	text-transform: uppercase;
