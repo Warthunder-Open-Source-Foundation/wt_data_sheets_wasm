@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Live calculation</title>
+	<title>Missile comparison</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<script src="index.js"></script>
 </head>
-<body>
+<body id="body">
 <script id="replace_with_navbar">
 	fetch('navbar.html')
 		.then(res => res.text())
@@ -29,15 +29,5 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		});
 </script>
-<table id="calc-table" class="ir_table">
-	<tr class="bright-tr">
-		<td>Range</td>
-		<td id="range">-</td>
-	</tr>
-	<tr>
-		<td>Maximum chase distance</td>
-		<td id="splash_at">-</td>
-	</tr>
-</table>
 </body>
 </html>

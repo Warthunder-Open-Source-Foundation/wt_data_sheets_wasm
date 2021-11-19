@@ -11,13 +11,15 @@ html {
 	--color-accent: #3500D3;
 
 	--background-image-red: linear-gradient(
-			90deg, rgb(110, 16, 210) 0%, rgb(199, 10, 75) 100%);
+			120deg, rgb(110, 16, 210) 0%, rgb(199, 10, 75) 100%);
 	--background-image-blue: linear-gradient(
-			90deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
+			120deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
 
+	--global-font: 'Roboto Mono', monospace;
+
 	background-color: var(--color-background);
-	font-family: 'Roboto Mono', monospace;
+	font-family: var(--global-font);
 	font-size: 15px;
 }
 
@@ -96,11 +98,7 @@ label {
 
 .input_number:focus {
 	background-color: var(--color-background-accent);
-	color: #ffffff;
-}
-
-.calculated {
-	color: #ff0000;
+	color: var(--color-text);
 }
 
 .ir_table, .rd_table {
@@ -126,4 +124,14 @@ table tr:nth-child(odd) {
 	background-image: var(--background-image-red);
 	animation: rainbow_animation 10s ease-out infinite;
 	background-color: initial;
+}
+
+#calc-table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90vw;
+}
+
+#calc-table td {
+	font-size: 30px;
 }
