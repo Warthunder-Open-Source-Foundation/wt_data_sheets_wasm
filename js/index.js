@@ -28,10 +28,17 @@ async function main() {
 	}
 
 	if (url == "live_calc.html") {
+		await fetch('missile_select.html')
+			.then(res => res.text())
+			.then(text => {
+				let oldelem = document.querySelector("script#add_missile_select");
+				let newelem = document.createElement("div");
+				newelem.innerHTML = text;
+				oldelem.replaceWith(newelem, oldelem);
+			});
+		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.make_comparison();
-		sleep(100);
-		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		input_manager();
 		while (true) {
 			await fetch("http://localhost:8111/state").then(function (response) {

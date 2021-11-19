@@ -11,7 +11,12 @@ pub fn console_log(message: &str) {
 pub fn make_option_inputs(selector: &str, item: &str, class: Option<&str>) {
 	let document = get_document();
 
-	let select = document.get_element_by_id(selector).unwrap();
+	let select;
+	if let Some(value) = document.get_element_by_id(selector) {
+		select = value;
+	} else {
+		return;
+	};
 
 	for (i, missile) in MISSILES.iter().enumerate() {
 		let element = document.create_element(item).unwrap();

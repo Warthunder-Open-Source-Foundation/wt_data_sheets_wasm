@@ -20,7 +20,7 @@
 		})
 </script>
 <script id="add_missile_select">
-	fetch('missile_select.html')
+	await fetch('missile_select.html')
 		.then(res => res.text())
 		.then(text => {
 			let oldelem = document.querySelector("script#add_missile_select");
