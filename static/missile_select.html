@@ -1,0 +1,89 @@
+<link href="compare.css" rel="stylesheet">
+<form id="dropdown" onsubmit="set_value_enter(); return false;">
+	<input id="input_select" class="chosen-value" type="text" value="" placeholder="Type to filter" autocomplete="off">
+	<ul id="ul_input" class="value-list" selected="">
+	</ul>
+</form>
+<script>
+	setTimeout(function(){
+		input_manager();
+	}, 250);
+	function set_value_enter() {
+		document.getElementById("ul_input").setAttribute("class", "value-list");
+		let ul = document.getElementById("ul_input");
+		let elems = ul.getElementsByClassName("select_0");
+		for (var i = 0; i < elems.length; ++i) {
+			if (!elems[i].className.includes("closed")) {
+				document.getElementById("ul_input").setAttribute("selected", elems[i].innerHTML);
+				break;
+			}
+		}
+	}
+	function input_manager() {
+		const inputField = document.querySelector(".chosen-value");
+		const dropdown = document.querySelector(".value-list");
+		const dropdownArray = [...document.querySelectorAll("li")];
+		dropdown.classList.add("open");
+		let valueArray = [];
+		dropdownArray.forEach((item) => {
+			valueArray.push(item.textContent);
+		});
+
+		inputField.addEventListener("input", () => {
+			dropdown.classList.add("open");
+			let inputValue = inputField.value.toLowerCase();
+			if (inputValue.length > 0) {
+				for (let j = 0; j < valueArray.length; j++) {
+					let input = inputValue.toLowerCase().substring(0, inputValue.length);
+					let refference = valueArray[j]
+						.replace(valueArray[j].split("_")[0], '').replaceAll('_', '')
+						.substring(0, inputValue.length).toLowerCase();
+					if (
+						!(
+							input === refference
+						)
+					) {
+						dropdownArray[j].classList.add("closed");
+					} else {
+						dropdownArray[j].classList.remove("closed");
+					}
+				}
+			} else {
+				for (let i = 0; i < dropdownArray.length; i++) {
+					dropdownArray[i].classList.remove("closed");
+				}
+			}
+		});
+
+		dropdownArray.forEach((item) => {
+			item.addEventListener("click", (env) => {
+				inputField.value = item.textContent;
+				document.getElementById("ul_input").setAttribute("selected", inputField.value);
+				dropdownArray.forEach((dropdown) => {
+					dropdown.classList.add("closed");
+				});
+			});
+		});
+
+		inputField.addEventListener("focus", () => {
+			inputField.placeholder = "Type to filter";
+			dropdown.classList.add("open");
+			dropdownArray.forEach((dropdown) => {
+				dropdown.classList.remove("closed");
+			});
+		});
+
+		inputField.addEventListener("blur", () => {
+			inputField.placeholder = "Select Missile";
+			dropdown.classList.remove("open");
+		});
+
+		document.addEventListener("click", (evt) => {
+			const isDropdown = dropdown.contains(evt.target);
+			const isInput = inputField.contains(evt.target);
+			if (!isDropdown && !isInput) {
+				dropdown.classList.remove("open");
+			}
+		});
+	}
+</script>
