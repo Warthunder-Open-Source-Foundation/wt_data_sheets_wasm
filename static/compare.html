@@ -9,7 +9,7 @@
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<script src="index.js"></script>
 </head>
-<body>
+<body id="body">
 <script id="replace_with_navbar">
 	fetch('navbar.html')
 		.then(res => res.text())
@@ -22,7 +22,7 @@
 </script>
 <form id="dropdown" onsubmit="set_value_enter(); return false;">
 	<input id="input_select" class="chosen-value" type="text" value="" placeholder="Type to filter" autocomplete="off">
-	<ul id="ul_input" class="value-list" selection="">
+	<ul id="ul_input" class="value-list" selected="">
 	</ul>
 </form>
 <script>

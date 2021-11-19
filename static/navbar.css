@@ -101,6 +101,8 @@ body {
 	font-size: 20px;
 }
 
+
+/* TODO Navbar somehow bugs out on mobile after changing target res*/
 /* mobile styles */
 @media only screen and (max-width: 1000px) {
 	.menu-container {
