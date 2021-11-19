@@ -131,8 +131,6 @@ body {
 		background: var(--background-image-red);
 		-webkit-font-smoothing: antialiased;
 		/* to stop flickering of text in safari */
-		transform-origin: 0% 0%;
-		transform: translateX(0%);
 		transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
 	}
 
@@ -140,13 +138,15 @@ body {
 		width: fit-content;
 	}
 
-	.menu-container input ~ .menu {
+	.menu-container input:not(:checked) ~ .menu {
 		opacity: 0;
-		transition: opacity 0.5s linear;;
+		transition: opacity 0.5s linear;
+		transform: translateX(-100%);
 	}
 
 	.menu-container input:checked ~ .menu {
 		opacity: 1;
+		transform: translateX(0%);
 	}
 }
 

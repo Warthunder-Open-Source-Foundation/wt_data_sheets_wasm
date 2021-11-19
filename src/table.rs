@@ -1,11 +1,22 @@
 use wasm_bindgen::JsValue;
-use web_sys::console;
+use web_sys::{console, Document};
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 
 use crate::MISSILES;
+
+pub fn update_tables(alt: u32, vel: u32) {
+	let document: Document = web_sys::window().unwrap().document().expect("should have a document on window");
+
+	for missile in MISSILES.iter() {
+		let parameters = LaunchParameter::new_from_parameters(false, vel as f64, 0.0, 0.0, alt);
+		let results = generate(&missile, &parameters, 0.1, false);
+		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
+		cell.set_inner_html(&results.distance_flown.round().to_string());
+	}
+}
 
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let window = web_sys::window().expect("no global `window` exists");
