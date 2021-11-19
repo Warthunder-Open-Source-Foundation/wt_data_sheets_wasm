@@ -16,8 +16,10 @@ html {
 			120deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
 
+	--global-font: 'Roboto Mono', monospace;
+
 	background-color: var(--color-background);
-	font-family: 'Roboto Mono', monospace;
+	font-family: var(--global-font);
 	font-size: 15px;
 }
 
