@@ -20,7 +20,7 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<form id="dropdown">
+<form id="dropdown" onsubmit="set_value_enter(); return false;">
 	<input id="input_select" class="chosen-value" type="text" value="" placeholder="Type to filter" autocomplete="off">
 	<ul id="ul_input" class="value-list" selection="">
 	</ul>
@@ -29,6 +29,17 @@
 	setTimeout(function(){
 		input_manager();
 	}, 250);
+	function set_value_enter() {
+		document.getElementById("ul_input").setAttribute("class", "value-list");
+		let ul = document.getElementById("ul_input");
+		let elems = ul.getElementsByClassName("select_0");
+		for (var i = 0; i < elems.length; ++i) {
+			if (!elems[i].className.includes("closed")) {
+				document.getElementById("ul_input").setAttribute("selected", elems[i].innerHTML);
+				break;
+			}
+		}
+	}
 	function input_manager() {
 		const inputField = document.querySelector(".chosen-value");
 		const dropdown = document.querySelector(".value-list");
@@ -66,7 +77,7 @@
 		});
 
 		dropdownArray.forEach((item) => {
-			item.addEventListener("click", (_) => {
+			item.addEventListener("click", (env) => {
 				inputField.value = item.textContent;
 				document.getElementById("ul_input").setAttribute("selected", inputField.value);
 				dropdownArray.forEach((dropdown) => {
