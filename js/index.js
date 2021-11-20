@@ -5,7 +5,7 @@ async function main() {
 	let url = window.location.href.split("/").at(-1)
 
 	// Custom section for each page to make sure it runs properly
-	if (url == "") {
+	if (url == "table.html") {
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.generate_main_tables();
 
