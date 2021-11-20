@@ -46,7 +46,7 @@ a:hover {
 	color: var(--color-text-link);
 }
 
-button {
+.rounded_button {
 	background-image: var(--background-image-blue);
 	border: none;
 	color: var(--color-text);
@@ -59,7 +59,7 @@ button {
 	height: 20px;
 }
 
-button:hover {
+.rounded_button:hover {
 	background-image: var(--background-image-blue);
 	background-size: 400%;
 	animation: rainbow_animation 1s ease-in-out infinite;
