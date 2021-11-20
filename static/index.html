@@ -9,15 +9,35 @@
 	<script id="script" src="index.js" type="module"></script>
 </head>
 <body>
-<script id="replace_with_navbar">
-	fetch('navbar.html')
-		.then(res => res.text())
-		.then(text => {
-			let oldelem = document.querySelector("script#replace_with_navbar");
-			let newelem = document.createElement("div");
-			newelem.innerHTML = text;
-			oldelem.parentNode.replaceChild(newelem, oldelem);
-		})
-</script>
+<div id="index_box">
+	<ul>
+		<li>
+			<a href="/">
+				Home
+			</a>
+		</li>
+		<li>
+			<div class="dropdown">
+				<button class="dropbtn">AAM collections
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-content">
+					<a href="table.html">
+						Overview table
+					</a>
+					<a href="live_calc.html">
+						Live calculation
+					</a>
+					<!--						<a href="compare.html">-->
+					<!--							Compare missiles-->
+					<!--						</a>-->
+					<a href="documentation.html">
+						Documentation
+					</a>
+				</div>
+			</div>
+		</li>
+	</ul>
+</div>
 </body>
 </html>

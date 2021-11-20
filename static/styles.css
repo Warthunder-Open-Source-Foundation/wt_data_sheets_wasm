@@ -135,3 +135,13 @@ table tr:nth-child(odd) {
 #calc-table td {
 	font-size: 30px;
 }
+
+#index_box {
+	background-image: var(--background-image-red);
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: auto;
+}
