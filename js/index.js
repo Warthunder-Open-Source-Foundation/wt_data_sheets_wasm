@@ -5,7 +5,7 @@ async function main() {
 	let url = window.location.href.split("/").at(-1)
 
 	// Custom section for each page to make sure it runs properly
-	if (url == "") {
+	if (url == "table.html") {
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.generate_main_tables();
 
@@ -60,14 +60,68 @@ async function main() {
 	}
 
 	if (url.includes("compare.html")) {
+		await fetch('missile_select.html')
+			.then(res => res.text())
+			.then(text => {
+				let oldelem = document.querySelector("script#select_0");
+				let newelem = document.createElement("div");
+				newelem.innerHTML = text;
+				oldelem.replaceWith(newelem, oldelem);
+			});
+
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_comparison();
-		sleep(100);
+		rust.make_comparison(); // Creates input field options
+
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		input_manager();
 
+		let identical = false;
+		let identical_button = document.getElementById("show_identical");
+		identical_button.addEventListener("change", function () {
+			if (identical_button.value === "true") {
+				identical = false;
+				identical_button.value = "false";
+			} else {
+				identical = true;
+			identical_button.value = "true";
+			}
+		});
+
+		let differences = false;
+		let differences_button = document.getElementById("show_diff");
+		differences_button.addEventListener("change", function () {
+			if (differences_button.value === "true") {
+				differences = false;
+				differences_button.value = "false";
+			} else {
+				differences = true;
+				differences_button.value = "true";
+			}
+		});
+
+		let reference;
+		let contrary;
+		document.getElementById("lock").addEventListener("click",function () {
+			document.getElementById("comparison").textContent = "";
+			if (reference === undefined) {
+				reference = document.getElementById("ul_input").getAttribute("selected");
+				document.getElementById("lock").innerHTML = "Compare!";
+			}else {
+				contrary = document.getElementById("ul_input").getAttribute("selected");
+				rust.compare(parseInt(reference), parseInt(contrary), identical, differences);
+			}
+		});
+
+		document.getElementById("reset").addEventListener("click", function () {
+			reference = undefined;
+			contrary = undefined;
+			document.getElementById("comparison").textContent = "";
+			document.getElementById("input_select").value = "";
+		});
+
 	}
 
+	// Misc functions --------------------------------------------------------------------------------------------------
 
 	function sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
@@ -139,8 +193,13 @@ async function main() {
 			document.getElementById("input_select").value = "";
 			document.getElementById("ul_input").setAttribute("target_name", "");
 			document.getElementById("ul_input").setAttribute("selected", "");
-			document.getElementById("range").innerHTML = "-";
-			document.getElementById("splash_at").innerHTML = "-";
+
+			// Since it might not always be present
+			let range = document.getElementById("range");
+			if (range !== null) {
+				range.innerHTML = "-";
+				document.getElementById("splash_at").innerHTML = "-";
+			}
 			inputField.placeholder = "Type to filter";
 			dropdown.classList.add("open");
 			dropdownArray.forEach((dropdown) => {

@@ -7,7 +7,7 @@ use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 use wasm_bindgen::prelude::*;
 
 use crate::MISSILES;
-use crate::util::get_document;
+use crate::util::{get_document, make_row_ir, make_row_rd};
 
 #[wasm_bindgen]
 pub fn update_tables(alt: u32, vel: u32) {
@@ -94,53 +94,4 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 		}
 	}
 	Ok(())
-}
-
-fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
-	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
-
-	let results = generate(&m, &parameters, 0.1, false);
-
-	let range = results.distance_flown.round();
-
-	[
-		m.name.to_string(),
-		range.to_string(),
-		m.endspeed.to_string(),
-		m.deltav.to_string(),
-		m.loadfactormax.to_string(),
-		m.reqaccelmax.to_string(),
-		m.bands[0].to_string(),
-		m.bands[1].to_string(),
-		m.bands[2].to_string(),
-		m.bands[3].to_string(),
-		m.fov.to_string(),
-		m.gate.to_string(),
-		m.lockanglemax.to_string(),
-		m.anglemax.to_string(),
-		m.warmuptime.to_string(),
-		m.worktime.to_string(),
-		m.cageable.to_string(),
-	]
-}
-
-fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
-	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
-
-	let results = generate(&m, &parameters, 0.1, false);
-
-	let range = results.distance_flown.round();
-	[
-		m.name.to_string(),
-		range.to_string(),
-		m.endspeed.to_string(),
-		m.deltav.to_string(),
-		m.loadfactormax.to_string(),
-		m.reqaccelmax.to_string(),
-		m.lockanglemax.to_string(),
-		m.anglemax.to_string(),
-		m.warmuptime.to_string(),
-		m.worktime.to_string(),
-		m.cageable.to_string(),
-	]
 }
