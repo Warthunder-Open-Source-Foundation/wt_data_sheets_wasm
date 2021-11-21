@@ -1,6 +1,9 @@
 use wasm_bindgen::JsValue;
 use web_sys::{console, Document, Window};
 use wasm_bindgen::prelude::*;
+use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
+use wt_ballistics_calc_lib::runner::generate;
+use wt_missile_calc_lib::missiles::Missile;
 use crate::MISSILES;
 
 #[wasm_bindgen]
@@ -33,4 +36,83 @@ pub fn get_document() -> Document {
 	let window: Window = web_sys::window().expect("no global `window` exists");
 	let document: Document = window.document().expect("should have a document on window");
 	document
+}
+
+pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
+	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
+
+	let results = generate(&m, &parameters, 0.1, false);
+
+	let range = results.distance_flown.round();
+
+	[
+		m.name.to_string(),
+		range.to_string(),
+		m.endspeed.to_string(),
+		m.deltav.to_string(),
+		m.loadfactormax.to_string(),
+		m.reqaccelmax.to_string(),
+		m.bands[0].to_string(),
+		m.bands[1].to_string(),
+		m.bands[2].to_string(),
+		m.bands[3].to_string(),
+		m.fov.to_string(),
+		m.gate.to_string(),
+		m.lockanglemax.to_string(),
+		m.anglemax.to_string(),
+		m.warmuptime.to_string(),
+		m.worktime.to_string(),
+		m.cageable.to_string(),
+	]
+}
+
+pub fn make_row_params() -> [String; 17] {
+	[
+		"name".to_string(),
+		"range".to_string(),
+		"Max Speed".to_string(),
+		"DeltaV".to_string(),
+		"LaunchG".to_string(),
+		"FlightG".to_string(),
+		"Rear aspect".to_string(),
+		"All aspect".to_string(),
+		"IR decoys".to_string(),
+		"IRCM".to_string(),
+		"Fov".to_string(),
+		"Gate".to_string(),
+		"LaunchFov".to_string(),
+		"FlightFov".to_string(),
+		"WarmUpTime".to_string(),
+		"WorkTime".to_string(),
+		"Uncage".to_string(),
+	]
+}
+
+pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
+	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
+
+	let results = generate(&m, &parameters, 0.1, false);
+
+	let range = results.distance_flown.round();
+	[
+		m.name.to_string(),
+		range.to_string(),
+		m.endspeed.to_string(),
+		m.deltav.to_string(),
+		m.loadfactormax.to_string(),
+		m.reqaccelmax.to_string(),
+		m.lockanglemax.to_string(),
+		m.anglemax.to_string(),
+		m.warmuptime.to_string(),
+		m.worktime.to_string(),
+		m.cageable.to_string(),
+	]
+}
+
+pub fn make_row_blank(len: u32) -> Vec<String> {
+	let mut arr = vec![];
+	for _ in 0..len {
+		arr.push( "-".to_string());
+	}
+	arr
 }

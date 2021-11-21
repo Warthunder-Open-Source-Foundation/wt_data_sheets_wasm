@@ -60,14 +60,33 @@ async function main() {
 	}
 
 	if (url.includes("compare.html")) {
+		await fetch('missile_select.html')
+			.then(res => res.text())
+			.then(text => {
+				let oldelem = document.querySelector("script#select_0");
+				let newelem = document.createElement("div");
+				newelem.innerHTML = text;
+				oldelem.replaceWith(newelem, oldelem);
+			});
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_comparison();
-		sleep(100);
+		rust.make_comparison(); // Creates input field options
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		input_manager();
+		let reference;
+		let contrary;
+		document.getElementById("lock").addEventListener("click",function () {
+			if (reference === undefined) {
+				reference = document.getElementById("ul_input").getAttribute("selected");
+				document.getElementById("lock").innerHTML = "Compare!";
+			}else {
+				contrary = document.getElementById("ul_input").getAttribute("selected");
+				rust.compare(parseInt(reference), parseInt(contrary), true);
+			}
+		});
 
 	}
 
+	// Misc functions --------------------------------------------------------------------------------------------------
 
 	function sleep(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
@@ -139,8 +158,13 @@ async function main() {
 			document.getElementById("input_select").value = "";
 			document.getElementById("ul_input").setAttribute("target_name", "");
 			document.getElementById("ul_input").setAttribute("selected", "");
-			document.getElementById("range").innerHTML = "-";
-			document.getElementById("splash_at").innerHTML = "-";
+
+			// Since it might not always be present
+			let range = document.getElementById("range");
+			if (range !== null) {
+				range.innerHTML = "-";
+				document.getElementById("splash_at").innerHTML = "-";
+			}
 			inputField.placeholder = "Type to filter";
 			dropdown.classList.add("open");
 			dropdownArray.forEach((dropdown) => {

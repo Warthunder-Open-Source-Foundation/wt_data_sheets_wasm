@@ -5,6 +5,7 @@
 	<title>Missile comparison</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
+	<link href="compare.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<script src="index.js"></script>
 </head>
@@ -19,15 +20,9 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<script id="add_missile_select">
-	fetch('missile_select.html')
-		.then(res => res.text())
-		.then(text => {
-			let oldelem = document.querySelector("script#add_missile_select");
-			let newelem = document.createElement("div");
-			newelem.innerHTML = text;
-			oldelem.parentNode.replaceChild(newelem, oldelem);
-		});
-</script>
+<div class="selection_area" id="selection_area">
+	<script id="select_0"></script>
+	<button id="lock">Lock in reference missile</button>
+</div>
 </body>
 </html>
