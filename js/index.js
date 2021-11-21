@@ -68,20 +68,55 @@ async function main() {
 				newelem.innerHTML = text;
 				oldelem.replaceWith(newelem, oldelem);
 			});
+
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.make_comparison(); // Creates input field options
+
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		input_manager();
+
+		let identical = false;
+		let identical_button = document.getElementById("show_identical");
+		identical_button.addEventListener("change", function () {
+			if (identical_button.value === "true") {
+				identical = false;
+				identical_button.value = "false";
+			} else {
+				identical = true;
+			identical_button.value = "true";
+			}
+		});
+
+		let differences = false;
+		let differences_button = document.getElementById("show_diff");
+		differences_button.addEventListener("change", function () {
+			if (differences_button.value === "true") {
+				differences = false;
+				differences_button.value = "false";
+			} else {
+				differences = true;
+				differences_button.value = "true";
+			}
+		});
+
 		let reference;
 		let contrary;
 		document.getElementById("lock").addEventListener("click",function () {
+			document.getElementById("comparison").textContent = "";
 			if (reference === undefined) {
 				reference = document.getElementById("ul_input").getAttribute("selected");
 				document.getElementById("lock").innerHTML = "Compare!";
 			}else {
 				contrary = document.getElementById("ul_input").getAttribute("selected");
-				rust.compare(parseInt(reference), parseInt(contrary), true);
+				rust.compare(parseInt(reference), parseInt(contrary), identical, differences);
 			}
+		});
+
+		document.getElementById("reset").addEventListener("click", function () {
+			reference = undefined;
+			contrary = undefined;
+			document.getElementById("comparison").textContent = "";
+			document.getElementById("input_select").value = "";
 		});
 
 	}
