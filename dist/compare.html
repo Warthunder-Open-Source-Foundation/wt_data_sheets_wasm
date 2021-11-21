@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Missile comparison</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="compare.css" rel="stylesheet">
+	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<script src="index.js"></script>
+</head>
+<body id="body">
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+<div class="selection_area" id="selection_area">
+	<label for="show_identical">Show identical statistics</label>
+	<input class="checkbox" type="checkbox" id="show_identical" value="false">
+
+	<label for="show_diff">Show only differences</label>
+	<input class="checkbox" type="checkbox" id="show_diff" value="false">
+
+	<script id="select_0"></script>
+	<button id="lock">Lock in reference missile</button>
+	<button id="reset">Reset selection</button>
+	<table class="ir_table" id="comparison"></table>
+</div>
+</body>
+</html>
