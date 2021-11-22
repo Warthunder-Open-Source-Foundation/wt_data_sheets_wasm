@@ -65,4 +65,9 @@
 #discord_embed {
 	width: fit-content;
 	height: 35vh;
+	box-shadow: var(--color-background) 0px 0.35em 1.175em, var(--color-background-bright) 0px 0.175em 0.5em;
+}
+
+#test, #discord_embed{
+	background: red !important;
 }
