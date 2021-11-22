@@ -134,6 +134,7 @@ body {
 	font-family: inherit; /* Important for vertical align on mobile phones */
 	margin: 0; /* Important for vertical align on mobile phones */
 	font-size: var(--font-size-header);
+	font-weight: bold;
 	padding: 0;
 }
 
