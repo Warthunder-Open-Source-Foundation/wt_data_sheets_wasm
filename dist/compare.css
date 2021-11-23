@@ -1,0 +1,9 @@
+.selection_area {
+	text-align: center;
+	margin:0 auto;
+	display:block;
+}
+
+.selection_area label {
+	white-space: nowrap;
+}
