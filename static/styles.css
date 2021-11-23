@@ -2,8 +2,11 @@
 
 html {
 	--color-text: #ffffff;
+	--color-text-anti: #000000;
+
 	--color-text-link: #00ffdf;
 	--color-text-dark: #9b9b9b;
+
 	--color-background: #282828;
 	--color-background-bright: #3d3d3d;
 
@@ -18,7 +21,8 @@ html {
 
 	--global-font: 'Roboto Mono', monospace;
 
-	background-color: var(--color-background);
+	background: var(--color-background);
+	color: var(--color-text);
 	font-family: var(--global-font);
 	font-size: 15px;
 }
