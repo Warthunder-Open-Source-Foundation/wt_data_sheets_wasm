@@ -63,11 +63,15 @@
 }
 
 #discord_embed {
+	/* This is a fix to a bug with chromium not showing the sub-elements border radius*/
+	border: 0 solid #ffffff;
+	border-radius: 5px;
+
 	width: fit-content;
 	height: 35vh;
-	box-shadow: var(--color-background) 0px 0.35em 1.175em, var(--color-background-bright) 0px 0.175em 0.5em;
+	box-shadow: var(--color-background) 0.1em 0.1em 0.5em;
 }
 
-#test, #discord_embed{
-	background: red !important;
+#test {
+	background: transparent; /* Shows weird highlighting discord embed*/
 }
