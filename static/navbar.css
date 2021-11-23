@@ -209,7 +209,7 @@ body {
 	}
 
 	.menu-container a {
-		color: #cdcdcd;
+		color: var(--color-text);
 	}
 
 	.menu-container input {
