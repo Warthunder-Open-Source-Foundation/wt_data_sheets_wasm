@@ -81,10 +81,13 @@ async function main() {
 			if (identical_button.value === "true") {
 				identical = false;
 				identical_button.value = "false";
+				document.getElementById("label_show_identical").setAttribute("class", "un_checked"); // Css logic
 			} else {
 				identical = true;
-			identical_button.value = "true";
+				identical_button.value = "true";
+				document.getElementById("label_show_identical").setAttribute("class", "checked"); // Css logic
 			}
+			invoke_compare();
 		});
 
 		let differences = false;
@@ -93,30 +96,40 @@ async function main() {
 			if (differences_button.value === "true") {
 				differences = false;
 				differences_button.value = "false";
+				document.getElementById("label_show_diff").setAttribute("class", "un_checked"); // Css logic
 			} else {
 				differences = true;
 				differences_button.value = "true";
+				document.getElementById("label_show_diff").setAttribute("class", "checked"); // Css logic
 			}
+			invoke_compare();
 		});
 
 		let reference;
 		let contrary;
-		document.getElementById("lock").addEventListener("click",function () {
-			document.getElementById("comparison").textContent = "";
-			if (reference === undefined) {
-				reference = document.getElementById("ul_input").getAttribute("selected");
-				document.getElementById("lock").innerHTML = "Compare!";
-			}else {
-				contrary = document.getElementById("ul_input").getAttribute("selected");
-				rust.compare(parseInt(reference), parseInt(contrary), identical, differences);
-			}
+		document.getElementById("lock").addEventListener("click", function () {
+			invoke_compare();
 		});
+
+		function invoke_compare() {
+			if (document.getElementById("ul_input").getAttribute("selected") !== "") {
+				document.getElementById("comparison").textContent = "";
+				if (reference === undefined) {
+					reference = document.getElementById("ul_input").getAttribute("selected");
+					document.getElementById("lock").innerHTML = "Select another missile to compare to";
+				} else {
+					contrary = document.getElementById("ul_input").getAttribute("selected");
+					rust.compare(parseInt(reference), parseInt(contrary), identical, differences);
+				}
+			}
+		}
 
 		document.getElementById("reset").addEventListener("click", function () {
 			reference = undefined;
 			contrary = undefined;
 			document.getElementById("comparison").textContent = "";
 			document.getElementById("input_select").value = "";
+			document.getElementById("ul_input").setAttribute("selected", "");
 		});
 
 	}
