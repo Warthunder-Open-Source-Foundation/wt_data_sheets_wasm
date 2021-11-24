@@ -6,7 +6,7 @@
    "lang": "en-US",
    "scope": "/",
    "display": "standalone",
-   "orientation": "landscape",
+   "orientation": "any",
    "background_color": "#1c1c1c",
    "theme_color": "#6e10d2",
    "description": "This is a collection of otherwise unobtainable data about WTs weapon systems and more",
