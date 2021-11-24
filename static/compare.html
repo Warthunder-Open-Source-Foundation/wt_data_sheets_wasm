@@ -13,8 +13,8 @@
 		  property="og:title"/>
 
 	<meta content="A tool designed to quickly contrast two different air to air weapon systems"
-		  property="og:description"
-		  name="description"/>
+		  name="description"
+		  property="og:description"/>
 
 	<meta content="website"
 		  property="og:type"/>
@@ -39,16 +39,35 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
+<div class="settings">
+	<table class="ir_table" id="settings">
+		<thead>
+		<tr>
+			<td>
+				Settings
+			</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="input_td">
+				<input class="checkbox" id="show_identical" type="checkbox" value="false">
+				<label id="label_show_identical" for="show_identical" class="un_checked">Show identical values</label>
+			</td>
+		</tr>
+		<tr>
+			<td class="input_td">
+				<input class="checkbox" id="show_diff" type="checkbox" value="false">
+				<label id="label_show_diff" for="show_diff" class="un_checked">Show relative differences</label>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
 <div class="selection_area" id="selection_area">
-	<label for="show_identical">Show identical statistics</label>
-	<input class="checkbox" type="checkbox" id="show_identical" value="false">
-	<br>
-	<label for="show_diff">Show only differences</label>
-	<input class="checkbox" type="checkbox" id="show_diff" value="false">
-
 	<script id="select_0"></script>
-	<button id="lock">Lock in reference missile</button>
-	<button id="reset">Reset selection</button>
+	<button class="button" id="lock">Select a reference missile</button>
+	<button class="button" id="reset">Reset selections</button>
 	<table class="ir_table" id="comparison"></table>
 </div>
 </body>
