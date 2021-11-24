@@ -7,6 +7,7 @@
 	<link href="styles.css" rel="stylesheet">
 	<link href="index.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<link rel="apple-touch-icon" href="256_icon.png">
 
 	<!--	Add this https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Offline_Service_workers-->
 	<link rel="manifest" href="manifest.json">
@@ -33,6 +34,18 @@
 		  name="theme-color">
 </head>
 <body>
+<script>
+
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('/sw.js').then(registration => {
+				console.log('SW registered: ', registration);
+			}).catch(registrationError => {
+				console.log('SW registration failed: ', registrationError);
+			});
+		});
+	}
+</script>
 <div id="main">
 	<p class="section_label">Everything air-to-air missiles</p>
 	<section class="basic-grid" id="aam_stuff">
@@ -60,6 +73,7 @@
 	<iframe allowtransparency="true" frameborder="0" id="discord_embed"
 			sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
 			src="https://discord.com/widget?id=745687786048192573&theme=dark"
+			title="My custom discord news bot invite link"
 	></iframe>
 </div>
 </body>
