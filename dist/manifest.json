@@ -1,0 +1,31 @@
+{
+   "name": "FlareFlo's warthunder datamining collection",
+   "short_name": "FFWTDC",
+   "start_url": "./",
+   "dir": "ltr",
+   "lang": "en-US",
+   "scope": "/",
+   "display": "standalone",
+   "orientation": "landscape",
+   "background_color": "#1c1c1c",
+   "theme_color": "#6e10d2",
+   "description": "This is a collection of otherwise unobtainable data about WTs weapon systems and more",
+   "icons": [
+	  {
+		 "src": "metafiles/512_icon.png",
+		 "sizes": "512x512",
+		 "type": "image/png"
+	  },
+	  {
+		 "src": "metafiles/256_icon.png",
+		 "sizes": "256x256",
+		 "type": "image/png"
+	  },
+	  {
+		 "src": "metafiles/192_icon.png",
+		 "sizes": "192x192",
+		 "type": "image/png",
+		 "purpose": "any maskable"
+	  }
+   ]
+}
