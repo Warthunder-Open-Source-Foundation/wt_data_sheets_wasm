@@ -6,7 +6,7 @@
    "lang": "en-US",
    "scope": "/",
    "display": "standalone",
-   "orientation": "landscape",
+   "orientation": "any",
    "background_color": "#1c1c1c",
    "theme_color": "#6e10d2",
    "description": "This is a collection of otherwise unobtainable data about WTs weapon systems and more",
@@ -14,7 +14,8 @@
 	  {
 		 "src": "metafiles/512_icon.png",
 		 "sizes": "512x512",
-		 "type": "image/png"
+		 "type": "image/png",
+		 "purpose": "any maskable"
 	  },
 	  {
 		 "src": "metafiles/256_icon.png",
@@ -24,8 +25,27 @@
 	  {
 		 "src": "metafiles/192_icon.png",
 		 "sizes": "192x192",
-		 "type": "image/png",
-		 "purpose": "any maskable"
+		 "type": "image/png"
+	  },
+	  {
+		 "src": "metafiles/128_icon.png",
+		 "sizes": "128x128",
+		 "type": "image/png"
+	  },
+	  {
+		 "src": "metafiles/64_icon.png",
+		 "sizes": "64x64",
+		 "type": "image/png"
+	  },
+	  {
+		 "src": "metafiles/32_icon.png",
+		 "sizes": "32x32",
+		 "type": "image/png"
+	  },
+	  {
+		 "src": "metafiles/16_icon.png",
+		 "sizes": "16x16",
+		 "type": "image/png"
 	  }
    ]
 }
