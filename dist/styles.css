@@ -14,7 +14,7 @@ html {
 	--color-accent: rgb(199, 10, 75);
 
 	--background-image-red: linear-gradient(
-			120deg, rgb(110, 16, 210) 0%, rgb(199, 10, 75) 100%);
+			120deg, #6e10d2, #c70a4b);
 	--background-image-blue: linear-gradient(
 			120deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
