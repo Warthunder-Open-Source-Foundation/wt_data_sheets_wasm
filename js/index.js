@@ -38,7 +38,7 @@ async function main() {
 			});
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_comparison();
+		rust.run_compare();
 		input_manager();
 		while (true) {
 			await fetch("http://localhost:8111/state").then(function (response) {
@@ -70,7 +70,7 @@ async function main() {
 			});
 
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_comparison(); // Creates input field options
+		rust.run_compare(); // Creates input field options
 
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		input_manager();
