@@ -1,16 +1,16 @@
 use wasm_bindgen::prelude::*;
-use web_sys::{Document, Window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 
-use crate::{console_log, make_option_inputs, MISSILES};
-use crate::util::{get_document, make_row_ir, make_row_params, make_row_rd};
+use crate::{ make_option_inputs, MISSILES};
+use crate::util::{get_document, make_row_ir, make_row_params};
 
 #[wasm_bindgen]
-pub fn make_comparison() {
+pub fn run_compare() {
 	make_option_inputs("ul_input", "li", Some("select_0"));
 }
 
 #[wasm_bindgen]
+#[allow(clippy::let_underscore_drop, clippy::missing_panics_doc)]
 pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: bool) {
 	let document = get_document();
 
@@ -20,8 +20,8 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 	let ref_missile = &MISSILES[reference];
 	let contrary_missile = &MISSILES[contrary];
 
-	let ref_row = make_row_ir(&ref_missile, &LaunchParameter::new_from_default_hor());
-	let con_row = make_row_ir(&contrary_missile, &LaunchParameter::new_from_default_hor());
+	let ref_row = make_row_ir(ref_missile, &LaunchParameter::new_from_default_hor());
+	let con_row = make_row_ir(contrary_missile, &LaunchParameter::new_from_default_hor());
 	let params = make_row_params();
 	for i in 0..17 {
 		let tr = document.create_element("tr").unwrap();
@@ -64,11 +64,11 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 		let param_cell = document.create_element("td").unwrap();
 		param_cell.set_text_content(Some(&param_value.to_string()));
 
-		tr.append_child(&param_cell);
-		tr.append_child(&ref_cell);
-		tr.append_child(&cont_cell);
+		let _ = tr.append_child(&param_cell);
+		let _ = tr.append_child(&ref_cell);
+		let _ = tr.append_child(&cont_cell);
 
-		table.append_child(&tr);
+		let _ = table.append_child(&tr);
 	}
 
 
