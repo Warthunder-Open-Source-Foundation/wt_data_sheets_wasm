@@ -6,7 +6,7 @@ use wasm_bindgen::prelude::*;
 use web_sys::{console, Document, Window, window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults, Splash};
-use wt_missile_calc_lib::missiles::Missile;
+use wt_datamine_extractor_lib::missile::missile::Missile;
 use crate::comparison::make_comparison;
 
 use crate::util::{console_log, make_option_inputs};
@@ -20,7 +20,7 @@ pub mod comparison;
 
 lazy_static! {
 	static ref MISSILES: Vec<Missile> = {
-		let json = include_str!("../../wt_missile_calc/index/all.json");
+		let json = include_str!("../../wt_datamine_extractor/missile_index/all.json");
 		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
 		missiles.sort_by_key(|d| d.name.clone());
 

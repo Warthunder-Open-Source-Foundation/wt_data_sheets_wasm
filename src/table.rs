@@ -3,11 +3,11 @@ use web_sys::{console, Document};
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
-use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 use wasm_bindgen::prelude::*;
+use wt_datamine_extractor_lib::missile::missile::SeekerType;
 
-use crate::MISSILES;
 use crate::util::{get_document, make_row_ir, make_row_rd};
+use crate::MISSILES;
 
 #[wasm_bindgen]
 pub fn update_tables(alt: u32, vel: u32) {
@@ -22,7 +22,7 @@ pub fn update_tables(alt: u32, vel: u32) {
 }
 
 #[wasm_bindgen]
-pub fn generate_main_tables(document: &web_sys::Document) {
+pub fn generate_main_tables() {
 	let document = get_document();
 
 	let mut parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);

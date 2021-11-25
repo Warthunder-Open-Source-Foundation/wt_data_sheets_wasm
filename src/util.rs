@@ -3,7 +3,8 @@ use web_sys::{console, Document, Window};
 use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
-use wt_missile_calc_lib::missiles::Missile;
+use wt_datamine_extractor_lib::missile::missile::Missile;
+
 use crate::MISSILES;
 
 #[wasm_bindgen]

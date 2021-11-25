@@ -1,7 +1,6 @@
 use wasm_bindgen::prelude::*;
 use web_sys::{Document, Window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
-use wt_missile_calc_lib::missiles::{Missile, SeekerType};
 
 use crate::{console_log, make_option_inputs, MISSILES};
 use crate::util::{get_document, make_row_ir, make_row_params, make_row_rd};
