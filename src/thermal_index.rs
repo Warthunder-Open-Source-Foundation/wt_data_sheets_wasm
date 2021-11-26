@@ -2,24 +2,30 @@ use std::cell::Cell;
 
 use js_sys::Map;
 use wasm_bindgen::prelude::*;
-use web_sys::{Document, Element};
+use web_sys::{Document, Element, Node};
 use wt_datamine_extractor_lib::thermal::thermals::VehicleType;
 
 use crate::{make_missile_option_inputs, THERMALS};
 use crate::util::{console_log, get_document};
 
 #[wasm_bindgen]
-pub fn generate_tank_list(raw: bool) -> Result<(), JsValue> {
+pub fn generate_tank_list() -> Result<(), JsValue> {
 	let document = get_document();
 
 	let table = document.get_element_by_id("table_contents").unwrap();
 	document.get_element_by_id("column_1").unwrap().set_inner_html("Gunner");
 	document.get_element_by_id("column_2").unwrap().set_inner_html("Commander");
+
+	let mut i = 0;
 	for THERMAL in THERMALS.iter().enumerate() {
 		if THERMAL.1.vehicle_type == VehicleType::Tank {
 			let row = document.create_element("tr").unwrap();
+			row.set_attribute("id", &THERMAL.1.name).unwrap();
+			row.set_attribute("class", &i.to_string()).unwrap();
+
 			let name = document.create_element("td").unwrap();
 			name.set_inner_html(&THERMAL.1.name);
+
 			row.append_child(&name)?;
 
 			for sight in &THERMAL.1.sights {
@@ -45,6 +51,7 @@ pub fn generate_tank_list(raw: bool) -> Result<(), JsValue> {
 				row.append_child(&cell)?;
 			}
 			table.append_child(&row);
+			i += 1;
 		}
 	}
 	Ok(())

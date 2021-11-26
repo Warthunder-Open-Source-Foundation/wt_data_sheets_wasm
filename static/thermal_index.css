@@ -8,6 +8,10 @@
 	margin-right: 20vw;
 }
 
+#column_1, #column_2 {
+	cursor: pointer;
+}
+
 .one {
 	background: var(--background-image-blood-red);
 }

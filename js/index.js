@@ -5,11 +5,13 @@ async function main() {
 	let url = window.location.href.split("/").at(-1);
 
 	if (window.location.href.includes("nightly")) {
+		console.info("ENABLING NIGHTLY MODE")
 		document.querySelector("html").style.setProperty("--background-image-red", "linear-gradient(120deg, #8d8d8d, #343434)");
+		document.querySelector("html").style.setProperty("--color-background", "url(metafiles/WIP.png)");
 	}
 
 	// Custom section for each page to make sure it runs properly
-	if (url == "table.html") {
+	if (url.includes("table.html")) {
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.generate_main_tables();
 
@@ -31,7 +33,7 @@ async function main() {
 		);
 	}
 
-	if (url == "live_calc.html") {
+	if (url.includes("live_calc.html")) {
 		await fetch('missile_select.html')
 			.then(res => res.text())
 			.then(text => {
@@ -155,7 +157,13 @@ async function main() {
 		input_manager("Select vehicle class");
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 
-		rust.generate_tank_list(false)
+		rust.generate_tank_list()
+
+		let sorted = false;
+		document.getElementById("column_1").addEventListener("click", function () {
+			sort_row("table_contents", sorted);
+			sorted = !sorted;
+		});
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------
@@ -256,6 +264,62 @@ async function main() {
 				dropdown.classList.remove("open");
 			}
 		});
+	}
+
+	function sort_row(selector, increase) {
+		let table = document.getElementById(selector);
+
+		let elems = [];
+
+		for (const numKey in table.childNodes) {
+			let element = table.getElementsByClassName(numKey).item(0);
+			if (element !== null) {
+				elems[numKey] = element;
+			}
+		}
+
+		let gen1 = [];
+		let gen2 = [];
+		let gen3 = [];
+
+		for (let i = 0; i < elems.length; i++) {
+			let x = elems[i].lastChild.innerHTML.split("x")[0];
+			switch (x) {
+				case "500":
+					gen1[gen1.length] = elems[i];
+					break;
+				case "800":
+					gen2[gen2.length] = elems[i];
+					break;
+				case "1200":
+					gen3[gen3.length] = elems[i];
+					break;
+			}
+		}
+
+		table.innerHTML = "";
+
+		if (increase) {
+			for (let i = 0; i < gen1.length; i++) {
+				table.appendChild(gen1[i]);
+			}
+			for (let i = 0; i < gen2.length; i++) {
+				table.appendChild(gen2[i]);
+			}
+			for (let i = 0; i < gen3.length; i++) {
+				table.appendChild(gen3[i]);
+			}
+		} else {
+			for (let i = 0; i < gen3.length; i++) {
+				table.appendChild(gen3[i]);
+			}
+			for (let i = 0; i < gen2.length; i++) {
+				table.appendChild(gen2[i]);
+			}
+			for (let i = 0; i < gen1.length; i++) {
+				table.appendChild(gen1[i]);
+			}
+		}
 	}
 }
 
