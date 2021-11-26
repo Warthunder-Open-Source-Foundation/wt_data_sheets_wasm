@@ -12,40 +12,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Dist">
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="removed .blkx from names">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/869e4dc8012fe7ff3da0.module.wasm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/compare.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/compare.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/documentation.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/live_calc.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/128_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/16_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/192_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/256_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/32_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/512_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/64_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/WIP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/missile_input.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/missile_select.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/navbar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/navbar.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/sw.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/table.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/thermal_index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/thermal_index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/tierlist.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/tierlist.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/workbox-3e98e12a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/thermal_index.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/thermal_index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/navbar.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +25,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="60749" />
+    <option name="totalTimeSeconds" value="61743" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -192,7 +161,7 @@
       <workItem from="1637761653632" duration="63000" />
       <workItem from="1637912387317" duration="8106000" />
       <workItem from="1637929426087" duration="13091000" />
-      <workItem from="1637944020144" duration="6510000" />
+      <workItem from="1637944020144" duration="7584000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -376,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637950225998</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="removed .blkx from names">
+      <created>1637950780785</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1637950780785</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +407,8 @@
     <MESSAGE value="Full thermal index for tanks" />
     <MESSAGE value="Added sorting to thermals" />
     <MESSAGE value="Dist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dist" />
+    <MESSAGE value="removed .blkx from names" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed .blkx from names" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
