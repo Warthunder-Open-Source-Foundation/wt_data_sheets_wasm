@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Live calculation</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<script src="index.js"></script>
+
+	<meta content="Live calculation for any air to air missiles range and hit probability"
+		  property="og:title"/>
+
+	<meta content="No download or installation required, just start the game and watch the magic happen"
+		  property="og:description"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="http://wt.flareflo.dev/live_calc.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+</head>
+<body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+<script id="add_missile_select">
+</script>
+<table id="calc-table" class="ir_table">
+	<tr class="bright-tr">
+		<td>Range</td>
+		<td id="range">-</td>
+	</tr>
+	<tr>
+		<td>Maximum chase distance</td>
+		<td id="splash_at">-</td>
+	</tr>
+</table>
+</body>
+</html>

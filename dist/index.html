@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FlareFlo's missile sheet</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="index.css" rel="stylesheet">
+	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<link rel="apple-touch-icon" href="256_icon.png">
+
+	<!--	Add this https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Offline_Service_workers-->
+	<link rel="manifest" href="manifest.json">
+
+	<script id="script" src="index.js" type="module"></script>
+
+	<meta content="FlareFlo's warthunder datamining collection"
+		  property="og:title"/>
+
+	<meta content="This is a collection of otherwise unobtainable data about WTs weapon systems and more"
+		  property="og:description"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="http://wt.flareflo.dev"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+</head>
+<body>
+<script>
+
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('/sw.js').then(registration => {
+				console.log('SW registered: ', registration);
+			}).catch(registrationError => {
+				console.log('SW registration failed: ', registrationError);
+			});
+		});
+	}
+</script>
+<div id="main">
+	<p class="section_label">Everything air-to-air missiles</p>
+	<section class="basic-grid" id="aam_stuff">
+		<a class="card" href="table.html">Spreadsheet</a>
+		<a class="card" href="live_calc.html">Live prediction</a>
+		<a class="card" href="documentation.html">Documentation</a>
+		<a class="card" href="compare.html">Comparison generator</a>
+		<a class="card" href="tierlist.html">Tier list</a>
+	</section>
+	<p class="section_label">About this page</p>
+	<section class="basic-grid" id="source_stuff">
+		<a class="card" href="https://github.com/FlareFlo/wt_data_sheets_wasm" rel="noopener noreferrer"
+		   target="_blank">
+			Source code
+		</a>
+		<a class="card" href="https://github.com/FlareFlo/wt_data_sheets_wasm/issues/new" rel="noopener noreferrer"
+		   target="_blank">
+			Technical issue? Report it here</a>
+		<a href="https://nightly.wt.flareflo.dev/">
+			Experimental build/site
+		</a>
+	</section>
+	<p class="section_label">Always want to keep up with all news regarding War Thunder? <br>
+		Join and try my
+		<a class="link" href="https://github.com/FlareFlo/wt_event_handler" rel="noopener noreferrer" target="_blank">custom
+			made news bot</a>
+	</p>
+	<iframe allowtransparency="true" frameborder="0" id="discord_embed"
+			sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+			src="https://discord.com/widget?id=745687786048192573&theme=dark"
+			title="My custom discord news bot invite link"
+	></iframe>
+</div>
+</body>
+</html>
