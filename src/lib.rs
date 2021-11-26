@@ -4,12 +4,13 @@ use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::missile::missile::Missile;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 
-use crate::util::make_option_inputs;
+use crate::util::make_missile_option_inputs;
 
 pub mod table;
 pub mod util;
 pub mod live_calc;
 pub mod comparison;
+pub mod thermal_index;
 
 lazy_static! {
 	static ref MISSILES: Vec<Missile> = {

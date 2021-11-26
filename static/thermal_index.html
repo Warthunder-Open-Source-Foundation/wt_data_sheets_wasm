@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Thermal sheet</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="thermal_index.css" rel="stylesheet">
 	<link href="styles.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<script id="script" src="index.js" type="module"></script>
@@ -38,16 +39,22 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<table class="ir_table">
-	<thead>
-	<tr>
-		<td>Name</td>
+<div id="main">
+	<script id="select_0"></script>
+	<table class="ir_table" id="table">
+		<thead>
+		<tr>
+			<td id="column_0">Name</td>
+			<td id="column_1">Placeholder</td>
+			<td id="column_2">Placeholder</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr class="top-tr" id="ir_index">
 
-	</tr>
-	<tr class="top-tr" id="ir_index">
-
-	</tr>
-	</thead>
-</table>
+		</tr>
+		</tbody>
+	</table>
+</div>
 </body>
 </html>

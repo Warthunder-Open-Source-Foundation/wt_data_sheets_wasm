@@ -13,7 +13,7 @@ pub fn console_log(message: &str) {
 }
 
 #[allow(clippy::let_underscore_drop, clippy::missing_panics_doc)]
-pub fn make_option_inputs(selector: &str, item: &str, class: Option<&str>) {
+pub fn make_missile_option_inputs(selector: &str, item: &str, class: Option<&str>) {
 	let document = get_document();
 
 	let select;

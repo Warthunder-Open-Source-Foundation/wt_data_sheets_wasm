@@ -12,7 +12,47 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Dist" />
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Dist with comapt fix">
+      <change afterPath="$PROJECT_DIR$/src/thermal_index.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/thermal_index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/1426460006b04067610c.module.wasm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/compare.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/compare.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/documentation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/live_calc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/128_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/16_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/192_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/256_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/32_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/512_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/64_icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/metafiles/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/missile_input.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/missile_select.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/navbar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/sw.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/table.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/thermal_index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/tierlist.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/tierlist.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/workbox-3e98e12a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/comparison.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparison.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/live_calc.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/live_calc.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/util.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/thermal_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/thermal_index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,16 +62,17 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="39323" />
+    <option name="totalTimeSeconds" value="43232" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="Rust File" />
       </list>
     </option>
   </component>
@@ -145,7 +186,7 @@
       <workItem from="1637657762810" duration="5811000" />
       <workItem from="1637757863764" duration="3776000" />
       <workItem from="1637761653632" duration="63000" />
-      <workItem from="1637912387317" duration="4198000" />
+      <workItem from="1637912387317" duration="8106000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -287,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637917455928</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Dist with comapt fix">
+      <created>1637917662770</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917662770</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,6 +387,7 @@
     <MESSAGE value="Fixed ignore" />
     <MESSAGE value="Added nightly check" />
     <MESSAGE value="Dist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dist" />
+    <MESSAGE value="Dist with comapt fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dist with comapt fix" />
   </component>
 </project>

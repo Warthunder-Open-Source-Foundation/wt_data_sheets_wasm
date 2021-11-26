@@ -1,12 +1,12 @@
 use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 
-use crate::{ make_option_inputs, MISSILES};
+use crate::{make_missile_option_inputs, MISSILES};
 use crate::util::{get_document, make_row_ir, make_row_params};
 
 #[wasm_bindgen]
 pub fn run_compare() {
-	make_option_inputs("ul_input", "li", Some("select_0"));
+	make_missile_option_inputs("ul_input", "li", Some("select_0"));
 }
 
 #[wasm_bindgen]

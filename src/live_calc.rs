@@ -3,12 +3,12 @@ use wt_ballistics_calc_lib::runner::generate;
 
 use wasm_bindgen::prelude::*;
 
-use crate::{make_option_inputs, MISSILES};
+use crate::{make_missile_option_inputs, MISSILES};
 use crate::util::get_document;
 
 #[wasm_bindgen]
 pub fn generate_targets() {
-	make_option_inputs("ul_input", "option", None);
+	make_missile_option_inputs("ul_input", "option", None);
 }
 
 #[wasm_bindgen]

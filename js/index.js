@@ -43,7 +43,7 @@ async function main() {
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.run_compare();
-		input_manager();
+		input_manager("Select missile");
 		while (true) {
 			await fetch("http://localhost:8111/state").then(function (response) {
 				return response.json();
@@ -77,7 +77,7 @@ async function main() {
 		rust.run_compare(); // Creates input field options
 
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
-		input_manager();
+		input_manager("Select missile");
 
 		let identical = false;
 		let identical_button = document.getElementById("show_identical");
@@ -138,6 +138,24 @@ async function main() {
 
 	}
 
+	if (url.includes("thermal_index.html")) {
+		await fetch('missile_select.html')
+			.then(res => res.text())
+			.then(text => {
+				let oldelem = document.querySelector("script#select_0");
+				let newelem = document.createElement("div");
+				newelem.innerHTML = text;
+				oldelem.replaceWith(newelem, oldelem);
+			});
+
+		rust = await import ("../pkg/index.js").catch(console.error);
+
+		rust.generate_thermal_options();
+
+		input_manager("Select vehicle class");
+		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
+	}
+
 	// Misc functions --------------------------------------------------------------------------------------------------
 
 	function sleep(ms) {
@@ -158,7 +176,7 @@ async function main() {
 		}
 	}
 
-	function input_manager() {
+	function input_manager(placeholder) {
 		const inputField = document.querySelector(".chosen-value");
 		const dropdown = document.querySelector(".value-list");
 		const dropdownArray = [...document.querySelectorAll("li")];
@@ -225,7 +243,7 @@ async function main() {
 		});
 
 		inputField.addEventListener("blur", () => {
-			inputField.placeholder = "Select Missile";
+			inputField.placeholder = placeholder;
 			dropdown.classList.remove("open");
 		});
 
