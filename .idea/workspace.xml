@@ -12,47 +12,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Dist with comapt fix">
-      <change afterPath="$PROJECT_DIR$/src/thermal_index.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/thermal_index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/0.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/1426460006b04067610c.module.wasm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/compare.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/compare.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/documentation.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/live_calc.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/128_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/16_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/192_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/256_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/32_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/512_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/64_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/metafiles/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/missile_input.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/missile_select.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/navbar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/navbar.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/sw.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/table.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/thermal_index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/tierlist.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/tierlist.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/workbox-3e98e12a.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/comparison.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparison.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/live_calc.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/live_calc.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/util.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/thermal_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/thermal_index.html" afterDir="false" />
-    </list>
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Dist with comapt fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,6 +55,7 @@
     <option name="directoryName" value="kv94xf64" />
   </component>
   <component name="ProjectId" id="215N7pVFRsPrCcXQIRdKtPw6Jq3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -117,7 +78,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="language.rust" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -128,11 +89,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.Build">
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Build" type="ShConfigurationType">
       <option name="SCRIPT_TEXT" value="npm run build" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -169,7 +125,7 @@
     </list>
   </component>
   <component name="RustProjectSettings">
-    <option name="toolchainHomeDirectory" value="/usr/bin" />
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
     <option name="version" value="2" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -389,5 +345,9 @@
     <MESSAGE value="Dist" />
     <MESSAGE value="Dist with comapt fix" />
     <option name="LAST_COMMIT_MESSAGE" value="Dist with comapt fix" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

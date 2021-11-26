@@ -2,8 +2,7 @@ node_modules
 /target
 /wasm-pack.log
 
-.idea/*
-!.idea/workspace.xml
+.idea
 
 pkg
 
