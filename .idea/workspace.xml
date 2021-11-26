@@ -12,14 +12,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Fixed ignore">
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/thermal_index.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/thermal_index.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/thermal_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/thermal_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wt_datamine_extractor" beforeDir="false" afterPath="$PROJECT_DIR$/wt_datamine_extractor" afterDir="false" />
-    </list>
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Full thermal index for tanks" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +22,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="46095" />
+    <option name="totalTimeSeconds" value="46487" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -155,7 +148,7 @@
       <workItem from="1637757863764" duration="3776000" />
       <workItem from="1637761653632" duration="63000" />
       <workItem from="1637912387317" duration="8106000" />
-      <workItem from="1637929426087" duration="3354000" />
+      <workItem from="1637929426087" duration="3742000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -311,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637928990118</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Full thermal index for tanks">
+      <created>1637933181086</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1637933181086</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +364,8 @@
     <MESSAGE value="Dist" />
     <MESSAGE value="Dist with comapt fix" />
     <MESSAGE value="Fixed ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed ignore" />
+    <MESSAGE value="Full thermal index for tanks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Full thermal index for tanks" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
