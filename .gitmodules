@@ -1,0 +1,3 @@
+[submodule "wt_datamine_extractor"]
+	path = wt_datamine_extractor
+	url = git@github.com:FlareFlo/wt_datamine_extractor.git
