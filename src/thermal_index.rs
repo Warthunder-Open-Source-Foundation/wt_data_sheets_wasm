@@ -18,7 +18,6 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 
 	let mut i = 0;
 	for THERMAL in THERMALS.iter().enumerate() {
-		if THERMAL.1.vehicle_type == VehicleType::Tank {
 			let row = document.create_element("tr").unwrap();
 			row.set_attribute("id", &THERMAL.1.name).unwrap();
 			row.set_attribute("class", &i.to_string()).unwrap();
@@ -52,7 +51,6 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 			}
 			table.append_child(&row);
 			i += 1;
-		}
 	}
 	Ok(())
 }

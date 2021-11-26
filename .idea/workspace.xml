@@ -12,9 +12,8 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="removed .blkx from names">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/navbar.html" afterDir="false" />
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Fixed html header">
+      <change beforePath="$PROJECT_DIR$/src/thermal_index.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/thermal_index.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +24,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="61743" />
+    <option name="totalTimeSeconds" value="62054" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -161,7 +160,7 @@
       <workItem from="1637761653632" duration="63000" />
       <workItem from="1637912387317" duration="8106000" />
       <workItem from="1637929426087" duration="13091000" />
-      <workItem from="1637944020144" duration="7584000" />
+      <workItem from="1637944020144" duration="7895000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -352,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637950780785</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fixed html header">
+      <created>1637951755288</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1637951755288</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +414,8 @@
     <MESSAGE value="Added sorting to thermals" />
     <MESSAGE value="Dist" />
     <MESSAGE value="removed .blkx from names" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed .blkx from names" />
+    <MESSAGE value="Fixed html header" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed html header" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
