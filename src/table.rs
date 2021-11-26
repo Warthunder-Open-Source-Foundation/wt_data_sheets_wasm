@@ -54,7 +54,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 					if j == 0 {
 						cell.set_attribute("id", &missile.name)?;
 						let a = document.create_element("a")?;
-						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &missile.name))?;
+						a.set_attribute("href", &format!("https://github.com/FlareFlo/wt_datamine_extractor/blob/master/missile_index/missiles/{}.blkx", &missile.name))?;
 						a.set_inner_html(&missile.name);
 						cell.append_child(&a)?;
 					} else if j == 1 {

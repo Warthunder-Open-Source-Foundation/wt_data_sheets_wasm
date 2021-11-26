@@ -12,12 +12,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Fixed ignore">
-      <change afterPath="$PROJECT_DIR$/static/thermal_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Dist" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +22,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="39007" />
+    <option name="totalTimeSeconds" value="39323" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -150,7 +145,7 @@
       <workItem from="1637657762810" duration="5811000" />
       <workItem from="1637757863764" duration="3776000" />
       <workItem from="1637761653632" duration="63000" />
-      <workItem from="1637912387317" duration="3883000" />
+      <workItem from="1637912387317" duration="4198000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -278,7 +273,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637914314128</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Added nightly check">
+      <created>1637917262671</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917262671</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Dist">
+      <created>1637917455928</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1637917455928</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -328,6 +337,8 @@
     <MESSAGE value="Change paths to git submodule" />
     <MESSAGE value="Added workspace file" />
     <MESSAGE value="Fixed ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed ignore" />
+    <MESSAGE value="Added nightly check" />
+    <MESSAGE value="Dist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dist" />
   </component>
 </project>
