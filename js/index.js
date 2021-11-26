@@ -154,6 +154,8 @@ async function main() {
 
 		input_manager("Select vehicle class");
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
+
+		rust.generate_tank_list(false)
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------
