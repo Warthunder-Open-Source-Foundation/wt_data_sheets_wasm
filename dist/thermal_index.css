@@ -1,0 +1,25 @@
+#table {
+	margin: 10px auto;
+	width: fit-content;
+}
+
+#main {
+	margin-left: 20vw;
+	margin-right: 20vw;
+}
+
+#column_1, #column_2 {
+	cursor: pointer;
+}
+
+.one {
+	background: var(--background-image-blood-red);
+}
+
+.two {
+	background: var(--background-image-blue);
+}
+
+.three {
+	background: var(--background-image-green);
+}
