@@ -24,7 +24,7 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 			row.set_attribute("class", &i.to_string()).unwrap();
 
 			let name = document.create_element("td").unwrap();
-			name.set_inner_html(&THERMAL.1.name);
+			name.set_inner_html(&THERMAL.1.name.split(".").collect::<Vec<&str>>()[0]);
 
 			row.append_child(&name)?;
 
