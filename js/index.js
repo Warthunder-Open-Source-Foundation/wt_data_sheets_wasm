@@ -2,7 +2,11 @@ async function main() {
 
 	let rust;
 
-	let url = window.location.href.split("/").at(-1)
+	let url = window.location.href.split("/").at(-1);
+
+	if (window.location.href.includes("nightly")) {
+		document.querySelector("html").style.setProperty("--background-image-red", "linear-gradient(120deg, #8d8d8d, #343434)");
+	}
 
 	// Custom section for each page to make sure it runs properly
 	if (url == "table.html") {

@@ -12,9 +12,11 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Change paths to git submodule">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wt_datamine_extractor" beforeDir="false" afterPath="$PROJECT_DIR$/wt_datamine_extractor" afterDir="false" />
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Fixed ignore">
+      <change afterPath="$PROJECT_DIR$/static/thermal_index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,16 +27,16 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="37345" />
+    <option name="totalTimeSeconds" value="39007" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -89,7 +91,7 @@
       <recent name="$PROJECT_DIR$/static" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.Update">
+  <component name="RunManager" selected="Shell Script.Build">
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -148,7 +150,7 @@
       <workItem from="1637657762810" duration="5811000" />
       <workItem from="1637757863764" duration="3776000" />
       <workItem from="1637761653632" duration="63000" />
-      <workItem from="1637912387317" duration="1813000" />
+      <workItem from="1637912387317" duration="3883000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -262,7 +264,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637913327928</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Added workspace file">
+      <created>1637914263621</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1637914263621</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Fixed ignore">
+      <created>1637914314128</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1637914314128</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +326,8 @@
     <MESSAGE value="Fixed navbar font increase" />
     <MESSAGE value="Fixed lighthouse issues" />
     <MESSAGE value="Change paths to git submodule" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change paths to git submodule" />
+    <MESSAGE value="Added workspace file" />
+    <MESSAGE value="Fixed ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed ignore" />
   </component>
 </project>
