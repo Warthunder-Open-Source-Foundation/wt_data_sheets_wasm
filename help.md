@@ -1,3 +1,8 @@
+Custom scripts for updating modules:
+```sh
+cargo clean; cargo update; git submodule update --remote
+```
+
 ## How to install
 
 ```sh
