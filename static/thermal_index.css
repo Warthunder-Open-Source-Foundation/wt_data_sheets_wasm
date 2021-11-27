@@ -1,3 +1,9 @@
+html {
+	--show-heli: table-row;
+	--show-aircraft:table-row;
+	--show-tank: table-row;
+}
+
 #table {
 	margin: 10px auto;
 	width: fit-content;
@@ -17,6 +23,11 @@
 	background-size: 400%;
 }
 
+.heli {
+	background: var(--background-image-turquoise);
+	background-size: 400%;
+}
+
 .two {
 	background: var(--background-image-blue);
 	background-size: 400%;
@@ -25,4 +36,20 @@
 .three {
 	background: var(--background-image-green);
 	background-size: 400%;
+}
+
+/*.Tank, .Helicopter, .Aircraft {*/
+/*	display: table-row;*/
+/*}*/
+
+.Tank {
+	display: var(--show-tank);
+}
+
+.Helicopter {
+	display: var(--show-heli);
+}
+
+.Aircraft {
+	display: var(--show-aircraft);
 }

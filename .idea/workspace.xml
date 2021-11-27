@@ -12,8 +12,13 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Fixed html header">
+    <list default="true" id="648624d1-5742-46e3-8786-796203d8249d" name="Changes" comment="Added planes and helis, needs filtering">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/thermal_index.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/thermal_index.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/thermal_index.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/thermal_index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/thermal_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/thermal_index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +29,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="62054" />
+    <option name="totalTimeSeconds" value="67989" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
   </component>
@@ -100,9 +105,9 @@
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.Build">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="Build" type="ShConfigurationType">
@@ -160,7 +165,8 @@
       <workItem from="1637761653632" duration="63000" />
       <workItem from="1637912387317" duration="8106000" />
       <workItem from="1637929426087" duration="13091000" />
-      <workItem from="1637944020144" duration="7895000" />
+      <workItem from="1637944020144" duration="8545000" />
+      <workItem from="1637968810206" duration="6065000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed gitignore">
       <created>1637227001484</created>
@@ -358,7 +364,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637951755288</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Added planes and helis, needs filtering">
+      <created>1637952689824</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1637952689824</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +403,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fixed gitignore" />
     <MESSAGE value="Added navbar" />
     <MESSAGE value="Updated functionality for on-page-reloading of missile data" />
     <MESSAGE value="Added sorting for comparison page" />
@@ -415,7 +427,8 @@
     <MESSAGE value="Dist" />
     <MESSAGE value="removed .blkx from names" />
     <MESSAGE value="Fixed html header" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed html header" />
+    <MESSAGE value="Added planes and helis, needs filtering" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added planes and helis, needs filtering" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

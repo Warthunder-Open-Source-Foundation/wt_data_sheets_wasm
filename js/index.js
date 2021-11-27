@@ -155,7 +155,10 @@ async function main() {
 		rust.generate_thermal_options();
 
 		input_manager("Select vehicle class");
-		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
+
+		document.getElementById("dropdown").addEventListener("submit", function () {
+			set_value_enter;
+		});
 
 		rust.generate_tank_list()
 
@@ -164,6 +167,29 @@ async function main() {
 			sort_row("table_contents", sorted);
 			sorted = !sorted;
 		});
+
+
+		for (let i = 0; i < document.getElementsByClassName("selecto_0").length; i++) {
+			document.getElementsByClassName("selecto_0")[i].addEventListener("click", (evt) => {
+				switch (document.getElementById("ul_input").getAttribute("target_name")) {
+					case "Helicopter":
+						document.querySelector("html").style.setProperty("--show-heli", "table-row");
+						document.querySelector("html").style.setProperty("--show-tank", "none");
+						document.querySelector("html").style.setProperty("--show-aircraft", "none");
+						break;
+					case "Aircraft":
+						document.querySelector("html").style.setProperty("--show-aircraft", "table-row");
+						document.querySelector("html").style.setProperty("--show-heli", "none");
+						document.querySelector("html").style.setProperty("--show-tank", "none");
+						break;
+					case "Tank":
+						document.querySelector("html").style.setProperty("--show-tank", "table-row");
+						document.querySelector("html").style.setProperty("--show-heli", "none");
+						document.querySelector("html").style.setProperty("--show-aircraft", "none");
+						break;
+				}
+			});
+		}
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------
@@ -266,7 +292,7 @@ async function main() {
 		});
 	}
 
-	function sort_row(selector, increase) {
+	function sort_row(selector, ascending) {
 		let table = document.getElementById(selector);
 
 		let elems = [];
@@ -281,44 +307,36 @@ async function main() {
 		let gen1 = [];
 		let gen2 = [];
 		let gen3 = [];
+		let heli = [];
+		let unknown = [];
 
 		for (let i = 0; i < elems.length; i++) {
-			let x = elems[i].lastChild.innerHTML.split("x")[0];
-			switch (x) {
-				case "500":
-					gen1[gen1.length] = elems[i];
-					break;
-				case "800":
-					gen2[gen2.length] = elems[i];
-					break;
-				case "1200":
-					gen3[gen3.length] = elems[i];
-					break;
+			let x = parseInt(elems[i].lastChild.innerHTML.split("x")[0]);
+
+			if (x === 500) {
+				gen1[gen1.length] = elems[i];
+			} else if (x === 800) {
+				gen2[gen2.length] = elems[i];
+			} else if (x === 1200) {
+				gen3[gen3.length] = elems[i];
+			} else if (x === 1024) {
+				heli[heli.length] = elems[i];
+			} else {
+				unknown[unknown.length] = elems[i];
 			}
 		}
 
 		table.innerHTML = "";
 
-		if (increase) {
-			for (let i = 0; i < gen1.length; i++) {
-				table.appendChild(gen1[i]);
-			}
-			for (let i = 0; i < gen2.length; i++) {
-				table.appendChild(gen2[i]);
-			}
-			for (let i = 0; i < gen3.length; i++) {
-				table.appendChild(gen3[i]);
-			}
+		let total;
+		if (ascending) {
+			total = gen1.concat(gen2, heli, gen3, unknown);
+
 		} else {
-			for (let i = 0; i < gen3.length; i++) {
-				table.appendChild(gen3[i]);
-			}
-			for (let i = 0; i < gen2.length; i++) {
-				table.appendChild(gen2[i]);
-			}
-			for (let i = 0; i < gen1.length; i++) {
-				table.appendChild(gen1[i]);
-			}
+			total = gen3.concat(heli, gen2, gen1, unknown);
+		}
+		for (let i = 0; i < total.length; i++) {
+			table.appendChild(total[i]);
 		}
 	}
 }

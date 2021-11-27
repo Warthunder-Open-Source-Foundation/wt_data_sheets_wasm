@@ -25,6 +25,9 @@ html {
 	--background-image-green: linear-gradient(
 			120deg, rgb(66, 189, 22) 0%, rgb(90, 229, 86) 100%);
 
+	--background-image-turquoise: linear-gradient(
+			120deg, rgb(22, 189, 164) 0%, rgb(86, 212, 229) 100%);
+
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
 
 	--global-font: 'Roboto Mono', monospace;

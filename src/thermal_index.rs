@@ -13,44 +13,47 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 	let document = get_document();
 
 	let table = document.get_element_by_id("table_contents").unwrap();
-	document.get_element_by_id("column_1").unwrap().set_inner_html("Gunner");
+	document.get_element_by_id("column_1").unwrap().set_inner_html("Gunner/Scope");
 	document.get_element_by_id("column_2").unwrap().set_inner_html("Commander");
 
 	let mut i = 0;
 	for THERMAL in THERMALS.iter().enumerate() {
-			let row = document.create_element("tr").unwrap();
-			row.set_attribute("id", &THERMAL.1.name).unwrap();
-			row.set_attribute("class", &i.to_string()).unwrap();
+		let row = document.create_element("tr").unwrap();
+		row.set_attribute("id", &THERMAL.1.name).unwrap();
+		row.set_attribute("class", &format!("{} {:?}", &i, &THERMAL.1.vehicle_type)).unwrap();
 
-			let name = document.create_element("td").unwrap();
-			name.set_inner_html(&THERMAL.1.name.split(".").collect::<Vec<&str>>()[0]);
+		let name = document.create_element("td").unwrap();
+		name.set_inner_html(&THERMAL.1.name.split(".").collect::<Vec<&str>>()[0]);
 
-			row.append_child(&name)?;
+		row.append_child(&name)?;
 
-			for sight in &THERMAL.1.sights {
-				let generation = match sight.x {
-					500.0 => {
-						"one"
-					}
-					800.0 => {
-						"two"
-					}
-					1200.0 => {
-						"three"
-					}
-					_ => {
-						"unknown"
-					}
-				};
+		for sight in &THERMAL.1.sights {
+			let generation = match sight.x {
+				500.0 => {
+					"one"
+				}
+				800.0 => {
+					"two"
+				}
+				1200.0 => {
+					"three"
+				}
+				1024.0 => {
+					"heli"
+				}
+				_ => {
+					"unknown"
+				}
+			};
 
-				let cell: Element = document.create_element("td").unwrap();
+			let cell: Element = document.create_element("td").unwrap();
 
-				cell.set_inner_html(&format!("{}x{}", sight.x, sight.y));
-				cell.set_attribute("class", &generation.to_string());
-				row.append_child(&cell)?;
-			}
-			table.append_child(&row);
-			i += 1;
+			cell.set_inner_html(&format!("{}x{}", sight.x, sight.y));
+			cell.set_attribute("class", &generation.to_string());
+			row.append_child(&cell)?;
+		}
+		table.append_child(&row);
+		i += 1;
 	}
 	Ok(())
 }
