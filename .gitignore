@@ -1,7 +1,10 @@
 node_modules
 /target
 /wasm-pack.log
+
 .idea
+
 pkg
+
 Cargo.lock
 package-lock.json

@@ -3,7 +3,8 @@ use web_sys::{console, Document, Window};
 use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
-use wt_missile_calc_lib::missiles::Missile;
+use wt_datamine_extractor_lib::missile::missile::Missile;
+
 use crate::MISSILES;
 
 #[wasm_bindgen]
@@ -11,7 +12,8 @@ pub fn console_log(message: &str) {
 	console::log_1(&JsValue::from_str(message));
 }
 
-pub fn make_option_inputs(selector: &str, item: &str, class: Option<&str>) {
+#[allow(clippy::let_underscore_drop, clippy::missing_panics_doc)]
+pub fn make_missile_option_inputs(selector: &str, item: &str, class: Option<&str>) {
 	let document = get_document();
 
 	let select;
@@ -23,25 +25,27 @@ pub fn make_option_inputs(selector: &str, item: &str, class: Option<&str>) {
 
 	for (i, missile) in MISSILES.iter().enumerate() {
 		let element = document.create_element(item).unwrap();
-		element.set_attribute("value", &i.to_string());
+		let _ = element.set_attribute("value", &i.to_string());
 		if let Some(value) = class {
-			element.set_attribute("class", value);
+			let _ = element.set_attribute("class", value);
 		}
 		element.set_text_content(Some(&missile.name));
-		select.append_child(&element);
+		let _ = select.append_child(&element);
 	}
 }
 
+#[allow(clippy::must_use_candidate)]
 pub fn get_document() -> Document {
 	let window: Window = web_sys::window().expect("no global `window` exists");
 	let document: Document = window.document().expect("should have a document on window");
 	document
 }
 
+#[allow(clippy::must_use_candidate)]
 pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
-	let results = generate(&m, &parameters, 0.1, false);
+	let results = generate(m, parameters, 0.1, false);
 
 	let range = results.distance_flown.round();
 
@@ -66,6 +70,7 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 	]
 }
 
+#[allow(clippy::must_use_candidate)]
 pub fn make_row_params() -> [String; 17] {
 	[
 		"name".to_string(),
@@ -88,10 +93,11 @@ pub fn make_row_params() -> [String; 17] {
 	]
 }
 
+#[allow(clippy::must_use_candidate)]
 pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
-	let results = generate(&m, &parameters, 0.1, false);
+	let results = generate(m, parameters, 0.1, false);
 
 	let range = results.distance_flown.round();
 	[
@@ -109,6 +115,7 @@ pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
 	]
 }
 
+#[allow(clippy::must_use_candidate)]
 pub fn make_row_blank(len: u32) -> Vec<String> {
 	let mut arr = vec![];
 	for _ in 0..len {

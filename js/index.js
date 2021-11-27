@@ -2,10 +2,16 @@ async function main() {
 
 	let rust;
 
-	let url = window.location.href.split("/").at(-1)
+	let url = window.location.href.split("/").at(-1);
+
+	if (window.location.href.includes("nightly")) {
+		console.info("ENABLING NIGHTLY MODE")
+		document.querySelector("html").style.setProperty("--background-image-red", "linear-gradient(120deg, #8d8d8d, #343434)");
+		document.querySelector("html").style.setProperty("--color-background", "url(metafiles/WIP.png)");
+	}
 
 	// Custom section for each page to make sure it runs properly
-	if (url == "table.html") {
+	if (url.includes("table.html")) {
 		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.generate_main_tables();
 
@@ -27,7 +33,7 @@ async function main() {
 		);
 	}
 
-	if (url == "live_calc.html") {
+	if (url.includes("live_calc.html")) {
 		await fetch('missile_select.html')
 			.then(res => res.text())
 			.then(text => {
@@ -38,8 +44,8 @@ async function main() {
 			});
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_comparison();
-		input_manager();
+		rust.run_compare();
+		input_manager("Select missile");
 		while (true) {
 			await fetch("http://localhost:8111/state").then(function (response) {
 				return response.json();
@@ -70,10 +76,10 @@ async function main() {
 			});
 
 		rust = await import ("../pkg/index.js").catch(console.error);
-		rust.make_comparison(); // Creates input field options
+		rust.run_compare(); // Creates input field options
 
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
-		input_manager();
+		input_manager("Select missile");
 
 		let identical = false;
 		let identical_button = document.getElementById("show_identical");
@@ -134,6 +140,59 @@ async function main() {
 
 	}
 
+	if (url.includes("thermal_index.html")) {
+		await fetch('missile_select.html')
+			.then(res => res.text())
+			.then(text => {
+				let oldelem = document.querySelector("script#select_0");
+				let newelem = document.createElement("div");
+				newelem.setAttribute("id", "div_input");
+				newelem.innerHTML = text;
+				oldelem.replaceWith(newelem, oldelem);
+			});
+
+		rust = await import ("../pkg/index.js").catch(console.error);
+
+		rust.generate_thermal_options();
+
+		input_manager("Select vehicle class");
+
+		document.getElementById("dropdown").addEventListener("submit", function () {
+			set_value_enter;
+		});
+
+		rust.generate_tank_list()
+
+		let sorted = false;
+		document.getElementById("column_1").addEventListener("click", function () {
+			sort_row("table_contents", sorted);
+			sorted = !sorted;
+		});
+
+
+		for (let i = 0; i < document.getElementsByClassName("selecto_0").length; i++) {
+			document.getElementsByClassName("selecto_0")[i].addEventListener("click", (evt) => {
+				switch (document.getElementById("ul_input").getAttribute("target_name")) {
+					case "Helicopter":
+						document.querySelector("html").style.setProperty("--show-heli", "table-row");
+						document.querySelector("html").style.setProperty("--show-tank", "none");
+						document.querySelector("html").style.setProperty("--show-aircraft", "none");
+						break;
+					case "Aircraft":
+						document.querySelector("html").style.setProperty("--show-aircraft", "table-row");
+						document.querySelector("html").style.setProperty("--show-heli", "none");
+						document.querySelector("html").style.setProperty("--show-tank", "none");
+						break;
+					case "Tank":
+						document.querySelector("html").style.setProperty("--show-tank", "table-row");
+						document.querySelector("html").style.setProperty("--show-heli", "none");
+						document.querySelector("html").style.setProperty("--show-aircraft", "none");
+						break;
+				}
+			});
+		}
+	}
+
 	// Misc functions --------------------------------------------------------------------------------------------------
 
 	function sleep(ms) {
@@ -154,7 +213,7 @@ async function main() {
 		}
 	}
 
-	function input_manager() {
+	function input_manager(placeholder) {
 		const inputField = document.querySelector(".chosen-value");
 		const dropdown = document.querySelector(".value-list");
 		const dropdownArray = [...document.querySelectorAll("li")];
@@ -221,7 +280,7 @@ async function main() {
 		});
 
 		inputField.addEventListener("blur", () => {
-			inputField.placeholder = "Select Missile";
+			inputField.placeholder = placeholder;
 			dropdown.classList.remove("open");
 		});
 
@@ -232,6 +291,54 @@ async function main() {
 				dropdown.classList.remove("open");
 			}
 		});
+	}
+
+	function sort_row(selector, ascending) {
+		let table = document.getElementById(selector);
+
+		let elems = [];
+
+		for (const numKey in table.childNodes) {
+			let element = table.getElementsByClassName(numKey).item(0);
+			if (element !== null) {
+				elems[numKey] = element;
+			}
+		}
+
+		let gen1 = [];
+		let gen2 = [];
+		let gen3 = [];
+		let heli = [];
+		let unknown = [];
+
+		for (let i = 0; i < elems.length; i++) {
+			let x = parseInt(elems[i].lastChild.innerHTML.split("x")[0]);
+
+			if (x === 500) {
+				gen1[gen1.length] = elems[i];
+			} else if (x === 800) {
+				gen2[gen2.length] = elems[i];
+			} else if (x === 1200) {
+				gen3[gen3.length] = elems[i];
+			} else if (x === 1024) {
+				heli[heli.length] = elems[i];
+			} else {
+				unknown[unknown.length] = elems[i];
+			}
+		}
+
+		table.innerHTML = "";
+
+		let total;
+		if (ascending) {
+			total = gen1.concat(gen2, heli, gen3, unknown);
+
+		} else {
+			total = gen3.concat(heli, gen2, gen1, unknown);
+		}
+		for (let i = 0; i < total.length; i++) {
+			table.appendChild(total[i]);
+		}
 	}
 }
 
