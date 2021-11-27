@@ -23,7 +23,9 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 		row.set_attribute("class", &format!("{} {:?}", &i, &THERMAL.1.vehicle_type)).unwrap();
 
 		let name = document.create_element("td").unwrap();
-		name.set_inner_html(&THERMAL.1.name.split(".").collect::<Vec<&str>>()[0]);
+
+		// Amends pre-name national tags
+		name.set_inner_html(&THERMAL.1.localized.replace(|c: char| !c.is_ascii(), ""));
 
 		row.append_child(&name)?;
 
