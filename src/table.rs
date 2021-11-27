@@ -55,7 +55,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 						cell.set_attribute("id", &missile.name)?;
 						let a = document.create_element("a")?;
 						a.set_attribute("href", &format!("https://github.com/FlareFlo/wt_datamine_extractor/blob/master/missile_index/missiles/{}.blkx", &missile.name))?;
-						a.set_inner_html(&missile.name);
+						a.set_inner_html(&missile.localized);
 						cell.append_child(&a)?;
 					} else if j == 1 {
 						cell.set_attribute("id", &format!("range_{}", &missile.name))?;
@@ -80,7 +80,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 						cell.set_attribute("id", &missile.name)?;
 						let a = document.create_element("a")?;
 						a.set_attribute("href", &format!(" https://github.com/FlareFlo/wt_missile_calc/blob/master/index/missiles/{}.blkx", &missile.name))?;
-						a.set_inner_html(&missile.name);
+						a.set_inner_html(&missile.localized);
 						let _res = cell.append_child(&a)?;
 					} else if j == 1 {
 						cell.set_attribute("id", &format!("range_{}", &missile.name))?;

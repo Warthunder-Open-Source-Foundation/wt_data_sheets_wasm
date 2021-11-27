@@ -29,7 +29,7 @@ pub fn make_missile_option_inputs(selector: &str, item: &str, class: Option<&str
 		if let Some(value) = class {
 			let _ = element.set_attribute("class", value);
 		}
-		element.set_text_content(Some(&missile.name));
+		element.set_text_content(Some(&missile.localized));
 		let _ = select.append_child(&element);
 	}
 }
