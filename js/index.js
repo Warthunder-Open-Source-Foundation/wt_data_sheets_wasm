@@ -146,6 +146,7 @@ async function main() {
 			.then(text => {
 				let oldelem = document.querySelector("script#select_0");
 				let newelem = document.createElement("div");
+				newelem.setAttribute("id", "div_input");
 				newelem.innerHTML = text;
 				oldelem.replaceWith(newelem, oldelem);
 			});

@@ -4,14 +4,21 @@ html {
 	--show-tank: table-row;
 }
 
-#table {
-	margin: 10px auto;
+p {
+	width: fit-content;
+	padding: 0;
+	margin: 0 auto;
+}
+
+#table, #div_input {
+	margin: 0;
 	width: fit-content;
 }
 
-#main {
-	margin-left: 20vw;
-	margin-right: 20vw;
+
+#main, #dropdown {
+	margin: 0 auto;
+	width: fit-content;
 }
 
 #column_1, #column_2 {
