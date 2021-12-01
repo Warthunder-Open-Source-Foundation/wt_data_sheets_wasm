@@ -25,7 +25,7 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 		let name = document.create_element("td").unwrap();
 
 		// Amends pre-name national tags
-		name.set_inner_html(&THERMAL.1.localized.replace(|c: char| !c.is_ascii(), ""));
+		name.set_inner_html(&THERMAL.1.localized);
 
 		row.append_child(&name)?;
 
