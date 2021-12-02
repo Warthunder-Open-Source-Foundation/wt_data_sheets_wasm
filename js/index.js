@@ -216,12 +216,13 @@ async function main() {
 	function input_manager(placeholder) {
 		const inputField = document.querySelector(".chosen-value");
 		const dropdown = document.querySelector(".value-list");
-		const dropdownArray = [...document.querySelectorAll("li")];
+		const dropdownArray = [...document.querySelectorAll("#ul_input > li")];
 		dropdown.classList.add("open");
 		let valueArray = [];
 		dropdownArray.forEach((item) => {
 			valueArray.push(item.textContent);
 		});
+		console.log(valueArray);
 
 		inputField.addEventListener("input", () => {
 			dropdown.classList.add("open");
