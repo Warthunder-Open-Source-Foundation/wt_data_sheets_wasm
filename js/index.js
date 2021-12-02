@@ -206,8 +206,8 @@ async function main() {
 		for (var i = 0; i < elems.length; ++i) {
 			if (!elems[i].className.includes("closed")) {
 				document.getElementById("ul_input").setAttribute("selected", i.toString());
-				document.getElementById("ul_input").setAttribute("target_name", elems[i].innerHTML);
-				document.getElementById("input_select").value = elems[i].innerHTML;
+				document.getElementById("ul_input").setAttribute("target_name", elems[i].getAttribute("id"));
+				document.getElementById("input_select").value = elems[i].getAttribute("id");
 				break;
 			}
 		}
@@ -252,7 +252,7 @@ async function main() {
 		dropdownArray.forEach((item) => {
 			item.addEventListener("click", (env) => {
 				document.getElementById("ul_input").setAttribute("selected", env.target.value);
-				document.getElementById("ul_input").setAttribute("target_name", env.target.innerHTML);
+				document.getElementById("ul_input").setAttribute("target_name", env.target.getAttribute("id"));
 				inputField.value = item.textContent;
 				dropdownArray.forEach((dropdown) => {
 					dropdown.classList.add("closed");
