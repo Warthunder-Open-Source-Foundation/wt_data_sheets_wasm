@@ -26,11 +26,10 @@ async function main() {
 		}
 
 		document.getElementById("reset_values").addEventListener("click", (ev) => {
-				document.getElementById("alt").value = "0";
-				document.getElementById("vel").value = "343";
-				rust.update_tables(0, 343);
-			}
-		);
+			document.getElementById("alt").value = "0";
+			document.getElementById("vel").value = "343";
+			rust.update_tables(0, 343);
+		});
 	}
 
 	if (url.includes("live_calc.html")) {
@@ -220,9 +219,8 @@ async function main() {
 		dropdown.classList.add("open");
 		let valueArray = [];
 		dropdownArray.forEach((item) => {
-			valueArray.push(item.textContent);
+			valueArray.push(item.id);
 		});
-		console.log(valueArray);
 
 		inputField.addEventListener("input", () => {
 			dropdown.classList.add("open");
@@ -233,11 +231,7 @@ async function main() {
 					let refference = valueArray[j]
 						.replace(valueArray[j].split("_")[0], '').replaceAll('_', '')
 						.substring(0, inputValue.length).toLowerCase();
-					if (
-						!(
-							input === refference
-						)
-					) {
+					if (!(input === refference)) {
 						dropdownArray[j].classList.add("closed");
 					} else {
 						dropdownArray[j].classList.remove("closed");
