@@ -69,18 +69,21 @@ pub fn generate_thermal_options() -> Result<(), JsValue> {
 	let elem = document.create_element("li")?;
 	elem.set_attribute("class", "selecto_0");
 	elem.set_attribute("value", "0");
+	elem.set_attribute("id", "Tank");
 	elem.set_inner_html("Tank");
 	ul.append_child(&elem);
 
 	let elem = document.create_element("li")?;
 	elem.set_attribute("class", "selecto_0");
 	elem.set_attribute("value", "1");
+	elem.set_attribute("id", "Helicopter");
 	elem.set_inner_html("Helicopter");
 	ul.append_child(&elem);
 
 	let elem = document.create_element("li")?;
 	elem.set_attribute("class", "selecto_0");
 	elem.set_attribute("value", "2");
+	elem.set_attribute("id", "Aircraft");
 	elem.set_inner_html("Aircraft");
 	ul.append_child(&elem);
 
