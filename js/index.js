@@ -26,11 +26,10 @@ async function main() {
 		}
 
 		document.getElementById("reset_values").addEventListener("click", (ev) => {
-				document.getElementById("alt").value = "0";
-				document.getElementById("vel").value = "343";
-				rust.update_tables(0, 343);
-			}
-		);
+			document.getElementById("alt").value = "0";
+			document.getElementById("vel").value = "343";
+			rust.update_tables(0, 343);
+		});
 	}
 
 	if (url.includes("live_calc.html")) {
@@ -158,7 +157,7 @@ async function main() {
 		input_manager("Select vehicle class");
 
 		document.getElementById("dropdown").addEventListener("submit", function () {
-			set_value_enter;
+			set_value_enter();
 		});
 
 		rust.generate_tank_list()
@@ -206,8 +205,8 @@ async function main() {
 		for (var i = 0; i < elems.length; ++i) {
 			if (!elems[i].className.includes("closed")) {
 				document.getElementById("ul_input").setAttribute("selected", i.toString());
-				document.getElementById("ul_input").setAttribute("target_name", elems[i].innerHTML);
-				document.getElementById("input_select").value = elems[i].innerHTML;
+				document.getElementById("ul_input").setAttribute("target_name", elems[i].getAttribute("id"));
+				document.getElementById("input_select").value = elems[i].getAttribute("id");
 				break;
 			}
 		}
@@ -216,11 +215,11 @@ async function main() {
 	function input_manager(placeholder) {
 		const inputField = document.querySelector(".chosen-value");
 		const dropdown = document.querySelector(".value-list");
-		const dropdownArray = [...document.querySelectorAll("li")];
+		const dropdownArray = [...document.querySelectorAll("#ul_input > li")];
 		dropdown.classList.add("open");
 		let valueArray = [];
 		dropdownArray.forEach((item) => {
-			valueArray.push(item.textContent);
+			valueArray.push(item.id);
 		});
 
 		inputField.addEventListener("input", () => {
@@ -232,11 +231,7 @@ async function main() {
 					let refference = valueArray[j]
 						.replace(valueArray[j].split("_")[0], '').replaceAll('_', '')
 						.substring(0, inputValue.length).toLowerCase();
-					if (
-						!(
-							input === refference
-						)
-					) {
+					if (!(input === refference)) {
 						dropdownArray[j].classList.add("closed");
 					} else {
 						dropdownArray[j].classList.remove("closed");
@@ -252,7 +247,7 @@ async function main() {
 		dropdownArray.forEach((item) => {
 			item.addEventListener("click", (env) => {
 				document.getElementById("ul_input").setAttribute("selected", env.target.value);
-				document.getElementById("ul_input").setAttribute("target_name", env.target.innerHTML);
+				document.getElementById("ul_input").setAttribute("target_name", env.target.getAttribute("id"));
 				inputField.value = item.textContent;
 				dropdownArray.forEach((dropdown) => {
 					dropdown.classList.add("closed");
