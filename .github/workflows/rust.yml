@@ -50,7 +50,7 @@ jobs:
     - name: Bundle + Build
       run: npm run build
 	  
-	 # Provides current date for following actions
+    # Provides current date for following actions
     - name: Set current date as env variable
       run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       
@@ -65,7 +65,7 @@ jobs:
     - name: GH Release
       uses: softprops/action-gh-release@v0.1.14
       with:
-      		# Note-worthy description of changes in release
+      	    # Note-worthy description of changes in release
             body: $NOW
             # Path to load note-worthy description of changes in release from
             # body_path: 
