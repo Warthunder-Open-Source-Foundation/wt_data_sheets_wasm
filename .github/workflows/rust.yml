@@ -70,7 +70,7 @@ jobs:
 #           # Identify the release as a prerelease. Defaults to false
 #           prerelease: false
 #           # Newline-delimited list of path globs for asset files to upload
-#           files: dist.zip
+            files: dist.zip
 #           # Fails if any of the `files` globs match nothing. Defaults to false
 #           # fail_on_unmatched_files: # optional
 #           # Repository to make releases against, in <owner>/<repo> format
