@@ -22,16 +22,22 @@ jobs:
     
     # Prepares rustup for wasm compiler
     - uses: actions/checkout@v2
+      with:
+        clean: false
     - name: Add wasm-target
       run: rustup target add wasm32-unknown-unknown
       
     # Pulls in git dependencies
     - uses: actions/checkout@v2
+      with:
+        clean: false
     - name: Pull git depends
       run : git submodule update --init --recursive
       
     # Builds wasm setup
     - uses: actions/checkout@v2
+      with:
+        clean: false
     - name: Build
       run : cargo build --target wasm32-unknown-unknown
       
