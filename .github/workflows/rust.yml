@@ -1,0 +1,28 @@
+name: Rust
+
+on:
+  push:
+    branches: [ master, nightly ]
+  pull_request:
+    branches: [ master, nightly ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Add wasm-target
+      run: rustup target add wasm32-unknown-unknown
+      
+    - uses: actions/checkout@v2
+    - name: Pull git depends
+      run : git submodule update --init --recursive
+      
+    - uses: actions/checkout@v2
+    - name: Build
+      run : cargo build --target wasm32-unknown-unknown
