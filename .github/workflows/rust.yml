@@ -13,16 +13,39 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x]
 
     steps:
-    - uses: actions/checkout@v2
+    
+    # Prepares rustup for wasm compiler
     - name: Add wasm-target
       run: rustup target add wasm32-unknown-unknown
       
+    # Pulls in git dependencies
     - uses: actions/checkout@v2
     - name: Pull git depends
       run : git submodule update --init --recursive
       
-    - uses: actions/checkout@v2
+    # Builds wasm setup
     - name: Build
-      run : cargo build --target wasm32-unknown-unknown
+      run : cargo build --release --target wasm32-unknown-unknown
+      
+    # Prepares node js
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        
+    # Loads NPM modules for webpack
+    - name: Install NPM depends
+      run : npm install
+
+    # Finishes bundle
+    - uses: actions/checkout@v2
+      with:
+          clean: false
+    - name: Bundle + Build
+      run: npm run build
