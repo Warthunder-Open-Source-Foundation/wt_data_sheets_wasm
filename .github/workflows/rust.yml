@@ -44,12 +44,9 @@ jobs:
       run : npm install
 
     # Finishes bundle
-    - uses: actions/checkout@v2
-      with:
-          clean: false
     - name: Bundle + Build
       run: npm run build
-	  
+      
     # Provides current date for following actions
     - name: Set current date as env variable
       run: echo "NOW::$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
