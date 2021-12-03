@@ -48,7 +48,7 @@ jobs:
       run: npm run build
       
     # Bundles release to zip
-    - name: Easy Zip Files
+    - name: Zip release
       uses: vimtor/action-zip@v1
       with:
           files: dist/
