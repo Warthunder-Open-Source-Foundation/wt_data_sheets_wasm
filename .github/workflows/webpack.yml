@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
     
     steps:
     - uses: actions/checkout@v2
@@ -24,6 +24,6 @@ jobs:
 
     - name: Build
       run: |
-        git submodule update --recursive --remote
+        git submodule update --init --recursive
         npm install
         npm run build
