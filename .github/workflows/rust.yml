@@ -13,28 +13,39 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16.x]
 
     steps:
+    
+    # Prepares rustup for wasm compiler
     - uses: actions/checkout@v2
     - name: Add wasm-target
       run: rustup target add wasm32-unknown-unknown
       
+    # Pulls in git dependencies
     - uses: actions/checkout@v2
     - name: Pull git depends
       run : git submodule update --init --recursive
       
+    # Builds wasm setup
     - uses: actions/checkout@v2
     - name: Build
       run : cargo build --target wasm32-unknown-unknown
       
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2.2.4
+    # Prepares node js
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
       with:
-         # Artifact name
-         name: target # optional, default is artifact
-         # A file, directory or wildcard pattern that describes what to upload
-         path: target
-          # The desired behavior if no files are found using the provided path.
-         if-no-files-found: error
-         # Duration after which artifact will expire in days. 0 means using default retention.
-         retention-days: 1
+        node-version: ${{ matrix.node-version }}
+        
+    # Loads NPM modules for webpack
+    - name: Install NPM depends
+      run : npm install
+
+    # Finishes bundle
+    - name: Bundle + Build
+      run: npm run build
