@@ -57,7 +57,7 @@ jobs:
       run: |
         git config --local user.email "78537307+FlareFlo@users.noreply.github.com"
         git config --local user.name "FlareFlo"
-        git add *
+        git add dist
         git commit -m "Dist - action"
     - name: Push changes
       uses: ad-m/github-push-action@master
