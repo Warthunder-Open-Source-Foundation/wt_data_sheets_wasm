@@ -24,5 +24,6 @@ jobs:
 
     - name: Build
       run: |
+        git submodule update --recursive --remote
         npm install
         npm run build
