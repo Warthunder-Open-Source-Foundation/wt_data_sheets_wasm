@@ -1,6 +1,17 @@
 Custom scripts for updating modules:
 ```sh
-cargo clean; cargo update; git submodule update --remote
+cargo
+clean;
+cargo
+update;
+git
+submodule
+update
+--remote;
+git
+pull;
+cargo
+check
 ```
 
 ## How to install
