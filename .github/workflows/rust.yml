@@ -25,6 +25,7 @@ jobs:
       run: rustup target add wasm32-unknown-unknown
       
     # Pulls in git dependencies
+    - uses: actions/checkout@v2
     - name: Pull git depends
       run : git submodule update --init --recursive
       
@@ -44,5 +45,7 @@ jobs:
 
     # Finishes bundle
     - uses: actions/checkout@v2
+      with:
+          clean: false
     - name: Bundle + Build
       run: npm run build
