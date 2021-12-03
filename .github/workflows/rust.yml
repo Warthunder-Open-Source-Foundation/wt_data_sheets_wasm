@@ -21,6 +21,10 @@ jobs:
 
     steps:
     
+    # Defines SHA env   
+    - name: Set SHA key
+      run: echo "SHA=`echo ${GITHUB_SHA}`" >> $GITHUB_ENV
+    
     # Prepares rustup for wasm compiler
     - name: Add wasm-target
       run: rustup target add wasm32-unknown-unknown
@@ -59,13 +63,13 @@ jobs:
     - name: GH Release
       uses: softprops/action-gh-release@v0.1.14
       with:
-          body: ${{ env.GITHUB_SHA }}
+          body: ${ SHA }
           # Path to load note-worthy description of changes in release from
           # body_path: 
           # Gives the release a custom name. Defaults to tag name
           # name: # optional
           # Gives a tag name. Defaults to github.GITHUB_REF
-          tag_name: ${{ env.GITHUB_SHA }}
+          tag_name: ${ SHA }
           # Creates a draft release. Defaults to false
           draft: false
           # Identify the release as a prerelease. Defaults to false
