@@ -46,6 +46,9 @@ js-sys = "0.3.*"
 
 reqwest-wasm = "0.11.*"
 
+strum_macros = "0.23.*"
+strum = "0.23.*"
+
 #tokio = { version = "1", features = ["full"] }
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
@@ -56,7 +59,7 @@ wee_alloc = { version = "0.4.*", optional = true }
 # The `web-sys` crate allows you to interact with the various browser APIs,
 # like the DOM.
 [dependencies.web-sys]
-version = "0.3.*"
+version = "0.3.36"
 features = ["console", "Window", "Document", "Element", "HtmlElement", "Node", "HtmlCollection", "HtmlButtonElement"]
 
 # The `console_error_panic_hook` crate provides better debugging of panics by

@@ -193,7 +193,14 @@ async function main() {
 	}
 
 	if (url.includes("shell_index.html")) {
+		rust = await import ("../pkg/index.js").catch(console.error);
 
+		rust.make_shell_options();
+
+		document.getElementById("select_ammo_type").addEventListener("input", function () {
+			document.getElementById("tbody").innerHTML = "";
+			rust.make_rows_from_shell(document.getElementById("select_ammo_type").value);
+		})
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------
