@@ -47,20 +47,20 @@ jobs:
     - name: Bundle + Build
       run: npm run build
       
-    - uses: actions/checkout@v2
-      with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-        clean: false
- 
-    - name: Commit files
-      run: |
-        git config --local user.email "78537307+FlareFlo@users.noreply.github.com"
-        git config --local user.name "FlareFlo"
-        git add dist
-        git commit -m "Dist - action"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+#    - uses: actions/checkout@v2
+#      with:
+#        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+#        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+#        clean: false
+#
+#    - name: Commit files
+#      run: |
+#        git config --local user.email "78537307+FlareFlo@users.noreply.github.com"
+#        git config --local user.name "FlareFlo"
+#        git add dist
+#        git commit -m "Dist - action"
+#    - name: Push changes
+#      uses: ad-m/github-push-action@master
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        branch: ${{ github.ref }}
