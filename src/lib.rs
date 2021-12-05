@@ -11,6 +11,7 @@ pub mod util;
 pub mod live_calc;
 pub mod comparison;
 pub mod thermal_index;
+pub mod shell_index;
 
 lazy_static! {
 	static ref MISSILES: Vec<Missile> = {

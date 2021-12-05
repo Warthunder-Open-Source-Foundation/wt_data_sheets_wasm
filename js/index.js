@@ -192,6 +192,10 @@ async function main() {
 		}
 	}
 
+	if (url.includes("shell_index.html")) {
+
+	}
+
 	// Misc functions --------------------------------------------------------------------------------------------------
 
 	function sleep(ms) {
