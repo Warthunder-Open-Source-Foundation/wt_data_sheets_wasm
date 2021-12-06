@@ -29,7 +29,11 @@ pub fn make_rows_from_shell(selected: &str) -> Result<(), JsValue> {
 			let name_cell_filled = name_cell.set_inner_html(&format!("{}", &SHELL.localized));
 
 			let caliber_cell = document.create_element("td").unwrap();
-			let caliber_cell_filled = caliber_cell.set_inner_html(&SHELL.caliber.to_string());
+			if &SHELL.caliber != &SHELL.true_caliber {
+				let caliber_cell_filled = caliber_cell.set_inner_html(&format!("{} ({})", &SHELL.caliber, &SHELL.true_caliber));
+			} else {
+				let caliber_cell_filled = caliber_cell.set_inner_html(&SHELL.caliber.to_string());
+			}
 
 			let velocity_cell = document.create_element("td").unwrap();
 			let velocity_cell_filled = velocity_cell.set_inner_html(&SHELL.velocity.to_string());
