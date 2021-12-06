@@ -59,4 +59,4 @@ jobs:
       run: npm run build
       
     - name: Deploy with rsync
-      run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/nightly_flo_wt_calc
+      run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/nightly_flo_wt_calc/dist
