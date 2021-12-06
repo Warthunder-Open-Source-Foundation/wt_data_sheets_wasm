@@ -2,14 +2,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Thermal sheet</title>
+	<title>Shell index</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<link href="thermal_index.css" rel="stylesheet">
 	<link href="styles.css" rel="stylesheet">
+	<link href="shell_index.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 	<script id="script" src="index.js" type="module"></script>
 
-	<meta content="A complete table of all thermal sights"
+	<meta content="A complete table of all shells"
 		  property="og:title"/>
 
 	<meta content="Directly collected from datamined files"
@@ -21,7 +21,7 @@
 	<meta content="website"
 		  property="og:type"/>
 
-	<meta content="http://wt.flareflo.dev/thermal_index.html"
+	<meta content="http://wt.flareflo.dev/shell_index.html"
 		  property="og:url"/>
 
 	<!--	<meta content="" -->
@@ -42,18 +42,29 @@
 		})
 </script>
 <div id="main">
-	<script id="select_0"></script>
-	<p>Resolution in pixels</p>
-	<table class="ir_table" id="table">
+	<p>Warning: This is still in BETA and may not function as expected</p>
+	<select id="select_ammo_type"></select>
+	<table class="ir_table">
 		<thead>
-		<tr>
-			<td id="column_0">Name</td>
-			<td id="column_1">Placeholder</td>
-			<td id="column_2">Placeholder</td>
+		<tr class="top-tr" id="ir_index">
+			<td>
+				Name
+			</td>
+			<td>
+				Caliber (true caliber)
+			</td>
+			<td>
+				Velocity
+			</td>
+			<td>
+				penetration
+			</td>
+			<td>
+				explosive
+			</td>
 		</tr>
 		</thead>
-		<tbody id="table_contents">
-
+		<tbody id="tbody">
 		</tbody>
 	</table>
 </div>

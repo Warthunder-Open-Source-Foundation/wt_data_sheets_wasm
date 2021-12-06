@@ -2,6 +2,7 @@ use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::missile::missile::Missile;
+use wt_datamine_extractor_lib::shell::shells::Shell;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 
 use crate::util::make_missile_option_inputs;
@@ -11,6 +12,7 @@ pub mod util;
 pub mod live_calc;
 pub mod comparison;
 pub mod thermal_index;
+pub mod shell_index;
 
 lazy_static! {
 	static ref MISSILES: Vec<Missile> = {
@@ -26,6 +28,13 @@ lazy_static! {
 		thermals.sort_by_key(|d| d.name.clone());
 
 		thermals
+	};
+	static ref SHELLS: Vec<Shell> = {
+		let json = include_str!("../wt_datamine_extractor/shell_index/all.json");
+		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
+		shells.sort_by_key(|d| d.name.clone());
+
+		shells
 	};
 }
 

@@ -4,7 +4,7 @@ async function main() {
 
 	let url = window.location.href.split("/").at(-1);
 
-	if (url.includes("nightly")) {
+	if (window.location.href.includes("nightly")) {
 		console.info("ENABLING NIGHTLY MODE")
 		document.querySelector("html").style.setProperty("--background-image-red", "linear-gradient(120deg, #8d8d8d, #343434)");
 		document.querySelector("html").style.setProperty("--color-background", "url(metafiles/WIP.png)");
@@ -190,6 +190,17 @@ async function main() {
 				}
 			});
 		}
+	}
+
+	if (url.includes("shell_index.html")) {
+		rust = await import ("../pkg/index.js").catch(console.error);
+
+		rust.make_shell_options();
+
+		document.getElementById("select_ammo_type").addEventListener("input", function () {
+			document.getElementById("tbody").innerHTML = "";
+			rust.make_rows_from_shell(document.getElementById("select_ammo_type").value);
+		})
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------

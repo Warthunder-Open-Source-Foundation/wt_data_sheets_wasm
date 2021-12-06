@@ -2,13 +2,13 @@ name: Rust
 
 on:
   push:
-    branches: [ master, nightly ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, nightly ]
+    branches: [ master ]
 
 env:
   CARGO_TERM_COLOR: always
-
+  
 jobs:
   build:
 
@@ -19,6 +19,17 @@ jobs:
         node-version: [16.x]
 
     steps:
+    
+    # Setting up SSH key
+    - name: Get SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_CAVE }} 
+        known_hosts: 'placeholder'
+        
+    # Adding hosts for CD
+    - name: Adding Known Hosts
+      run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
     
     # Prepares rustup for wasm compiler
     - name: Add wasm-target
@@ -44,8 +55,8 @@ jobs:
       run : npm install
 
     # Finishes bundle
-    - uses: actions/checkout@v2
-      with:
-          clean: false
     - name: Bundle + Build
       run: npm run build
+      
+    - name: Deploy with rsync
+      run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/flo_wt_calc/dist
