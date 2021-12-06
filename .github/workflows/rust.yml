@@ -20,6 +20,17 @@ jobs:
 
     steps:
     
+    # Setting up SSH key
+    - name: Get SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_CAVE }} 
+        known_hosts: 'placeholder'
+        
+    # Adding hosts for rsync
+    - name: Adding Known Hosts
+      run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
+    
     # Prepares rustup for wasm compiler
     - name: Add wasm-target
       run: rustup target add wasm32-unknown-unknown
@@ -46,15 +57,6 @@ jobs:
     # Finishes bundle
     - name: Bundle + Build
       run: npm run build
-      
-    - name: Get SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_CAVE }} 
-        known_hosts: 'placeholder'
-        
-    - name: Adding Known Hosts
-      run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
       
     - name: Deploy with rsync
       run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/nightly_flo_wt_calc
