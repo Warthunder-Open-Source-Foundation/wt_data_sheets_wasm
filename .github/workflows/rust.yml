@@ -27,7 +27,7 @@ jobs:
         key: ${{ secrets.SSH_CAVE }} 
         known_hosts: 'placeholder'
         
-    # Adding hosts for rsync
+    # Adding hosts for CD
     - name: Adding Known Hosts
       run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
     
