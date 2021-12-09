@@ -163,7 +163,7 @@ async function main() {
 
 		let sorted = false;
 		document.getElementById("column_1").addEventListener("click", function () {
-			sort_row("table_contents", sorted);
+			sort_row_thermals("table_contents", sorted);
 			sorted = !sorted;
 		});
 
@@ -199,6 +199,17 @@ async function main() {
 			document.getElementById("tbody").innerHTML = "";
 			rust.make_rows_from_shell(document.getElementById("select_ammo_type").value);
 		})
+
+		for (const element of document.getElementsByClassName("sortable_str")) {
+			element.addEventListener("click", event => {
+				sort_universal_string(event)
+			})
+		}
+		for (const element of document.getElementsByClassName("sortable_n")) {
+			element.addEventListener("click", event => {
+				sort_universal_number(event)
+			})
+		}
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------
@@ -297,7 +308,7 @@ async function main() {
 		});
 	}
 
-	function sort_row(selector, ascending) {
+	function sort_row_thermals(selector, ascending) {
 		let table = document.getElementById(selector);
 
 		let elems = [];
@@ -342,6 +353,88 @@ async function main() {
 		}
 		for (let i = 0; i < total.length; i++) {
 			table.appendChild(total[i]);
+		}
+	}
+
+	function sort_universal_string(event) {
+		if (event.target.getAttribute("class") !== "sortable_str") {
+			return;
+		}
+		let n = event.target.cellIndex;
+		let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+		table = document.getElementById("tbody");
+		switching = true;
+		dir = "asc";
+		while (switching) {
+			switching = false;
+			rows = table.rows;
+			for (i = 0; i < (rows.length - 1); i++) {
+				shouldSwitch = false;
+				x = rows[i].getElementsByTagName("TD")[n];
+				y = rows[i + 1].getElementsByTagName("TD")[n];
+				if (dir === "asc") {
+					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						shouldSwitch = true;
+						break;
+					}
+				} else if (dir === "desc") {
+					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			if (shouldSwitch) {
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+				switchcount ++;
+			} else {
+				if (switchcount === 0 && dir === "asc") {
+					dir = "desc";
+					switching = true;
+				}
+			}
+		}
+	}
+
+	function sort_universal_number(event) {
+		if (event.target.getAttribute("class") !== "sortable_n") {
+			return;
+		}
+		let n = event.target.cellIndex;
+		let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+		table = document.getElementById("tbody");
+		switching = true;
+		dir = "asc";
+		while (switching) {
+			switching = false;
+			rows = table.rows;
+			for (i = 0; i < (rows.length - 1); i++) {
+				shouldSwitch = false;
+				x = rows[i].getElementsByTagName("TD")[n];
+				y = rows[i + 1].getElementsByTagName("TD")[n];
+				if (dir === "asc") {
+					if (Number(x.innerHTML) > Number(y.innerHTML)) {
+						shouldSwitch = true;
+						break;
+					}
+				} else if (dir === "desc") {
+					if (Number(x.innerHTML) < Number(y.innerHTML)) {
+						shouldSwitch = true;
+						break;
+					}
+				}
+			}
+			if (shouldSwitch) {
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+				switchcount ++;
+			} else {
+				if (switchcount === 0 && dir === "asc") {
+					dir = "desc";
+					switching = true;
+				}
+			}
 		}
 	}
 }
