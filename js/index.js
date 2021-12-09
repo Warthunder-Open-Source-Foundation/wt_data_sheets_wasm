@@ -1,6 +1,9 @@
 async function main() {
 
-	let rust;
+	let rust; // Yes its a weird assignment but the IDE likes it this way
+	rust = await import ("../pkg/index.js").catch(console.error);
+
+	rust.make_footer_data();
 
 	let url = window.location.href.split("/").at(-1);
 
@@ -12,7 +15,6 @@ async function main() {
 
 	// Custom section for each page to make sure it runs properly
 	if (url.includes("table.html")) {
-		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.generate_main_tables();
 
 		document.getElementById("vel").addEventListener("input", update);
@@ -42,7 +44,6 @@ async function main() {
 				oldelem.replaceWith(newelem, oldelem);
 			});
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
-		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.run_compare();
 		input_manager("Select missile");
 		while (true) {
@@ -74,7 +75,6 @@ async function main() {
 				oldelem.replaceWith(newelem, oldelem);
 			});
 
-		rust = await import ("../pkg/index.js").catch(console.error);
 		rust.run_compare(); // Creates input field options
 
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
@@ -150,7 +150,6 @@ async function main() {
 				oldelem.replaceWith(newelem, oldelem);
 			});
 
-		rust = await import ("../pkg/index.js").catch(console.error);
 
 		rust.generate_thermal_options();
 
@@ -193,7 +192,6 @@ async function main() {
 	}
 
 	if (url.includes("shell_index.html")) {
-		rust = await import ("../pkg/index.js").catch(console.error);
 
 		rust.make_shell_options();
 
