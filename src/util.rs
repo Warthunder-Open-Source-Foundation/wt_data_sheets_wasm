@@ -128,6 +128,7 @@ pub fn make_row_blank(len: u32) -> Vec<String> {
 #[wasm_bindgen]
 pub fn make_footer_data() {
 	let document = get_document();
-	let ver = document.get_element_by_id("game_ver").unwrap();
-	ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
+	if let Some(ver) = document.get_element_by_id("game_ver") {
+		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
+	}
 }
