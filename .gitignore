@@ -3,6 +3,7 @@ node_modules
 /wasm-pack.log
 
 pkg
+dist
 
 Cargo.lock
 package-lock.json

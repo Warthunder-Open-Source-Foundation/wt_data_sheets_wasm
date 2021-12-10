@@ -139,6 +139,10 @@ table tr:nth-child(odd) {
 	background-image: var(--background-image-red);
 }
 
+.sortable_n, .sortable_str {
+	cursor: pointer;
+}
+
 #ir_index, #rd_index {
 	background-image: var(--background-image-red);
 	animation: rainbow_animation 10s ease-out infinite;

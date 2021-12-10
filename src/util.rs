@@ -5,7 +5,7 @@ use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 use wt_datamine_extractor_lib::missile::missile::Missile;
 
-use crate::MISSILES;
+use crate::{GAME_VER, MISSILES};
 
 #[wasm_bindgen]
 pub fn console_log(message: &str) {
@@ -123,4 +123,12 @@ pub fn make_row_blank(len: u32) -> Vec<String> {
 		arr.push( "-".to_string());
 	}
 	arr
+}
+
+#[wasm_bindgen]
+pub fn make_footer_data() {
+	let document = get_document();
+	if let Some(ver) = document.get_element_by_id("game_ver") {
+		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
+	}
 }

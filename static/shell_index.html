@@ -47,19 +47,19 @@
 	<table class="ir_table">
 		<thead>
 		<tr class="top-tr" id="ir_index">
-			<td>
+			<td class="sortable_str">
 				Name
 			</td>
-			<td>
+			<td class="sortable_n">
 				Caliber (true caliber)
 			</td>
-			<td>
+			<td class="sortable_n">
 				Velocity
 			</td>
-			<td>
+			<td class="sortable_n">
 				penetration
 			</td>
-			<td>
+			<td class="sortable_n">
 				explosive
 			</td>
 		</tr>
@@ -68,5 +68,15 @@
 		</tbody>
 	</table>
 </div>
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
 </body>
 </html>

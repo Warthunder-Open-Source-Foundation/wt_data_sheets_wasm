@@ -71,11 +71,7 @@
 			</td>
 			<td>
 				<ul>
-					<li>Rb71</li>
-					<li>Aim-7E-2</li>
-					<li>Skyflash-DF</li>
-					<li>R-24R</li>
-					<li>Aim-7E</li>
+					<li>Aim-7F</li>
 				</ul>
 			</td>
 			<td>
@@ -91,8 +87,8 @@
 			<td>
 				<ul>
 					<li>Aim-9J/P</li>
-					<li> PL-5B</li>
-					<li> Rb24J</li>
+					<li>PL-5B</li>
+					<li>Rb24J</li>
 					<li>R-23T</li>
 					<li>Aim-9G/D</li>
 					<li>R-13M</li>
@@ -100,8 +96,11 @@
 			</td>
 			<td>
 				<ul>
-					<li>Aim-9C</li>
-					<li>R-23R</li>
+					<li>Rb71</li>
+					<li>Aim-7E-2</li>
+					<li>Skyflash-DF</li>
+					<li>R-24R</li>
+					<li>Aim-7E</li>
 				</ul>
 			</td>
 			<td>
@@ -123,6 +122,8 @@
 			</td>
 			<td>
 				<ul>
+					<li>Aim-9C</li>
+					<li>R-23R</li>
 					<li>Aim-7D</li>
 					<li>Skyflash</li>
 					<li>R530</li>
@@ -202,5 +203,15 @@
 		</tbody>
 	</table>
 </div>
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
 </body>
 </html>
