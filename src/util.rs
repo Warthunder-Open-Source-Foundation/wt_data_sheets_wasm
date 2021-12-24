@@ -43,17 +43,26 @@ pub fn get_document() -> Document {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
+pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 18] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);
 
 	let range = results.distance_flown.round();
 
+	let mut time_to_2km: f64 = 0.0;
+	for i in results.profile.d.iter().enumerate() {
+		if *i.1 >= 2000.0 {
+			time_to_2km = i.0 as f64 * results.timestep;
+			break;
+		}
+	}
+
 	[
 		m.name.to_string(),
 		range.to_string(),
 		m.endspeed.to_string(),
+		format!("{:.1}", time_to_2km),
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
 		m.reqaccelmax.to_string(),
@@ -72,11 +81,12 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_params() -> [String; 17] {
+pub fn make_row_params() -> [String; 18] {
 	[
 		"name".to_string(),
 		"range".to_string(),
 		"Max Speed".to_string(),
+		"Time to 2km".to_string(),
 		"DeltaV".to_string(),
 		"LaunchG".to_string(),
 		"FlightG".to_string(),
@@ -95,15 +105,23 @@ pub fn make_row_params() -> [String; 17] {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
+pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 12] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);
 
-	let range = results.distance_flown.round();
+	let mut time_to_2km: f64 = 0.0;
+	for i in results.profile.d.iter().enumerate() {
+		if *i.1 >= 2000.0 {
+			time_to_2km = i.0 as f64 * results.timestep;
+			break;
+		}
+	}
+
 	[
 		m.name.to_string(),
-		range.to_string(),
+		results.distance_flown.round().to_string(),
+		format!("{:.1}", time_to_2km),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
