@@ -5,7 +5,7 @@ use wt_datamine_extractor_lib::missile::missile::Missile;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 
-use crate::util::{get_document, make_missile_option_inputs};
+use crate::util::{console_log, get_document, make_missile_option_inputs};
 
 pub mod table;
 pub mod util;
@@ -65,5 +65,8 @@ pub fn make_footer_data() {
 	let document = get_document();
 	if let Some(ver) = document.get_element_by_id("game_ver") {
 		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
+		console_log(&format!("Game version set to {}", GAME_VER));
+	} else {
+		console_log(&format!("Cant display game version {}", GAME_VER));
 	}
 }

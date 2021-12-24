@@ -5,6 +5,7 @@
 	<title>Documentation</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
+	<link href="documentation.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
 	<meta content="The documentation on all values provided"
@@ -27,6 +28,7 @@
 	<!--	-->
 	<meta content="#6e10d2"
 		  name="theme-color">
+	<script src="index.js"></script>
 </head>
 <body>
 <script id="replace_with_navbar">
@@ -39,123 +41,165 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<table class="ir_table">
-	<thead>
-	<tr class="top-tr" id="ir_index">
-		<td>Name</td>
-		<td>Description</td>
-		<td>Unit<br></td>
-		<td>better:<br>
-			▲higher<br>
-			▼lower<br>
-		</td>
-	</tr>
-	<tr id="name">
-		<td>Name</td>
-		<td>Name used for internal files</td>
-		<td>-</td>
-		<td>-</td>
-	</tr>
-	<tr class="bright-tr" id="range">
-		<td>Range</td>
-		<td><a href="https://github.com/FlareFlo/wt_ballistics_calc/blob/master/src/lib/runner.rs">Simulated</a> range
-			the missile will reach flying in a straight line with given altitude and launch velocity
-		</td>
-		<td>m</td>
-		<td>▲</td>
-	</tr>
-	<tr id="maxspeed">
-		<td>MaxSpeed</td>
-		<td>Hard limit for the missiles velocity</td>
-		<td>m/s</td>
-		<td>▲</td>
-	</tr>
-	<tr class="bright-tr" id="deltav">
-		<td>DeltaV</td>
-		<td>Theoretical maximum acceleration excluding air resistance</td>
-		<td>m/s²</td>
-		<td>▲</td>
-	</tr>
-	<tr id="launchg">
-		<td>LaunchG</td>
-		<td>Maximum G load the carrier aircraft may experience at launch</td>
-		<td>g = 9.81m/s²</td>
-		<td>▲</td>
-	</tr>
-	<tr class="bright-tr" id="flightg">
-		<td>FlightG</td>
-		<td>Mid-flight peak G load the missile may accelerate with</td>
-		<td>g = 9.81m/s²</td>
-		<td>▲</td>
-	</tr>
-	<tr id="rearaspect">
-		<td>Rear aspect</td>
-		<td>Distance the missiles IR seeker can track an aircraft exhaust</td>
-		<td>m</td>
-		<td>▲</td>
-	</tr>
-	<tr class="bright-tr" id="allaspect">
-		<td>All aspect</td>
-		<td>Distance the missiles IR seeker can track an aircraft signature</td>
-		<td>m</td>
-		<td>▲</td>
-	</tr>
-	<tr id="irdecoys">
-		<td>IR decoys</td>
-		<td>Visible distance to infrared countermeasures such as flares</td>
-		<td>m</td>
-		<td>▼</td>
-	</tr>
-	<tr class="bright-tr" id="ircm">
-		<td><a href="https://wiki.warthunder.com/Category:Helicopters_with_IRCM">IRCM</a></td>
-		<td>The visible distance to IRCM</td>
-		<td>m</td>
-		<td>▼</td>
-	</tr>
-	<tr id="fov">
-		<td>FOV</td>
-		<td>FOV from the main seeker</td>
-		<td>deg</td>
-		<td>▼</td>
-	</tr>
-	<tr class="bright-tr" id="gate">
-		<td>Gate</td>
-		<td>Field of view the seeker gains after lock</td>
-		<td>deg</td>
-		<td>▼</td>
-	</tr>
-	<tr id="launchfov">
-		<td>LaunchFov</td>
-		<td>Maximum distance from the bore to the seekers gimbal before launch</td>
-		<td>deg</td>
-		<td>▲</td>
-	</tr>
-	<tr class="bright-tr" id="flightfov">
-		<td>FlightFov</td>
-		<td>Maximum distance from the bore to the seekers gimbal after launch</td>
-		<td>deg</td>
-		<td>▲</td>
-	</tr>
-	<tr id="warmuptime">
-		<td>WarmUpTime</td>
-		<td>Time required to ready the seeker</td>
-		<td>s</td>
-		<td>▼</td>
-	</tr>
-	<tr class="bright-tr" id="worktime">
-		<td>WorkTime</td>
-		<td>Time the seeker is active</td>
-		<td>s</td>
-		<td>▲</td>
-	</tr>
-	<tr id="uncage">
-		<td>Uncage</td>
-		<td>Weather or not the seeker can gimbal off bore before launch</td>
-		<td>bool</td>
-		<td>▲</td>
-	</tr>
-	</thead>
-</table>
+
+<div class="documentation">
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script async id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+	<p>The following values are required for computing the ballistics analysis:</p>
+
+	<ul>
+		<li>Mass \(m\) in kg</li>
+		<li>Caliber/Diameter \(d\) in m</li>
+		<li>Thrust force per given engine stage \(F_E\) in N</li>
+		<li>Drag coefficient \(C_d\)</li>
+		<li>Rho liquid consonant \(p\) as determined by the altitude formula</li>
+		<li>Velocity \(V\) in m/s</li>
+		<li>altitude \(D_h\) in m</li>
+	</ul>
+
+	<p>Value \(p\) is estimated by following approximation</p>
+	<p>\( 3.0099 - 0.868106 \log_{e}(0.0014659D_h + 7.88959) \)</p>
+
+	<br>
+
+	<p>Drag for any given velocity is determined by this formula</p>
+	<p>\( F_D\ = C_d * \frac{ p * V^{2} }{2} * d * \pi \)</p>
+
+	<br>
+
+	<p>The final distance per flight section achieved \( \Delta d \) is determined through the sum of integrals for each engine-phase.</p>
+	<p>The constraints \(a\) and \(b\) represent the phase of flight in seconds, where \( x = V \) and \( a > t(F_E) > b \).</p>
+	<p>Each flight section \(a\) to \(b\) is determined by the total engine stages + 1 (terminal phase where \( F_E = 0 \)).</p>
+	<p>\( \Delta d = \int_a^b \,dx = \frac{F_E - F_D}{m} \)</p>
+
+	<br>
+
+	The entire implementation of the formulas can be found <a
+		href="https://github.com/FlareFlo/wt_ballistics_calc" target="_blank" rel="noreferrer noopener">here</a>.
+
+</div>
+
+<div class="documentation">
+
+	<table class="ir_table">
+		<thead>
+		<tr class="top-tr" id="ir_index">
+			<td>Name</td>
+			<td>Description</td>
+			<td>Unit<br></td>
+			<td>better:<br>
+				▲higher<br>
+				▼lower<br>
+			</td>
+		</tr>
+		<tr id="name">
+			<td>Name</td>
+			<td>Name used for internal files</td>
+			<td>-</td>
+			<td>-</td>
+		</tr>
+		<tr class="bright-tr" id="range">
+			<td>Range</td>
+			<td>Simulated range the missile will reach determined by the formulas above
+			</td>
+			<td>m</td>
+			<td>▲</td>
+		</tr>
+		<tr id="maxspeed">
+			<td>MaxSpeed</td>
+			<td>Hard limit for the missiles velocity</td>
+			<td>m/s</td>
+			<td>▲</td>
+		</tr>
+		<tr class="bright-tr" id="deltav">
+			<td>DeltaV</td>
+			<td>Theoretical maximum acceleration excluding air resistance</td>
+			<td>m/s²</td>
+			<td>▲</td>
+		</tr>
+		<tr id="launchg">
+			<td>LaunchG</td>
+			<td>Maximum G load the carrier aircraft may experience at launch</td>
+			<td>g = 9.81m/s²</td>
+			<td>▲</td>
+		</tr>
+		<tr class="bright-tr" id="flightg">
+			<td>FlightG</td>
+			<td>Mid-flight peak G load the missile may accelerate with</td>
+			<td>g = 9.81m/s²</td>
+			<td>▲</td>
+		</tr>
+		<tr id="rearaspect">
+			<td>Rear aspect</td>
+			<td>Distance the missiles IR seeker can track an aircraft exhaust</td>
+			<td>m</td>
+			<td>▲</td>
+		</tr>
+		<tr class="bright-tr" id="allaspect">
+			<td>All aspect</td>
+			<td>Distance the missiles IR seeker can track an aircraft signature</td>
+			<td>m</td>
+			<td>▲</td>
+		</tr>
+		<tr id="irdecoys">
+			<td>IR decoys</td>
+			<td>Visible distance to infrared countermeasures such as flares</td>
+			<td>m</td>
+			<td>▼</td>
+		</tr>
+		<tr class="bright-tr" id="ircm">
+			<td><a href="https://wiki.warthunder.com/Category:Helicopters_with_IRCM">IRCM</a></td>
+			<td>The visible distance to IRCM</td>
+			<td>m</td>
+			<td>▼</td>
+		</tr>
+		<tr id="fov">
+			<td>FOV</td>
+			<td>FOV from the main seeker</td>
+			<td>deg</td>
+			<td>▼</td>
+		</tr>
+		<tr class="bright-tr" id="gate">
+			<td>Gate</td>
+			<td>Field of view the seeker gains after lock</td>
+			<td>deg</td>
+			<td>▼</td>
+		</tr>
+		<tr id="launchfov">
+			<td>LaunchFov</td>
+			<td>Maximum distance from the bore to the seekers gimbal before launch</td>
+			<td>deg</td>
+			<td>▲</td>
+		</tr>
+		<tr class="bright-tr" id="flightfov">
+			<td>FlightFov</td>
+			<td>Maximum distance from the bore to the seekers gimbal after launch</td>
+			<td>deg</td>
+			<td>▲</td>
+		</tr>
+		<tr id="warmuptime">
+			<td>WarmUpTime</td>
+			<td>Time required to ready the seeker</td>
+			<td>s</td>
+			<td>▼</td>
+		</tr>
+		<tr class="bright-tr" id="worktime">
+			<td>WorkTime</td>
+			<td>Time the seeker is active</td>
+			<td>s</td>
+			<td>▲</td>
+		</tr>
+		<tr id="uncage">
+			<td>Uncage</td>
+			<td>Weather or not the seeker can gimbal off bore before launch</td>
+			<td>bool</td>
+			<td>▲</td>
+		</tr>
+		</thead>
+	</table>
+</div>
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())
