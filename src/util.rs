@@ -50,19 +50,15 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 18] {
 
 	let range = results.distance_flown.round();
 
-	let mut time_to_2km: f64 = 0.0;
-	for i in results.profile.d.iter().enumerate() {
-		if *i.1 >= 2000.0 {
-			time_to_2km = i.0 as f64 * results.timestep;
-			break;
-		}
-	}
-
 	[
 		m.name.to_string(),
 		range.to_string(),
-		m.endspeed.to_string(),
-		format!("{:.1}", time_to_2km),
+		format!("{:.1}", (m.force0 / 9.807) / m.mass),
+		if m.endspeed == 0.0 {
+			"-".to_owned()
+		} else {
+			m.endspeed.to_string()
+		},
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
 		m.reqaccelmax.to_string(),
@@ -110,18 +106,10 @@ pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 12] {
 
 	let results = generate(m, parameters, 0.1, false);
 
-	let mut time_to_2km: f64 = 0.0;
-	for i in results.profile.d.iter().enumerate() {
-		if *i.1 >= 2000.0 {
-			time_to_2km = i.0 as f64 * results.timestep;
-			break;
-		}
-	}
-
 	[
 		m.name.to_string(),
 		results.distance_flown.round().to_string(),
-		format!("{:.1}", time_to_2km),
+		format!("{:.1}", (m.force0 / 9.807) / m.mass),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
