@@ -43,7 +43,7 @@ pub fn get_document() -> Document {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
+pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 18] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);
@@ -53,7 +53,12 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 	[
 		m.name.to_string(),
 		range.to_string(),
-		m.endspeed.to_string(),
+		format!("{:.1}", (m.force0 / 9.807) / m.mass),
+		if m.endspeed == 0.0 {
+			"-".to_owned()
+		} else {
+			m.endspeed.to_string()
+		},
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
 		m.reqaccelmax.to_string(),
@@ -72,11 +77,12 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 17] {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_params() -> [String; 17] {
+pub fn make_row_params() -> [String; 18] {
 	[
 		"name".to_string(),
 		"range".to_string(),
 		"Max Speed".to_string(),
+		"Time to 2km".to_string(),
 		"DeltaV".to_string(),
 		"LaunchG".to_string(),
 		"FlightG".to_string(),
@@ -95,15 +101,15 @@ pub fn make_row_params() -> [String; 17] {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 11] {
+pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 12] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);
 
-	let range = results.distance_flown.round();
 	[
 		m.name.to_string(),
-		range.to_string(),
+		results.distance_flown.round().to_string(),
+		format!("{:.1}", (m.force0 / 9.807) / m.mass),
 		m.endspeed.to_string(),
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
@@ -123,12 +129,4 @@ pub fn make_row_blank(len: u32) -> Vec<String> {
 		arr.push( "-".to_string());
 	}
 	arr
-}
-
-#[wasm_bindgen]
-pub fn make_footer_data() {
-	let document = get_document();
-	if let Some(ver) = document.get_element_by_id("game_ver") {
-		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
-	}
 }

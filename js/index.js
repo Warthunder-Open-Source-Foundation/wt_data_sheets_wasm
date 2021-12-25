@@ -1,9 +1,6 @@
 async function main() {
-
 	let rust; // Yes its a weird assignment but the IDE likes it this way
 	rust = await import ("../pkg/index.js").catch(console.error);
-
-	rust.make_footer_data();
 
 	let url = window.location.href.split("/").at(-1);
 
