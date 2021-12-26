@@ -145,7 +145,7 @@ impl RdTable {
 			launch_g: m.loadfactormax,
 			flight_g: m.reqaccelmax,
 			launch_fov: m.lockanglemax,
-			flight_fov: m.fov,
+			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
 			work_time: m.warmuptime,
 			uncage: m.cageable,
