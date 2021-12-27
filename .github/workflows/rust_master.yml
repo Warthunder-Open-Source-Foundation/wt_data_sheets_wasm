@@ -59,7 +59,7 @@ jobs:
       run: npm run build
       
     - name: Download count.js
-      run: wget "https://gc.zgo.at/count.js" -P /dist/
+      run: wget "https://gc.zgo.at/count.js" -P dist/
       
     - name: Deploy with rsync
       run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/flo_wt_calc/dist
