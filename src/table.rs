@@ -1,7 +1,7 @@
-use std::fmt::Error;
+
 use std::str::FromStr;
 
-use bevy_reflect::{GetField, Reflect, Struct};
+use bevy_reflect::{Reflect, Struct};
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
@@ -10,8 +10,8 @@ use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 use wt_datamine_extractor_lib::missile::missile::{Missile, SeekerType};
 
-use crate::{console_log, MISSILES};
-use crate::util::{get_document, make_row_ir, make_row_rd};
+use crate::{MISSILES};
+use crate::util::{get_document};
 
 #[wasm_bindgen]
 #[allow(clippy::missing_panics_doc)]

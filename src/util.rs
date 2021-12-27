@@ -5,7 +5,7 @@ use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 use wt_datamine_extractor_lib::missile::missile::Missile;
 
-use crate::{GAME_VER, MISSILES};
+use crate::{MISSILES};
 
 #[wasm_bindgen]
 pub fn console_log(message: &str) {

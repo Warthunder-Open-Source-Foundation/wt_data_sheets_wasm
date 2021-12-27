@@ -1,12 +1,12 @@
-use std::cell::Cell;
 
-use js_sys::Map;
+
+
 use wasm_bindgen::prelude::*;
-use web_sys::{Document, Element, Node};
-use wt_datamine_extractor_lib::thermal::thermals::VehicleType;
+use web_sys::{Element};
 
-use crate::{make_missile_option_inputs, THERMALS};
-use crate::util::{console_log, get_document};
+
+use crate::{THERMALS};
+use crate::util::{get_document};
 
 #[wasm_bindgen]
 pub fn generate_tank_list() -> Result<(), JsValue> {

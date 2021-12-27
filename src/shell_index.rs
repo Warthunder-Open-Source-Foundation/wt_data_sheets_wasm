@@ -1,7 +1,7 @@
 use wasm_bindgen::prelude::*;
-use web_sys::{Document, Element, Node};
+
 use crate::SHELLS;
-use crate::util::{console_log, get_document};
+use crate::util::{get_document};
 use strum::IntoEnumIterator;
 
 use wt_datamine_extractor_lib::shell::shells::ShellType;
@@ -26,23 +26,23 @@ pub fn make_rows_from_shell(selected: &str) -> Result<(), JsValue> {
 			let row = document.create_element("tr").unwrap();
 
 			let name_cell = document.create_element("td").unwrap();
-			let name_cell_filled = name_cell.set_inner_html(&format!("{}", &SHELL.localized));
+			let _name_cell_filled = name_cell.set_inner_html(&format!("{}", &SHELL.localized));
 
 			let caliber_cell = document.create_element("td").unwrap();
 			if &SHELL.caliber != &SHELL.true_caliber {
-				let caliber_cell_filled = caliber_cell.set_inner_html(&format!("{} ({})", &SHELL.caliber, &SHELL.true_caliber));
+				let _caliber_cell_filled = caliber_cell.set_inner_html(&format!("{} ({})", &SHELL.caliber, &SHELL.true_caliber));
 			} else {
-				let caliber_cell_filled = caliber_cell.set_inner_html(&SHELL.caliber.to_string());
+				let _caliber_cell_filled = caliber_cell.set_inner_html(&SHELL.caliber.to_string());
 			}
 
 			let velocity_cell = document.create_element("td").unwrap();
-			let velocity_cell_filled = velocity_cell.set_inner_html(&SHELL.velocity.to_string());
+			let _velocity_cell_filled = velocity_cell.set_inner_html(&SHELL.velocity.to_string());
 
 			let penetration_cell = document.create_element("td").unwrap();
-			let penetration_cell_filled = penetration_cell.set_inner_html(&SHELL.penetration.first().unwrap_or(&(0,0)).1.to_string());
+			let _penetration_cell_filled = penetration_cell.set_inner_html(&SHELL.penetration.first().unwrap_or(&(0,0)).1.to_string());
 
 			let explosive_cell = document.create_element("td").unwrap();
-			let explosive_cell_filled = explosive_cell.set_inner_html(&(SHELL.explosive.1 as f64 / 1000.0).to_string());
+			let _explosive_cell_filled = explosive_cell.set_inner_html(&(SHELL.explosive.1 as f64 / 1000.0).to_string());
 
 			row.append_child(&name_cell);
 			row.append_child(&caliber_cell);
