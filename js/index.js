@@ -439,7 +439,7 @@ async function main() {
 
 	async function load_goatcounter() {
 		let script = document.createElement("script");
-		script.setAttribute("src", "wt.flareflo.dev/count.js");
+		script.setAttribute("src", "count.js");
 		script.setAttribute("data-goatcounter", "https://wt-flareflo.goatcounter.com/count");
 		script.setAttribute("async", "");
 		document.head.appendChild(script);
