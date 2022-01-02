@@ -14,6 +14,8 @@ pub mod comparison;
 pub mod thermal_index;
 pub mod shell_index;
 
+supposed_to_fail
+
 lazy_static! {
 	static ref MISSILES: Vec<Missile> = {
 		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
