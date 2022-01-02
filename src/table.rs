@@ -43,7 +43,7 @@ pub fn generate_main_tables() -> Result<(), JsValue> {
 pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let document = get_document();
 
-	let ir_table = document.query_selector(".ir_table").unwrap().unwrap();
+	let ir_table = document.query_selector(".main_table").unwrap().unwrap();
 	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();
 
 	for missile in MISSILES.iter() {
