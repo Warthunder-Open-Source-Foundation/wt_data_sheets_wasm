@@ -36,7 +36,7 @@ module.exports = {
 			skipWaiting: true,
 			cleanupOutdatedCaches: true,
 			runtimeCaching: [{
-				urlPattern: /\.(?:html|css|svg|json)$/,
+				urlPattern: /\.(?:html|css|js|wasm|svg|json)$/,
 				handler: 'StaleWhileRevalidate',
 				options: {
 					cacheName: 'page',
