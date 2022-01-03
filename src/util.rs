@@ -30,7 +30,7 @@ pub fn make_missile_option_inputs(selector: &str, item: &str, class: Option<&str
 			let _ = element.set_attribute("class", value);
 		}
 		element.set_text_content(Some(&missile.localized));
-		element.set_attribute("id", &missile.name);
+		element.set_attribute("id", &missile.name).unwrap();
 		let _ = select.append_child(&element);
 	}
 }

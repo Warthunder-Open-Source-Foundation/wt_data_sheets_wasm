@@ -1,7 +1,7 @@
 
 use std::str::FromStr;
 
-use bevy_reflect::{Reflect, Struct};
+use bevy_reflect::{Reflect};
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
