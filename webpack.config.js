@@ -40,8 +40,9 @@ module.exports = {
 				options: {
 					cacheName: 'page',
 					expiration: {
-						// caches no more than 2 days
-						maxAgeSeconds: 60 * 60 * 24 * 2,
+						// caches no more than 1 hour
+						maxAgeSeconds: 60 * 60,
+						purgeOnQuotaError: true,
 					},
 				},
 			}],
