@@ -1,11 +1,16 @@
 # You must change these to your own details.
 [package]
 name = "wt_data_sheets_wasm"
+description = ""
 version = "0.1.0"
 authors = ["FlareFlo"]
 categories = ["wasm"]
 readme = "README.md"
 edition = "2018"
+license = "MIT"
+license-file = "LICENSE"
+repository = "https://github.com/FlareFlo/wt_data_sheets_wasm"
+homepage = "wt.flareflo.dev"
 
 [lib]
 crate-type = ["cdylib"]
