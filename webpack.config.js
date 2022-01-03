@@ -33,7 +33,6 @@ module.exports = {
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',
 			clientsClaim: true,
-			skipWaiting: true,
 			cleanupOutdatedCaches: true,
 			runtimeCaching: [{
 				urlPattern: /\.(?:html|css|js|wasm|svg|json)$/,
