@@ -16,7 +16,7 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: dist,
-		host: '0.0.0.0',
+		host: 'localhost',
 		port: 8081,
 	},
 	plugins: [
@@ -34,6 +34,18 @@ module.exports = {
 			swDest: 'sw.js',
 			clientsClaim: true,
 			skipWaiting: true,
+			cleanupOutdatedCaches: true,
+			runtimeCaching: [{
+				urlPattern: /\.(?:html|css|svg|json)$/,
+				handler: 'StaleWhileRevalidate',
+				options: {
+					cacheName: 'page',
+					expiration: {
+						// caches no more than 2 days
+						maxAgeSeconds: 60 * 60 * 24 * 2,
+					},
+				},
+			}],
 		}),
 	]
 };
