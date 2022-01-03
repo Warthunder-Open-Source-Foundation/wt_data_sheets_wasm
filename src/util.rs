@@ -30,7 +30,7 @@ pub fn make_missile_option_inputs(selector: &str, item: &str, class: Option<&str
 			let _ = element.set_attribute("class", value);
 		}
 		element.set_text_content(Some(&missile.localized));
-		element.set_attribute("id", &missile.name);
+		element.set_attribute("id", &missile.name).unwrap();
 		let _ = select.append_child(&element);
 	}
 }
@@ -98,35 +98,4 @@ pub fn make_row_params() -> [String; 18] {
 		"WorkTime".to_string(),
 		"Uncage".to_string(),
 	]
-}
-
-#[allow(clippy::must_use_candidate)]
-pub fn make_row_rd(m: &Missile, parameters: &LaunchParameter) -> [String; 12] {
-	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
-
-	let results = generate(m, parameters, 0.1, false);
-
-	[
-		m.name.to_string(),
-		results.distance_flown.round().to_string(),
-		format!("{:.1}", (m.force0 / 9.807) / m.mass),
-		m.endspeed.to_string(),
-		m.deltav.to_string(),
-		m.loadfactormax.to_string(),
-		m.reqaccelmax.to_string(),
-		m.lockanglemax.to_string(),
-		m.anglemax.to_string(),
-		m.warmuptime.to_string(),
-		m.worktime.to_string(),
-		m.cageable.to_string(),
-	]
-}
-
-#[allow(clippy::must_use_candidate)]
-pub fn make_row_blank(len: u32) -> Vec<String> {
-	let mut arr = vec![];
-	for _ in 0..len {
-		arr.push( "-".to_string());
-	}
-	arr
 }

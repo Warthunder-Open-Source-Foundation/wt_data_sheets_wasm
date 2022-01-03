@@ -16,12 +16,14 @@ module.exports = {
 	},
 	devServer: {
 		contentBase: dist,
-		host: '0.0.0.0',
+		host: 'localhost',
 		port: 8081,
 	},
 	plugins: [
 		new CopyPlugin([
-			path.resolve(__dirname, "static")
+			path.resolve(__dirname, "static/*"),
+			path.resolve(__dirname, "static/css"),
+			path.resolve(__dirname, "static/html"),
 		]),
 
 		new WasmPackPlugin({
@@ -31,7 +33,19 @@ module.exports = {
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',
 			clientsClaim: true,
-			skipWaiting: true,
+			cleanupOutdatedCaches: true,
+			runtimeCaching: [{
+				urlPattern: /\.(?:html|css|js|wasm|svg|json)$/,
+				handler: 'StaleWhileRevalidate',
+				options: {
+					cacheName: 'page',
+					expiration: {
+						// caches no more than 1 hour
+						maxAgeSeconds: 60 * 60,
+						purgeOnQuotaError: true,
+					},
+				},
+			}],
 		}),
 	]
 };

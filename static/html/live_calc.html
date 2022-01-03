@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Shell index</title>
+	<title>Live calculation</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
-	<link href="shell_index.css" rel="stylesheet">
+	<link href="live_calc.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-	<meta content="A complete table of all shells"
+	<meta content="Live calculation for any air to air missiles range and hit probability"
 		  property="og:title"/>
 
-	<meta content="Directly collected from datamined files"
-		  name="description"/>
-
-	<meta content="Directly collected from datamined files"
+	<meta content="No download or installation required, just start the game and watch the magic happen"
 		  property="og:description"/>
+
+	<meta content="No download or installation required, just start the game and watch the magic happen"
+		  name="description"/>
 
 	<meta content="website"
 		  property="og:type"/>
 
-	<meta content="http://wt.flareflo.dev/shell_index.html"
+	<meta content="http://wt.flareflo.dev/live_calc.html"
 		  property="og:url"/>
 
 	<!--	<meta content="" -->
@@ -43,33 +43,18 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<div id="main">
-	<p>Warning: This is still in BETA and may not function as expected</p>
-	<select id="select_ammo_type"></select>
-	<table class="ir_table">
-		<thead>
-		<tr class="top-tr" id="ir_index">
-			<td class="sortable_str">
-				Name
-			</td>
-			<td class="sortable_n">
-				Caliber (true caliber)
-			</td>
-			<td class="sortable_n">
-				Velocity
-			</td>
-			<td class="sortable_n">
-				penetration
-			</td>
-			<td class="sortable_n">
-				explosive
-			</td>
-		</tr>
-		</thead>
-		<tbody id="tbody">
-		</tbody>
-	</table>
-</div>
+<script id="add_missile_select">
+</script>
+<table id="calc-table" class="main_table">
+	<tr class="bright-tr">
+		<td>Range</td>
+		<td id="range">-</td>
+	</tr>
+	<tr>
+		<td>Maximum chase distance</td>
+		<td id="splash_at">-</td>
+	</tr>
+</table>
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())

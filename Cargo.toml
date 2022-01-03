@@ -1,11 +1,15 @@
 # You must change these to your own details.
 [package]
 name = "wt_data_sheets_wasm"
+description = ""
 version = "0.1.0"
 authors = ["FlareFlo"]
 categories = ["wasm"]
 readme = "README.md"
-edition = "2018"
+edition = "2021"
+license-file = "LICENSE"
+repository = "https://github.com/FlareFlo/wt_data_sheets_wasm"
+homepage = "wt.flareflo.dev"
 
 [lib]
 crate-type = ["cdylib"]
@@ -67,7 +71,7 @@ features = ["console", "Window", "Document", "Element", "HtmlElement", "Node", "
 # logging them with `console.error`. This is great for development, but requires
 # all the `std::fmt` and `std::panicking` infrastructure, so it's only enabled
 # in debug mode.
-[target."cfg(debug_assertions)".dependencies]
+[target."cfg(debug)".dependencies]
 console_error_panic_hook = "0.1.*"
 
 # These crates are used for running unit tests.

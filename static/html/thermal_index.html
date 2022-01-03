@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>Live calculation</title>
+	<title>Thermal sheet</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="thermal_index.css" rel="stylesheet">
 	<link href="styles.css" rel="stylesheet">
 	<link href="metafiles/favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-	<meta content="Live calculation for any air to air missiles range and hit probability"
+	<meta content="A complete table of all thermal sights"
 		  property="og:title"/>
 
-	<meta content="No download or installation required, just start the game and watch the magic happen"
-		  property="og:description"/>
-
-	<meta content="No download or installation required, just start the game and watch the magic happen"
+	<meta content="Directly collected from datamined files"
 		  name="description"/>
+
+	<meta content="Directly collected from datamined files"
+		  property="og:description"/>
 
 	<meta content="website"
 		  property="og:type"/>
 
-	<meta content="http://wt.flareflo.dev/live_calc.html"
+	<meta content="http://wt.flareflo.dev/thermal_index.html"
 		  property="og:url"/>
 
 	<!--	<meta content="" -->
@@ -42,18 +43,22 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<script id="add_missile_select">
-</script>
-<table id="calc-table" class="ir_table">
-	<tr class="bright-tr">
-		<td>Range</td>
-		<td id="range">-</td>
-	</tr>
-	<tr>
-		<td>Maximum chase distance</td>
-		<td id="splash_at">-</td>
-	</tr>
-</table>
+<div id="main">
+	<script id="select_0"></script>
+	<p>Resolution in pixels</p>
+	<table class="main_table" id="table">
+		<thead>
+		<tr>
+			<td id="column_0">Name</td>
+			<td id="column_1">Placeholder</td>
+			<td id="column_2">Placeholder</td>
+		</tr>
+		</thead>
+		<tbody id="table_contents">
+
+		</tbody>
+	</table>
+</div>
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())

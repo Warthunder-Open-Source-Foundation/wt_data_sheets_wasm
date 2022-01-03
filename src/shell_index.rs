@@ -12,7 +12,7 @@ pub fn make_shell_options() -> Result<(), JsValue> {
 	for y in ShellType::iter() {
 		let elem = document.create_element("option").unwrap();
 		elem.set_inner_html(&y.to_string());
-		document.get_element_by_id("select_ammo_type").unwrap().append_child(&elem);
+		document.get_element_by_id("select_ammo_type").unwrap().append_child(&elem).unwrap();
 	}
 	Ok(())
 }
@@ -21,35 +21,35 @@ pub fn make_shell_options() -> Result<(), JsValue> {
 pub fn make_rows_from_shell(selected: &str) -> Result<(), JsValue> {
 	let document = get_document();
 	let table_body = document.get_element_by_id("tbody").unwrap();
-	for SHELL in SHELLS.iter() {
-		if selected == SHELL.shell_type.to_string() {
+	for shell in SHELLS.iter() {
+		if selected == shell.shell_type.to_string() {
 			let row = document.create_element("tr").unwrap();
 
 			let name_cell = document.create_element("td").unwrap();
-			let _name_cell_filled = name_cell.set_inner_html(&format!("{}", &SHELL.localized));
+			let _name_cell_filled = name_cell.set_inner_html(&format!("{}", &shell.localized));
 
 			let caliber_cell = document.create_element("td").unwrap();
-			if &SHELL.caliber != &SHELL.true_caliber {
-				let _caliber_cell_filled = caliber_cell.set_inner_html(&format!("{} ({})", &SHELL.caliber, &SHELL.true_caliber));
+			if &shell.caliber != &shell.true_caliber {
+				let _caliber_cell_filled = caliber_cell.set_inner_html(&format!("{} ({})", &shell.caliber, &shell.true_caliber));
 			} else {
-				let _caliber_cell_filled = caliber_cell.set_inner_html(&SHELL.caliber.to_string());
+				let _caliber_cell_filled = caliber_cell.set_inner_html(&shell.caliber.to_string());
 			}
 
 			let velocity_cell = document.create_element("td").unwrap();
-			let _velocity_cell_filled = velocity_cell.set_inner_html(&SHELL.velocity.to_string());
+			let _velocity_cell_filled = velocity_cell.set_inner_html(&shell.velocity.to_string());
 
 			let penetration_cell = document.create_element("td").unwrap();
-			let _penetration_cell_filled = penetration_cell.set_inner_html(&SHELL.penetration.first().unwrap_or(&(0,0)).1.to_string());
+			let _penetration_cell_filled = penetration_cell.set_inner_html(&shell.penetration.first().unwrap_or(&(0, 0)).1.to_string());
 
 			let explosive_cell = document.create_element("td").unwrap();
-			let _explosive_cell_filled = explosive_cell.set_inner_html(&(SHELL.explosive.1 as f64 / 1000.0).to_string());
+			let _explosive_cell_filled = explosive_cell.set_inner_html(&(shell.explosive.1 as f64 / 1000.0).to_string());
 
-			row.append_child(&name_cell);
-			row.append_child(&caliber_cell);
-			row.append_child(&velocity_cell);
-			row.append_child(&penetration_cell);
-			row.append_child(&explosive_cell);
-			table_body.append_child(&row);
+			row.append_child(&name_cell).unwrap();
+			row.append_child(&caliber_cell).unwrap();
+			row.append_child(&velocity_cell).unwrap();
+			row.append_child(&penetration_cell).unwrap();
+			row.append_child(&explosive_cell).unwrap();
+			table_body.append_child(&row).unwrap();
 		}
 
 	}
