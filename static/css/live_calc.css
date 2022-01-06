@@ -1,9 +1,9 @@
 #calc-table {
-	margin-left: auto;
-	margin-right: auto;
-	width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vw;
 }
 
 #calc-table td {
-	font-size: 30px;
+  font-size: 30px;
 }
