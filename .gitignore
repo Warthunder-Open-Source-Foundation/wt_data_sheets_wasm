@@ -4,6 +4,7 @@ node_modules
 
 pkg
 dist
+static/css
 
 Cargo.lock
 package-lock.json
