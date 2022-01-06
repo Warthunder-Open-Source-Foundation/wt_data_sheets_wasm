@@ -6,10 +6,6 @@ const workboxPlugin = require('workbox-webpack-plugin');
 const dist = path.resolve(__dirname, "dist");
 
 module.exports = {
-	experiments: {
-		asyncWebAssembly: true,
-		syncWebAssembly: true
-	},
 	mode: "production",
 	entry: {
 		index: "./js/index.js"
