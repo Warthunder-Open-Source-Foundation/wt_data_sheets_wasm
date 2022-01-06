@@ -21,7 +21,7 @@ module.exports = {
 	},
 	plugins: [
 		new CopyPlugin([
-			path.resolve(__dirname, "static/*"),
+			path.resolve(__dirname, "static/manifest"),
 			path.resolve(__dirname, "static/css"),
 			path.resolve(__dirname, "static/html"),
 		]),
