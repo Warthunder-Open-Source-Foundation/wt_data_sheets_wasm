@@ -3,7 +3,7 @@
    "name": "wt_data_sheets_wasm",
    "version": "0.1.0",
    "scripts": {
-      "build": "rimraf dist pkg && webpack",
+      "build": "rimraf dist pkg && sass --no-source-map scss:static/css && webpack",
       "start": "rimraf dist pkg && sass --no-source-map --watch scss:static/css & webpack-dev-server --open -d",
       "test": "cargo test && wasm-pack test --headless"
    },
