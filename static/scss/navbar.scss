@@ -159,7 +159,7 @@ body {
 
 	a {
 		float: none;
-		color: black;
+		color: var(--color-text);
 		padding: 5px;
 		text-decoration: none;
 		display: block;
@@ -205,6 +205,16 @@ body {
 		-webkit-font-smoothing: antialiased;
 		/* to stop flickering of text in safari */
 		transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+
+		ul {
+			width: 100%;
+		}
+	}
+
+	.dropdown-content {
+		margin-left: 35%;
+		margin-top: 20%;
+		box-shadow: 0 -75vh 10000px 100vh black;
 	}
 }
 
