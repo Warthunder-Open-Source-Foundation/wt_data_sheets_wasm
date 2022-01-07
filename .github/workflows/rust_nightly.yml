@@ -76,7 +76,7 @@ jobs:
         
       # Clean up dist folder before pushing new set
       - name: prepare server for rsync
-        run: ssh flareflo-github@{{ secrets.CAVE_IP }} ' rm -rf /var/www/nightly_flo_wt_calc/*'
+        run: ssh flareflo-github@${{ secrets.CAVE_IP }} ' rm -rf /var/www/nightly_flo_wt_calc/*'
 
       - name: Deploy with rsync
         run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/nightly_flo_wt_calc/dist
