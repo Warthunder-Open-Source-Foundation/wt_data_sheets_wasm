@@ -48,7 +48,6 @@ const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-// This is like the `main` function, except for JavaScript.
 #[wasm_bindgen(start)]
 #[allow(clippy::missing_errors_doc)]
 pub fn main_js() -> Result<(), JsValue> {

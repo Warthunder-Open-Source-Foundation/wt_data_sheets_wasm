@@ -8,7 +8,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  
+
 jobs:
   build:
 
@@ -16,54 +16,54 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [ 16.x ]
 
     steps:
-    
-    # Setting up SSH key
-    - name: Get SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_CAVE }} 
-        known_hosts: 'placeholder'
-        
-    # Adding hosts for CD
-    - name: Adding Known Hosts
-      run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
-    
-    # Prepares rustup for wasm compiler
-    - name: Add wasm-target
-      run: rustup target add wasm32-unknown-unknown
-      
-    # Pulls in git dependencies
-    - uses: actions/checkout@v2
-    - name: Pull git depends
-      run : git submodule update --init --recursive
-      
-    # Builds wasm setup
-    - name: Build
-      run : cargo build --release --target wasm32-unknown-unknown
-      
-    # Prepares node js
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    # Loads NPM modules for webpack
-    - name: Install NPM depends
-      run : npm install
 
-    # Loads sass from NPM
-    - name: Install sass
-      run: npm install -g sass
+      # Setting up SSH key
+      - name: Get SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_CAVE }}
+          known_hosts: 'placeholder'
 
-    # Finishes bundle
-    - name: Bundle + Build
-      run: npm run build
+      # Adding hosts for CD
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
+
+      # Prepares rustup for wasm compiler
+      - name: Add wasm-target
+        run: rustup target add wasm32-unknown-unknown
       
-    - name: Download count.js
-      run: wget "https://gc.zgo.at/count.js" -P dist/
+      # Pulls in git dependencies
+      - uses: actions/checkout@v2
+      - name: Pull git depends
+        run: git submodule update --init --recursive
       
-    - name: Deploy with rsync
-      run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/flo_wt_calc/dist
+      # Builds wasm setup
+      - name: Build
+        run: cargo build --release --target wasm32-unknown-unknown
+      
+      # Prepares node js
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Loads NPM modules for webpack
+      - name: Install NPM depends
+        run: npm install
+
+      # Loads sass from NPM
+      - name: Install sass
+        run: npm install -g sass
+
+      # Finishes bundle
+      - name: Bundle + Build
+        run: npm run build
+
+      - name: Download count.js
+        run: wget "https://gc.zgo.at/count.js" -P dist/
+
+      - name: Deploy with rsync
+        run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/flo_wt_calc/dist

@@ -1,6 +1,6 @@
 .selection_area {
 	text-align: center;
-	margin:0 auto;
+	margin: 0 auto;
 	display: block;
 }
 
@@ -37,8 +37,11 @@ label {
 	animation: rainbow_animation 5s ease-in-out infinite;
 }
 
-.selection_area label {
-	white-space: nowrap;
+.selection_area {
+	label {
+		white-space: nowrap;
+
+	}
 }
 
 #comparison {
@@ -58,22 +61,22 @@ label {
 	font-size: 1rem;
 	border-radius: 4px;
 	transition: 0.25s;
-}
 
-.button:hover {
-	background-size: 400%;
-	animation: rainbow_animation 2s ease-in-out infinite;
-	transform: scale(1.1);
+	&:hover {
+		background-size: 400%;
+		animation: rainbow_animation 2s ease-in-out infinite;
+		transform: scale(1.1);
+	}
 }
 
 #reset {
 	background-image: var(--background-image-blood-red);
-}
 
-#reset:hover {
-	background-image: var(--background-image-blood-red);
-	background-size: 400%;
-	animation: rainbow_animation 2s ease-in-out infinite;
+	&:hover {
+		background-image: var(--background-image-blood-red);
+		background-size: 400%;
+		animation: rainbow_animation 2s ease-in-out infinite;
+	}
 }
 
 #settings {

@@ -1,10 +1,9 @@
+use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
+use wt_datamine_extractor_lib::shell::shells::ShellType;
 
 use crate::SHELLS;
-use crate::util::{get_document};
-use strum::IntoEnumIterator;
-
-use wt_datamine_extractor_lib::shell::shells::ShellType;
+use crate::util::get_document;
 
 #[wasm_bindgen]
 pub fn make_shell_options() -> Result<(), JsValue> {
@@ -51,7 +50,6 @@ pub fn make_rows_from_shell(selected: &str) -> Result<(), JsValue> {
 			row.append_child(&explosive_cell).unwrap();
 			table_body.append_child(&row).unwrap();
 		}
-
 	}
 	Ok(())
 }

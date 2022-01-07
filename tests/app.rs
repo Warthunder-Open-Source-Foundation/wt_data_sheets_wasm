@@ -22,7 +22,7 @@ fn web_test() {
 
 // This runs a unit docs in the browser, and in addition it supports asynchronous Future APIs.
 #[wasm_bindgen_test(async)]
-fn async_test() -> impl Future<Item = (), Error = JsValue> {
+fn async_test() -> impl Future<Item=(), Error=JsValue> {
 	// Creates a JavaScript Promise which will asynchronously resolve with the value 42.
 	let promise = js_sys::Promise::resolve(&JsValue::from(42));
 
