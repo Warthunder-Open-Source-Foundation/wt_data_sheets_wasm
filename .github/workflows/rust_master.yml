@@ -40,9 +40,6 @@ jobs:
       - name: Pull git depends
         run: git submodule update --init --recursive
       
-      # Builds wasm setup
-      - name: Build
-        run: cargo build --release --target wasm32-unknown-unknown
       
       # Prepares node js
       - name: Use Node.js ${{ matrix.node-version }}
@@ -57,13 +54,26 @@ jobs:
       # Loads sass from NPM
       - name: Install sass
         run: npm install -g sass
+        
+      # Generate build stamp
+      - name: Generate buildstamp
+        run: buildstamp --out.path=buildstamp.json --date.format=instant
+        
+      # Builds wasm setup
+      - name: Build
+        run: cargo build --release --target wasm32-unknown-unknown
 
       # Finishes bundle
       - name: Bundle + Build
         run: npm run build
 
+      # Get goatcounter js for self hosting
       - name: Download count.js
         run: wget "https://gc.zgo.at/count.js" -P dist/
+        
+      # Clean up dist folder before pushing new set
+      - name: prepare server for rsync
+        run: ssh flareflo-github@{{ secrets.CAVE_IP }} ' rm -rf /var/www/flo_wt_calc/*'
 
       - name: Deploy with rsync
         run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/flo_wt_calc/dist
