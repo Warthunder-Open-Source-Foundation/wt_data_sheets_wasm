@@ -22,6 +22,7 @@ module.exports = {
 	plugins: [
 		new CopyPlugin([
 			path.resolve(__dirname, "static/manifest"),
+			path.resolve(__dirname, "static/metafiles"),
 			path.resolve(__dirname, "static/css"),
 			path.resolve(__dirname, "static/html"),
 		]),
@@ -35,7 +36,7 @@ module.exports = {
 			clientsClaim: true,
 			cleanupOutdatedCaches: true,
 			runtimeCaching: [{
-				urlPattern: /\.(?:html|css|js|wasm|svg|json)$/,
+				urlPattern: /\.(?:html|css|js|wasm|svg|json|ico|png)$/,
 				handler: 'StaleWhileRevalidate',
 				options: {
 					cacheName: 'page',
