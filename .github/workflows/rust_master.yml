@@ -55,6 +55,10 @@ jobs:
       - name: Install sass
         run: npm install -g sass
         
+      # Loads buildstamp from NPM
+      - name: Install sass
+        run: npm install buildstamp
+        
       # Generate build stamp
       - name: Generate buildstamp
         run: buildstamp --out.path=buildstamp.json --date.format=instant
