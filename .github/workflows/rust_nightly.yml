@@ -52,11 +52,11 @@ jobs:
 
       # Loads sass from NPM
       - name: Install sass
-        run: npm install sass
+        run: npm install -g sass
         
       # Loads buildstamp from NPM
       - name: Install buildstamp
-        run: npm install buildstamp
+        run: npm install -g buildstamp
         
       # Generate build stamp
       - name: Generate buildstamp
