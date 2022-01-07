@@ -2,7 +2,8 @@ use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::missile::missile::Missile;
-use wt_datamine_extractor_lib::shell::shells::Shell;
+use wt_datamine_extractor_lib::shell::shells::{Shell};
+use wt_datamine_extractor_lib::shell::compress::CompressedShells;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 use crate::buildstamp::BuildStamp;
 
@@ -32,8 +33,9 @@ lazy_static! {
 		thermals
 	};
 	static ref SHELLS: Vec<Shell> = {
-		let json = include_str!("../wt_datamine_extractor/shell_index/all.json");
-		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
+		let json = include_str!("../wt_datamine_extractor/shell_index/compressed.json");
+		let compressed_shells: CompressedShells = serde_json::from_str(json).unwrap();
+		let mut shells = compressed_shells.decompress();
 		shells.sort_by_key(|d| d.name.clone());
 
 		shells
