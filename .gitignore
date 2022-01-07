@@ -8,5 +8,6 @@ static/css
 
 Cargo.lock
 package-lock.json
+buildstamp.json
 
 /.idea/
