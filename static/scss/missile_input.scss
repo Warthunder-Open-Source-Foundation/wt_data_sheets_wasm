@@ -37,21 +37,21 @@
 	background-color: var(--color-background-bright);
 	border: 3px solid transparent;
 	transition: 0.3s ease-in-out;
-}
 
-.chosen-value:hover {
-	background-image: var(--background-image-blue);
-	animation: rainbow_animation ease-in-out 4s infinite;
-	background-size: 400%;
-	cursor: pointer;
-}
+	&:hover {
+		background-image: var(--background-image-blue);
+		animation: rainbow_animation ease-in-out 4s infinite;
+		background-size: 400%;
+		cursor: pointer;
+	}
 
-.chosen-value:focus, .chosen-value.open {
-	box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
-	outline: 0;
-	background-image: var(--background-image-red);
-	background-size: 900%;
-	color: #000;
+	&:focus, .open {
+		box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+		outline: 0;
+		background-image: var(--background-image-red);
+		background-size: 900%;
+		color: #000;
+	}
 }
 
 .value-list {
@@ -61,31 +61,34 @@
 	overflow: hidden;
 	max-height: 0;
 	transition: 0.3s ease-in-out;
-}
-.value-list.open {
-	max-height: 60vh;
-	overflow: auto;
-}
-.value-list li {
-	position: relative;
-	height: auto;
-	background-color: var(--color-background-bright);
-	padding: 0.5rem;
-	font-size: 15px;
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	transition: background-color 0.3s;
-	opacity: 1;
-}
-.value-list li:hover {
-	background-image: var(--background-image-red);
-	background-size: 100rem;
-	animation: ease-in-out rainbow_animation 4s infinite;
-}
-.value-list li.closed {
-	max-height: 0;
-	overflow: hidden;
-	padding: 0;
-	opacity: 0;
+
+	.open {
+		max-height: 60vh;
+		overflow: auto;
+	}
+
+	li {
+		position: relative;
+		height: auto;
+		background-color: var(--color-background-bright);
+		padding: 0.5rem;
+		font-size: 15px;
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		opacity: 1;
+
+		&:hover {
+			background-image: var(--background-image-red);
+			background-size: 100rem;
+			animation: ease-in-out rainbow_animation 4s infinite;
+		}
+		.closed {
+			max-height: 0;
+			overflow: hidden;
+			padding: 0;
+			opacity: 0;
+		}
+	}
 }

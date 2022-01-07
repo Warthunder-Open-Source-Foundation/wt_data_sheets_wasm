@@ -41,7 +41,7 @@ wt_ballistics_calc = { git = "https://github.com/FlareFlo/wt_ballistics_calc" }
 
 wt_datamine_extractor = { git = "https://github.com/FlareFlo/wt_datamine_extractor" }
 
-serde_json =  "1.*"
+serde_json = "1.*"
 serde = "1.*"
 bevy_reflect = "0.5.0"
 

@@ -31,7 +31,7 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 		let param_value = &params[i];
 
 		if ref_value == con_value && !show_equal {
-			continue
+			continue;
 		}
 
 		if diff_mode {
@@ -40,7 +40,7 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 					let num = con_number - ref_number;
 					if num < 0 {
 						con_value = format!("{}", num);
-					}else {
+					} else {
 						con_value = format!("+{}", num);
 					}
 				}

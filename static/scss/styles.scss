@@ -14,19 +14,19 @@ html {
 	--color-accent: rgb(199, 10, 75);
 
 	--background-image-red: linear-gradient(
-			120deg, #6e10d2, #c70a4b);
+					120deg, #6e10d2, #c70a4b);
 
 	--background-image-blue: linear-gradient(
-			120deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
+					120deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
 
 	--background-image-blood-red: linear-gradient(
-			120deg, rgb(217, 10, 34) 0%, rgb(211, 5, 85) 100%);
+					120deg, rgb(217, 10, 34) 0%, rgb(211, 5, 85) 100%);
 
 	--background-image-green: linear-gradient(
-			120deg, rgb(66, 189, 22) 0%, rgb(90, 229, 86) 100%);
+					120deg, rgb(66, 189, 22) 0%, rgb(90, 229, 86) 100%);
 
 	--background-image-turquoise: linear-gradient(
-			120deg, rgb(22, 189, 164) 0%, rgb(86, 212, 229) 100%);
+					120deg, rgb(22, 189, 164) 0%, rgb(86, 212, 229) 100%);
 
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
 
@@ -55,10 +55,9 @@ p {
 
 a {
 	color: var(--color-text);
-}
-
-a:hover {
-	color: var(--color-text-link);
+	&:hover {
+		color: var(--color-text-link);
+	}
 }
 
 .rounded_button {
@@ -72,12 +71,11 @@ a:hover {
 	font-size: 1rem;
 	border-radius: 4px;
 	height: 20px;
-}
-
-.rounded_button:hover {
-	background-image: var(--background-image-blue);
-	background-size: 400%;
-	animation: rainbow_animation 1s ease-in-out infinite;
+	&:hover {
+		background-image: var(--background-image-blue);
+		background-size: 400%;
+		animation: rainbow_animation 1s ease-in-out infinite;
+	}
 }
 
 .link {
@@ -109,15 +107,13 @@ label {
 	font-size: 15px;
 	transition-duration: 0.25s;
 	font-weight: 300;
-}
-
-.input_number:hover {
-	background-color: var(--color-background-accent);
-}
-
-.input_number:focus {
-	background-color: var(--color-background-accent);
-	color: var(--color-text);
+	&:hover {
+		background-color: var(--color-background-accent);
+	}
+	&:focus {
+		background-color: var(--color-background-accent);
+		color: var(--color-text);
+	}
 }
 
 .main_table, .rd_table {
@@ -125,18 +121,25 @@ label {
 
 	border-collapse: collapse;
 	margin: 10px;
+	tr {
+		&:hover {
+			background-image: var(--background-image-red);
+
+		}
+	}
 }
 
-table tr:nth-child(even) {
-	background-color: var(--color-background-bright);
-}
+table {
+	tr {
+		&:nth-child(even) {
+			background-color: var(--color-background-bright);
 
-table tr:nth-child(odd) {
-	background-color: var(--color-background);
-}
+		}
+		&:nth-child(odd) {
+			background-color: var(--color-background);
 
-.main_table tr:hover {
-	background-image: var(--background-image-red);
+		}
+	}
 }
 
 .sortable_n, .sortable_str {

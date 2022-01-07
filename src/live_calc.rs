@@ -1,7 +1,6 @@
+use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
-
-use wasm_bindgen::prelude::*;
 
 use crate::{make_missile_option_inputs, MISSILES};
 use crate::util::get_document;

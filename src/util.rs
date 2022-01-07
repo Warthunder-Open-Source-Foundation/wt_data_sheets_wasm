@@ -1,11 +1,11 @@
 use wasm_bindgen::JsValue;
-use web_sys::{console, Document, Window};
 use wasm_bindgen::prelude::*;
+use web_sys::{console, Document, Window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 use wt_datamine_extractor_lib::missile::missile::Missile;
 
-use crate::{MISSILES};
+use crate::MISSILES;
 
 #[wasm_bindgen]
 pub fn console_log(message: &str) {
