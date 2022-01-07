@@ -10,3 +10,4 @@ Cargo.lock
 package-lock.json
 
 /.idea/
+/buildstamp.json

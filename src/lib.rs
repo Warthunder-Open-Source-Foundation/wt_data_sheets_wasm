@@ -2,8 +2,10 @@ use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::missile::missile::Missile;
-use wt_datamine_extractor_lib::shell::shells::Shell;
+use wt_datamine_extractor_lib::shell::shells::{Shell};
+use wt_datamine_extractor_lib::shell::compress::CompressedShells;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
+use crate::buildstamp::BuildStamp;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
 
@@ -13,6 +15,7 @@ pub mod live_calc;
 pub mod comparison;
 pub mod thermal_index;
 pub mod shell_index;
+mod buildstamp;
 
 lazy_static! {
 	static ref MISSILES: Vec<Missile> = {
@@ -30,8 +33,9 @@ lazy_static! {
 		thermals
 	};
 	static ref SHELLS: Vec<Shell> = {
-		let json = include_str!("../wt_datamine_extractor/shell_index/all.json");
-		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
+		let json = include_str!("../wt_datamine_extractor/shell_index/compressed.json");
+		let compressed_shells: CompressedShells = serde_json::from_str(json).unwrap();
+		let mut shells = compressed_shells.decompress();
 		shells.sort_by_key(|d| d.name.clone());
 
 		shells
@@ -39,6 +43,7 @@ lazy_static! {
 }
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
+const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.
@@ -63,8 +68,11 @@ pub fn main_js() -> Result<(), JsValue> {
 pub fn make_footer_data() {
 	let document = get_document();
 	if let Some(ver) = document.get_element_by_id("game_ver") {
+		let buildstamp =  BuildStamp::from_const();
+
 		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
-		console_log(&format!("Game version set to {}", GAME_VER));
+		ver.set_inner_html(&format!("{} last updated on {}", ver.inner_html(), buildstamp.formatted));
+		console_log(&format!("Game version set to {}, with timestamp {}", GAME_VER, buildstamp.date));
 	} else {
 		console_log(&format!("Cant display game version {}", GAME_VER));
 	}
