@@ -57,7 +57,7 @@ jobs:
         
       # Loads buildstamp from NPM
       - name: Install buildstamp
-        run: npm install buildstamp
+        run: npm install -g buildstamp
         
       # Generate build stamp
       - name: Generate buildstamp
