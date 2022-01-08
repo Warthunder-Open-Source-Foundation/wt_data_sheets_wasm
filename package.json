@@ -4,7 +4,8 @@
    "version": "0.1.0",
    "scripts": {
       "build": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && sass --no-source-map static/scss:static/css && webpack",
-      "start": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && sass --no-source-map --watch static/scss:static/css & webpack-dev-server --open -d",
+      "start": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && webpack-dev-server --open -d",
+      "start_sass": "sass --no-source-map --watch static/scss:static/css",
       "test": "cargo test && wasm-pack test --headless"
    },
    "devDependencies": {
