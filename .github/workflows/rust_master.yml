@@ -18,9 +18,7 @@ jobs:
       matrix:
         node-version: [ 16.x ]
 
-    steps:
-
-      # Setting up SSH key
+    steps: # Setting up SSH key
       - name: Get SSH key
         uses: shimataro/ssh-key-action@v2
         with:
@@ -54,15 +52,15 @@ jobs:
       # Loads sass from NPM
       - name: Install sass
         run: npm install -g sass
-        
+
       # Loads buildstamp from NPM
       - name: Install buildstamp
         run: npm install -g buildstamp
-        
+
       # Generate build stamp
       - name: Generate buildstamp
         run: buildstamp --out.path=buildstamp.json --date.format=instant
-        
+
       # Builds wasm setup
       - name: Build
         run: cargo build --release --target wasm32-unknown-unknown
@@ -76,9 +74,9 @@ jobs:
         run: wget "https://gc.zgo.at/count.js" -P dist/
 
       # Create dummy file for successful removal of any file
-       - name: Create dummy file
-         run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'cd /var/www/nightly_flo_wt_calc; touch placeholder.txt'
-        
+      - name: Create dummy file
+        run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'cd /var/www/nightly_flo_wt_calc; touch placeholder.txt'
+
       # Clean up dist folder before pushing new set
       - name: Prepare server for rsync
         run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'rm -rf /var/www/flo_wt_calc/*'
