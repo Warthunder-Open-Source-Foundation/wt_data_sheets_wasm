@@ -8,7 +8,7 @@ async function main() {
 	if (window.location.href.includes("nightly")) {
 		console.info("ENABLING NIGHTLY MODE");
 		document.querySelector("html").style.setProperty("--background-image-red", "linear-gradient(120deg, #8d8d8d, #343434)");
-		document.querySelector("html").style.setProperty("--color-background", "url(metafiles/WIP.png)");
+		document.querySelector("html").style.setProperty("--color-background", "url(WIP.png)");
 	}
 
 	let rust; // Yes it's a weird assignment but the IDE likes it this way
