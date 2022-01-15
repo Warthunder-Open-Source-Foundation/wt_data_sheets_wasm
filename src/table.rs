@@ -105,7 +105,7 @@ impl IrTable {
 			launch_fov: m.lockanglemax,
 			flight_fov: m.fov,
 			warm_up_time: m.warmuptime,
-			work_time: m.warmuptime,
+			work_time: m.worktime,
 			uncage: m.cageable,
 		}
 	}
@@ -146,7 +146,7 @@ impl RdTable {
 			launch_fov: m.lockanglemax,
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
-			work_time: m.warmuptime,
+			work_time: m.worktime,
 			uncage: m.cageable,
 		}
 	}
