@@ -168,6 +168,12 @@ async function main() {
 			sorted = !sorted;
 		});
 
+		for (const element of document.getElementsByClassName("sortable_str")) {
+			element.addEventListener("click", event => {
+				sort_universal_string(event, "table_contents")
+			})
+		}
+
 
 		for (let i = 0; i < document.getElementsByClassName("selecto_0").length; i++) {
 			document.getElementsByClassName("selecto_0")[i].addEventListener("click", (evt) => {
@@ -203,7 +209,7 @@ async function main() {
 
 		for (const element of document.getElementsByClassName("sortable_str")) {
 			element.addEventListener("click", event => {
-				sort_universal_string(event)
+				sort_universal_string(event, "tbody")
 			})
 		}
 		for (const element of document.getElementsByClassName("sortable_n")) {
@@ -357,13 +363,14 @@ async function main() {
 		}
 	}
 
-	function sort_universal_string(event) {
+	function sort_universal_string(event, id) {
 		if (event.target.getAttribute("class") !== "sortable_str") {
+			console.log("Target is not a sortable_str");
 			return;
 		}
 		let n = event.target.cellIndex;
 		let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-		table = document.getElementById("tbody");
+		table = document.getElementById(id);
 		switching = true;
 		dir = "asc";
 		while (switching) {
