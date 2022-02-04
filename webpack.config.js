@@ -25,6 +25,7 @@ module.exports = {
 			path.resolve(__dirname, "static/metafiles"),
 			path.resolve(__dirname, "static/css"),
 			path.resolve(__dirname, "static/html"),
+			path.resolve(__dirname, "static/roboto_mono"),
 		]),
 
 		new WasmPackPlugin({
