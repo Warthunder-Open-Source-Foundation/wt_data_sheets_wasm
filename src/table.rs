@@ -30,7 +30,7 @@ pub fn update_tables(alt: u32, vel: u32) {
 pub fn generate_main_tables() -> Result<(), JsValue> {
 	let document = get_document();
 
-	let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
+	let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 1000);
 
 	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string())?;
 	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string())?;
