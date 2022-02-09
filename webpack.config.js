@@ -26,7 +26,8 @@ module.exports = {
 			{from: path.resolve(__dirname, "static/css"), to: ''},
 			{from: path.resolve(__dirname, "static/html"), to: ''},
 			{from: path.resolve(__dirname, "static/roboto_mono"), to: ''},
-			{from: path.resolve(__dirname, "node_modules/mathjax"), to: 'mathjax'}
+			{from: path.resolve(__dirname, "node_modules/mathjax"), to: 'mathjax'},
+			{from: path.resolve(__dirname, "static/js"), to: 'js'},
 		]),
 
 		new WasmPackPlugin({
