@@ -39,13 +39,14 @@ module.exports = {
 			clientsClaim: true,
 			cleanupOutdatedCaches: true,
 			runtimeCaching: [{
-				urlPattern: /\.(?:html|css|js|wasm|svg|json|ico|png)$/,
+				urlPattern: /\.(?:html|css|js|wasm|svg|json|ico|png|ttf)$/,
 				handler: 'StaleWhileRevalidate',
 				options: {
 					cacheName: 'page',
 					expiration: {
-						// caches no more than 1 hour
-						maxAgeSeconds: 60 * 60,
+						maxEntries: 50,
+						// caches no more than 1 day hour
+						maxAgeSeconds: 60 * 60 * 24,
 						purgeOnQuotaError: true,
 					},
 				},
