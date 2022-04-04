@@ -39,9 +39,9 @@ fn main() {
 		// Here are type definitions for our enums and structs
 		// above. Attributes from build.rs will not be preserved,
 		// so we need to pass any we want in.
-		const_definition!(Missile),
-		const_definition!(Thermal),
-		const_definition!(Shell),
+		"pub ".to_owned() + &const_definition!(Missile),
+		"pub ".to_owned() + &const_definition!(Thermal),
+		"pub ".to_owned() + &const_definition!(Shell),
 		"pub ".to_owned() + &const_gen::const_declaration!(MISSILES = missiles),
 		"pub ".to_owned() + &const_gen::const_declaration!(THERMALS = thermals),
 		"pub ".to_owned() + &const_gen::const_declaration!(SHELLS = shells),
