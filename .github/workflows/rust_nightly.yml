@@ -29,13 +29,13 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.CAVE_IP }} >> ~/.ssh/known_hosts
 
-      # Install the needed rust toolchain
-      - name: Add toolchain
-        run: rustup toolchain install beta-x86_64-unknown-linux-gnu
-
       # Prepares rustup for wasm compiler
       - name: Add wasm-target
         run: rustup target add wasm32-unknown-unknown
+
+      # Install the needed rust toolchain
+      - name: Add toolchain
+        run: rustup toolchain install beta-x86_64-unknown-linux-gnu
 
       # Pulls in git dependencies
       - uses: actions/checkout@v2
