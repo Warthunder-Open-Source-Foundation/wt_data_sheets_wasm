@@ -10,6 +10,7 @@ edition = "2021"
 license-file = "LICENSE"
 repository = "https://github.com/FlareFlo/wt_data_sheets_wasm"
 homepage = "wt.flareflo.dev"
+build="build.rs"
 
 [lib]
 crate-type = ["cdylib"]
@@ -43,7 +44,7 @@ wt_datamine_extractor = { git = "https://github.com/FlareFlo/wt_datamine_extract
 
 serde_json = "1.*"
 serde = "1.*"
-bevy_reflect = "0.5.0"
+const-gen = "^1.0.0"
 chrono = "0.4.19"
 
 lazy_static = "1.*"
@@ -81,3 +82,8 @@ wasm-bindgen-test = "0.2.*"
 futures = "0.1.*"
 js-sys = "0.3.*"
 wasm-bindgen-futures = "0.3.*"
+
+[build-dependencies]
+const-gen = "^1.0.0"
+wt_datamine_extractor = { git = "https://github.com/FlareFlo/wt_datamine_extractor" }
+serde_json = "1.*"

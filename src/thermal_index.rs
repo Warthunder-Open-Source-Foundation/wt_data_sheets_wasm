@@ -1,8 +1,9 @@
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 
-use crate::THERMALS;
 use crate::util::get_document;
+
+include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
 
 #[wasm_bindgen]
 pub fn generate_tank_list() -> Result<(), JsValue> {

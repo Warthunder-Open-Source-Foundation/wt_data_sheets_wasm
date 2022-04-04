@@ -1,13 +1,13 @@
 use std::str::FromStr;
 use js_sys::JsString;
-use serde_json::to_vec;
 use wasm_bindgen::prelude::*;
-use web_sys::Element;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 
-use crate::{make_missile_option_inputs, MISSILES};
-use crate::util::get_document;
+use crate::{make_missile_option_inputs};
+
+include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
+
 
 #[wasm_bindgen]
 pub fn generate_targets() {
@@ -16,12 +16,12 @@ pub fn generate_targets() {
 
 #[wasm_bindgen]
 #[allow(clippy::missing_errors_doc)]
-pub fn initiate_calc(velocity: f64, alt: u32, select: usize) -> Result<(Vec<JsString>), JsValue> {
+pub fn initiate_calc(velocity: f64, alt: u32, select: usize) -> Result<Vec<JsString>, JsValue> {
 	constant_calc(velocity, alt, select, true)
 }
 
 #[allow(clippy::missing_panics_doc, clippy::missing_errors_doc)]
-pub fn constant_calc(velocity: f64, alt: u32, missile_select: usize, do_splash: bool) -> Result<(Vec<JsString>), JsValue> {
+pub fn constant_calc(velocity: f64, alt: u32, missile_select: usize, do_splash: bool) -> Result<Vec<JsString>, JsValue> {
 	let mut parameters = LaunchParameter::new_from_parameters(false, velocity / 3.6, 0.0, velocity / 3.6, alt);
 
 	let mut results = generate(&MISSILES[missile_select], &parameters, 0.1, false);

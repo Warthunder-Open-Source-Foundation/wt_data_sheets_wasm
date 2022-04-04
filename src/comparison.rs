@@ -1,8 +1,10 @@
 use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 
-use crate::{make_missile_option_inputs, MISSILES};
+use crate::{make_missile_option_inputs};
 use crate::util::{get_document, make_row_ir, make_row_params};
+
+include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
 
 #[wasm_bindgen]
 pub fn run_compare() {

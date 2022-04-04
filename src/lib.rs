@@ -17,30 +17,6 @@ pub mod thermal_index;
 pub mod shell_index;
 mod buildstamp;
 
-lazy_static! {
-	static ref MISSILES: Vec<Missile> = {
-		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
-		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
-		missiles.sort_by_key(|d| d.name.clone());
-
-		missiles
-	};
-	static ref THERMALS: Vec<Thermal> = {
-		let json = include_str!("../wt_datamine_extractor/thermal_index/all.json");
-		let mut thermals: Vec<Thermal> = serde_json::from_str(json).unwrap();
-		thermals.sort_by_key(|d| d.name.clone());
-
-		thermals
-	};
-	static ref SHELLS: Vec<Shell> = {
-		let json = include_str!("../wt_datamine_extractor/shell_index/compressed.json");
-		let compressed_shells: CompressedShells = serde_json::from_str(json).unwrap();
-		let mut shells = compressed_shells.decompress();
-		shells.sort_by_key(|d| d.name.clone());
-
-		shells
-	};
-}
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
