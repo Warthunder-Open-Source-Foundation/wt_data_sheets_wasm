@@ -1,10 +1,7 @@
 use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
-use wt_datamine_extractor_lib::missile::missile::Missile;
-use wt_datamine_extractor_lib::shell::shells::{Shell};
 use wt_datamine_extractor_lib::shell::compress::CompressedShells;
-use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 use crate::buildstamp::BuildStamp;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
@@ -17,9 +14,10 @@ pub mod thermal_index;
 pub mod shell_index;
 mod buildstamp;
 
-
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
+
+include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
 
 // When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
 // allocator.

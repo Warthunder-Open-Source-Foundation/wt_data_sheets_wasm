@@ -4,10 +4,7 @@ use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 
-use crate::{make_missile_option_inputs};
-
-include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
-
+use crate::{make_missile_option_inputs, MISSILES};
 
 #[wasm_bindgen]
 pub fn generate_targets() {

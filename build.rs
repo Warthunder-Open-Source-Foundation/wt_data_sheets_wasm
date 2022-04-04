@@ -4,10 +4,9 @@ use wt_datamine_extractor_lib::missile::missile::Missile;
 use wt_datamine_extractor_lib::shell::compress::CompressedShells;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
-use const_gen::CompileConst;
+use const_gen::{CompileConst, const_definition};
 
 fn main() {
-
 	let missiles: Vec<Missile> = {
 		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
 		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
@@ -36,17 +35,31 @@ fn main() {
 	let dest_path = Path::new(&out_dir).join("const_gen.rs");
 
 
-	let const_declarations = vec!
-	{
+	let const_declarations = vec! {
 		// Here are type definitions for our enums and structs
 		// above. Attributes from build.rs will not be preserved,
 		// so we need to pass any we want in.
-		const_gen::const_declaration!(MISSILES = missiles),
-		const_gen::const_declaration!(THERMALS = thermals),
-		const_gen::const_declaration!(SHELLS = shells),
+		const_definition!(Missile),
+		const_definition!(Thermal),
+		const_definition!(Shell),
+		"pub ".to_owned() + &const_gen::const_declaration!(MISSILES = missiles),
+		"pub ".to_owned() + &const_gen::const_declaration!(THERMALS = thermals),
+		"pub ".to_owned() + &const_gen::const_declaration!(SHELLS = shells),
 	}.join("\n");
 
-	fs::write(&dest_path, const_declarations).unwrap();
+	// Adding imports for enums and core structs
+	let final_dec = "".to_owned() +
+	"use wt_datamine_extractor_lib::missile::missile::SeekerType;\n" +
+		"use wt_datamine_extractor_lib::thermal::thermals::Crew;\n" +
+		"use wt_datamine_extractor_lib::thermal::thermals::VehicleType;\n" +
+		"use wt_datamine_extractor_lib::shell::shells::ShellType;\n" +
+	// 	"use wt_datamine_extractor_lib::missile::missile::Missile;\n" +
+	// 	"use wt_datamine_extractor_lib::thermal::thermals::Thermal;\n" +
+		"use wt_datamine_extractor_lib::thermal::thermals::Sight;\n" +
+	// 	"use wt_datamine_extractor_lib::shell::shells::Shell;\n" +
+		&const_declarations;
+
+	fs::write(&dest_path, final_dec).unwrap();
 
 	println!("cargo:rerun-if-changed=build.rs");
 }

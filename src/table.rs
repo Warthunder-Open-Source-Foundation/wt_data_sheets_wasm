@@ -6,10 +6,10 @@ use web_sys::Element;
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
+use wt_datamine_extractor_lib::missile::missile::{SeekerType};
+use crate::{Missile, MISSILES};
 
 use crate::util::get_document;
-
-include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
 
 #[wasm_bindgen]
 #[allow(clippy::missing_panics_doc)]
@@ -147,50 +147,50 @@ impl RdTable {
 	}
 }
 
-// pub trait ToHtmlTable: bevy_reflect::Struct {
-// 	fn to_html_row(self, missile: &Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
-// 		let document = get_document();
-//
-// 		let row = document.create_element("tr").unwrap();
-//
-// 		for i in self.iter_fields().enumerate() {
-// 			let cell = document.create_element("td").unwrap();
-// 			match i.0 {
-// 				0 => {
-// 					cell.set_attribute("id", &missile.name).unwrap();
-// 					let a = document.create_element("a").unwrap();
-// 					a.set_attribute("href", &format!("https://github.com/FlareFlo/wt_datamine_extractor/blob/master/missile_index/missiles/{}.blkx", &missile.name)).unwrap();
-// 					a.set_inner_html(&missile.localized);
-// 					cell.append_child(&a).unwrap();
-// 				}
-// 				1 => {
-// 					let results = generate(missile, parameters, 0.1, false);
-//
-// 					let range = results.distance_flown.round().to_string();
-//
-// 					cell.set_attribute("id", &format!("range_{}", &missile.name)).unwrap();
-// 					cell.set_text_content(Some(&range.to_string()));
-// 				}
-// 				_ => {
-// 					if let Some(value) = i.1.downcast_ref::<f64>() {
-// 						if *value == 0.0 {
-// 							cell.set_text_content(Some(&"-"));
-// 						} else if value.trunc() == 0.0 {
-// 							cell.set_text_content(Some(&format!("{:.1}", value)));
-// 						} else {
-// 							cell.set_text_content(Some(&value.to_string()));
-// 						}
-// 					}
-// 					if let Some(value) = i.1.downcast_ref::<bool>() {
-// 						cell.set_text_content(Some(&value.to_string()));
-// 					}
-// 					if let Some(value) = i.1.downcast_ref::<String>() {
-// 						cell.set_text_content(Some(&value));
-// 					}
-// 				}
-// 			}
-// 			row.append_child(&cell).unwrap();
-// 		}
-// 		row
-// 	}
-// }
+pub trait ToHtmlTable: bevy_reflect::Struct {
+	fn to_html_row(self, missile: &Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
+		let document = get_document();
+
+		let row = document.create_element("tr").unwrap();
+
+		for i in self.iter_fields().enumerate() {
+			let cell = document.create_element("td").unwrap();
+			match i.0 {
+				0 => {
+					cell.set_attribute("id", &missile.name).unwrap();
+					let a = document.create_element("a").unwrap();
+					a.set_attribute("href", &format!("https://github.com/FlareFlo/wt_datamine_extractor/blob/master/missile_index/missiles/{}.blkx", &missile.name)).unwrap();
+					a.set_inner_html(&missile.localized);
+					cell.append_child(&a).unwrap();
+				}
+				1 => {
+					let results = generate(missile, parameters, 0.1, false);
+
+					let range = results.distance_flown.round().to_string();
+
+					cell.set_attribute("id", &format!("range_{}", &missile.name)).unwrap();
+					cell.set_text_content(Some(&range.to_string()));
+				}
+				_ => {
+					if let Some(value) = i.1.downcast_ref::<f64>() {
+						if *value == 0.0 {
+							cell.set_text_content(Some(&"-"));
+						} else if value.trunc() == 0.0 {
+							cell.set_text_content(Some(&format!("{:.1}", value)));
+						} else {
+							cell.set_text_content(Some(&value.to_string()));
+						}
+					}
+					if let Some(value) = i.1.downcast_ref::<bool>() {
+						cell.set_text_content(Some(&value.to_string()));
+					}
+					if let Some(value) = i.1.downcast_ref::<String>() {
+						cell.set_text_content(Some(&value));
+					}
+				}
+			}
+			row.append_child(&cell).unwrap();
+		}
+		row
+	}
+}
