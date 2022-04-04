@@ -47,6 +47,9 @@ async function main() {
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		rust.run_compare();
 		input_manager("Select missile");
+
+		let range_element = document.getElementById("range");
+		let splash_at_element = document.getElementById("splash_at");
 		while (true) {
 			await fetch("http://localhost:8111/state").then(function (response) {
 				return response.json();
@@ -56,7 +59,9 @@ async function main() {
 				if (data["valid"] === true && !(target === "")) {
 					let velocity = data["IAS, km/h"];
 					let alt = data["H, m"];
-					rust.initiate_calc(velocity, alt, parseInt(target));
+					let results = rust.initiate_calc(velocity, alt, parseInt(target), range_element, splash_at_element);
+					range_element.innerText = results[0];
+					splash_at_element.innerText = results[1];
 				}
 
 			}).catch(function (error) {
