@@ -1,10 +1,8 @@
-use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
-use wt_datamine_extractor_lib::shell::compress::CompressedShells;
-use crate::buildstamp::BuildStamp;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
+use crate::buildstamp::BuildStamp;
 
 pub mod table;
 pub mod util;

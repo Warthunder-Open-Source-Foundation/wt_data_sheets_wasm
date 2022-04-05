@@ -1,4 +1,4 @@
-use wt_datamine_extractor_lib::missile::missile::{Missile as WtMissile, SeekerType};
+use wt_datamine_extractor_lib::missile::missile::{Missile as WtMissile};
 use crate::Missile;
 
 impl From<&Missile> for WtMissile {
