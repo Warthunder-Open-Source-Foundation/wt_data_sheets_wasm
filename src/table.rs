@@ -108,7 +108,7 @@ impl IrTable {
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
 			work_time: m.worktime,
-			uncage: m.cageable != 0,
+			uncage: m.cageable,
 		}
 	}
 }
@@ -149,7 +149,7 @@ impl RdTable {
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
 			work_time: m.worktime,
-			uncage: m.cageable != 0,
+			uncage: m.cageable,
 		}
 	}
 }

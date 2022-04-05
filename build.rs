@@ -53,10 +53,7 @@ fn main() {
 		"use wt_datamine_extractor_lib::thermal::thermals::Crew;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::VehicleType;\n" +
 		"use wt_datamine_extractor_lib::shell::shells::ShellType;\n" +
-	// 	"use wt_datamine_extractor_lib::missile::missile::Missile;\n" +
-	// 	"use wt_datamine_extractor_lib::thermal::thermals::Thermal;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::Sight;\n" +
-	// 	"use wt_datamine_extractor_lib::shell::shells::Shell;\n" +
 		&const_declarations;
 
 	fs::write(&dest_path, final_dec).unwrap();
