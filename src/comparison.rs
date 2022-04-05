@@ -17,11 +17,11 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 	let selection_area = document.get_element_by_id("selection_area").unwrap();
 	let table = document.get_element_by_id("comparison").unwrap();
 
-	let ref_missile = &MISSILES[reference];
-	let contrary_missile = &MISSILES[contrary];
+	let ref_missile = wt_datamine_extractor_lib::missile::missile::Missile::from(&MISSILES[reference]);
+	let contrary_missile = wt_datamine_extractor_lib::missile::missile::Missile::from(&MISSILES[contrary]);
 
-	let ref_row = make_row_ir(ref_missile, &LaunchParameter::new_from_default_hor());
-	let con_row = make_row_ir(contrary_missile, &LaunchParameter::new_from_default_hor());
+	let ref_row = make_row_ir(&ref_missile, &LaunchParameter::new_from_default_hor());
+	let con_row = make_row_ir(&contrary_missile, &LaunchParameter::new_from_default_hor());
 	let params = make_row_params();
 	for i in 0..17 {
 		let tr = document.create_element("tr").unwrap();

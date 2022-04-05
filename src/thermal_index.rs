@@ -1,8 +1,8 @@
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 
-use crate::THERMALS;
 use crate::util::get_document;
+use crate::THERMALS;
 
 #[wasm_bindgen]
 pub fn generate_tank_list() -> Result<(), JsValue> {
@@ -25,7 +25,7 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 
 		row.append_child(&name)?;
 
-		for sight in &thermal.1.sights {
+		for sight in thermal.1.sights {
 			let generation = match sight.x.round() as u32 {
 				500 => {
 					"one"
