@@ -2,8 +2,8 @@ use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::shell::shells::ShellType;
 
-use crate::SHELLS;
 use crate::util::get_document;
+use crate::SHELLS;
 
 #[wasm_bindgen]
 pub fn make_shell_options() -> Result<(), JsValue> {
