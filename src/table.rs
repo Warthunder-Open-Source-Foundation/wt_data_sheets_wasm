@@ -1,15 +1,16 @@
+use std::ops::Deref;
 use std::str::FromStr;
-
 use bevy_reflect::Reflect;
+
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use web_sys::Element;
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
-use wt_datamine_extractor_lib::missile::missile::{Missile, SeekerType};
+use wt_datamine_extractor_lib::missile::missile::{SeekerType};
+use crate::{Missile, MISSILES};
 
-use crate::MISSILES;
 use crate::util::get_document;
 
 #[wasm_bindgen]
@@ -19,7 +20,7 @@ pub fn update_tables(alt: u32, vel: u32) {
 
 	for missile in MISSILES.iter() {
 		let parameters = LaunchParameter::new_from_parameters(false, f64::from(vel), 0.0, 0.0, alt);
-		let results = generate(missile, &parameters, 0.1, false);
+		let results = generate(&wt_datamine_extractor_lib::missile::missile::Missile::from(missile), &parameters, 0.1, false);
 		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
 		cell.set_inner_html(&results.distance_flown.round().to_string());
 	}
@@ -46,6 +47,7 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();
 
 	for missile in MISSILES.iter() {
+		let missile = &wt_datamine_extractor_lib::missile::missile::Missile::from(missile);
 		match &missile.seekertype {
 			SeekerType::Ir => {
 				let ir_missile = IrTable::from_missile(missile, parameters);
@@ -84,7 +86,7 @@ pub struct IrTable {
 }
 
 impl IrTable {
-	pub fn from_missile(m: &Missile, parameters: &LaunchParameter) -> Self {
+	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
 		let results = generate(m, parameters, 0.1, false);
 
 		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
@@ -106,7 +108,7 @@ impl IrTable {
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
 			work_time: m.worktime,
-			uncage: m.cageable,
+			uncage: m.cageable != 0,
 		}
 	}
 }
@@ -131,7 +133,7 @@ pub struct RdTable {
 }
 
 impl RdTable {
-	pub fn from_missile(m: &Missile, parameters: &LaunchParameter) -> Self {
+	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
 		let results = generate(m, parameters, 0.1, false);
 
 		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
@@ -147,7 +149,7 @@ impl RdTable {
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
 			work_time: m.worktime,
-			uncage: m.cageable,
+			uncage: m.cageable != 0,
 		}
 	}
 }
@@ -155,7 +157,7 @@ impl RdTable {
 impl ToHtmlTable for RdTable {}
 
 pub trait ToHtmlTable: bevy_reflect::Struct {
-	fn to_html_row(self, missile: &Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
+	fn to_html_row(self, missile: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
 		let document = get_document();
 
 		let row = document.create_element("tr").unwrap();
