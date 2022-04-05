@@ -7,7 +7,7 @@ use const_gen::{CompileConst, const_definition};
 
 fn main() {
 	let missiles: Vec<Missile> = {
-		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
+		let json = include_str!("wt_datamine_extractor/missile_index/all.json");
 		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
 		missiles.sort_by_key(|d| d.name.clone());
 
@@ -15,14 +15,14 @@ fn main() {
 	};
 
 	let thermals: Vec<Thermal> = {
-		let json = include_str!("../wt_datamine_extractor/thermal_index/all.json");
+		let json = include_str!("wt_datamine_extractor/thermal_index/all.json");
 		let mut thermals: Vec<Thermal> = serde_json::from_str(json).unwrap();
 		thermals.sort_by_key(|d| d.name.clone());
 
 		thermals
 	};
 	let shells: Vec<Shell> = {
-		let json = include_str!("../wt_datamine_extractor/shell_index/all.json");
+		let json = include_str!("wt_datamine_extractor/shell_index/all.json");
 		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
 		shells.sort_by_key(|d| d.name.clone());
 
