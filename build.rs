@@ -1,7 +1,6 @@
 use std::{env, fs};
 use std::path::Path;
 use wt_datamine_extractor_lib::missile::missile::Missile;
-use wt_datamine_extractor_lib::shell::compress::CompressedShells;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 use const_gen::{CompileConst, const_definition};
@@ -23,9 +22,8 @@ fn main() {
 		thermals
 	};
 	let shells: Vec<Shell> = {
-		let json = include_str!("../wt_datamine_extractor/shell_index/compressed.json");
-		let compressed_shells: CompressedShells = serde_json::from_str(json).unwrap();
-		let mut shells = compressed_shells.decompress();
+		let json = include_str!("../wt_datamine_extractor/shell_index/all.json");
+		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
 		shells.sort_by_key(|d| d.name.clone());
 
 		shells

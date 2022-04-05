@@ -1,4 +1,3 @@
-use std::ops::Deref;
 use std::str::FromStr;
 use bevy_reflect::Reflect;
 
@@ -8,8 +7,8 @@ use web_sys::Element;
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
-use wt_datamine_extractor_lib::missile::missile::{SeekerType};
-use crate::{Missile, MISSILES};
+use wt_datamine_extractor_lib::missile::missile::SeekerType;
+use crate::{MISSILES};
 
 use crate::util::get_document;
 
