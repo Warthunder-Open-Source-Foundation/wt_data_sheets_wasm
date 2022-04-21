@@ -227,6 +227,7 @@ async function main() {
 	if (url.includes("custom_loadout.html")) {
 
 		rust.create_aircraft_dropdown();
+		rust.show_aircraft_loadout(0);
 
 		document.getElementById("aircraft").addEventListener("input", function  () {
 			let id = document.getElementById("aircraft").selectedOptions[0].getAttribute("index");
