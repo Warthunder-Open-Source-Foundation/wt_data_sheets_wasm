@@ -22,6 +22,7 @@ pub fn create_aircraft_dropdown() {
 #[wasm_bindgen]
 pub fn show_aircraft_loadout(index: usize) {
 	let document: Document = get_document();
+	let base_url = "https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/";
 
 
 	let loadouts: Element = document.get_element_by_id("loadout_screen").unwrap();
@@ -36,7 +37,13 @@ pub fn show_aircraft_loadout(index: usize) {
 		tr.append_child(&index).unwrap();
 		for weapon in pylon.weapons {
 			let td = document.create_element("td").unwrap();
-			td.set_inner_html(&format!("{}x {:?}", weapon.count, weapon.localized));
+
+			let img: Element = document.create_element("img").unwrap();
+			img.set_attribute("src", &format!("{}{}.png",&base_url, weapon.icon_type));
+			img.set_attribute("class", "icon_type");
+
+			td.append_child(&img).unwrap();
+			// td.set_inner_html(&format!("{}x {}", weapon.count, weapon.localized));
 			tr.append_child(&td).unwrap();
 		}
 		loadouts.append_child(&tr).unwrap();
