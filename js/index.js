@@ -230,7 +230,6 @@ async function main() {
 
 		document.getElementById("aircraft").addEventListener("input", function  () {
 			let id = document.getElementById("aircraft").selectedOptions[0].getAttribute("index");
-			console.log(id);
 			rust.show_aircraft_loadout(parseInt(id));
 		});
 

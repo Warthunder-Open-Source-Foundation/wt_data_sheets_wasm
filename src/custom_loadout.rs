@@ -35,14 +35,18 @@ pub fn show_aircraft_loadout(index: usize) {
 		let index = document.create_element("td").unwrap();
 		index.set_inner_html(&format!("pylon index: {i}"));
 		tr.append_child(&index).unwrap();
-		for weapon in pylon.weapons {
+		for (j, weapon) in pylon.weapons.iter().enumerate() {
 			let td = document.create_element("td").unwrap();
+			td.set_attribute("class", "weapon_container");
+			td.set_attribute("id", &format!("{i}_{j}"));
 
 			let img: Element = document.create_element("img").unwrap();
 			img.set_attribute("src", &format!("{}{}.png",&base_url, weapon.icon_type));
 			img.set_attribute("class", "icon_type");
-
+			img.set_attribute("title",&format!("{}x {}\n Weight: {:.1}kg", weapon.count, weapon.localized, weapon.total_mass));
 			td.append_child(&img).unwrap();
+
+
 			// td.set_inner_html(&format!("{}x {}", weapon.count, weapon.localized));
 			tr.append_child(&td).unwrap();
 		}
