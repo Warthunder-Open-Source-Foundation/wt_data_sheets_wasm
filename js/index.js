@@ -224,6 +224,18 @@ async function main() {
 		}
 	}
 
+	if (url.includes("custom_loadout.html")) {
+
+		rust.create_aircraft_dropdown();
+
+		document.getElementById("aircraft").addEventListener("input", function  () {
+			let id = document.getElementById("aircraft").selectedOptions[0].getAttribute("index");
+			console.log(id);
+			rust.show_aircraft_loadout(parseInt(id));
+		});
+
+	}
+
 	// Misc functions --------------------------------------------------------------------------------------------------
 
 	function sleep(ms) {

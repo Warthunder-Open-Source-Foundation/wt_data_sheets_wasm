@@ -4,6 +4,7 @@ use wt_datamine_extractor_lib::missile::missile::Missile;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 use const_gen::{CompileConst, const_definition};
+use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout, Pylon, Weapon, WeaponType};
 
 fn main() {
 	let missiles: Vec<Missile> = {
@@ -28,9 +29,17 @@ fn main() {
 
 		shells
 	};
+	let custom_loadouts: Vec<CustomLoadout> = {
+		let json = include_str!("wt_datamine_extractor/custom_loadouts/all.json");
+		let mut shells: Vec<CustomLoadout> = serde_json::from_str(json).unwrap();
+		shells.sort_by_key(|d| d.aircraft.clone());
+
+		shells
+	};
 
 	let out_dir = env::var_os("OUT_DIR").unwrap();
 	let dest_path = Path::new(&out_dir).join("const_gen.rs");
+
 
 
 	let const_declarations = vec! {
@@ -40,14 +49,19 @@ fn main() {
 		"pub ".to_owned() + &const_definition!(Missile),
 		"pub ".to_owned() + &const_definition!(Thermal),
 		"pub ".to_owned() + &const_definition!(Shell),
+		"pub ".to_owned() + &const_definition!(CustomLoadout),
+		"pub ".to_owned() + &const_definition!(Weapon),
+		"pub ".to_owned() + &const_definition!(WeaponType),
+		"pub ".to_owned() + &const_definition!(Pylon),
 		"pub ".to_owned() + &const_gen::const_declaration!(MISSILES = missiles),
 		"pub ".to_owned() + &const_gen::const_declaration!(THERMALS = thermals),
 		"pub ".to_owned() + &const_gen::const_declaration!(SHELLS = shells),
+		"pub ".to_owned() + &const_gen::const_declaration!(LOADOUTS = custom_loadouts),
 	}.join("\n");
 
 	// Adding imports for enums and core structs
 	let final_dec = "".to_owned() +
-	"use wt_datamine_extractor_lib::missile::missile::SeekerType;\n" +
+		"use wt_datamine_extractor_lib::missile::missile::SeekerType;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::Crew;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::VehicleType;\n" +
 		"use wt_datamine_extractor_lib::shell::shells::ShellType;\n" +

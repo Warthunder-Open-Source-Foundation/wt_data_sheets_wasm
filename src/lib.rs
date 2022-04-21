@@ -10,8 +10,9 @@ pub mod live_calc;
 pub mod comparison;
 pub mod thermal_index;
 pub mod shell_index;
-mod buildstamp;
-mod const_gen_trait_compat;
+pub mod buildstamp;
+pub mod const_gen_trait_compat;
+pub mod custom_loadout;
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
