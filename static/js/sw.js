@@ -1,7 +1,7 @@
-importScripts('/static/workbox/workbox-v6.5.3/workbox-sw.js');
+importScripts('/workbox/workbox-v6.5.3/workbox-sw.js');
 
 workbox.setConfig({
-	modulePathPrefix: '/third_party/workbox-vX.Y.Z/',
+	modulePathPrefix: '/workbox/workbox-v6.5.3/',
 });
 
 // Note: Ignore the error that Glitch raises about workbox being undefined.
