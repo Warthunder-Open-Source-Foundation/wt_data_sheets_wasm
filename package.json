@@ -21,6 +21,7 @@
    "dependencies": {
       "buildstamp": "^1.4.3",
       "mathjax": "^3.2.0",
-      "node-sass": "^7.0.1"
+      "node-sass": "^7.0.1",
+      "workbox-cli": "^6.5.3"
    }
 }
