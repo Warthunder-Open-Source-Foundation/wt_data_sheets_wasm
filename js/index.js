@@ -1,4 +1,13 @@
 async function main() {
+	let refreshing;
+	navigator.serviceWorker.addEventListener('controllerchange',
+		function() {
+			if (refreshing) return;
+			refreshing = true;
+			window.location.reload();
+		}
+	);
+
 	let url = window.location.href.split("/").at(-1);
 
 	if (window.location.href.includes("https://wt.flareflo.dev")) {
