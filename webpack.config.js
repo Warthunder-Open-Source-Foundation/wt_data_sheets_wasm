@@ -1,7 +1,6 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
-const workboxPlugin = require('workbox-webpack-plugin');
 
 const dist = path.resolve(__dirname, "dist");
 
@@ -29,29 +28,12 @@ module.exports = {
 			{from: path.resolve(__dirname, "node_modules/mathjax"), to: 'mathjax'},
 			{from: path.resolve(__dirname, "static/js"), to: 'js'},
 			{from: path.resolve(__dirname, "static/robots.txt"), to: ''},
+			{from: path.resolve(__dirname, "static/js/sw.js"), to: ''},
+			{from: path.resolve(__dirname, "static/workbox/"), to: 'workbox'},
 		]),
 
 		new WasmPackPlugin({
 			crateDirectory: __dirname,
-		}),
-
-		new workboxPlugin.GenerateSW({
-			swDest: 'sw.js',
-			clientsClaim: true,
-			cleanupOutdatedCaches: true,
-			runtimeCaching: [{
-				urlPattern: /\.(?:html|css|js|wasm|svg|json|ico|png|ttf)$/,
-				handler: 'StaleWhileRevalidate',
-				options: {
-					cacheName: 'page',
-					expiration: {
-						maxEntries: 50,
-						// caches no more than 1 day hour
-						maxAgeSeconds: 60 * 60 * 24,
-						purgeOnQuotaError: true,
-					},
-				},
-			}],
 		}),
 	]
 };

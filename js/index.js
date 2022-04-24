@@ -1,4 +1,15 @@
 async function main() {
+	// await navigator.serviceWorker.register('./sw.js');
+
+	let refreshing;
+	navigator.serviceWorker.addEventListener('controllerchange',
+		function() {
+			if (refreshing) return;
+			refreshing = true;
+			window.location.reload();
+		}
+	);
+
 	let url = window.location.href.split("/").at(-1);
 
 	if (window.location.href.includes("https://wt.flareflo.dev")) {
@@ -222,6 +233,18 @@ async function main() {
 				sort_universal_number(event)
 			})
 		}
+	}
+
+	if (url.includes("custom_loadout.html")) {
+
+		rust.create_aircraft_dropdown();
+		rust.show_aircraft_loadout(0);
+
+		document.getElementById("aircraft").addEventListener("input", function  () {
+			let id = document.getElementById("aircraft").selectedOptions[0].getAttribute("index");
+			rust.show_aircraft_loadout(parseInt(id));
+		});
+
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------

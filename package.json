@@ -6,7 +6,8 @@
       "build": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && sass --no-source-map static/scss:static/css && webpack",
       "start": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && webpack-dev-server --open -d",
       "start_sass": "sass --no-source-map --watch static/scss:static/css",
-      "test": "cargo test && wasm-pack test --headless"
+      "test": "cargo test && wasm-pack test --headless",
+      "update": "cargo clean; cargo update; git submodule update --remote; git pull"
    },
    "devDependencies": {
       "@wasm-tool/wasm-pack-plugin": "^1.1.0",
@@ -21,6 +22,7 @@
    "dependencies": {
       "buildstamp": "^1.4.3",
       "mathjax": "^3.2.0",
-      "node-sass": "^7.0.1"
+      "node-sass": "^7.0.1",
+      "workbox-cli": "^6.5.3"
    }
 }

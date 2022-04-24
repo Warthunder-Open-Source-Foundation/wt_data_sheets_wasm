@@ -1,0 +1,10 @@
+.icon_type {
+	width: 5vw;
+}
+
+tr {
+	display: table-cell;
+}
+ td {
+	display: block;
+}
