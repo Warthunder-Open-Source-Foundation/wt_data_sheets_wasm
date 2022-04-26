@@ -30,6 +30,7 @@ module.exports = {
 			{from: path.resolve(__dirname, "static/robots.txt"), to: ''},
 			{from: path.resolve(__dirname, "static/js/sw.js"), to: ''},
 			{from: path.resolve(__dirname, "static/workbox/"), to: 'workbox'},
+			{from: path.resolve(__dirname, "static/img/"), to: 'img'},
 		]),
 
 		new WasmPackPlugin({
