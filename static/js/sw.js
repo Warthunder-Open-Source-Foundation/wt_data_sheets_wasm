@@ -10,13 +10,14 @@ workbox.setConfig({
 
 workbox.routing.registerRoute(
 	new RegExp('.*\\.(?:html|css|js|wasm)'),
-	new workbox.strategies.StaleWhileRevalidate({
+	new workbox.strategies.NetworkFirst({
 		cacheName: 'short_term',
 		plugins: [
 			new workbox.expiration.ExpirationPlugin({
 				maxAgeSeconds: 60 * 60,
 			}),
 		],
+		networkTimeoutSeconds: 1,
 	})
 );
 
