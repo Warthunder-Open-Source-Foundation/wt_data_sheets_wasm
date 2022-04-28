@@ -32,6 +32,7 @@ impl From<&Missile> for WtMissile {
 			warmuptime: m.warmuptime,
 			worktime: m.worktime,
 			cageable: m.cageable,
+			rate_max: m.rate_max,
 			inertial_navigation: m.inertial_navigation,
 			use_target_vel: m.use_target_vel,
 			deltav: m.deltav
