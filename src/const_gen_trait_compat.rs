@@ -29,12 +29,14 @@ impl From<&Missile> for WtMissile {
 			lockanglemax: m.lockanglemax,
 			anglemax: m.anglemax,
 			minangletosun: m.minangletosun,
+			timeout: m.timeout,
 			warmuptime: m.warmuptime,
 			worktime: m.worktime,
 			cageable: m.cageable,
 			rate_max: m.rate_max,
 			inertial_navigation: m.inertial_navigation,
 			use_target_vel: m.use_target_vel,
+			allow_radar_slave: m.allow_radar_slave,
 			deltav: m.deltav
 		}
 	}

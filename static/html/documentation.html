@@ -90,7 +90,7 @@
 
 	<table class="main_table">
 		<thead>
-		<tr class="top-tr" id="ir_index">
+		<tr id="ir_index">
 			<td>Name</td>
 			<td>Description</td>
 			<td>Unit<br></td>
@@ -105,7 +105,7 @@
 			<td>-</td>
 			<td>-</td>
 		</tr>
-		<tr class="bright-tr" id="range">
+		<tr id="range">
 			<td>Range</td>
 			<td>Simulated range the missile will reach determined by the formulas above
 			</td>
@@ -118,7 +118,7 @@
 			<td>m/s</td>
 			<td>▲</td>
 		</tr>
-		<tr class="bright-tr" id="deltav">
+		<tr id="deltav">
 			<td>DeltaV</td>
 			<td>Theoretical maximum acceleration excluding air resistance</td>
 			<td>m/s²</td>
@@ -130,7 +130,7 @@
 			<td>g = 9.81m/s²</td>
 			<td>▲</td>
 		</tr>
-		<tr class="bright-tr" id="flightg">
+		<tr id="flightg">
 			<td>FlightG</td>
 			<td>Mid-flight peak G load the missile may accelerate with</td>
 			<td>g = 9.81m/s²</td>
@@ -142,7 +142,7 @@
 			<td>m</td>
 			<td>▲</td>
 		</tr>
-		<tr class="bright-tr" id="allaspect">
+		<tr id="allaspect">
 			<td>All aspect</td>
 			<td>Distance the missiles IR seeker can track an aircraft signature</td>
 			<td>m</td>
@@ -154,7 +154,7 @@
 			<td>m</td>
 			<td>▼</td>
 		</tr>
-		<tr class="bright-tr" id="ircm">
+		<tr id="ircm">
 			<td><a href="https://wiki.warthunder.com/Category:Helicopters_with_IRCM">IRCM</a></td>
 			<td>The visible distance to IRCM</td>
 			<td>m</td>
@@ -166,17 +166,11 @@
 			<td>deg</td>
 			<td>▼</td>
 		</tr>
-		<tr class="bright-tr" id="gate">
+		<tr id="gate">
 			<td>Gate</td>
 			<td>Field of view the seeker gains after lock</td>
 			<td>deg</td>
 			<td>▼</td>
-		</tr>
-		<tr class="bright-tr" id="rate_max">
-			<td>Rate max</td>
-			<td>Angular velocity the seeker can track a target with</td>
-			<td>deg/s</td>
-			<td>▲</td>
 		</tr>
 		<tr id="launchfov">
 			<td>LaunchFov</td>
@@ -184,7 +178,7 @@
 			<td>deg</td>
 			<td>▲</td>
 		</tr>
-		<tr class="bright-tr" id="flightfov">
+		<tr id="flightfov">
 			<td>FlightFov</td>
 			<td>Maximum distance from the bore to the seekers gimbal after launch</td>
 			<td>deg</td>
@@ -196,15 +190,27 @@
 			<td>s</td>
 			<td>▼</td>
 		</tr>
-		<tr class="bright-tr" id="worktime">
+		<tr id="worktime">
 			<td>WorkTime</td>
 			<td>Time the seeker is active</td>
 			<td>s</td>
 			<td>▲</td>
 		</tr>
+		<tr id="timeout">
+			<td>Time out</td>
+			<td>Time the seeker is inactive after launch</td>
+			<td>s</td>
+			<td>▼</td>
+		</tr>
 		<tr id="uncage">
 			<td>Uncage</td>
 			<td>Weather or not the seeker can gimbal off bore before launch</td>
+			<td>bool</td>
+			<td>▲</td>
+		</tr>
+		<tr id="allow_radar_slave">
+			<td>Radar slave</td>
+			<td>Permits radar slaving of the missile</td>
 			<td>bool</td>
 			<td>▲</td>
 		</tr>

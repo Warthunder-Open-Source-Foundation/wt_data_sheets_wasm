@@ -13,8 +13,8 @@ pub fn create_aircraft_dropdown() {
 	for (i, loadout) in LOADOUTS.iter().enumerate() {
 		let option = document.create_element("option").unwrap();
 		option.set_inner_html(loadout.localized);
-		option.set_attribute("name", loadout.aircraft);
-		option.set_attribute("index", &i.to_string());
+		option.set_attribute("name", loadout.aircraft).unwrap();
+		option.set_attribute("index", &i.to_string()).unwrap();
 		aircraft_select.append_child(&option).unwrap();
 	}
 }
@@ -46,10 +46,10 @@ pub fn show_aircraft_loadout(index: usize) {
 		tc.append_child(&index).unwrap();
 		for j in 0..y_len {
 			let td = document.create_element("td").unwrap();
-			td.set_attribute("class", "weapon_container");
+			td.set_attribute("class", "weapon_container").unwrap();
 
 			if let Some(weapon) = pylon.weapons.get(j as usize) {
-				td.set_attribute("id", &format!("{i}_{j}"));
+				td.set_attribute("id", &format!("{i}_{j}")).unwrap();
 
 				let img: Element = document.create_element("img").unwrap();
 				img.set_attribute("src", &format!("{}{}.png",&BASE_URL, weapon.icon_type)).unwrap();
