@@ -77,12 +77,13 @@ pub struct IrTable {
 	pub ircm: f64,
 	pub fov: f64,
 	pub gate: f64,
-	pub rate_max: f64,
 	pub launch_fov: f64,
 	pub flight_fov: f64,
 	pub warm_up_time: f64,
 	pub work_time: f64,
+	pub time_out: f64,
 	pub uncage: bool,
+	pub allow_radar_slave: bool,
 }
 
 impl IrTable {
@@ -104,12 +105,13 @@ impl IrTable {
 			ircm: m.bands[3],
 			fov: m.fov,
 			gate: m.gate,
-			rate_max: m.rate_max,
 			launch_fov: m.lockanglemax,
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
 			work_time: m.worktime,
+			time_out: m.timeout,
 			uncage: m.cageable,
+			allow_radar_slave: m.allow_radar_slave
 		}
 	}
 }
@@ -126,7 +128,6 @@ pub struct RdTable {
 	pub delta_v: f64,
 	pub launch_g: f64,
 	pub flight_g: f64,
-	pub rate_max: f64,
 	pub launch_fov: f64,
 	pub flight_fov: f64,
 	pub warm_up_time: f64,
@@ -147,7 +148,6 @@ impl RdTable {
 			delta_v: m.deltav,
 			launch_g: m.loadfactormax,
 			flight_g: m.reqaccelmax,
-			rate_max: m.rate_max,
 			launch_fov: m.lockanglemax,
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
