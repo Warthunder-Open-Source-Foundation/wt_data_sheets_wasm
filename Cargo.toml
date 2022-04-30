@@ -19,6 +19,7 @@ crate-type = ["cdylib"]
 # This makes the compiled code faster and smaller, but it makes compiling slower,
 # so it's only enabled in release mode.
 opt-level = "s"
+strip = true
 debug = false
 split-debuginfo = '...'  # Platform-specific.
 debug-assertions = false
@@ -26,7 +27,7 @@ overflow-checks = false
 lto = true
 panic = 'abort'
 incremental = true
-codegen-units = 8
+codegen-units = 24
 rpath = false
 
 [features]
