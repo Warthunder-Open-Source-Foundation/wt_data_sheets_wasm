@@ -11,6 +11,7 @@ license-file = "LICENSE"
 repository = "https://github.com/FlareFlo/wt_data_sheets_wasm"
 homepage = "wt.flareflo.dev"
 build="build.rs"
+rust-version = "1.60"
 
 [lib]
 crate-type = ["cdylib"]
@@ -31,13 +32,13 @@ codegen-units = 24
 rpath = false
 
 [features]
-# If you uncomment this line, it will enable `wee_alloc`:
-#default = ["wee_alloc"]
+# Smaller allocator
+default = ["wee_alloc"]
 
 [dependencies]
 # The `wasm-bindgen` crate provides the bare minimum functionality needed
 # to interact with JavaScript.
-wasm-bindgen = "0.2.78"
+wasm-bindgen = "0.2.80"
 
 wt_ballistics_calc = { git = "https://github.com/FlareFlo/wt_ballistics_calc" }
 
@@ -48,7 +49,6 @@ serde = "1.*"
 const-gen = "^1.1.0"
 chrono = "0.4.19"
 bevy_reflect = "^0.6.0"
-#lazy_static = "1.*"
 
 js-sys = "0.3.*"
 
