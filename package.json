@@ -10,7 +10,7 @@
       "update": "cargo clean; cargo update; git submodule update --remote; git pull"
    },
    "devDependencies": {
-      "@wasm-tool/wasm-pack-plugin": "^1.1.0",
+      "@wasm-tool/wasm-pack-plugin": "^1.6.0",
       "copy-webpack-plugin": "^5.1.2",
       "rimraf": "^3.0.0",
       "webpack": "^4.46.0",
