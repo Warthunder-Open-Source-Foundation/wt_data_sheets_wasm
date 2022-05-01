@@ -1,6 +1,4 @@
 async function main() {
-	// await navigator.serviceWorker.register('./sw.js');
-
 	let refreshing;
 	navigator.serviceWorker.addEventListener('controllerchange',
 		function() {
