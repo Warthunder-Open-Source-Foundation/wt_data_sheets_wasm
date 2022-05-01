@@ -2,10 +2,16 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 const workboxPlugin = require('workbox-webpack-plugin');
+const {GenerateSW} = require("workbox-webpack-plugin");
 
 const dist = path.resolve(__dirname, "dist");
 
 module.exports = {
+	performance: {
+		hints: false,
+		maxEntrypointSize: 512000,
+		maxAssetSize: 512000
+	},
 	experiments: {
 		asyncWebAssembly: true,
 		syncWebAssembly: true
@@ -16,11 +22,15 @@ module.exports = {
 	},
 	output: {
 		path: dist,
-		filename: "[name].js"
+		filename: "[name].js",
+		publicPath: ''
 	},
 	devServer: {
-		contentBase: dist,
+		static: {
+			directory: path.join(__dirname, "dist")
+		},
 		host: 'localhost',
+		compress: true,
 		port: 8081,
 	},
 	plugins: [
