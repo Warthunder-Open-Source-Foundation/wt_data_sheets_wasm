@@ -1,8 +1,18 @@
+use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 use web_sys::{Document, Element};
 use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout, Pylon};
 use crate::get_document;
-use crate::LOADOUTS;
+
+lazy_static! {
+    static ref LOADOUTS: Vec<CustomLoadout> = {
+       let json = include_str!("../wt_datamine_extractor/custom_loadouts/all.json");
+		let mut shells: Vec<CustomLoadout> = serde_json::from_str(json).unwrap();
+		shells.sort_by_key(|d| d.aircraft.clone());
+
+		shells
+    };
+}
 
 #[wasm_bindgen]
 pub fn create_aircraft_dropdown() {
@@ -12,18 +22,18 @@ pub fn create_aircraft_dropdown() {
 
 	for (i, loadout) in LOADOUTS.iter().enumerate() {
 		let option = document.create_element("option").unwrap();
-		option.set_inner_html(loadout.localized);
-		option.set_attribute("name", loadout.aircraft).unwrap();
+		option.set_inner_html(&loadout.localized);
+		option.set_attribute("name", &loadout.aircraft).unwrap();
 		option.set_attribute("index", &i.to_string()).unwrap();
 		aircraft_select.append_child(&option).unwrap();
 	}
+
 }
 
 #[wasm_bindgen]
 pub fn show_aircraft_loadout(index: usize) {
 	let document: Document = get_document();
 	static BASE_URL: &str = "https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/";
-
 
 	let loadouts: Element = document.get_element_by_id("loadout_screen").unwrap();
 	loadouts.set_inner_html("");
@@ -32,7 +42,9 @@ pub fn show_aircraft_loadout(index: usize) {
 
 	let aircraft = &LOADOUTS[index];
 
-	for i in aircraft.pylons {
+	// let compose = aircraft.compose_loadout(&[0]).unwrap();
+
+		for i in &aircraft.pylons {
 		let len = i.weapons.len();
 		if y_len < len {
 			y_len = len;

@@ -29,34 +29,24 @@ fn main() {
 
 		shells
 	};
-	let custom_loadouts: Vec<CustomLoadout> = {
-		let json = include_str!("wt_datamine_extractor/custom_loadouts/all.json");
-		let mut shells: Vec<CustomLoadout> = serde_json::from_str(json).unwrap();
-		shells.sort_by_key(|d| d.aircraft.clone());
-
-		shells
-	};
 
 	let out_dir = env::var_os("OUT_DIR").unwrap();
 	let dest_path = Path::new(&out_dir).join("const_gen.rs");
-
 
 
 	let const_declarations = vec! {
 		// Here are type definitions for our enums and structs
 		// above. Attributes from build.rs will not be preserved,
 		// so we need to pass any we want in.
-		"pub ".to_owned() + &const_definition!(Missile),
-		"pub ".to_owned() + &const_definition!(Thermal),
-		"pub ".to_owned() + &const_definition!(Shell),
-		"pub ".to_owned() + &const_definition!(CustomLoadout),
-		"pub ".to_owned() + &const_definition!(Weapon),
-		"pub ".to_owned() + &const_definition!(WeaponType),
-		"pub ".to_owned() + &const_definition!(Pylon),
-		"pub ".to_owned() + &const_gen::const_declaration!(MISSILES = missiles),
-		"pub ".to_owned() + &const_gen::const_declaration!(THERMALS = thermals),
-		"pub ".to_owned() + &const_gen::const_declaration!(SHELLS = shells),
-		"pub ".to_owned() + &const_gen::const_declaration!(LOADOUTS = custom_loadouts),
+		const_definition!(pub Missile),
+		const_definition!(pub Thermal),
+		const_definition!(pub Shell),
+		const_definition!(pub Weapon),
+		const_definition!(pub WeaponType),
+		const_definition!(#[derive(Clone)] pub Pylon),
+		const_gen::const_declaration!(pub MISSILES = missiles),
+		const_gen::const_declaration!(pub THERMALS = thermals),
+		const_gen::const_declaration!(pub SHELLS = shells),
 	}.join("\n");
 
 	// Adding imports for enums and core structs

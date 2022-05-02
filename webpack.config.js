@@ -32,6 +32,11 @@ module.exports = {
 		host: 'localhost',
 		compress: true,
 		port: 8081,
+		client: {
+			overlay: false,
+		},
+		liveReload: false,
+		hot: false,
 	},
 	plugins: [
 		new CopyPlugin([
