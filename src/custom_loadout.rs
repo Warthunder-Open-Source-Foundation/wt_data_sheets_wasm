@@ -27,7 +27,6 @@ pub fn create_aircraft_dropdown() {
 		option.set_attribute("index", &i.to_string()).unwrap();
 		aircraft_select.append_child(&option).unwrap();
 	}
-
 }
 
 #[wasm_bindgen]
@@ -44,7 +43,7 @@ pub fn show_aircraft_loadout(index: usize) {
 
 	// let compose = aircraft.compose_loadout(&[0]).unwrap();
 
-		for i in &aircraft.pylons {
+	for i in &aircraft.pylons {
 		let len = i.weapons.len();
 		if y_len < len {
 			y_len = len;
@@ -53,7 +52,7 @@ pub fn show_aircraft_loadout(index: usize) {
 
 	document.get_element_by_id("fm_max_load").unwrap().set_inner_html(&aircraft.max_load.to_string());
 	document.get_element_by_id("fm_max_imbalance").unwrap().set_inner_html(&aircraft.max_imbalance.to_string());
-	document.get_element_by_id("fm_max_wing_load").unwrap().set_inner_html(&format!("{}|{}", &aircraft.max_wing_load.0,  &aircraft.max_wing_load.1));
+	document.get_element_by_id("fm_max_wing_load").unwrap().set_inner_html(&format!("{}|{}", &aircraft.max_wing_load.0, &aircraft.max_wing_load.1));
 
 
 	for (i, pylon) in aircraft.pylons.iter().enumerate() {
@@ -76,13 +75,13 @@ pub fn show_aircraft_loadout(index: usize) {
 
 				let img: Element = document.create_element("img").unwrap();
 				let final_url = if !weapon.icon_type.is_empty() {
-					format!("{}{}.png",&BASE_URL, weapon.icon_type)
+					format!("{}{}.png", &BASE_URL, weapon.icon_type)
 				} else {
 					"/img/empty_loadout.png".to_owned()
 				};
 				img.set_attribute("src", &final_url).unwrap();
 				img.set_attribute("class", "icon_type").unwrap();
-				img.set_attribute("title",&format!("{}x {}\n Weight: {:.1}kg", weapon.count, weapon.localized, weapon.total_mass)).unwrap();
+				img.set_attribute("title", &format!("{}x {}\n Weight: {:.1}kg", weapon.count, weapon.localized, weapon.total_mass)).unwrap();
 				td.append_child(&img).unwrap();
 
 
