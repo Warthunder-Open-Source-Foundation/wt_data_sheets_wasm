@@ -4,7 +4,6 @@ use wt_datamine_extractor_lib::missile::missile::Missile;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 use const_gen::{CompileConst, const_definition};
-use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout, Pylon, Weapon, WeaponType};
 
 fn main() {
 	let missiles: Vec<Missile> = {
@@ -40,10 +39,7 @@ fn main() {
 		// so we need to pass any we want in.
 		const_definition!(pub Missile),
 		const_definition!(pub Thermal),
-		const_definition!(pub Shell),
-		const_definition!(pub Weapon),
-		const_definition!(pub WeaponType),
-		const_definition!(#[derive(Clone)] pub Pylon),
+		const_definition!(#[allow(dead_code)] pub Shell),
 		const_gen::const_declaration!(pub MISSILES = missiles),
 		const_gen::const_declaration!(pub THERMALS = thermals),
 		const_gen::const_declaration!(pub SHELLS = shells),

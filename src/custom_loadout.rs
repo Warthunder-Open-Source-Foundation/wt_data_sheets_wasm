@@ -1,7 +1,7 @@
 use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 use web_sys::{Document, Element};
-use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout, Pylon};
+use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout};
 use crate::get_document;
 
 lazy_static! {
