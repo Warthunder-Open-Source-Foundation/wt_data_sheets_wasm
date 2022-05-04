@@ -257,12 +257,26 @@ async function main() {
 				let col = parseInt(split[0]);
 
 				// Disable selection for previously selected item
+				// There are so many choices because indexes for slot 0 are offset by 1
 				let old_idx = selected[col];
 				if (old_idx !== undefined) {
 					let select = `${col}_${old_idx}`;
 					let old = document.getElementById(select);
 					old.classList.remove("selected");
 				}
+
+				let pre_selected = `${col}_0`;
+				let empty = document.getElementById(pre_selected);
+				if (empty !== null) {
+					empty.classList.remove("selected");
+				}
+
+				let gun_empty = document.getElementById(`${col}_1`);
+				if (gun_empty !== null) {
+					gun_empty.classList.remove("selected");
+				}
+				// Finished cleaning up old selection
+
 
 				// Add new selection to list
 				selected[col] = parseInt(split[1]);
@@ -278,6 +292,13 @@ async function main() {
 			selected = [];
 			for (let i = 0; i < selectable.length; i++) {
 				selectable[i].classList.remove("selected");
+			}
+
+			let table = document.getElementById("loadout_screen");
+			for (let i = 0; i < table.childNodes.length; i++) {
+				const row = table.childNodes[i];
+				const first_item = row.childNodes[1];
+				first_item.classList.add("selected");
 			}
 		});
 

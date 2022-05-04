@@ -33,18 +33,20 @@ pub fn create_aircraft_dropdown() {
 #[wasm_bindgen]
 pub fn output_selection(mut selection: Vec<usize>, index: usize) {
 	let aircraft: &CustomLoadout = &LOADOUTS[index];
+	let document = get_document();
 
 	while selection.len() <= aircraft.pylons.len() {
 		selection.push(0);
 	}
 	console_log(&format!("{:?}", selection));
 
+	let div = document.get_element_by_id("cl_result").unwrap();
 	match aircraft.compose_loadout(&selection) {
 		Ok(cl) => {
-			console_log(&format!("{:#?}", cl));
+			div.set_inner_html(&format!("<pre>Result checks out! \nExtra data: {:#?}</pre>", cl));
 		},
 		Err(err) => {
-			console_log(&format!("{:#?}", err));
+			div.set_inner_html(&format!("<pre>Bad result \nError (s): {:#?}</pre>", err));
 		}
 	}
 }
@@ -115,7 +117,7 @@ pub fn show_aircraft_loadout(index: usize) {
 					if j == 0 {
 						img.set_inner_html("EMPTY");
 						td.set_attribute("id", &format!("{i}_0")).unwrap();
-						td.set_attribute("class", "weapon_container selectable").unwrap();
+						td.set_attribute("class", "weapon_container selectable selected").unwrap();
 					} else {
 						td.set_attribute("class", "weapon_container").unwrap();
 					}
@@ -124,6 +126,10 @@ pub fn show_aircraft_loadout(index: usize) {
 					td.append_child(&img).unwrap();
 				}
 				tc.append_child(&td).unwrap();
+
+				if let Some(elem) = document.get_element_by_id("0_1") {
+					elem.set_attribute("class", "weapon_container selectable selected").unwrap();
+				};
 			};
 
 			if j == y_len - 1 && pylon.order.is_none() {
