@@ -38,7 +38,6 @@ pub fn output_selection(mut selection: Vec<usize>, index: usize) {
 	while selection.len() <= aircraft.pylons.len() {
 		selection.push(0);
 	}
-	console_log(&format!("{:?}", selection));
 
 	let div = document.get_element_by_id("cl_result").unwrap();
 	match aircraft.compose_loadout(&selection) {
