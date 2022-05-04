@@ -1,11 +1,43 @@
-.icon_type {
-	width: 5vw;
-}
-
 tr {
 	display: table-cell;
 }
 
 td {
 	display: block;
+}
+
+#loadout_screen {
+	border-collapse: collapse;
+
+	tr {
+		cursor: pointer;
+		.weapon_header {
+			height: fit-content;
+		}
+
+		.weapon_container {
+			aspect-ratio: 1 / 1;
+
+			.empty_choice {
+				margin: 0 auto;
+				width: fit-content;
+				font-size: max(1vw, 1vh);
+			}
+
+			.icon_type {
+				width: 90%;
+			}
+			background: transparent;
+
+			transition: 0.3s;
+			&:hover {
+				background: var(--color-accent);
+			}
+		}
+
+		td {
+			border: 1px white solid;
+			width: max(4vw, 5vh);
+		}
+	}
 }
