@@ -15,6 +15,11 @@ td {
 			height: fit-content;
 		}
 
+		.selected {
+			background-size: 400%;
+			background: var(--background-image-turquoise) !important;
+		}
+
 		.weapon_container {
 			aspect-ratio: 1 / 1;
 

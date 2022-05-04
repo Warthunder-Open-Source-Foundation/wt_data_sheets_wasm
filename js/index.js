@@ -255,8 +255,18 @@ async function main() {
 				};
 				let split = id.split("_");
 				let col = parseInt(split[0]);
+
+				// Disable selection for previously selected item
+				let old_idx = selected[col];
+				if (old_idx !== undefined) {
+					let select = `${col}_${old_idx}`;
+					let old = document.getElementById(select);
+					old.classList.remove("selected");
+				}
+
+				// Add new selection to list
 				selected[col] = parseInt(split[1]);
-				console.log(selected)
+				document.getElementById(id).classList.add("selected");
 			});
 		}
 
