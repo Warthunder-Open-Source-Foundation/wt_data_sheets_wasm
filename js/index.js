@@ -276,6 +276,9 @@ async function main() {
 
 		document.getElementById("reset_choices").addEventListener("click", function () {
 			selected = [];
+			for (let i = 0; i < selectable.length; i++) {
+				selectable[i].classList.remove("selected");
+			}
 		});
 
 	}
