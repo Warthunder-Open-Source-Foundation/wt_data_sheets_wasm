@@ -2,7 +2,8 @@ use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 use web_sys::{Document, Element};
 use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout};
-use crate::get_document;
+use wt_datamine_extractor_lib::custom_loadouts::loadout_compose::CLComposition;
+use crate::{console_log, get_document};
 
 lazy_static! {
     static ref LOADOUTS: Vec<CustomLoadout> = {
@@ -26,6 +27,25 @@ pub fn create_aircraft_dropdown() {
 		option.set_attribute("name", &loadout.aircraft).unwrap();
 		option.set_attribute("index", &i.to_string()).unwrap();
 		aircraft_select.append_child(&option).unwrap();
+	}
+}
+
+#[wasm_bindgen]
+pub fn output_selection(mut selection: Vec<usize>, index: usize) {
+	let aircraft: &CustomLoadout = &LOADOUTS[index];
+
+	while selection.len() <= aircraft.pylons.len() {
+		selection.push(0);
+	}
+	console_log(&format!("{:?}", selection));
+
+	match aircraft.compose_loadout(&selection) {
+		Ok(cl) => {
+			console_log(&format!("{:#?}", cl));
+		},
+		Err(err) => {
+			console_log(&format!("{:#?}", err));
+		}
 	}
 }
 
@@ -77,10 +97,10 @@ pub fn show_aircraft_loadout(index: usize) {
 
 			let make_doc = || {
 				let td = document.create_element("td").unwrap();
-				td.set_attribute("class", "weapon_container").unwrap();
 
 				if let Some(weapon) = pylon.weapons.get(j - 1 as usize) {
 					td.set_attribute("id", &format!("{i}_{j}")).unwrap();
+					td.set_attribute("class", "weapon_container selectable").unwrap();
 
 					let img: Element = document.create_element("img").unwrap();
 					if !weapon.icon_type.is_empty() {
@@ -94,6 +114,10 @@ pub fn show_aircraft_loadout(index: usize) {
 					let img: Element = document.create_element("div").unwrap();
 					if j == 0 {
 						img.set_inner_html("EMPTY");
+						td.set_attribute("id", &format!("{i}_0")).unwrap();
+						td.set_attribute("class", "weapon_container selectable").unwrap();
+					} else {
+						td.set_attribute("class", "weapon_container").unwrap();
 					}
 					img.set_attribute("class", "icon_type empty_choice").unwrap();
 					img.set_attribute("title", "Empty slot").unwrap();

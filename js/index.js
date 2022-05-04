@@ -235,12 +235,37 @@ async function main() {
 
 	if (url.includes("custom_loadout.html")) {
 
+		let selected = [];
+
 		rust.create_aircraft_dropdown();
 		rust.show_aircraft_loadout(0);
 
 		document.getElementById("aircraft").addEventListener("input", function  () {
 			let id = document.getElementById("aircraft").selectedOptions[0].getAttribute("index");
 			rust.show_aircraft_loadout(parseInt(id));
+		});
+
+		let selectable = document.getElementsByClassName("selectable");
+
+		for (let i = 0; i < selectable.length; i++) {
+			selectable[i].addEventListener("click", function (element, target) {
+				let id = element.composedPath()[1].id;
+				if (id === "") {
+					id = element.composedPath()[0].id;
+				};
+				let split = id.split("_");
+				let col = parseInt(split[0]);
+				selected[col] = parseInt(split[1]);
+				console.log(selected)
+			});
+		}
+
+		document.getElementById("apply_choices").addEventListener("click", function () {
+			rust.output_selection(selected);
+		});
+
+		document.getElementById("reset_choices").addEventListener("click", function () {
+			selected = [];
 		});
 
 	}
