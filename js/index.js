@@ -279,7 +279,6 @@ async function main() {
 					let col = parseInt(split[0]);
 
 					// Disable selection for previously selected item
-					// There are so many choices because indexes for slot 0 are offset by 1
 					let old_idx = selected[col];
 					if (old_idx !== undefined) {
 						let select = `${col}_${old_idx}`;
@@ -291,11 +290,6 @@ async function main() {
 					let empty = document.getElementById(pre_selected);
 					if (empty !== null) {
 						empty.classList.remove("selected");
-					}
-
-					let gun_empty = document.getElementById(`${col}_1`);
-					if (gun_empty !== null) {
-						gun_empty.classList.remove("selected");
 					}
 					// Finished cleaning up old selection
 
