@@ -3,8 +3,8 @@
    "name": "wt_data_sheets_wasm",
    "version": "0.1.0",
    "scripts": {
-      "build": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && sass --no-source-map static/scss:static/css && webpack",
-      "start": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && webpack-dev-server",
+      "build": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && sass --no-source-map static/scss:static/css && webpack --mode production --node-env=production",
+      "start": "rimraf dist pkg && buildstamp --out.path=buildstamp.json --date.format=instant && webpack-dev-server --mode development --node-env=dev",
       "start_sass": "sass --no-source-map --watch static/scss:static/css",
       "test": "cargo test && wasm-pack test --headless",
       "update": "cargo clean; cargo update; git submodule update --remote; git pull"

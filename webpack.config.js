@@ -6,6 +6,16 @@ const {GenerateSW} = require("workbox-webpack-plugin");
 
 const dist = path.resolve(__dirname, "dist");
 
+const inDev = process.env.NODE_ENV === "dev";
+
+let wasm_arg;
+
+if (inDev) {
+	wasm_arg = "";
+} else {
+	wasm_arg = "--release";
+}
+
 module.exports = {
 	performance: {
 		hints: false,
@@ -53,6 +63,7 @@ module.exports = {
 
 		new WasmPackPlugin({
 			crateDirectory: __dirname,
+			extraArgs: wasm_arg,
 		}),
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',
