@@ -19,11 +19,7 @@ const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
 
 include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
 
-// When the `wee_alloc` feature is enabled, this uses `wee_alloc` as the global
-// allocator.
-//
-// If you don't want to use `wee_alloc`, you can safely delete this.
-#[cfg(feature = "wee_alloc")]
+// Reduces size by around 3kb
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 

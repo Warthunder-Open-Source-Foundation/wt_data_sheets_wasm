@@ -17,8 +17,7 @@ rust-version = "1.60"
 crate-type = ["cdylib"]
 
 [profile.release]
-# This makes the compiled code faster and smaller, but it makes compiling slower,
-# so it's only enabled in release mode.
+#option z is supposdely smaller, but S has yielded around 11kb smaller results
 opt-level = "s"
 strip = true
 debug = false
@@ -32,8 +31,6 @@ codegen-units = 24
 rpath = false
 
 [features]
-# Smaller allocator
-#default = ["wee_alloc"]
 
 [dependencies]
 # The `wasm-bindgen` crate provides the bare minimum functionality needed
@@ -58,12 +55,7 @@ strum_macros = "0.23.*"
 strum = "0.23.*"
 lazy_static = "^1.4.0"
 
-#tokio = { version = "1", features = ["full"] }
-
-# `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
-# compared to the default allocator's ~10K. However, it is slower than the default
-# allocator, so it's not enabled by default.
-wee_alloc = { version = "0.4.*", optional = true }
+wee_alloc = "^0.4.5"
 
 # The `web-sys` crate allows you to interact with the various browser APIs,
 # like the DOM.
