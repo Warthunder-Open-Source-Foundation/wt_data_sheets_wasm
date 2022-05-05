@@ -215,6 +215,7 @@ async function main() {
 	if (url.includes("shell_index.html")) {
 
 		rust.make_shell_options();
+		rust.make_rows_from_shell("ApFsDs");
 
 		document.getElementById("select_ammo_type").addEventListener("input", function () {
 			document.getElementById("tbody").innerHTML = "";
