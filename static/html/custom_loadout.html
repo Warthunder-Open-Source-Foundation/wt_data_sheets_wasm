@@ -44,8 +44,10 @@
 		})
 </script>
 
-<select id="aircraft" class="centered"></select>
 <div>
+	<select id="aircraft" class="centered"></select>
+	<button id="apply_choices">Show result</button>
+	<button id="reset_choices">Reset changes</button>
 	<table id="fm_params">
 		<tr>
 			<td>Max load</td>
@@ -58,6 +60,8 @@
 			<td id="fm_max_wing_load"></td>
 		</tr>
 	</table>
+
+	<div id="cl_result"></div>
 
 	<table id="loadout_screen" class="centered"></table>
 </div>

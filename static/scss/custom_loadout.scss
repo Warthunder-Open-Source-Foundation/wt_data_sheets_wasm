@@ -15,6 +15,21 @@ td {
 			height: fit-content;
 		}
 
+		.selected, .selected > &:active {
+			//background: var(--color-accent) !important;
+			animation-duration: 0.5s;
+			animation-fill-mode:forwards;
+			@keyframes onHoverAnimation {
+				0% {
+					background: var(--color-accent);
+				}
+				100% {
+					background: var(--color-accept);
+				}
+			}
+			animation-name: onHoverAnimation;
+		}
+
 		.weapon_container {
 			aspect-ratio: 1 / 1;
 
@@ -31,7 +46,7 @@ td {
 
 			transition: 0.3s;
 			&:hover {
-				background: var(--color-accent);
+				background-color: var(--color-accent);
 			}
 		}
 

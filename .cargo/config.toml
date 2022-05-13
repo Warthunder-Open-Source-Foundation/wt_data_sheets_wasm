@@ -5,4 +5,7 @@
 build-std = [
 	"std",
 	"panic_abort",
+	"alloc",
+	"proc_macro",
+	"core",
 ]

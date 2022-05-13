@@ -2,7 +2,8 @@ use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
 use web_sys::{Document, Element};
 use wt_datamine_extractor_lib::custom_loadouts::custom_loadouts::{CustomLoadout};
-use crate::get_document;
+use wt_datamine_extractor_lib::custom_loadouts::loadout_compose::CLComposition;
+use crate::{console_log, get_document};
 
 lazy_static! {
     static ref LOADOUTS: Vec<CustomLoadout> = {
@@ -26,6 +27,27 @@ pub fn create_aircraft_dropdown() {
 		option.set_attribute("name", &loadout.aircraft).unwrap();
 		option.set_attribute("index", &i.to_string()).unwrap();
 		aircraft_select.append_child(&option).unwrap();
+	}
+}
+
+#[wasm_bindgen]
+pub fn output_selection(mut selection: Vec<usize>, index: usize) {
+	let aircraft: &CustomLoadout = &LOADOUTS[index];
+	let document = get_document();
+
+	while selection.len() < aircraft.pylons.len() {
+		selection.push(0);
+	}
+	console_log(&format!("{:?}", &selection));
+
+	let div = document.get_element_by_id("cl_result").unwrap();
+	match aircraft.compose_loadout(&selection) {
+		Ok(cl) => {
+			div.set_inner_html(&format!("<pre>Result checks out! \nExtra data: {:#?}</pre>", cl));
+		}
+		Err(err) => {
+			div.set_inner_html(&format!("<pre>Bad result \nError (s): {:#?}</pre>", err));
+		}
 	}
 }
 
@@ -55,7 +77,6 @@ pub fn show_aircraft_loadout(index: usize) {
 	document.get_element_by_id("fm_max_imbalance").unwrap().set_inner_html(&aircraft.max_imbalance.to_string());
 	document.get_element_by_id("fm_max_wing_load").unwrap().set_inner_html(&format!("{}|{}", &aircraft.max_wing_load.0, &aircraft.max_wing_load.1));
 
-
 	for (i, pylon) in aircraft.pylons.iter().enumerate() {
 		let tc = document.create_element("tr").unwrap();
 
@@ -69,44 +90,38 @@ pub fn show_aircraft_loadout(index: usize) {
 		index.set_inner_html(&header);
 		tc.append_child(&index).unwrap();
 		for j in 0..y_len {
+			let td = document.create_element("td").unwrap();
 
-			// Abort loop early as gun slot should not have an empty option
-			if j == 0 && pylon.order.is_none() {
-				continue
-			}
-
-			let make_doc = || {
-				let td = document.create_element("td").unwrap();
-				td.set_attribute("class", "weapon_container").unwrap();
-
-				if let Some(weapon) = pylon.weapons.get(j - 1 as usize) {
-					td.set_attribute("id", &format!("{i}_{j}")).unwrap();
-
-					let img: Element = document.create_element("img").unwrap();
-					if !weapon.icon_type.is_empty() {
-						let url = format!("{}{}.png", &BASE_URL, weapon.icon_type);
-						img.set_attribute("src", &url).unwrap();
-					}
-					img.set_attribute("class", "icon_type").unwrap();
-					img.set_attribute("title", &format!("{}x {}\n Weight: {:.1}kg", weapon.count, weapon.localized, weapon.total_mass)).unwrap();
-					td.append_child(&img).unwrap();
-				} else {
-					let img: Element = document.create_element("div").unwrap();
-					if j == 0 {
-						img.set_inner_html("EMPTY");
-					}
-					img.set_attribute("class", "icon_type empty_choice").unwrap();
-					img.set_attribute("title", "Empty slot").unwrap();
-					td.append_child(&img).unwrap();
-				}
+			let img: Element = document.create_element("div").unwrap();
+			if j == 0 {
+				img.set_inner_html("EMPTY");
+				td.set_attribute("id", &format!("{i}_0")).unwrap();
+				td.set_attribute("class", "weapon_container selectable selected").unwrap();
+				img.set_attribute("title", "Empty slot").unwrap();
+				td.append_child(&img).unwrap();
 				tc.append_child(&td).unwrap();
-			};
-
-			if j == y_len - 1 && pylon.order.is_none() {
-				make_doc();
+				continue
+			} else {
+				td.set_attribute("class", "weapon_container").unwrap();
 			}
 
-			make_doc();
+			if let Some(weapon) = pylon.weapons.get(j - 1 as usize) {
+				td.set_attribute("id", &format!("{i}_{j}")).unwrap();
+				td.set_attribute("class", "weapon_container selectable").unwrap();
+
+				let img: Element = document.create_element("img").unwrap();
+				if !weapon.icon_type.is_empty() {
+					let url = format!("{}{}.png", &BASE_URL, weapon.icon_type);
+					img.set_attribute("src", &url).unwrap();
+				}
+				img.set_attribute("class", "icon_type").unwrap();
+				img.set_attribute("title", &format!("{}x {}\n Weight: {:.1}kg", weapon.count, weapon.localized, weapon.total_mass)).unwrap();
+				td.append_child(&img).unwrap();
+			} else {
+				img.set_attribute("class", "icon_type empty_choice").unwrap();
+				td.append_child(&img).unwrap();
+			}
+			tc.append_child(&td).unwrap();
 		}
 		loadouts.append_child(&tc).unwrap();
 	}
