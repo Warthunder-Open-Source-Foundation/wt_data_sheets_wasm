@@ -78,7 +78,7 @@ jobs:
 
       # Create dummy file for successful removal of any file
       - name: Create dummy file
-        run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'cd /var/www/flo_wt_calc; touch placeholder.txt'
+        run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'cd /var/www/nightly_flo_wt_calc; touch placeholder.txt'
 
       # Clean up dist folder before pushing new set
       - name: Prepare server for rsync

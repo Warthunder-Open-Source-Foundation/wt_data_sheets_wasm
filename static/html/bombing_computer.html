@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Missile comparison</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="bombing_computer.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="Know how many bombs you need per base"
+		  property="og:title"/>
+
+	<meta content="Quickly know what bomb count is adequate per base"
+		  property="og:description"/>
+
+	<meta content="Quickly know what bomb count is adequate per base"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="http://wt.flareflo.dev/bombing_computer.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script id="script" src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body id="body">
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+The mission has: <div id="base_count"></div> bases
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>
