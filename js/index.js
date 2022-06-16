@@ -1,7 +1,22 @@
+import {
+	compare,
+	create_aircraft_dropdown,
+	generate_main_tables,
+	generate_tank_list,
+	generate_thermal_options,
+	initiate_calc,
+	make_rows_from_shell,
+	make_shell_options,
+	output_selection,
+	run_compare,
+	show_aircraft_loadout,
+	update_tables
+} from "../pkg";
+
 async function main() {
 	let refreshing;
 	navigator.serviceWorker.addEventListener('controllerchange',
-		function() {
+		function () {
 			if (refreshing) return;
 			refreshing = true;
 			window.location.reload();
@@ -20,12 +35,10 @@ async function main() {
 		document.querySelector("html").style.setProperty("--color-background", "url(WIP.png)");
 	}
 
-	let rust; // Yes it's a weird assignment but the IDE likes it this way
-	rust = await import ("../pkg/index.js").catch(console.error);
 
 	// Custom section for each page to make sure it runs properly
 	if (url.includes("table.html")) {
-		rust.generate_main_tables();
+		generate_main_tables();
 
 		document.getElementById("vel").addEventListener("input", update);
 		document.getElementById("alt").addEventListener("input", update);
@@ -34,13 +47,13 @@ async function main() {
 		function update() {
 			let alt = parseInt(document.getElementById("alt").value);
 			let vel = parseInt(document.getElementById("vel").value);
-			rust.update_tables(alt, vel);
+			update_tables(alt, vel);
 		}
 
 		document.getElementById("reset_values").addEventListener("click", (ev) => {
 			document.getElementById("alt").value = "0";
 			document.getElementById("vel").value = "343";
-			rust.update_tables(0, 343);
+			update_tables(0, 343);
 		});
 	}
 
@@ -54,7 +67,7 @@ async function main() {
 				oldelem.replaceWith(newelem, oldelem);
 			});
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
-		rust.run_compare();
+		run_compare();
 		input_manager("Select missile");
 
 		let range_element = document.getElementById("range");
@@ -68,7 +81,7 @@ async function main() {
 				if (data["valid"] === true && !(target === "")) {
 					let velocity = data["IAS, km/h"];
 					let alt = data["H, m"];
-					let results = rust.initiate_calc(velocity, alt, parseInt(target), range_element, splash_at_element);
+					let results = initiate_calc(velocity, alt, parseInt(target), range_element, splash_at_element);
 					range_element.innerText = results[0];
 					splash_at_element.innerText = results[1];
 				}
@@ -90,7 +103,7 @@ async function main() {
 				oldelem.replaceWith(newelem, oldelem);
 			});
 
-		rust.run_compare(); // Creates input field options
+		run_compare(); // Creates input field options
 
 		document.getElementById("dropdown").addEventListener("submit", set_value_enter);
 		input_manager("Select missile");
@@ -139,7 +152,7 @@ async function main() {
 					document.getElementById("lock").innerHTML = "Select another missile to compare to";
 				} else {
 					contrary = document.getElementById("ul_input").getAttribute("selected");
-					rust.compare(parseInt(reference), parseInt(contrary), identical, differences);
+					compare(parseInt(reference), parseInt(contrary), identical, differences);
 				}
 			}
 		}
@@ -166,7 +179,7 @@ async function main() {
 			});
 
 
-		rust.generate_thermal_options();
+		generate_thermal_options();
 
 		input_manager("Select vehicle class");
 
@@ -174,7 +187,7 @@ async function main() {
 			set_value_enter();
 		});
 
-		rust.generate_tank_list()
+		generate_tank_list()
 
 		let sorted = false;
 		document.getElementById("column_1").addEventListener("click", function () {
@@ -214,12 +227,12 @@ async function main() {
 
 	if (url.includes("shell_index.html")) {
 
-		rust.make_shell_options();
-		rust.make_rows_from_shell("ApFsDs");
+		make_shell_options();
+		make_rows_from_shell("ApFsDs");
 
 		document.getElementById("select_ammo_type").addEventListener("input", function () {
 			document.getElementById("tbody").innerHTML = "";
-			rust.make_rows_from_shell(document.getElementById("select_ammo_type").value);
+			make_rows_from_shell(document.getElementById("select_ammo_type").value);
 		})
 
 		for (const element of document.getElementsByClassName("sortable_str")) {
@@ -238,11 +251,11 @@ async function main() {
 
 		let selected = [];
 
-		rust.create_aircraft_dropdown();
-		rust.show_aircraft_loadout(0);
+		create_aircraft_dropdown();
+		show_aircraft_loadout(0);
 
-		document.getElementById("aircraft").addEventListener("input", function  () {
-			rust.show_aircraft_loadout(selectedAircraft());
+		document.getElementById("aircraft").addEventListener("input", function () {
+			show_aircraft_loadout(selectedAircraft());
 			addSelectionListeners();
 		});
 
@@ -250,7 +263,7 @@ async function main() {
 		addSelectionListeners();
 
 		document.getElementById("apply_choices").addEventListener("click", function () {
-			rust.output_selection(selected, selectedAircraft());
+			output_selection(selected, selectedAircraft());
 		});
 
 		document.getElementById("reset_choices").addEventListener("click", function () {
@@ -275,7 +288,8 @@ async function main() {
 					let id = element.composedPath()[1].id;
 					if (id === "") {
 						id = element.composedPath()[0].id;
-					};
+					}
+					;
 					let split = id.split("_");
 					let col = parseInt(split[0]);
 
