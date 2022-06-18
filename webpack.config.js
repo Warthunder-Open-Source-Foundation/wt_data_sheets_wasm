@@ -11,7 +11,7 @@ const inDev = process.env.NODE_ENV === "dev";
 let wasm_arg;
 
 if (inDev) {
-	wasm_arg = "";
+	wasm_arg = "--debug";
 } else {
 	wasm_arg = "--release";
 }

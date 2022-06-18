@@ -4,7 +4,7 @@ import {
 	generate_main_tables,
 	generate_tank_list,
 	generate_thermal_options,
-	initiate_calc,
+	initiate_calc, main_js,
 	make_rows_from_shell,
 	make_shell_options,
 	output_selection,
@@ -35,6 +35,7 @@ async function main() {
 		document.querySelector("html").style.setProperty("--color-background", "url(WIP.png)");
 	}
 
+	main_js();
 
 	// Custom section for each page to make sure it runs properly
 	if (url.includes("table.html")) {

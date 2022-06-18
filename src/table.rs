@@ -43,7 +43,8 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let document = get_document();
 
 	let ir_table = document.query_selector(".main_table").unwrap().unwrap();
-	let rd_table = document.query_selector(".rd_table").unwrap().unwrap();
+	let sarh_table = document.query_selector(".sarh_table").unwrap().unwrap();
+	let arh_table = document.query_selector(".arh_table").unwrap().unwrap();
 
 	for missile in MISSILES.iter() {
 		let missile = &wt_datamine_extractor_lib::missile::missile::Missile::from(missile);
@@ -52,9 +53,13 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 				let ir_missile = IrTable::from_missile(missile, parameters);
 				ir_table.append_child(&ir_missile.to_html_row(missile, parameters)).unwrap();
 			}
-			SeekerType::Radar => {
-				let rd_missile = RdTable::from_missile(missile, parameters);
-				rd_table.append_child(&rd_missile.to_html_row(missile, parameters)).unwrap();
+			SeekerType::Sarh => {
+				let sarh_missiles = SarhTable::from_missile(missile, parameters);
+				sarh_table.append_child(&sarh_missiles.to_html_row(missile, parameters)).unwrap();
+			}
+			SeekerType::Arh => {
+				let arh_missiles = ArhTable::from_missile(missile, parameters);
+				arh_table.append_child(&arh_missiles.to_html_row(missile, parameters)).unwrap();
 			}
 		}
 	}
@@ -120,7 +125,7 @@ impl ToHtmlTable for IrTable {}
 
 // As represented in the HTML
 #[derive(Reflect)]
-pub struct RdTable {
+pub struct SarhTable {
 	pub name: String,
 	pub range: f64,
 	pub twr: f64,
@@ -135,7 +140,7 @@ pub struct RdTable {
 	pub uncage: bool,
 }
 
-impl RdTable {
+impl SarhTable {
 	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
 		let results = generate(m, parameters, 0.1, false);
 
@@ -157,7 +162,48 @@ impl RdTable {
 	}
 }
 
-impl ToHtmlTable for RdTable {}
+impl ToHtmlTable for SarhTable {}
+
+// As represented in the HTML
+#[derive(Reflect)]
+pub struct ArhTable {
+	pub name: String,
+	pub range: f64,
+	pub twr: f64,
+	pub max_speed: f64,
+	pub delta_v: f64,
+	pub launch_g: f64,
+	pub flight_g: f64,
+	pub launch_fov: f64,
+	pub flight_fov: f64,
+	pub warm_up_time: f64,
+	pub work_time: f64,
+	pub uncage: bool,
+}
+
+impl ArhTable {
+	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
+		let results = generate(m, parameters, 0.1, false);
+
+		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
+		Self {
+			name: m.name.to_owned(),
+			range,
+			twr: f64::from_str(&format!("{:.1}", (m.force0 / 9.807) / m.mass)).unwrap(),
+			max_speed: m.endspeed,
+			delta_v: m.deltav,
+			launch_g: m.loadfactormax,
+			flight_g: m.reqaccelmax,
+			launch_fov: m.lockanglemax,
+			flight_fov: m.anglemax,
+			warm_up_time: m.warmuptime,
+			work_time: m.worktime,
+			uncage: m.cageable,
+		}
+	}
+}
+
+impl ToHtmlTable for ArhTable {}
 
 pub trait ToHtmlTable: bevy_reflect::Struct {
 	fn to_html_row(self, missile: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
