@@ -1,3 +1,4 @@
+use std::panic;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 
@@ -28,8 +29,8 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 pub fn main_js() -> Result<(), JsValue> {
 	// This provides better error messages in debug mode.
 	// It's disabled in release mode so it doesn't bloat up the file size.
-	#[cfg(debug)]
-		console_error_panic_hook::set_once();
+	// #[cfg(debug_assertions)]
+	panic::set_hook(Box::new(console_error_panic_hook::hook));
 	make_footer_data();
 	Ok(())
 }

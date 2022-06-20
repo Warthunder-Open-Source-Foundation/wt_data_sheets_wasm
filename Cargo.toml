@@ -57,18 +57,18 @@ lazy_static = "^1.4.0"
 
 wee_alloc = "^0.4.5"
 
+# The `console_error_panic_hook` crate provides better debugging of panics by
+# logging them with `console.error`. This is great for development, but requires
+# all the `std::fmt` and `std::panicking` infrastructure, so it's only enabled
+# in debug mode.
+#[target."cfg(debug)".dependencies]
+console_error_panic_hook = "0.1.*"
+
 # The `web-sys` crate allows you to interact with the various browser APIs,
 # like the DOM.
 [dependencies.web-sys]
 version = "0.3.36"
 features = ["console", "Window", "Document", "Element", "HtmlElement", "Node", "HtmlCollection", "HtmlButtonElement"]
-
-# The `console_error_panic_hook` crate provides better debugging of panics by
-# logging them with `console.error`. This is great for development, but requires
-# all the `std::fmt` and `std::panicking` infrastructure, so it's only enabled
-# in debug mode.
-[target."cfg(debug)".dependencies]
-console_error_panic_hook = "0.1.*"
 
 # These crates are used for running unit tests.
 [dev-dependencies]

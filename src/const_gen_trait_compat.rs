@@ -37,6 +37,7 @@ impl From<&Missile> for WtMissile {
 			inertial_navigation: m.inertial_navigation,
 			use_target_vel: m.use_target_vel,
 			allow_radar_slave: m.allow_radar_slave,
+			has_data_link: m.has_data_link,
 			deltav: m.deltav
 		}
 	}
