@@ -56,6 +56,27 @@ async function main() {
 			document.getElementById("vel").value = "343";
 			update_tables(1000, 343);
 		});
+
+
+		// Takes about 28 milliseconds to compute on a plain build
+		let tables = document.getElementsByClassName("missile_table");
+		for (const table of tables) {
+			iterate_inner_child(table);
+		}
+
+		// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
+		function iterate_inner_child(parent) {
+			let children = parent.children;
+			if (children.length !== 0) {
+				for (let i = 0; i < children.length; i++) {
+					iterate_inner_child(children[i]);
+				}
+			} else if (parent.innerText === "true") {
+				parent.classList.add("value_green");
+			} else if (parent.innerText === "false") {
+				parent.classList.add("value_red");
+			}
+		}
 	}
 
 	if (url.includes("live_calc.html")) {

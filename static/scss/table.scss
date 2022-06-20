@@ -3,3 +3,11 @@
 	animation: rainbow_animation 10s ease-out infinite;
 	background-color: initial;
 }
+
+.value_green {
+	background-color: var(--color-text-green)
+}
+
+.value_red {
+	background-color: var(--color-text-red);
+}
