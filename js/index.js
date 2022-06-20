@@ -52,9 +52,9 @@ async function main() {
 		}
 
 		document.getElementById("reset_values").addEventListener("click", (ev) => {
-			document.getElementById("alt").value = "0";
+			document.getElementById("alt").value = "1000";
 			document.getElementById("vel").value = "343";
-			update_tables(0, 343);
+			update_tables(1000, 343);
 		});
 	}
 
