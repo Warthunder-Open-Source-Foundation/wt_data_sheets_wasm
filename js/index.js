@@ -4,7 +4,8 @@ import {
 	generate_main_tables,
 	generate_tank_list,
 	generate_thermal_options,
-	initiate_calc, main_js,
+	initiate_calc,
+	main_js,
 	make_rows_from_shell,
 	make_shell_options,
 	output_selection,
@@ -58,23 +59,29 @@ async function main() {
 		});
 
 
-		// Takes about 28 milliseconds to compute on a plain build
+		// Takes about 1 milliseconds to compute on a plain build
+		console.time();
 		let tables = document.getElementsByClassName("missile_table");
 		for (const table of tables) {
 			iterate_inner_child(table);
 		}
+		console.timeEnd();
 
 		// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
 		function iterate_inner_child(parent) {
-			let children = parent.children;
-			if (children.length !== 0) {
-				for (let i = 0; i < children.length; i++) {
-					iterate_inner_child(children[i]);
+			if (parent.tagName === "td") {
+				if (parent.innerText === "true") {
+					parent.classList.add("value_green");
+				} else if (parent.innerText === "false") {
+					parent.classList.add("value_red");
 				}
-			} else if (parent.innerText === "true") {
-				parent.classList.add("value_green");
-			} else if (parent.innerText === "false") {
-				parent.classList.add("value_red");
+			} else {
+				let children = parent.children;
+				if (children.length !== 0) {
+					for (let i = 0; i < children.length; i++) {
+						iterate_inner_child(children[i]);
+					}
+				}
 			}
 		}
 	}
