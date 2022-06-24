@@ -60,13 +60,10 @@ async function main() {
 
 
 		// Takes about 1 milliseconds to compute on a plain build
-		console.time();
 		let tables = document.getElementsByClassName("missile_table");
 		for (const table of tables) {
 			iterate_inner_child(table);
 		}
-		console.timeEnd();
-
 		// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
 		function iterate_inner_child(parent) {
 			if (parent.tagName === "td") {
