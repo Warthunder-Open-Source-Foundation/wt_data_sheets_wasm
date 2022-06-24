@@ -46,8 +46,14 @@ serde = "1.*"
 const-gen = "^1.1.0"
 chrono = "0.4.19"
 bevy_reflect = "^0.6.0"
-plotters = "^0.3.1"
-plotters-canvas = "^0.3.0"
+
+# Plotting for misisle ballistic display
+# Return to using non-git when https://github.com/plotters-rs/plotters/issues/358 resolves
+plotters = { git = "https://github.com/plotters-rs/plotters"}
+plotters-canvas = { git = "https://github.com/plotters-rs/plotters-canvas"}
+#plotters = "0.3.1"
+#plotters-canvas = "^0.3.0"
+
 
 js-sys = "0.3.*"
 

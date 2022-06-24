@@ -19,12 +19,9 @@ const DIST_C: u32 = 100;
 
 #[wasm_bindgen]
 pub fn plot(id: &str, target_missile: &str) {
-	let backend = CanvasBackend::new(id).expect("cannot find canvas");
-	let size = backend.get_size();
+	let backend = plotters_canvas::CanvasBackend::new(id).expect("cannot find canvas");
 
 	let root = backend.into_drawing_area();
-
-	console_log(&format!("{:?}", size));
 
 	let mut missile = &MISSILES[0];
 	for item in MISSILES.iter() {
@@ -66,10 +63,9 @@ pub fn plot(id: &str, target_missile: &str) {
 	let mut y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
 
 	// Catches weird edge case i dont even know how
-	if y_dim.start.abs() + y_dim.end.abs() > 1000.0 {
-		return;
-		y_dim = 0.0..1000.0;
-	}
+	// if y_dim.start.abs() + y_dim.end.abs() > 1000.0 {
+	// 	y_dim = 0.0..1000.0;
+	// }
 
 	// After this point, we should be able to draw construct a chart context
 	let mut chart = ChartBuilder::on(&root)
