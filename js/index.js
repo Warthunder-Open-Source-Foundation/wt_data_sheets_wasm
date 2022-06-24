@@ -9,6 +9,7 @@ import {
 	make_rows_from_shell,
 	make_shell_options,
 	output_selection,
+	plot,
 	run_compare,
 	show_aircraft_loadout,
 	update_tables
@@ -39,6 +40,7 @@ async function main() {
 	main_js();
 
 	// Custom section for each page to make sure it runs properly
+	// I know ist bad but I haven't had time to fix it, you only get to complain about this to me when you make a PR to fix it
 	if (url.includes("table.html")) {
 		generate_main_tables();
 
@@ -64,6 +66,7 @@ async function main() {
 		for (const table of tables) {
 			iterate_inner_child(table);
 		}
+
 		// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
 		function iterate_inner_child(parent) {
 			if (parent.tagName === "td") {
@@ -364,6 +367,37 @@ async function main() {
 			});
 			await sleep(1000);
 		}
+	}
+
+	if (url.includes("missile_ballistics.html")) {
+		await fetch('missile_select.html')
+			.then(res => res.text())
+			.then(text => {
+				let oldelem = document.querySelector("script#select_0");
+				let newelem = document.createElement("div");
+				newelem.setAttribute("id", "div_input");
+				newelem.innerHTML = text;
+				oldelem.replaceWith(newelem, oldelem);
+			});
+
+		run_compare();
+		input_manager("Select missile");
+
+		let selector = document.getElementById("dropdown");
+		selector.addEventListener("submit", () => {
+			set_value_enter();
+		});
+
+		document.getElementById("run").addEventListener("click", () => {
+			let target =document.getElementById("ul_input").getAttribute("target_name");
+			if (target !== undefined) {
+				console.time();
+				plot("ballistics", target);
+				console.timeEnd();
+			} else{
+				alert("No missile selected")
+			}
+		});
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------

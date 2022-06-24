@@ -46,6 +46,8 @@ serde = "1.*"
 const-gen = "^1.1.0"
 chrono = "0.4.19"
 bevy_reflect = "^0.6.0"
+plotters = "^0.3.1"
+plotters-canvas = "^0.3.0"
 
 js-sys = "0.3.*"
 
@@ -68,7 +70,7 @@ console_error_panic_hook = "0.1.*"
 # like the DOM.
 [dependencies.web-sys]
 version = "0.3.36"
-features = ["console", "Window", "Document", "Element", "HtmlElement", "Node", "HtmlCollection", "HtmlButtonElement"]
+features = ["console", "Window", "Document", "Element", "HtmlElement", "Node", "HtmlCollection", "HtmlButtonElement", "HtmlCanvasElement"]
 
 # These crates are used for running unit tests.
 [dev-dependencies]
