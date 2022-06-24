@@ -57,18 +57,8 @@ pub fn plot(id: &str, target_missile: &str) {
 	let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
 	let mut y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
 
-	console_log(&format!("{:?} {:?}", x_dim, y_dim));
-
-
 	root.fill(&WHITE).unwrap();
 	let root = root.margin(10, 10, 10, 10);
-
-
-	// Catches weird edge case
-	// https://github.com/plotters-rs/plotters/issues/358
-	if y_dim.start.abs() + y_dim.end.abs() > 1000.0 {
-		y_dim = 0.0..1000.0;
-	}
 
 	// After this point, we should be able to draw construct a chart context
 	let mut chart = ChartBuilder::on(&root)
