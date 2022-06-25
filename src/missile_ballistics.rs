@@ -29,7 +29,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		rgb(split[2])
 	);
 
-	let backend = plotters_canvas::CanvasBackend::new(id).expect("cannot find canvas");
+	let backend = CanvasBackend::new(id).expect("cannot find canvas");
 
 	let root = backend.into_drawing_area();
 

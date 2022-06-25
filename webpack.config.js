@@ -28,7 +28,9 @@ module.exports = {
 	},
 	mode: "production",
 	entry: {
-		index: "./js/index.js"
+		index: "./js/index.js",
+		util: "./js/util.js",
+		missile_ballistics: "./js/missile_ballistics.js"
 	},
 	output: {
 		path: dist,
