@@ -30,7 +30,14 @@ module.exports = {
 	entry: {
 		index: "./js/index.js",
 		util: "./js/util.js",
-		missile_ballistics: "./js/missile_ballistics.js"
+		missile_ballistics: "./js/missile_ballistics.js",
+		custom_loadout: "./js/custom_loadout.js",
+		bombing_computer: "./js/bombing_computer.js",
+		table: "./js/table.js",
+		live_calc: "./js/live_calc.js",
+		compare: "./js/compare.js",
+		thermal_index: "./js/thermal_index.js",
+		shell_index: "./js/shell_index.js",
 	},
 	output: {
 		path: dist,
