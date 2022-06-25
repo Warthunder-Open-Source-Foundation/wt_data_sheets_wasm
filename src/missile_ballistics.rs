@@ -7,6 +7,8 @@ use wt_ballistics_calc_lib::runner::generate;
 use crate::MISSILES;
 use crate::console_log;
 
+use std::str::FromStr;
+
 
 const WIDTH: u32 = 3840;
 const HEIGHT: u32 = 2160;
@@ -18,7 +20,15 @@ const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
 const DIST_C: u32 = 100;
 
 #[wasm_bindgen]
-pub fn plot(id: &str, target_missile: &str, altitude: u32) {
+pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, canvas_background_color: &str) {
+	let split: Vec<&str> = canvas_background_color.split("_").collect();
+	let rgb = |input| u8::from_str(input).unwrap_or(255);
+	let color = RGBColor(
+		rgb(split[0]),
+		rgb(split[1]),
+		rgb(split[2])
+	);
+
 	let backend = plotters_canvas::CanvasBackend::new(id).expect("cannot find canvas");
 
 	let root = backend.into_drawing_area();
@@ -33,7 +43,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32) {
 
 	let results = generate(&missile, &LaunchParameter {
 		use_gravity: false,
-		start_velocity: 343.0,
+		start_velocity,
 		distance_to_target: 0.0,
 		target_speed: 0.0,
 		altitude,
@@ -57,7 +67,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32) {
 	let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
 	let mut y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
 
-	root.fill(&WHITE).unwrap();
+	root.fill(&color).unwrap();
 	let root = root.margin(10, 10, 10, 10);
 
 	// After this point, we should be able to draw construct a chart context
