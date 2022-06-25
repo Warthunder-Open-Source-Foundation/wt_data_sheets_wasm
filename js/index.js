@@ -388,16 +388,24 @@ async function main() {
 			set_value_enter();
 		});
 
+		document.getElementById("altitude").addEventListener("input", () => {
+			console.log("called")
+			call_ballistics();
+		});
+
 		document.getElementById("run").addEventListener("click", () => {
+			call_ballistics();
+		});
+
+		function call_ballistics() {
+			let altitude = document.getElementById("altitude").value;
 			let target =document.getElementById("ul_input").getAttribute("target_name");
 			if (target !== undefined) {
-				console.time();
-				plot("ballistics", target);
-				console.timeEnd();
+				plot("ballistics", target, parseInt(altitude));
 			} else{
 				alert("No missile selected")
 			}
-		});
+		}
 	}
 
 	// Misc functions --------------------------------------------------------------------------------------------------

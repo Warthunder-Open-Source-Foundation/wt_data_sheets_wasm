@@ -18,7 +18,7 @@ const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
 const DIST_C: u32 = 100;
 
 #[wasm_bindgen]
-pub fn plot(id: &str, target_missile: &str) {
+pub fn plot(id: &str, target_missile: &str, altitude: u32) {
 	let backend = plotters_canvas::CanvasBackend::new(id).expect("cannot find canvas");
 
 	let root = backend.into_drawing_area();
@@ -36,7 +36,7 @@ pub fn plot(id: &str, target_missile: &str) {
 		start_velocity: 343.0,
 		distance_to_target: 0.0,
 		target_speed: 0.0,
-		altitude: 7000,
+		altitude,
 	}, TIMESTEP, false);
 
 	let mut v_profile: Vec<(f32, f64)> = Vec::new();

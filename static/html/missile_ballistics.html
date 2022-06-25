@@ -43,9 +43,26 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
+
+
+
 <script id="select_0"></script>
-<button id="run">Run</button>
+
+<form id="config" onsubmit="return false;">
+	<button id="run" type="submit">Run</button>
+	<label>
+		Altitude:
+		<input class="slider" type="range" id="altitude" value="1000" step="100" min="0" max="10000">
+	</label>
+</form>
+
+
+
+
 <canvas id="ballistics" width="3840" height="2160"></canvas>
+
+
+
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())
