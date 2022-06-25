@@ -46,29 +46,25 @@
 		})
 </script>
 
+<div id="main_container">
+	<script id="select_0"></script>
 
+	<form id="config" onsubmit="return false;">
+		<label id="background_color_value" for="background_color">Background color:</label>
+		<input id="background_color" type="color" value="#FFFFFF">
 
-<script id="select_0"></script>
+		<p>Simulation parameters</p>
 
-<form id="config" onsubmit="return false;">
-	<label id="background_color_value" for="background_color">Background color:</label>
-	<input id="background_color" type="color" value="#FFFFFF">
+		<label id="altitude_value" for="altitude">Altitude: 1000</label>
+		<input class="slider" type="range" id="altitude" value="1000" step="100" min="0" max="10000">
+		<br>
 
-	<p>Simulation parameters</p>
-
-	<label id="altitude_value" for="altitude">Altitude: 1000</label>
-	<input class="slider" type="range" id="altitude" value="1000" step="100" min="0" max="10000">
-
-	<label id="velocity_value" for="velocity">Launch velocity: 343</label>
-	<input class="slider" type="range" id="velocity" value="343" step="10" min="0" max="2000">
-</form>
-
-
-
-
-<canvas id="ballistics" width="3840" height="2160"></canvas>
-
-
+		<label id="velocity_value" for="velocity">Launch velocity: 343</label>
+		<input class="slider" type="range" id="velocity" value="343" step="10" min="0" max="2000">
+		<br>
+	</form>
+	<canvas id="ballistics" width="3840" height="2160"></canvas>
+</div>
 
 <script id="replace_with_footer">
 	fetch('footer.html')
