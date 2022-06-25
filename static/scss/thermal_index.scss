@@ -15,10 +15,16 @@ p {
 	width: fit-content;
 }
 
+#dropdown {
+	width: 50vw;
+}
+
+#main {
+	width: fit-content;
+}
 
 #main, #dropdown {
 	margin: 0 auto;
-	width: fit-content;
 }
 
 #column_1, #column_0 {
