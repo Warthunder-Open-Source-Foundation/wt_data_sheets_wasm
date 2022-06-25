@@ -23,14 +23,16 @@ pub fn make_missile_option_inputs(selector: &str, item: &str, class: Option<&str
 	};
 
 	for (i, missile) in MISSILES.iter().enumerate() {
-		let element = document.create_element(item).unwrap();
-		let _ = element.set_attribute("value", &i.to_string());
-		if let Some(value) = class {
-			let _ = element.set_attribute("class", value);
+		if !missile.name.contains("default") {
+			let element = document.create_element(item).unwrap();
+			let _ = element.set_attribute("value", &i.to_string());
+			if let Some(value) = class {
+				let _ = element.set_attribute("class", value);
+			}
+			element.set_text_content(Some(&missile.localized));
+			element.set_attribute("id", &missile.name).unwrap();
+			let _ = select.append_child(&element);
 		}
-		element.set_text_content(Some(&missile.localized));
-		element.set_attribute("id", &missile.name).unwrap();
-		let _ = select.append_child(&element);
 	}
 }
 
