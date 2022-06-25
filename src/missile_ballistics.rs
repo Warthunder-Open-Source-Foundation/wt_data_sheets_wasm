@@ -1,11 +1,9 @@
-use std::ops::Range;
 use plotters::prelude::*;
 use plotters_canvas::CanvasBackend;
 use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 use crate::MISSILES;
-use crate::console_log;
 
 use std::str::FromStr;
 
@@ -17,7 +15,7 @@ const TIMESTEP: f64 = 0.1;
 
 // Scaling settings
 const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
-const DIST_C: u32 = 100;
+const DISTANCE_FACTOR: u32 = 100;
 
 #[wasm_bindgen]
 pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, canvas_background_color: &str) {
@@ -61,11 +59,11 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 	let mut d_profile: Vec<(f32, f64)> = Vec::new();
 	for i in results.profile.d.clone().iter().enumerate() {
-		d_profile.push((i.0 as f32, *i.1 / DIST_C as f64));
+		d_profile.push((i.0 as f32, *i.1 / DISTANCE_FACTOR as f64));
 	}
 
 	let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
-	let mut y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
+	let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
 
 	root.fill(&color).unwrap();
 	let root = root.margin(10, 10, 10, 10);
@@ -118,7 +116,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		d_profile,
 		&GREEN,
 	)).unwrap()
-		 .label(format!("Distance m / {DIST_C}"))
+		 .label(format!("Distance m / {DISTANCE_FACTOR}"))
 		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &GREEN));
 
 
