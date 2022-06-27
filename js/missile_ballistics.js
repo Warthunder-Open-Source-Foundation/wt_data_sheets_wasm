@@ -35,11 +35,6 @@ async function main() {
 		call_ballistics();
 	});
 
-	document.getElementById("background_color").addEventListener("change", () => {
-		document.getElementById("background_color_value").innerText = "Background color: ";
-		call_ballistics();
-	});
-
 	let canvas_scale = 1;
 	let canvas_translate = (0, 0);
 	let canvas = document.getElementById("ballistics");
@@ -61,6 +56,10 @@ async function main() {
 		canvas_translate = (0, 0);
 		call_ballistics();
 	});
+
+	document.getElementById("color_select").addEventListener("change", () => {
+		call_ballistics();
+	})
 
 	function zoom_level(amount) {
 		let old_scale = canvas_scale;
@@ -94,12 +93,28 @@ async function main() {
 }
 
 function call_ballistics() {
-	let background_color = document.getElementById("background_color").value;
+	let theme_selection = document.getElementById("color_select").value;
+	let background_color;
+	let text_color;
+	switch (parseInt(theme_selection)) {
+		case 0:
+			background_color = "#282828";
+			text_color = "#FFFFFF";
+			break;
+		case 1:
+			background_color = "#000000";
+			text_color = "#FFFFFF";
+			break;
+		case 2:
+			background_color = "#FFFFFF";
+			text_color = "#000000";
+			break;
+	}
 	let altitude = document.getElementById("altitude").value;
 	let velocity = document.getElementById("velocity").value;
 	let target =document.getElementById("ul_input").getAttribute("target_name");
 	if (target !== undefined) {
-		plot("ballistics", target, parseInt(altitude), parseInt(velocity), hex_to_rgb(background_color).join("_"));
+		plot("ballistics", target, parseInt(altitude), parseInt(velocity), hex_to_rgb(background_color).join("_"), hex_to_rgb(text_color).join("_"));
 	} else{
 		alert("No missile selected")
 	}
