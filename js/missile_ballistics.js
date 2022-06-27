@@ -39,6 +39,58 @@ async function main() {
 		document.getElementById("background_color_value").innerText = "Background color: ";
 		call_ballistics();
 	});
+
+	let canvas_scale = 1;
+	let canvas_translate = (0, 0);
+	let canvas = document.getElementById("ballistics");
+	let c = canvas.getContext("2d");
+	let width = canvas.width;
+	let height = canvas.height;
+
+	document.getElementById("zoom_in").addEventListener("click", () => {
+		zoom_level(2);
+	});
+
+	document.getElementById("zoom_out").addEventListener("click", () => {
+		zoom_level(0.5);
+	});
+
+	document.getElementById("zoom_reset").addEventListener("click", () => {
+		c.reset();
+		canvas_scale = 1;
+		canvas_translate = (0, 0);
+		call_ballistics();
+	});
+
+	function zoom_level(amount) {
+		let old_scale = canvas_scale;
+		canvas_scale *= amount;
+		if (canvas_scale < 1) {
+			canvas_scale = 1;
+			return;
+		}
+		c.scale(amount, amount);
+		call_ballistics();
+		translate_center(old_scale, amount);
+	}
+
+	function translate_center(old_scale, amount) {
+		// Saves translation matrix, wipes canvas, and restores scaling
+		c.save();
+		c.setTransform(1, 0, 0, 1, 0, 0);
+		c.clearRect(0, 0, width, height);
+		c.restore();
+
+		let translate_x = width / old_scale / amount;
+		let translate_y = height / old_scale / amount;
+
+		if (amount > 1) {
+			translate_y = -translate_y;
+			translate_x = -translate_x;
+		}
+		c.translate(translate_x, translate_y);
+		call_ballistics();
+	}
 }
 
 function call_ballistics() {
