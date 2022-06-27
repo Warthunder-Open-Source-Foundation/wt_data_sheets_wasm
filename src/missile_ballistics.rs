@@ -66,7 +66,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
 
 	root.fill(&color).unwrap();
-	let root = root.margin(10, 10, 10, 10);
+	let root = root.margin(50, 50, 50, 50);
 
 	// After this point, we should be able to draw construct a chart context
 	let mut chart = ChartBuilder::on(&root)
