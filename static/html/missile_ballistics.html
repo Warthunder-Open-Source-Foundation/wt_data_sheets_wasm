@@ -62,11 +62,14 @@
 		<label id="velocity_value" for="velocity">Launch velocity (meters/second): 343</label>
 		<input class="slider" type="range" id="velocity" value="343" step="10" min="0" max="2000">
 		<br>
-		<button id="zoom_in">+</button>
-		<button id="zoom_reset">reset</button>
-		<button id="zoom_out">-</button>
 	</form>
-	<canvas id="ballistics" width="3840" height="2160"></canvas>
+	<div id="canvas_container">
+		<canvas id="ballistics" width="3840" height="2160"></canvas>
+
+		<button class="on_canvas" id="zoom_in">+</button>
+		<button class="on_canvas" id="zoom_reset">reset</button>
+		<button class="on_canvas" id="zoom_out">-</button>
+	</div>
 </div>
 
 <script id="replace_with_footer">
