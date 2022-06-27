@@ -66,6 +66,8 @@ async function main() {
 
 	async function run_live_mode() {
 		while (live_mode.checked === true) {
+			console.time()
+			let start = new Date().getTime();
 			await fetch("http://localhost:8111/state").then(function (response) {
 				return response.json();
 			}).then(function (data) {
@@ -73,6 +75,7 @@ async function main() {
 				if (data["valid"] === true && !(target === "")) {
 					let velocity = Math.round(data["IAS, km/h"] / 3.6);
 					let alt = data["H, m"];
+
 					call_ballistics();
 
 					document.getElementById("altitude").value = alt;
@@ -87,7 +90,11 @@ async function main() {
 				live_mode.checked =  false;
 				alert("Game is not in a match/open or responding");
 			});
-			await sleep(40);
+			let stop = new Date().getTime();
+			if (stop - start < 40) {
+				await sleep(40 - stop - start);
+			}
+			console.timeEnd()
 		}
 	}
 
