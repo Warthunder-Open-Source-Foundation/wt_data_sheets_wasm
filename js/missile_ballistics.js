@@ -26,12 +26,12 @@ async function main() {
 	});
 
 	document.getElementById("altitude").addEventListener("input", () => {
-		document.getElementById("altitude_value").innerText = "Altitude: " + document.getElementById("altitude").value;
+		document.getElementById("altitude_value").innerText = "Altitude (meters): " + document.getElementById("altitude").value;
 		call_ballistics();
 	});
 
 	document.getElementById("velocity").addEventListener("input", () => {
-		document.getElementById("velocity_value").innerText = "Launch velocity: " + document.getElementById("velocity").value;
+		document.getElementById("velocity_value").innerText = "Launch velocity (meters/second): " + document.getElementById("velocity").value;
 		call_ballistics();
 	});
 
