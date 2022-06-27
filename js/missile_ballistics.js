@@ -66,7 +66,6 @@ async function main() {
 
 	async function run_live_mode() {
 		while (live_mode.checked === true) {
-			console.time()
 			let start = new Date().getTime();
 			await fetch("http://localhost:8111/state").then(function (response) {
 				return response.json();
@@ -94,7 +93,6 @@ async function main() {
 			if (stop - start < 40) {
 				await sleep(40 - stop - start);
 			}
-			console.timeEnd()
 		}
 	}
 
