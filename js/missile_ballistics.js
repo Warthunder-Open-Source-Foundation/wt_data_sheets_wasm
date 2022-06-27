@@ -1,5 +1,5 @@
-import {plot, run_compare} from "../pkg";
-import {input_manager, set_value_enter} from "./util";
+import {initiate_calc, plot, run_compare} from "../pkg";
+import {input_manager, set_value_enter, sleep} from "./util";
 
 async function main() {
 	await fetch('missile_select.html')
@@ -60,6 +60,36 @@ async function main() {
 	document.getElementById("color_select").addEventListener("change", () => {
 		call_ballistics();
 	})
+
+	let live_mode = document.getElementById("use_live_mode")
+	live_mode.addEventListener("input", run_live_mode)
+
+	async function run_live_mode() {
+		while (live_mode.checked === true) {
+			await fetch("http://localhost:8111/state").then(function (response) {
+				return response.json();
+			}).then(function (data) {
+				let target = document.getElementById("ul_input").getAttribute("selected");
+				if (data["valid"] === true && !(target === "")) {
+					let velocity = Math.round(data["IAS, km/h"] / 3.6);
+					let alt = data["H, m"];
+					call_ballistics();
+
+					document.getElementById("altitude").value = alt;
+					document.getElementById("altitude_value").innerText = "Altitude (meters): " + alt;
+
+					document.getElementById("velocity").value = velocity;
+					document.getElementById("velocity_value").innerText = "Launch velocity (meters/second): " + velocity;
+				}
+
+			}).catch(function (error) {
+				console.log("error: " + error);
+				live_mode.checked =  false;
+				alert("Game is not in a match/open or responding");
+			});
+			await sleep(40);
+		}
+	}
 
 	function zoom_level(amount) {
 		let old_scale = canvas_scale;
