@@ -1,11 +1,11 @@
 
 [target.wasm32-unknown-unknown]
 
-[unstable]
-build-std = [
-	"std",
-	"panic_abort",
-	"alloc",
-	"proc_macro",
-	"core",
-]
+#[unstable]
+#build-std = [
+#	"std",
+#	"panic_abort",
+#	"alloc",
+#	"proc_macro",
+#	"core",
+#]

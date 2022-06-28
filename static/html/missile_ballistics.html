@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Missile comparison</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="missile_ballistics.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="Missile ballistics"
+		  property="og:title"/>
+
+	<meta content=""
+		  property="og:description"/>
+
+	<meta content=""
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="http://wt.flareflo.dev/missile_ballistics.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer src="util.js" type="module"></script>
+	<script defer src="missile_ballistics.js" type="module"></script>
+	<script defer src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body id="body">
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+
+<div id="main_container">
+	<script id="select_0"></script>
+
+	<form id="config" onsubmit="return false;">
+		<label for="color_select">Color sheme</label>
+		<select id="color_select">
+			<option value="0">Dark</option>
+			<option value="1">Amoled</option>
+			<option value="2">Bright</option>
+		</select><br>
+
+		<label for="use_live_mode">Use live data</label>
+		<input id="use_live_mode" type="checkbox">
+
+		<p>Simulation parameters</p>
+
+		<label id="altitude_value" for="altitude">Altitude (meters): 1000</label>
+		<input class="slider" type="range" id="altitude" value="1000" step="100" min="0" max="10000">
+		<br>
+
+		<label id="velocity_value" for="velocity">Launch velocity (meters/second): 343</label>
+		<input class="slider" type="range" id="velocity" value="343" step="10" min="0" max="2000">
+		<br>
+	</form>
+	<div id="canvas_container">
+		<canvas id="ballistics" width="3840" height="2160"></canvas>
+
+		<button class="on_canvas" id="zoom_in">+</button>
+		<button class="on_canvas" id="zoom_reset">reset</button>
+		<button class="on_canvas" id="zoom_out">-</button>
+	</div>
+</div>
+
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>
