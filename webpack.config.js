@@ -31,7 +31,6 @@ module.exports = {
 		index: "./js/index.js",
 		util: "./js/util.js",
 		missile_ballistics: "./js/missile_ballistics.js",
-		custom_loadout: "./js/custom_loadout.js",
 		bombing_computer: "./js/bombing_computer.js",
 		table: "./js/table.js",
 		live_calc: "./js/live_calc.js",
