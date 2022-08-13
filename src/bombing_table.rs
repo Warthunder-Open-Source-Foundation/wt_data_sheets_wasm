@@ -8,7 +8,11 @@ pub fn render_bombs() {
 	let document = get_document();
 	let table = document.get_element_by_id("tbody").unwrap();
 
-	for bomb in BOMBS.iter() {
+	let mut local_sorted = BOMBS.clone();
+	local_sorted.sort_by_key(|bomb|bomb.explosive_mass.round() as u32);
+	local_sorted.reverse();
+
+	for bomb in local_sorted.iter() {
 		let row = document.create_element("tr").unwrap();
 
 		let name = document.create_element("td").unwrap();
