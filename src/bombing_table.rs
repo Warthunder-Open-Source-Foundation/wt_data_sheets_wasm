@@ -13,27 +13,25 @@ pub fn render_bombs() {
 	local_sorted.reverse();
 
 	for bomb in local_sorted.iter() {
+		// Filters out nukes and other outliers
+		if bomb.explosive_equiv <= 1.0 {
+			continue
+		}
+
 		let row = document.create_element("tr").unwrap();
 
-		let name = document.create_element("td").unwrap();
-		name.set_inner_html(&bomb.name);
-		row.append_child(&name);
+		let new_field = |content: String| {
+			let item = document.create_element("td").unwrap();
+			item.set_inner_html(&content);
+			row.append_child(&item);
+		};
 
-		let explosive = document.create_element("td").unwrap();
-		explosive.set_inner_html(&bomb.explosive_type);
-		row.append_child(&explosive);
-
-		let explosive_mass = document.create_element("td").unwrap();
-		explosive_mass.set_inner_html(&bomb.explosive_mass.to_string());
-		row.append_child(&explosive_mass);
-
-		let tnt_explosive_mass = document.create_element("td").unwrap();
-		tnt_explosive_mass.set_inner_html(&bomb.explosive_equiv.to_string());
-		row.append_child(&tnt_explosive_mass);
-
-		let mass = document.create_element("td").unwrap();
-		mass.set_inner_html(&bomb.weight.to_string());
-		row.append_child(&mass);
+		new_field(bomb.name.clone());
+		new_field(bomb.explosive_type.clone());
+		new_field(bomb.explosive_mass.to_string());
+		new_field(bomb.explosive_equiv.to_string());
+		new_field(bomb.weight.to_string());
+		new_field(format!("{:.2}", &bomb.explosive_equiv / &bomb.weight));
 
 		table.append_child(&row);
 	}
