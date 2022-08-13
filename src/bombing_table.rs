@@ -27,6 +27,9 @@ pub fn render_bombs() {
 		tnt_explosive_mass.set_inner_html(&bomb.explosive_equiv.to_string());
 		row.append_child(&tnt_explosive_mass);
 
+		let mass = document.create_element("td").unwrap();
+		mass.set_inner_html(&bomb.weight.to_string());
+		row.append_child(&mass);
 
 		table.append_child(&row);
 	}
