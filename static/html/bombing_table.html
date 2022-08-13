@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Missile comparison</title>
+	<title>Bombing table</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
-	<link href="bombing_computer.css" rel="stylesheet">
+	<link href="bombing_table.css" rel="stylesheet">
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 
-	<meta content="Know how many bombs you need per base"
+	<meta content="An overview of all bombs in-game"
 		  property="og:title"/>
 
-	<meta content="Quickly know what bomb count is adequate per base"
+	<meta content="An overview of all bombs in-game"
 		  property="og:description"/>
 
-	<meta content="Quickly know what bomb count is adequate per base"
+	<meta content="An overview of all bombs in-game"
 		  name="description"/>
 
 	<meta content="website"
 		  property="og:type"/>
 
-	<meta content="https://wt.flareflo.dev/bombing_computer.html"
+	<meta content="https://wt.flareflo.dev/bombing_table.html"
 		  property="og:url"/>
 
 	<!--	<meta content="" -->
@@ -30,7 +30,7 @@
 		  name="theme-color">
 
 	<script defer src="util.js" type="module"></script>
-	<script defer src="bombing_computer.js" type="module"></script>
+	<script defer src="bombing_table.js" type="module"></script>
 	<script defer src="index.js" type="module"></script>
 	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
 </head>
@@ -45,7 +45,20 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-The mission has: <div id="base_count"></div> bases
+<table id="bombing_table" class="main_table">
+		<thead>
+			<tr>
+				<td>Name</td>
+				<td>Exp. Type</td>
+				<td class="sortable_n">Exp. mass</td>
+				<td class="sortable_n">TNT equivalence</td>
+				<td class="sortable_n">Mass</td>
+				<td class="sortable_n">Mass explosive ratio</td>
+			</tr>
+		</thead>
+		<tbody id="tbody">
+		</tbody>
+</table>
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())

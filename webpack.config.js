@@ -37,6 +37,7 @@ module.exports = {
 		compare: "./js/compare.js",
 		thermal_index: "./js/thermal_index.js",
 		shell_index: "./js/shell_index.js",
+		bombing_table: "./js/bombing_table.js",
 	},
 	output: {
 		path: dist,

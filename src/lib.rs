@@ -1,6 +1,9 @@
 use std::panic;
+use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
+
+use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
 use crate::buildstamp::BuildStamp;
@@ -14,9 +17,18 @@ pub mod shell_index;
 pub mod buildstamp;
 pub mod const_gen_trait_compat;
 pub mod missile_ballistics;
+pub mod bombing_table;
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
+
+const BOMBS_RAW: &str = include_str!("../wt_datamine_extractor/bombs/all.json");
+
+lazy_static! {
+    static ref BOMBS: Vec<Bomb> = {
+		 serde_json::from_str::<Vec<Bomb>>(&BOMBS_RAW).unwrap()
+    };
+}
 
 include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
 
