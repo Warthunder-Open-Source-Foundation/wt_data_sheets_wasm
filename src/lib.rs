@@ -18,6 +18,7 @@ pub mod buildstamp;
 pub mod const_gen_trait_compat;
 pub mod missile_ballistics;
 pub mod bombing_table;
+pub mod battle_rating_statistics;
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
