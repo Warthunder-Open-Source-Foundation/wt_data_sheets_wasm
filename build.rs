@@ -21,13 +21,6 @@ fn main() {
 
 		thermals
 	};
-	let shells: Vec<Shell> = {
-		let json = include_str!("wt_datamine_extractor/shell_index/all.json");
-		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
-		shells.sort_by_key(|d| d.name.clone());
-
-		shells
-	};
 
 	let out_dir = env::var_os("OUT_DIR").unwrap();
 	let dest_path = Path::new(&out_dir).join("const_gen.rs");
@@ -39,10 +32,8 @@ fn main() {
 		// so we need to pass any we want in.
 		const_definition!(pub Missile),
 		const_definition!(pub Thermal),
-		const_definition!(#[allow(dead_code)] pub Shell),
 		const_gen::const_declaration!(pub MISSILES = missiles),
 		const_gen::const_declaration!(pub THERMALS = thermals),
-		const_gen::const_declaration!(pub SHELLS = shells),
 	}.join("\n");
 
 	// Adding imports for enums and core structs
@@ -50,7 +41,6 @@ fn main() {
 		"use wt_datamine_extractor_lib::missile::missile::SeekerType;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::Crew;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::VehicleType;\n" +
-		"use wt_datamine_extractor_lib::shell::shells::ShellType;\n" +
 		"use wt_datamine_extractor_lib::thermal::thermals::Sight;\n" +
 		&const_declarations;
 

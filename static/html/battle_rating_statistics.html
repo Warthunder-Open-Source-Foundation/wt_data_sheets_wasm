@@ -45,7 +45,8 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-
+<div>Highest BR seen in current match:<div id="highest_br"></div></div>
+<div>Battleratings: (Amount of occurrences/activity, per battle-rating)<pre id="your_br"></pre></div>
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())
