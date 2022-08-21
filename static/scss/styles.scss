@@ -76,6 +76,7 @@ p {
 
 a {
 	color: var(--color-text);
+
 	&:hover {
 		color: var(--color-text-link);
 	}
@@ -92,6 +93,7 @@ a {
 	font-size: 1rem;
 	border-radius: 4px;
 	height: 20px;
+
 	&:hover {
 		background-image: var(--background-image-blue);
 		background-size: 400%;
@@ -128,9 +130,11 @@ label {
 	font-size: 15px;
 	transition-duration: 0.25s;
 	font-weight: 300;
+
 	&:hover {
 		background-color: var(--color-background-accent);
 	}
+
 	&:focus {
 		background-color: var(--color-background-accent);
 		color: var(--color-text);
@@ -142,6 +146,7 @@ label {
 
 	border-collapse: collapse;
 	margin: 10px;
+
 	tr {
 		&:hover {
 			background-image: var(--background-image-red);
@@ -156,6 +161,7 @@ table {
 			background-color: var(--color-background-bright);
 
 		}
+
 		&:nth-child(odd) {
 			background-color: var(--color-background);
 
