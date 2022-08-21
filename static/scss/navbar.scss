@@ -172,6 +172,15 @@ body {
 	}
 }
 
+#github_logo {
+	fill: var(--color-text);
+	width: 16px;
+	height: 16px;
+	&:hover {
+		fill: var(--color-text-link);
+	}
+}
+
 
 /* TODO Navbar somehow bugs out on mobile after changing target res*/
 /* mobile styles */
