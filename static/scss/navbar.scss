@@ -184,7 +184,7 @@ body {
 
 /* TODO Navbar somehow bugs out on mobile after changing target res*/
 /* mobile styles */
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 795px) {
 	.menu-container {
 		flex-direction: column;
 		align-items: flex-end;
@@ -228,7 +228,7 @@ body {
 }
 
 /* desktop styles */
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 795px) {
 	.menu-container {
 		width: 100%;
 
