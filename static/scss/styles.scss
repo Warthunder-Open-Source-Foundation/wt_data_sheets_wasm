@@ -15,21 +15,21 @@ html {
 	--color-accent: #c70a4b;
 	--color-accept: #42bd16;
 
-	--color-text-green: #42bd16;
+	--color-text-green: var(--color-accept);
 	--color-text-blood-red: #d30555;
 	--color-text-red: #d90a22;
 
 	--background-image-red: linear-gradient(
-					120deg, #6e10d2, #c70a4b);
+					120deg, var(--color-background-accent), var(--color-accent));
 
 	--background-image-blue: linear-gradient(
 					120deg, #6ab5ff 0%, #1e90f8 100%);
 
 	--background-image-blood-red: linear-gradient(
-					120deg, #d90a22 0%, #d30555 100%);
+					120deg, var(--color-text-red) 0%, var(--color-text-blood-red) 100%);
 
 	--background-image-green: linear-gradient(
-					120deg, #42bd16 0%, #5ae556 100%);
+					120deg, var(--color-accept) 0%, #5ae556 100%);
 
 	--background-image-turquoise: linear-gradient(
 					120deg, #16bda4 0%, #56d4e5 100%);
