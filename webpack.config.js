@@ -77,6 +77,8 @@ module.exports = {
 		}),
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',
+			// 4 Megabytes
+			maximumFileSizeToCacheInBytes: 4194304,
 			clientsClaim: true,
 			cleanupOutdatedCaches: true,
 			runtimeCaching: [
