@@ -8,6 +8,8 @@ use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 use crate::util::{console_log, get_document, make_missile_option_inputs};
 use crate::buildstamp::BuildStamp;
 
+
+use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 pub mod table;
 pub mod util;
 pub mod live_calc;
