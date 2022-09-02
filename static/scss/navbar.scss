@@ -182,6 +182,26 @@ body {
 	}
 }
 
+@keyframes rotating {
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
+
+#settings_icon {
+	fill: var(--color-text);
+	width: 24px;
+	height: 24px;
+
+	&:hover {
+		fill: var(--color-text-link);
+		animation: rotating 2s linear infinite;
+	}
+}
+
 
 /* TODO Navbar somehow bugs out on mobile after changing target res*/
 /* mobile styles */
@@ -247,6 +267,7 @@ body {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 
 		ul {
 			display: flex;
