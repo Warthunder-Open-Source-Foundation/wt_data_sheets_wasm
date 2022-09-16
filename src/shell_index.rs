@@ -1,9 +1,21 @@
+use lazy_static::lazy_static;
 use strum::IntoEnumIterator;
 use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::shell::shells::ShellType;
+use wt_datamine_extractor_lib::shell::shells::Shell;
+
 
 use crate::util::get_document;
-use crate::SHELLS;
+
+lazy_static! {
+	pub static ref SHELLS: Vec<Shell> = {
+		let json = include_str!("../wt_datamine_extractor/shell_index/all.json");
+		let mut shells: Vec<Shell> = serde_json::from_str(json).unwrap();
+		shells.sort_by_key(|d| d.name.clone());
+
+		shells
+	};
+}
 
 #[wasm_bindgen]
 pub fn make_shell_options() -> Result<(), JsValue> {

@@ -1,3 +1,4 @@
+//noinspection CssUnknownTarget Ignore import warn, is precached
 @import url('RobotoMono-VariableFont_wght.ttf');
 
 html {
@@ -11,27 +12,27 @@ html {
 	--color-background-bright: #3d3d3d;
 
 	--color-background-accent: #6e10d2;
-	--color-accent: rgb(199, 10, 75);
-	--color-accept: rgb(66, 189, 22);
+	--color-accent: #c70a4b;
+	--color-accept: #42bd16;
 
-	--color-text-green: rgb(66, 189, 22);
-	--color-text-blood-red: rgb(211, 5, 85);
-	--color-text-red: rgb(217, 10, 34);
+	--color-text-green: var(--color-accept);
+	--color-text-blood-red: #d30555;
+	--color-text-red: #d90a22;
 
 	--background-image-red: linear-gradient(
-					120deg, #6e10d2, #c70a4b);
+					120deg, var(--color-background-accent), var(--color-accent));
 
 	--background-image-blue: linear-gradient(
-					120deg, rgb(106, 181, 255) 0%, rgb(30, 144, 248) 100%);
+					120deg, #6ab5ff 0%, #1e90f8 100%);
 
 	--background-image-blood-red: linear-gradient(
-					120deg, rgb(217, 10, 34) 0%, rgb(211, 5, 85) 100%);
+					120deg, var(--color-text-red) 0%, var(--color-text-blood-red) 100%);
 
 	--background-image-green: linear-gradient(
-					120deg, rgb(66, 189, 22) 0%, rgb(90, 229, 86) 100%);
+					120deg, var(--color-accept) 0%, #5ae556 100%);
 
 	--background-image-turquoise: linear-gradient(
-					120deg, rgb(22, 189, 164) 0%, rgb(86, 212, 229) 100%);
+					120deg, #16bda4 0%, #56d4e5 100%);
 
 	--rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
 
@@ -76,6 +77,7 @@ p {
 
 a {
 	color: var(--color-text);
+
 	&:hover {
 		color: var(--color-text-link);
 	}
@@ -92,6 +94,7 @@ a {
 	font-size: 1rem;
 	border-radius: 4px;
 	height: 20px;
+
 	&:hover {
 		background-image: var(--background-image-blue);
 		background-size: 400%;
@@ -128,9 +131,11 @@ label {
 	font-size: 15px;
 	transition-duration: 0.25s;
 	font-weight: 300;
+
 	&:hover {
 		background-color: var(--color-background-accent);
 	}
+
 	&:focus {
 		background-color: var(--color-background-accent);
 		color: var(--color-text);
@@ -142,6 +147,7 @@ label {
 
 	border-collapse: collapse;
 	margin: 10px;
+
 	tr {
 		&:hover {
 			background-image: var(--background-image-red);
@@ -156,6 +162,7 @@ table {
 			background-color: var(--color-background-bright);
 
 		}
+
 		&:nth-child(odd) {
 			background-color: var(--color-background);
 

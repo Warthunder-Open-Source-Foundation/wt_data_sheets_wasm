@@ -172,10 +172,40 @@ body {
 	}
 }
 
+#github_logo {
+	fill: var(--color-text);
+	width: 16px;
+	height: 16px;
+
+	&:hover {
+		fill: var(--color-text-link);
+	}
+}
+
+@keyframes rotating {
+	from{
+		transform: rotate(0deg);
+	}
+	to{
+		transform: rotate(360deg);
+	}
+}
+
+#settings_icon {
+	fill: var(--color-text);
+	width: 24px;
+	height: 24px;
+
+	&:hover {
+		fill: var(--color-text-link);
+		animation: rotating 2s linear infinite;
+	}
+}
+
 
 /* TODO Navbar somehow bugs out on mobile after changing target res*/
 /* mobile styles */
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 795px) {
 	.menu-container {
 		flex-direction: column;
 		align-items: flex-end;
@@ -219,7 +249,7 @@ body {
 }
 
 /* desktop styles */
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 795px) {
 	.menu-container {
 		width: 100%;
 
@@ -237,6 +267,7 @@ body {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 
 		ul {
 			display: flex;

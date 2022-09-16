@@ -44,11 +44,6 @@ label {
 	}
 }
 
-#comparison {
-	margin: 10px auto;
-	width: fit-content;
-}
-
 .button {
 	background-image: var(--background-image-blue);
 	border: none;
@@ -67,6 +62,16 @@ label {
 		animation: rainbow_animation 2s ease-in-out infinite;
 		transform: scale(1.1);
 	}
+}
+
+#dropdown {
+	width: min(75vw, 500px);
+	margin: 0 auto;
+}
+
+#comparison {
+	margin: 10px auto;
+	width: fit-content;
 }
 
 #reset {

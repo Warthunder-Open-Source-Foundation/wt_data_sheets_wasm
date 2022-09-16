@@ -38,6 +38,8 @@ module.exports = {
 		thermal_index: "./js/thermal_index.js",
 		shell_index: "./js/shell_index.js",
 		bombing_table: "./js/bombing_table.js",
+		battle_rating_statistics: "./js/battle_rating_statistics.js",
+		settings: "./js/settings.js",
 	},
 	output: {
 		path: dist,
@@ -76,6 +78,8 @@ module.exports = {
 		}),
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',
+			// 4 Megabytes
+			maximumFileSizeToCacheInBytes: 4194304,
 			clientsClaim: true,
 			cleanupOutdatedCaches: true,
 			runtimeCaching: [

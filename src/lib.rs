@@ -8,6 +8,8 @@ use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 use crate::util::{console_log, get_document, make_missile_option_inputs};
 use crate::buildstamp::BuildStamp;
 
+
+use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 pub mod table;
 pub mod util;
 pub mod live_calc;
@@ -18,16 +20,22 @@ pub mod buildstamp;
 pub mod const_gen_trait_compat;
 pub mod missile_ballistics;
 pub mod bombing_table;
+pub mod battle_rating_statistics;
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
 
-const BOMBS_RAW: &str = include_str!("../wt_datamine_extractor/bombs/all.json");
-
 lazy_static! {
     static ref BOMBS: Vec<Bomb> = {
-		 serde_json::from_str::<Vec<Bomb>>(&BOMBS_RAW).unwrap()
+		 serde_json::from_str::<Vec<Bomb>>(&include_str!("../wt_datamine_extractor/bombs/all.json")).unwrap()
     };
+	 static ref THERMALS: Vec<Thermal> = {
+		let json = include_str!("../wt_datamine_extractor/thermal_index/all.json");
+		let mut thermals: Vec<Thermal> = serde_json::from_str(json).unwrap();
+		thermals.sort_by_key(|d| d.name.clone());
+
+		thermals
+	};
 }
 
 include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
