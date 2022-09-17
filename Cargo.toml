@@ -45,7 +45,7 @@ serde_json = "1.*"
 serde = "1.*"
 const-gen = "^1.1.0"
 chrono = "0.4.19"
-bevy_reflect = "^0.6.0"
+bevy_reflect = "^0.8.1"
 
 # Plotting for misisle ballistic display
 plotters = "0.3.2"
@@ -56,8 +56,10 @@ js-sys = "0.3.*"
 
 reqwest-wasm = "0.11.*"
 
+# Updating these two breaks things, and i cannot understand why
 strum_macros = "0.23.*"
 strum = "0.23.*"
+
 lazy_static = "^1.4.0"
 
 wee_alloc = "^0.4.5"
