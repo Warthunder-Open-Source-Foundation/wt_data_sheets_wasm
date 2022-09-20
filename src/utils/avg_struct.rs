@@ -1,5 +1,6 @@
 use std::iter::Sum;
 use std::ops::Add;
+use crate::console_log;
 
 #[derive(Debug, Clone)]
 pub struct Average<V: Sized + Add + Copy> {
@@ -18,11 +19,12 @@ impl <V: Add + Sum + Copy>Average<V>
 		}
 	}
 	pub fn get_avg(&self) -> f64 {
-		self.last.iter().map(|x|*x).sum::<f64>() / self.last.len() as f64
+		self.last.iter().map(|x|*x).sum::<f64>() / self.len as f64
 	}
 	pub fn insert(&mut self, item: V) {
 		self.last.push(item);
-		for _ in 0..(self.last.len().saturating_sub(self.len)) {
+		let to_wipe = self.last.len().saturating_sub(self.len);
+		for _ in 0..to_wipe {
 			self.last.remove(0);
 		}
 	}

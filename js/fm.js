@@ -7,7 +7,7 @@ async function main() {
 		return;
 	};
 
-	let timeout = 1000;
+	let timeout = 250;
 
 	let interval = setInterval(async function () {
 		// Fetch data ------------------------------
@@ -43,7 +43,8 @@ async function main() {
 
 		core_loop(
 			JSON.stringify(indicators_data),
-			JSON.stringify(state_data)
+			JSON.stringify(state_data),
+			timeout
 		);
 
 
