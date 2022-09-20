@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>A</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="compare.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="A"
+		  property="og:title"/>
+
+	<meta content="A"
+		  property="og:description"/>
+
+	<meta content="A"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="https://wt.flareflo.dev/fm.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer src="util.js" type="module"></script>
+	<script defer src="fm.js" type="module"></script>
+	<script defer id="script" src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body id="body">
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+
+<canvas id="fuel_stats"></canvas>
+
+<p>Fuel efficiency: <p id="fuel_efficiency"></p> kN/kg</p>
+
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>

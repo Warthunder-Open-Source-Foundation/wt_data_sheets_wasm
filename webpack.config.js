@@ -40,6 +40,7 @@ module.exports = {
 		bombing_table: "./js/bombing_table.js",
 		battle_rating_statistics: "./js/battle_rating_statistics.js",
 		settings: "./js/settings.js",
+		fm: "./js/fm.js",
 	},
 	output: {
 		path: dist,
