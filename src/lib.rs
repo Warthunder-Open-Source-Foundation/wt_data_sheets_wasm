@@ -22,6 +22,7 @@ pub mod missile_ballistics;
 pub mod bombing_table;
 pub mod battle_rating_statistics;
 pub mod fm;
+pub mod utils;
 
 const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
