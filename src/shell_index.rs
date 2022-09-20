@@ -4,7 +4,6 @@ use wt_datamine_extractor_lib::shell::shells::ShellType;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use strum::IntoEnumIterator;
 
-
 use crate::util::get_document;
 
 lazy_static! {
