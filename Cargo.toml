@@ -46,6 +46,7 @@ serde = "1.*"
 const-gen = "^1.1.0"
 chrono = "0.4.19"
 bevy_reflect = "^0.8.1"
+average = "^0.13.1"
 
 # Plotting for misisle ballistic display
 plotters = "0.3.2"

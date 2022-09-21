@@ -1,16 +1,17 @@
 use std::iter::Sum;
 use std::ops::Add;
+use average::{MeanWithError, Variance};
 use crate::console_log;
 
 #[derive(Debug, Clone)]
-pub struct Average<V: Sized + Add + Copy> {
+pub struct Average<V: Sized + Add + Copy + 'static> {
 	last: Vec<V>,
 	// Target length where to result in averages
 	len: usize,
 }
 
 impl <V: Add + Sum + Copy>Average<V>
-	where f64: Sum<V>
+	where f64: Sum<V>, Variance: FromIterator<V>
 {
 	pub fn new(len: usize) -> Self {
 		Self {
@@ -19,7 +20,9 @@ impl <V: Add + Sum + Copy>Average<V>
 		}
 	}
 	pub fn get_avg(&self) -> f64 {
-		self.last.iter().map(|x|*x).sum::<f64>() / self.last.len() as f64
+		let variance = Variance::from_iter(self.last.iter().map(|x|*x));
+		let avg = MeanWithError::from(variance).mean();
+		avg / self.last.len() as f64
 	}
 	pub fn insert(&mut self, item: V) {
 		// Prefills empty average with first value to prevent under-averaging
