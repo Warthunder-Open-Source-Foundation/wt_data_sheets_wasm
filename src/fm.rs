@@ -71,6 +71,6 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 	// console_log(&format!("{} kN/kg", app_state.avg_efficiency.get_avg()));
 
 	let doc = get_document();
-	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&app_state.avg_efficiency.get_avg().to_string());
+	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&app_state.avg_efficiency.get_avg().floor().to_string());
 	// console_log(&format!("{} {}", total_thrust, avg_fuel));
 }
