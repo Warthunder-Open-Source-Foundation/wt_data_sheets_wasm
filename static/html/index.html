@@ -87,34 +87,45 @@
 		<a class="card" href="prototypes.html">
 			Prototype / WIP pages
 		</a>
+		<a class="card" href="privacy_policy.html">
+			Privacy policy
+		</a>
 	</section>
 	<p class="section_label">Always want to keep up with all news regarding War Thunder? <br>
 		Try out the
-		<a class="link" href="https://github.com/FlareFlo/wt_event_handler" rel="noopener noreferrer" target="_blank">100% free discord bot</a>
+		<a class="link" href="https://github.com/FlareFlo/wt_event_handler" rel="noopener noreferrer" target="_blank">100%
+			free discord bot</a>
 		on this server.
 	</p>
 	<div class="discord_like" id="discord_prompt">
-		<button
-				id="load_discord"
-				title="For EU DSGVO compliance i need to inform you that this will transfer data between your browser and 3rd party servers owned by Discord.">
-			Load embed from discord.com to join <br>
-		The 3rd party Discord is using cookies. </button>
-		<script>
-			if (document.cookie.includes("consent_to_discord=true")) {
-				set_discord();
-			}
-			document.getElementById("load_discord").addEventListener("click", function () {
-				set_discord();
-				document.cookie = "consent_to_discord=true";
-			})
-			function set_discord() {
-				document.getElementById("discord_prompt").outerHTML= "<iframe allowtransparency=\"true\" class=\"discord_like\" frameborder=\"0\" id=\"discord_embed\"\n" +
-					"\t\t\tsandbox=\"allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts\"\n" +
-					"\t\t\tsrc=\"https://discord.com/widget?id=745687786048192573&theme=dark\"\n" +
-					"\t\t\ttitle=\"My custom discord news bot invite link\"\n" +
-					"\t></iframe>";
-			}
-		</script>
+		<div id="discord_subcontainer">
+			<button
+					id="load_discord"
+					title="For EU DSGVO compliance i need to inform you that this will transfer data between your browser and 3rd party servers owned by Discord.">
+				Load embed from discord.com to join server
+			</button>
+			<br>
+			<a id="discord_policy" href="https://discord.com/privacy">The 3rd party service Discord is using cookies, visit their privacy policy here</a>
+			<script>
+				if (document.cookie.includes("consent_to_discord=true")) {
+					set_discord();
+				}
+				document.getElementById("load_discord").addEventListener("click", function () {
+					set_discord();
+					document.cookie = "consent_to_discord=true";
+				})
+
+				function set_discord() {
+					document.getElementById("discord_prompt").outerHTML = "<iframe allowtransparency=\"true\" class=\"discord_like\" frameborder=\"0\" id=\"discord_embed\"\n" +
+						"\t\t\tsandbox=\"allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts\"\n" +
+						"\t\t\tsrc=\"https://discord.com/widget?id=745687786048192573&theme=dark\"\n" +
+						"\t\t\ttitle=\"My custom discord news bot invite link\"\n" +
+						"\t></iframe>";
+				}
+			</script>
+		</div>
+
+
 	</div>
 
 </div>
