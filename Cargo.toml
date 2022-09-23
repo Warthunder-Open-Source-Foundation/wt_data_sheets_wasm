@@ -46,6 +46,7 @@ serde = "1.*"
 const-gen = "^1.1.0"
 chrono = "0.4.19"
 bevy_reflect = "^0.8.1"
+average = "^0.13.1"
 
 # Plotting for misisle ballistic display
 plotters = "0.3.2"
@@ -79,10 +80,10 @@ features = ["console", "Window", "Document", "Element", "HtmlElement", "Node", "
 
 # These crates are used for running unit tests.
 [dev-dependencies]
-wasm-bindgen-test = "0.2.*"
-futures = "0.1.*"
+wasm-bindgen-test = "0.3.33"
+futures = "0.3.24"
 js-sys = "0.3.*"
-wasm-bindgen-futures = "0.3.*"
+wasm-bindgen-futures = "0.4.33"
 
 [build-dependencies]
 const-gen = "^1.1.0"
