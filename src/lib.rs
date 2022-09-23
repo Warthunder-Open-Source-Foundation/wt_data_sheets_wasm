@@ -6,6 +6,7 @@ use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
+use wt_datamine_extractor_lib::missile::missile::Missile;
 use crate::buildstamp::BuildStamp;
 
 
@@ -17,7 +18,6 @@ pub mod comparison;
 pub mod thermal_index;
 pub mod shell_index;
 pub mod buildstamp;
-pub mod const_gen_trait_compat;
 pub mod missile_ballistics;
 pub mod bombing_table;
 pub mod battle_rating_statistics;
@@ -39,9 +39,14 @@ lazy_static! {
 
 		thermals
 	};
-}
+	static ref MISSILES: Vec<Missile> = {
+		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
+		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
+		missiles.sort_by_key(|d| d.name.clone());
 
-include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
+		missiles
+	};
+}
 
 // Reduces size by around 3kb
 #[global_allocator]
