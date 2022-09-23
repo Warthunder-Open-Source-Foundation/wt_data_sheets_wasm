@@ -1,19 +1,37 @@
+use std::collections::HashMap;
+
+use csv::{ReaderBuilder, Terminator};
 use lazy_static::lazy_static;
 use wasm_bindgen::prelude::*;
-use std::collections::HashMap;
 use wt_datamine_extractor_lib::battle_rating::battle_rating::VehicleBattleRating;
-use crate::get_document;
-use crate::console_log;
 use wt_datamine_extractor_lib::battle_rating::battle_rating_def::BattleRating;
 
+use crate::console_log;
+use crate::get_document;
 
-
-
-const BATTLE_RATINGS_RAW: &str = include_str!("../wt_datamine_extractor/battle_rating/all.json");
+const BATTLE_RATINGS_RAW: &[u8] = include_bytes!("../wt_datamine_extractor/battle_rating/all.csv");
 
 lazy_static! {
 	static ref BATTLE_RATINGS: Vec<VehicleBattleRating> = {
-		serde_json::from_str::<Vec<VehicleBattleRating>>(BATTLE_RATINGS_RAW).unwrap()
+		let mut reader = ReaderBuilder::default()
+		.has_headers(false)
+		.delimiter(b';')
+		.terminator(Terminator::Any(b'\n'))
+		.from_reader(BATTLE_RATINGS_RAW);
+
+	let mut res: Vec<VehicleBattleRating> = vec![];
+	for record in reader.records() {
+		if let Ok(resulting_record) = record {
+			if let Ok(deserialized) = resulting_record.deserialize(None) {
+				res.push(deserialized);
+			} else {
+					console_log(&format!("Failed to serialize record, \"{:?}\"", resulting_record));
+				}
+		} else {
+				console_log(&format!("Failed to get record, {:?}", record));
+			}
+	}
+		res
     };
 }
 
@@ -39,9 +57,9 @@ pub fn display_br(aircraft_raw: String) -> Result<(), JsValue> {
 	let mut kv = result.drain().collect::<Vec<(BattleRating, usize)>>();
 	drop(result);
 
-	kv.sort_by_key(|x|x.1);
+	kv.sort_by_key(|x| x.1);
 	kv.reverse();
-	kv.retain(|x|x.1 != 0);
+	kv.retain(|x| x.1 != 0);
 
 	let mut full = "".to_owned();
 	for item in &kv {
