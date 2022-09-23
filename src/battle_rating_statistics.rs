@@ -6,10 +6,10 @@ use crate::get_document;
 use crate::console_log;
 use wt_datamine_extractor_lib::battle_rating::battle_rating_def::BattleRating;
 
+use crate::BATTLE_RATINGS_RAW;
 
 
 
-const BATTLE_RATINGS_RAW: &str = include_str!("../wt_datamine_extractor/battle_rating/all.json");
 
 lazy_static! {
 	static ref BATTLE_RATINGS: Vec<VehicleBattleRating> = {
