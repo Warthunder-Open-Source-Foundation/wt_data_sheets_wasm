@@ -48,10 +48,6 @@ lazy_static! {
 	};
 }
 
-// Reduces size by around 3kb
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
 #[wasm_bindgen(start)]
 #[allow(clippy::missing_errors_doc)]
 pub fn main_js() -> Result<(), JsValue> {
