@@ -7,8 +7,7 @@ use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
 use wt_datamine_extractor_lib::missile::missile::Missile;
-use crate::buildstamp::BuildStamp;
-
+use build_timestamp::build_time;
 
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 pub mod table;
@@ -17,7 +16,6 @@ pub mod live_calc;
 pub mod comparison;
 pub mod thermal_index;
 pub mod shell_index;
-pub mod buildstamp;
 pub mod missile_ballistics;
 pub mod bombing_table;
 pub mod battle_rating_statistics;
@@ -25,8 +23,9 @@ pub mod fm;
 pub mod utils;
 
 pub const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
-pub const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
 pub const BATTLE_RATINGS_RAW: &str = include_str!("../wt_datamine_extractor/battle_rating/all.json");
+
+build_time!("%Y-%m-%d %H:%M:%S");
 
 lazy_static! {
     static ref BOMBS: Vec<Bomb> = {
@@ -63,11 +62,9 @@ pub fn main_js() -> Result<(), JsValue> {
 pub fn make_footer_data() {
 	let document = get_document();
 	if let Some(ver) = document.get_element_by_id("game_ver") {
-		let buildstamp =  BuildStamp::from_const();
-
 		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
-		ver.set_inner_html(&format!("{} last updated on {}", ver.inner_html(), buildstamp.formatted));
-		console_log(&format!("Game version set to {}, with timestamp {}", GAME_VER, buildstamp.date));
+		ver.set_inner_html(&format!("{} last updated on {}", ver.inner_html(), BUILD_TIME));
+		console_log(&format!("Game version set to {}, with timestamp {}", GAME_VER, BUILD_TIME));
 	} else {
 		console_log(&format!("Cant display game version {}", GAME_VER));
 	}
