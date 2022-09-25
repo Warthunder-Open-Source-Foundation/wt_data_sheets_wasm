@@ -11,7 +11,7 @@ license-file = "LICENSE"
 repository = "https://github.com/FlareFlo/wt_data_sheets_wasm"
 homepage = "wt.flareflo.dev"
 build="build.rs"
-rust-version = "1.60"
+rust-version = "1.64"
 
 [lib]
 crate-type = ["cdylib"]
