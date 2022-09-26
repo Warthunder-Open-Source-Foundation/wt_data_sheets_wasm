@@ -7,7 +7,8 @@ async function main() {
 		return;
 	};
 
-	let timeout = 250;
+	// fetching at faster intervals causes averages to become jumpy as small increments near 0 thanks to rounding
+	let timeout = 1000;
 
 	let interval = setInterval(async function () {
 		// Fetch data ------------------------------
