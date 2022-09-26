@@ -18,6 +18,7 @@ pub struct AppState {
 	last_fuel: f64,
 	avg_fuel: LongAverage<f64>,
 	avg_efficiency: LongAverage<f64>,
+	avg_thrust: LongAverage<f64>,
 }
 
 impl AppState {
@@ -25,7 +26,8 @@ impl AppState {
 		Self {
 			last_fuel: 0.0,
 			avg_fuel: LongAverage::new(),
-			avg_efficiency: LongAverage::new()
+			avg_efficiency: LongAverage::new(),
+			avg_thrust:LongAverage::new(),
 		}
 	}
 }
@@ -71,12 +73,12 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 		total_thrust += thrust_1;
 	}
 
-	app_state.avg_efficiency.push(total_thrust / avg_fuel);
+	let fuel_efficiency = app_state.avg_thrust.take_avg(5) / app_state.avg_fuel.take_avg(5);
 
 	// console_log(&format!("{} kN/kg", app_state.avg_efficiency.get_avg()));
 
 	let doc = get_document();
-	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&format!("Fuel efficiency: {} kN\\kg",app_state.avg_efficiency.take_avg(5).floor()));
+	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&format!("Fuel efficiency: {} kN\\kg", fuel_efficiency.floor()));
 	doc.get_element_by_id("avg_fuel").unwrap().set_inner_html(&format!("Fuel average usage: {} kg\\s", avg_fuel));
 	doc.get_element_by_id("thrust").unwrap().set_inner_html(&format!("Thrust: {} kN", total_thrust));
 	doc.get_element_by_id("fuel_percent").unwrap().set_inner_html(&format!("Fuel: {:.2} % ({} kg)", ((state.fuel_mass / state.total_fuel) * 100.0), state.fuel_mass));
