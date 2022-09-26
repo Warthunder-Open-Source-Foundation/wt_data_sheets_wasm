@@ -34,13 +34,12 @@ impl AppState {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Indicators {
-
+	#[serde(alias = "fuel")]
+	fuel_mass: f64,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct State {
-	#[serde(alias = "Mfuel, kg")]
-	fuel_mass: f64,
 	#[serde(alias = "Mfuel0, kg")]
 	total_fuel: f64,
 	#[serde(alias = "thrust 1, kgs")]
@@ -64,23 +63,24 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 
 	// Compute avg fuel
 	let fuel_now = app_state.last_fuel;
-	app_state.avg_fuel.push(fuel_now - state.fuel_mass);
-	app_state.last_fuel = state.fuel_mass;
+	app_state.avg_fuel.push(fuel_now - indicators.fuel_mass);
+	app_state.last_fuel = indicators.fuel_mass;
 	let avg_fuel = app_state.avg_fuel.take_avg(5).abs();
 
 	let mut total_thrust = state.thrust_0;
 	if let Some(thrust_1) = state.thrust_1 {
 		total_thrust += thrust_1;
 	}
+	app_state.avg_thrust.push(total_thrust);
 
-	let fuel_efficiency = app_state.avg_thrust.take_avg(5) / app_state.avg_fuel.take_avg(5);
+	let fuel_efficiency = app_state.avg_thrust.take_avg(5) / avg_fuel;
 
 	// console_log(&format!("{} kN/kg", app_state.avg_efficiency.get_avg()));
 
 	let doc = get_document();
 	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&format!("Fuel efficiency: {} kN\\kg", fuel_efficiency.floor()));
-	doc.get_element_by_id("avg_fuel").unwrap().set_inner_html(&format!("Fuel average usage: {} kg\\s", avg_fuel));
+	doc.get_element_by_id("avg_fuel").unwrap().set_inner_html(&format!("Fuel average usage: {:.3} kg\\s", avg_fuel));
 	doc.get_element_by_id("thrust").unwrap().set_inner_html(&format!("Thrust: {} kN", total_thrust));
-	doc.get_element_by_id("fuel_percent").unwrap().set_inner_html(&format!("Fuel: {:.2} % ({} kg)", ((state.fuel_mass / state.total_fuel) * 100.0), state.fuel_mass));
-	doc.get_element_by_id("fuel_ttb").unwrap().set_inner_html(&format!("Time to bingo: {:?}", format_duration((state.fuel_mass / app_state.avg_fuel.take_avg(10).abs()).round() as u64)));
+	doc.get_element_by_id("fuel_percent").unwrap().set_inner_html(&format!("Fuel: {:.2} % ({:.1} kg)", ((indicators.fuel_mass / state.total_fuel) * 100.0), indicators.fuel_mass));
+	doc.get_element_by_id("fuel_ttb").unwrap().set_inner_html(&format!("Time to bingo: {:?}", format_duration((indicators.fuel_mass / app_state.avg_fuel.take_avg(10).abs()).round() as u64)));
 }
