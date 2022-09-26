@@ -46,6 +46,8 @@ pub struct State {
 	thrust_0: f64,
 	#[serde(alias = "thrust 2, kgs")]
 	thrust_1: Option<f64>,
+	#[serde(alias = "throttle 1, %")]
+	throttle: u64,
 }
 
 #[wasm_bindgen]
@@ -83,4 +85,5 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 	doc.get_element_by_id("thrust").unwrap().set_inner_html(&format!("Thrust: {} kN", total_thrust));
 	doc.get_element_by_id("fuel_percent").unwrap().set_inner_html(&format!("Fuel: {:.2} % ({:.1} kg)", ((indicators.fuel_mass / state.total_fuel) * 100.0), indicators.fuel_mass));
 	doc.get_element_by_id("fuel_ttb").unwrap().set_inner_html(&format!("Time to bingo: {:?}", format_duration((indicators.fuel_mass / app_state.avg_fuel.take_avg(10).abs()).round() as u64)));
+	doc.get_element_by_id("throttle").unwrap().set_inner_html(&format!("Throttle: {} %", state.throttle));
 }
