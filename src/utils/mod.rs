@@ -1,1 +1,2 @@
-pub mod avg_struct;
+pub mod direct_average;
+pub mod long_average;

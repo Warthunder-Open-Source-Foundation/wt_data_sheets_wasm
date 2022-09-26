@@ -4,7 +4,8 @@ use wasm_bindgen::prelude::*;
 use crate::{console_log, get_document};
 use std::sync::Arc;
 use std::sync::Mutex;
-use crate::utils::avg_struct::Average;
+use crate::utils::direct_average::Average;
+use crate::utils::long_average::LongAverage;
 
 lazy_static! {
     static ref APP_STATE: Mutex<AppState> = Mutex::new(AppState::new());
@@ -13,16 +14,16 @@ lazy_static! {
 #[derive(Debug, Clone)]
 pub struct AppState {
 	last_fuel: f64,
-	avg_fuel: Average<f64>,
-	avg_efficiency: Average<f64>,
+	avg_fuel: LongAverage<f64>,
+	avg_efficiency: LongAverage<f64>,
 }
 
 impl AppState {
 	pub fn new() -> Self {
 		Self {
 			last_fuel: 0.0,
-			avg_fuel: Average::new(10),
-			avg_efficiency: Average::new(10)
+			avg_fuel: LongAverage::new(),
+			avg_efficiency: LongAverage::new()
 		}
 	}
 }
@@ -57,20 +58,22 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 
 	// Compute avg fuel
 	let fuel_now = app_state.last_fuel;
-	app_state.avg_fuel.insert(fuel_now - state.fuel_mass);
+	app_state.avg_fuel.push(fuel_now - state.fuel_mass);
 	app_state.last_fuel = state.fuel_mass;
-	let avg_fuel = app_state.avg_fuel.get_avg().abs();
+	let avg_fuel = app_state.avg_fuel.take_avg(5).abs();
 
 	let mut total_thrust = state.thrust_0;
 	if let Some(thrust_1) = state.thrust_1 {
-		total_thrust += total_thrust;
+		total_thrust += thrust_1;
 	}
 
-	app_state.avg_efficiency.insert(total_thrust / avg_fuel);
+	app_state.avg_efficiency.push(total_thrust / avg_fuel);
 
 	// console_log(&format!("{} kN/kg", app_state.avg_efficiency.get_avg()));
 
 	let doc = get_document();
-	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&app_state.avg_efficiency.get_avg().floor().to_string());
+	doc.get_element_by_id("fuel_efficiency").unwrap().set_inner_html(&format!("Fuel efficiency: {} kN\\kg",app_state.avg_efficiency.take_avg(5).floor()));
+	doc.get_element_by_id("avg_fuel").unwrap().set_inner_html(&format!("Fuel average usage: {} kg", avg_fuel));
+	doc.get_element_by_id("thrust").unwrap().set_inner_html(&format!("Thrust: {} kN", total_thrust));
 	// console_log(&format!("{} {}", total_thrust, avg_fuel));
 }
