@@ -24,8 +24,6 @@ async function main() {
 		document.querySelector("html").style.setProperty("--color-background", "url(WIP.png)");
 	}
 
-	set_dialog_ready();
-
 	main_js();
 }
 

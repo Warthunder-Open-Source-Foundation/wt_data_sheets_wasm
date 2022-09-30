@@ -20,10 +20,7 @@ dialog {
 	}
 	button {
 		font-family: "Roboto Mono";
-		box-shadow: 0 0 30px var(--color-accept);
-		color: var(--color-text);
 		border-width: 3px;
-		border-color: var(--color-accept);
 		background: var(--color-background-bright);
 		border-radius: 50px;
 		width: fit-content;
@@ -34,9 +31,36 @@ dialog {
 		border-style: solid;
 
 		&:hover {
-			background: var(--color-accept);
-			box-shadow: 0 0 60px var(--color-accept);
+
 			border-style: dot-dot-dash;
 		}
 	}
+}
+
+#done {
+	box-shadow: 0 0 30px var(--color-accept);
+	color: var(--color-text);
+	border-color: var(--color-accept);
+
+	&:hover {
+		background: var(--color-accept);
+		box-shadow: 0 0 60px var(--color-accept);
+	}
+}
+
+#exit {
+	box-shadow: 0 0 30px var(--color-text-red);
+	color: var(--color-text);
+	border-color: var(--color-text-red);
+
+	&:hover {
+		background: var(--color-text-red);
+		box-shadow: 0 0 60px var(--color-text-red);
+	}
+}
+
+#top_err_container {
+	display: flex;
+	align-content: center;
+	align-items: center;
 }

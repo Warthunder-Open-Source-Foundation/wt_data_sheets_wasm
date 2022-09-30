@@ -3,6 +3,10 @@ export function set_dialog_ready() {
 	done_bttn.addEventListener("click", function () {
 		location.reload();
 	});
+	let exit_bttn = document.getElementById("exit");
+	exit_bttn.addEventListener("click", function () {
+		window.location = "/";
+	});
 }
 
 

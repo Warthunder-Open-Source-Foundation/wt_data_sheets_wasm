@@ -1,9 +1,10 @@
 import {core_loop} from "../pkg";
-import {get_indicators, get_state} from "./localhost";
+import {get_indicators, get_state, set_dialog_ready} from "./localhost";
 
 async function main() {
 	// fetching at faster intervals causes averages to become jumpy as small increments near 0 thanks to rounding
 	let timeout = 1000;
+	set_dialog_ready();
 
 	let interval = setInterval(async function () {
 		const indicators_data = await get_indicators();
