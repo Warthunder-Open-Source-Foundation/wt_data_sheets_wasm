@@ -1,5 +1,6 @@
 import {main_js,} from "../pkg";
 import {load_goatcounter} from "./util";
+import {set_dialog_ready} from "./localhost";
 
 async function main() {
 	let refreshing;
@@ -22,6 +23,8 @@ async function main() {
 		document.querySelector("html").style.setProperty("--background-image-red", "linear-gradient(120deg, #8d8d8d, #343434)");
 		document.querySelector("html").style.setProperty("--color-background", "url(WIP.png)");
 	}
+
+	set_dialog_ready();
 
 	main_js();
 }

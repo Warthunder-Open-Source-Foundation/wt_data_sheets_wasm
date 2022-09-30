@@ -6,9 +6,13 @@ use std::sync::Arc;
 use std::sync::Mutex;
 use std::time::{Duration, SystemTime};
 use wt_afterburner::Thrust;
+use crate::localhost::all_from_req;
 use crate::utils::direct_average::Average;
 use crate::utils::long_average::LongAverage;
 use crate::utils::format_duration::format_duration;
+use crate::localhost::indicators::Indicators;
+use crate::localhost::state::State;
+
 
 lazy_static! {
     static ref APP_STATE: Mutex<AppState> = Mutex::new(AppState::new());
@@ -35,36 +39,20 @@ impl AppState {
 	}
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Indicators {
-	#[serde(alias = "fuel")]
-	fuel_mass: f64,
-}
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct State {
-	#[serde(alias = "Mfuel0, kg")]
-	total_fuel: f64,
-	#[serde(alias = "thrust 1, kgs")]
-	thrust_0: f64,
-	#[serde(alias = "thrust 2, kgs")]
-	thrust_1: Option<f64>,
-	#[serde(alias = "throttle 1, %")]
-	throttle: u64,
-}
 
 #[wasm_bindgen]
 pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 	let mut app_state = APP_STATE.lock().unwrap();
 	// Gates validity of passed data
-	if !indicators.contains(r#""valid":true,"#) || !state.contains(r#""valid":true,"#) {
-		console_log("Data is invalid");
-		console_log(&(indicators.to_owned() + state));
-		return;
-	}
 
-	let indicators: Indicators = serde_json::from_str(indicators).unwrap();
-	let state: State = serde_json::from_str(state).unwrap();
+	let (indicators, state) = if let Some(out) = all_from_req(indicators, state) {
+		out
+	} else {
+		console_log("Data invalid");
+		return;
+	};
+
 
 	// app_state.after_burner_stages.add_ab_level(state.throttle as u8);
 	// app_state.after_burner_stages.current = state.throttle as u8;
