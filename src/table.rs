@@ -19,7 +19,7 @@ pub fn update_tables(alt: u32, vel: u32) {
 
 	for missile in MISSILES.iter() {
 		let parameters = LaunchParameter::new_from_parameters(false, f64::from(vel), 0.0, 0.0, alt);
-		let results = generate(&wt_datamine_extractor_lib::missile::missile::Missile::from(missile), &parameters, 0.1, false);
+		let results = generate(missile, &parameters, 0.1, false);
 		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
 		cell.set_inner_html(&results.distance_flown.round().to_string());
 	}
@@ -47,7 +47,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let arh_table = document.query_selector(".arh_table").unwrap().unwrap();
 
 	for missile in MISSILES.iter() {
-		let missile = &wt_datamine_extractor_lib::missile::missile::Missile::from(missile);
 		match &missile.seekertype {
 			SeekerType::Ir => {
 				let ir_missile = IrTable::from_missile(missile, parameters);

@@ -1,5 +1,6 @@
 import {main_js,} from "../pkg";
 import {load_goatcounter} from "./util";
+import {set_dialog_ready} from "./localhost";
 
 async function main() {
 	let refreshing;

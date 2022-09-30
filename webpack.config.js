@@ -41,6 +41,7 @@ module.exports = {
 		battle_rating_statistics: "./js/battle_rating_statistics.js",
 		settings: "./js/settings.js",
 		fm: "./js/fm.js",
+		localhost: "./js/localhost.js"
 	},
 	output: {
 		path: dist,

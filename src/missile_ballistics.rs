@@ -44,7 +44,6 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 			missile = item;
 		}
 	};
-	let missile = wt_datamine_extractor_lib::missile::missile::Missile::from(missile);
 
 	let results = generate(&missile, &LaunchParameter {
 		use_gravity: false,

@@ -6,8 +6,8 @@ use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 
 use crate::util::{console_log, get_document, make_missile_option_inputs};
-use crate::buildstamp::BuildStamp;
-
+use wt_datamine_extractor_lib::missile::missile::Missile;
+use build_timestamp::build_time;
 
 use wt_datamine_extractor_lib::thermal::thermals::Thermal;
 pub mod table;
@@ -16,16 +16,17 @@ pub mod live_calc;
 pub mod comparison;
 pub mod thermal_index;
 pub mod shell_index;
-pub mod buildstamp;
-pub mod const_gen_trait_compat;
 pub mod missile_ballistics;
 pub mod bombing_table;
 pub mod battle_rating_statistics;
 pub mod fm;
 pub mod utils;
+pub mod localhost;
 
-const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
-const BUILDSTAMP_RAW: &str = include_str!("../buildstamp.json");
+pub const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
+pub const BATTLE_RATINGS_RAW: &str = include_str!("../wt_datamine_extractor/battle_rating/all.json");
+
+build_time!("%Y-%m-%d %H:%M:%S");
 
 lazy_static! {
     static ref BOMBS: Vec<Bomb> = {
@@ -38,13 +39,14 @@ lazy_static! {
 
 		thermals
 	};
+	static ref MISSILES: Vec<Missile> = {
+		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
+		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
+		missiles.sort_by_key(|d| d.name.clone());
+
+		missiles
+	};
 }
-
-include!(concat!(env!("OUT_DIR"), "/const_gen.rs"));
-
-// Reduces size by around 3kb
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen(start)]
 #[allow(clippy::missing_errors_doc)]
@@ -61,11 +63,9 @@ pub fn main_js() -> Result<(), JsValue> {
 pub fn make_footer_data() {
 	let document = get_document();
 	if let Some(ver) = document.get_element_by_id("game_ver") {
-		let buildstamp =  BuildStamp::from_const();
-
 		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
-		ver.set_inner_html(&format!("{} last updated on {}", ver.inner_html(), buildstamp.formatted));
-		console_log(&format!("Game version set to {}, with timestamp {}", GAME_VER, buildstamp.date));
+		ver.set_inner_html(&format!("{} last updated on {}", ver.inner_html(), BUILD_TIME));
+		console_log(&format!("Game version set to {}, with timestamp {}", GAME_VER, BUILD_TIME));
 	} else {
 		console_log(&format!("Cant display game version {}", GAME_VER));
 	}

@@ -1,43 +1,19 @@
-import {sleep} from "./util";
 import {core_loop} from "../pkg";
+import {get_indicators, get_state, set_dialog_ready} from "./localhost";
 
 async function main() {
-	// Returns early when error, add else clause with warning later TODO
-	if (!(await fetch("http://localhost:8111/state")).ok || !(await fetch("http://localhost:8111/indicators")).ok) {
-		return;
-	};
-
-	let timeout = 250;
+	// fetching at faster intervals causes averages to become jumpy as small increments near 0 thanks to rounding
+	let timeout = 1000;
+	set_dialog_ready();
 
 	let interval = setInterval(async function () {
-		// Fetch data ------------------------------
-		let state_data;
-		let indicators_data;
-		await fetch("http://localhost:8111/state").then(function (response) {
-			return response.json();
+		const indicators_data = await get_indicators();
+		const state_data = await get_state();
 
-		}).then(function (data) {
-			state_data = data;
-
-		}).catch(async function (error) {
-			console.log("error: " + error);
+		if (indicators_data === null || state_data === null) {
 			clearInterval(interval);
-		});
-
-		await fetch("http://localhost:8111/indicators").then(function (response) {
-			return response.json();
-
-		}).then(function (data) {
-			indicators_data = data;
-
-		}).catch(async function (error) {
-			console.log("error: " + error);
-			clearInterval(interval);
-		});
-		// Validate data ---------------------------------
-
-		if (!(state_data["valid"] && indicators_data["valid"])) {
-			console.log("Invalid data");
+			console.log(indicators_data, state_data);
+			document.getElementById("err_dialog").showModal();
 			return;
 		}
 
@@ -50,8 +26,5 @@ async function main() {
 
 	}, timeout);
 }
-
-
-
 
 main()

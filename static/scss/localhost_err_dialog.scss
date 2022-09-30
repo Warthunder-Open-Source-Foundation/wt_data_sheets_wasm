@@ -1,0 +1,66 @@
+dialog {
+	font-family: "Roboto Mono";
+	color: var(--color-text);
+	background: var(--color-background-bright);
+	margin: 10rem 10rem;
+	border-radius: 50px;
+	border-color: transparent;
+	box-shadow: 0 0 100px var(--color-text-blood-red);
+	text-align: center;
+
+	h1 {
+		margin: 0 auto;
+		width: fit-content;
+	}
+	p {
+		font-size: 2rem;
+		width: fit-content;
+		margin: 0 auto;
+		padding: 20px;
+	}
+	button {
+		font-family: "Roboto Mono";
+		border-width: 3px;
+		background: var(--color-background-bright);
+		border-radius: 50px;
+		width: fit-content;
+		cursor: pointer;
+		font-size: 30px;
+		padding: 10px 20px;
+		transition: background 1s;
+		border-style: solid;
+
+		&:hover {
+
+			border-style: dot-dot-dash;
+		}
+	}
+}
+
+#done {
+	box-shadow: 0 0 30px var(--color-accept);
+	color: var(--color-text);
+	border-color: var(--color-accept);
+
+	&:hover {
+		background: var(--color-accept);
+		box-shadow: 0 0 60px var(--color-accept);
+	}
+}
+
+#exit {
+	box-shadow: 0 0 30px var(--color-text-red);
+	color: var(--color-text);
+	border-color: var(--color-text-red);
+
+	&:hover {
+		background: var(--color-text-red);
+		box-shadow: 0 0 60px var(--color-text-red);
+	}
+}
+
+#top_err_container {
+	display: flex;
+	align-content: center;
+	align-items: center;
+}

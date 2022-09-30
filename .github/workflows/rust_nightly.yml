@@ -56,14 +56,6 @@ jobs:
       - name: Install sass
         run: npm install -g sass
 
-      # Loads buildstamp from NPM
-      - name: Install buildstamp
-        run: npm install -g buildstamp
-
-      # Generate build stamp
-      - name: Generate buildstamp
-        run: buildstamp --out.path=buildstamp.json --date.format=instant
-
       # Builds wasm setup
       - name: Build
         run: cargo build --release --target wasm32-unknown-unknown

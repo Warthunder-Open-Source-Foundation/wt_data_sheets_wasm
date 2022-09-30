@@ -5,7 +5,7 @@
 	<title>A</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
-	<link href="compare.css" rel="stylesheet">
+	<link href="fm.css" rel="stylesheet">
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 
 	<meta content="A"
@@ -48,7 +48,25 @@
 
 <!--<canvas id="fuel_stats"></canvas>-->
 
-<h1 id="fuel_efficiency_wrapper">Fuel efficiency: <p id="fuel_efficiency"></p> kN/kg</h1>
+<h1 class="big" style="font-size: 25px; color: red">*All values take about 5 seconds to average out between thrust changes and initial load*</h1>
+<div class="big" id="fuel_efficiency"></div>
+<div class="big" id="avg_fuel"></div>
+<div class="big" id="thrust"></div>
+<div class="big" id="fuel_percent"></div>
+<div class="big" id="fuel_ttb"></div>
+<div class="big" id="throttle"></div>
+<div class="big" id="ab_stage"></div>
+
+<script id="replace_with_err_dialog">
+	fetch('localhost_err_dialog.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_err_dialog");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
 
 <script id="replace_with_footer">
 	fetch('footer.html')
