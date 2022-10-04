@@ -23,6 +23,7 @@ use plotters::prelude::*;
 
 const WIDTH: u32 = 3840;
 const HEIGHT: u32 = 2160;
+const TIME: usize = 300;
 
 // Scaling settings
 const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
@@ -83,6 +84,7 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 	app_state.avg_thrust.push(total_thrust);
 
 	let fuel_efficiency = app_state.avg_thrust.take_avg(3) / avg_fuel;
+	app_state.avg_efficiency.push(fuel_efficiency);
 
 	// console_log(&format!("{} kN/kg", app_state.avg_efficiency.get_avg()));
 
@@ -91,7 +93,7 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 	doc.get_element_by_id("avg_fuel").unwrap().set_inner_html(&format!("Fuel average usage: {:.3} kg\\s", avg_fuel));
 	doc.get_element_by_id("thrust").unwrap().set_inner_html(&format!("Thrust: {} kN", total_thrust));
 	doc.get_element_by_id("fuel_percent").unwrap().set_inner_html(&format!("Fuel: {:.2} % ({:.1} kg)", ((indicators.fuel_mass / state.total_fuel) * 100.0), indicators.fuel_mass));
-	doc.get_element_by_id("fuel_ttb").unwrap().set_inner_html(&format!("Time to bingo: {:?}", format_duration((indicators.fuel_mass / app_state.avg_fuel.take_avg(10).abs()).round() as u64)));
+	doc.get_element_by_id("fuel_ttb").unwrap().set_inner_html(&format!("Time to bingo: {}", format_duration((indicators.fuel_mass / app_state.avg_fuel.take_avg(10).abs()).round() as u64)));
 	doc.get_element_by_id("throttle").unwrap().set_inner_html(&format!("Throttle: {} %", state.throttle));
 
 	let ab_stage = if let Some(stage) = app_state.after_burner_stages.get_and_set_ab(state.throttle as u8) {
@@ -124,9 +126,9 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 		.y_label_area_size(40)
 		.set_label_area_size(LabelAreaPosition::Bottom, FONT_AXIS / 50)
 		.set_label_area_size(LabelAreaPosition::Left, FONT_AXIS / 50)
-		.caption(&format!("{}", "bogos binted idk shut up"), text(20))
+		.caption("bogos binted idk shut up", text(20))
 		// Finally attach a coordinate on the drawing area and make a chart context
-		.build_cartesian_2d(0..300_usize, 0..max).unwrap();
+		.build_cartesian_2d(0..TIME, 0..max).unwrap();
 
 	let line_style = ShapeStyle {
 		color: text_color,
@@ -150,30 +152,55 @@ pub fn core_loop(indicators: &str, state: &str, timeout: usize) {
 		.x_label_style(text(100))
 		.y_label_style(text(100))
 		.y_label_formatter(&|x| format!("{:.0}", x))
-		.x_label_formatter(&|x| format!("t - {}", 300 - x))
+		.x_label_formatter(&|x| format!("t - {}", TIME - x))
 		.draw().unwrap();
 
-	let thrust_n = app_state.avg_thrust.take_n(300, Some(0.0));
-	if thrust_n.len() != 300 {
-		console_log("bruh");
-		return;
-	}
-	let thrust_histo: Vec<(usize, usize)> = [(); 300].iter()
-													 .enumerate()
-													 .map(|(idx, _)| (idx, thrust_n[idx] as usize))
-													 .collect();
+	let thrust_n: Vec<f64> = app_state.avg_thrust.take_n(TIME, Some(0.0));
+	let efficiency_n: Vec<f64> = app_state.avg_efficiency.take_n(TIME, Some(0.0));
+	let fuel_usage_n: Vec<f64> = app_state.avg_fuel.take_n(TIME, Some(0.0)).iter().map(|x|x * 1000.0).collect();
 
-	let line: LineSeries<_, _> = LineSeries::new(
-		thrust_histo,
+	let mut draw_line = |input: Vec<f64>, label, style: ShapeStyle| {
+		let values: Vec<(usize, usize)> = [(); TIME].iter()
+												   .enumerate()
+												   .map(|(idx, _)| (idx, input[idx] as usize))
+												   .collect();
+
+		let line: LineSeries<_, _> = LineSeries::new(
+			values,
+			style,
+		);
+
+		chart.draw_series(line).unwrap()
+			 .label(label)
+			 .legend(move |(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &style.color));
+	};
+	draw_line(
+		thrust_n,
+		"Thrust N",
 		ShapeStyle {
 			color: RGBAColor(255, 0, 0, 1.0),
 			filled: true,
 			stroke_width: 200,
-		},
-	);
-	chart.draw_series(line).unwrap()
-		 .label("Thrust")
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &RED));
+		}.into());
+
+	draw_line(
+		efficiency_n,
+		"Efficiency kN/kg",
+		ShapeStyle {
+			color: RGBAColor(0, 255, 0, 1.0),
+			filled: true,
+			stroke_width: 200,
+		}.into());
+
+	draw_line(
+		fuel_usage_n,
+		"Fuel usage / 1000 kg\\s",
+		ShapeStyle {
+			color: RGBAColor(0, 0, 255, 1.0),
+			filled: true,
+			stroke_width: 200,
+		}.into());
+
 
 	chart.configure_series_labels()
 		 .position(SeriesLabelPosition::MiddleLeft)
