@@ -45,20 +45,29 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<table id="bombing_table" class="main_table">
+
+<div id="page_container">
+	<table id="bombing_table" class="main_table">
 		<thead>
-			<tr>
-				<td>Name</td>
-				<td>Exp. Type</td>
-				<td class="sortable_n">Exp. mass</td>
-				<td class="sortable_n">TNT equivalence</td>
-				<td class="sortable_n">Mass</td>
-				<td class="sortable_n">Mass explosive ratio</td>
-			</tr>
+		<tr>
+			<td>Name</td>
+			<td>Exp. Type</td>
+			<td class="sortable_n">Exp. mass</td>
+			<td class="sortable_n">TNT equivalence</td>
+			<td class="sortable_n">Mass</td>
+			<td class="sortable_n">Mass explosive ratio</td>
+			<td></td>
+		</tr>
 		</thead>
 		<tbody id="tbody">
 		</tbody>
-</table>
+	</table>
+	<div id="optimizer">
+		<div>Total TNT</div>
+		<div id="total_tnt"></div>
+	</div>
+</div>
+
 <script id="replace_with_footer">
 	fetch('footer.html')
 		.then(res => res.text())

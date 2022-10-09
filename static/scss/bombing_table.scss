@@ -1,0 +1,25 @@
+
+#page_container {
+	display: flex;
+	align-content: center;
+}
+
+#optimizer {
+	width: fit-content;
+	margin: 0 auto;
+}
+
+.add_btn {
+	aspect-ratio: 1/1;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	color: var(--color-text);
+	background-color: transparent;
+	cursor: pointer;
+	transition: 0.5s;
+	user-select: none;
+	&:hover {
+		background-color: var(--color-accept);
+	}
+}
