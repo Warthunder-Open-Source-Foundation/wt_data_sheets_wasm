@@ -6,6 +6,7 @@ use crate::BOMBS;
 use crate::console_log;
 use std::sync::Arc;
 use wt_datamine_extractor_lib::bombs::bombs::Bomb;
+use crate::utils::nation_prefix::{is_nation, NATION_PREFIXES};
 
 lazy_static! {
 	static ref APP_STATE: Arc<Mutex<AppState>> = {
@@ -15,21 +16,24 @@ lazy_static! {
 
 struct AppState {
 	total_tnt: f64,
+	nation_filter: Option<String>,
 }
 
 impl AppState {
 	pub fn new() -> Self {
 		Self {
 			total_tnt: 0.0,
+			nation_filter: None
 		}
 	}
 }
 
 #[wasm_bindgen]
-pub fn render_bombs() {
+pub fn render_bombs(nation_filter: &str) {
 	let state = APP_STATE.lock().unwrap();
 	let document = get_document();
 	let table = document.get_element_by_id("tbody").unwrap();
+	table.set_inner_html("");
 
 	let mut local_sorted = BOMBS.clone();
 	local_sorted.sort_by_key(|bomb|bomb.explosive_mass.round() as u32);
@@ -39,6 +43,22 @@ pub fn render_bombs() {
 		// Filters out nukes and other outliers
 		if bomb.explosive_equiv <= 1.0 {
 			continue
+		}
+
+		if nation_filter != "none" {
+			if nation_filter == "other" {
+				if is_nation(&bomb.name).is_some() {
+					continue;
+				}
+			} else {
+				if let Some(item) = is_nation(&bomb.name) {
+					if item.0 != nation_filter {
+						continue;
+					}
+				} else {
+					continue;
+				}
+			}
 		}
 
 		let row = document.create_element("tr").unwrap();
@@ -75,4 +95,27 @@ pub fn render_calc(bomb: &str) {
 	let bomb: &Bomb = BOMB_MAP.get(bomb).unwrap();
 	state.total_tnt += bomb.explosive_equiv;
 	document.get_element_by_id("total_tnt").unwrap().set_inner_html(&format!("{} kg", state.total_tnt));
+}
+
+#[wasm_bindgen]
+pub fn render_nations() {
+	let document = get_document();
+	let select = document.get_element_by_id("nation_select").unwrap();
+
+	let option = document.create_element("option").unwrap();
+	option.set_inner_html("None");
+	option.set_attribute("value", "none");
+	select.append_child(&option);
+
+	let option = document.create_element("option").unwrap();
+	option.set_inner_html("Other");
+	option.set_attribute("value", "other");
+	select.append_child(&option);
+
+	for prefix in NATION_PREFIXES {
+		let option = document.create_element("option").unwrap();
+		option.set_inner_html(prefix.1);
+		option.set_attribute("value", prefix.0);
+		select.append_child(&option);
+	}
 }
