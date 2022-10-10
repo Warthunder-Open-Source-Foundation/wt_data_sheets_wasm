@@ -8,6 +8,7 @@ async function main() {
 	const nation_select = document.getElementById("nation_select")
 	nation_select.addEventListener("input", event => {
 		render_bombs(nation_select.value);
+		set_listeners_add();
 	});
 
 	for (const element of document.getElementsByClassName("sortable_n")) {
@@ -16,11 +17,15 @@ async function main() {
 		})
 	}
 
+	set_listeners_add();
+}
+
+function set_listeners_add() {
 	for (const element of document.getElementsByClassName("add_btn")) {
 		element.addEventListener("click", event => {
+			console.log("called")
 			render_calc(event.target.attributes.name.value);
 		})
 	}
 }
-
 main()
