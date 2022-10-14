@@ -2,6 +2,8 @@ use std::panic;
 use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
+use std::collections::HashMap;
+
 
 use wt_datamine_extractor_lib::bombs::bombs::Bomb;
 
@@ -32,6 +34,13 @@ lazy_static! {
     static ref BOMBS: Vec<Bomb> = {
 		 serde_json::from_str::<Vec<Bomb>>(&include_str!("../wt_datamine_extractor/bombs/all.json")).unwrap()
     };
+	static ref BOMB_MAP: HashMap<String, Bomb> = {
+		HashMap::from_iter(
+			BOMBS.clone()
+		.into_iter()
+		.map(|x|(x.name.clone(), x))
+		)
+	};
 	 static ref THERMALS: Vec<Thermal> = {
 		let json = include_str!("../wt_datamine_extractor/thermal_index/all.json");
 		let mut thermals: Vec<Thermal> = serde_json::from_str(json).unwrap();

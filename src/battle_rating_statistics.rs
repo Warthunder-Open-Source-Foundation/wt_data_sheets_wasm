@@ -54,21 +54,26 @@ pub fn display_br(aircraft_raw: String) -> Result<(), JsValue> {
 		}
 	}
 
-	let mut kv = result.drain().collect::<Vec<(BattleRating, usize)>>();
+	let mut sorted_by_count: Vec<(BattleRating, usize)> = result.drain().collect();
+	sorted_by_count.retain(|x| x.1 != 0);
+
+	let mut sorted_by_br: Vec<(BattleRating, usize)> = sorted_by_count.clone();
 	drop(result);
 
-	kv.sort_by_key(|x| x.1);
-	kv.reverse();
-	kv.retain(|x| x.1 != 0);
+	sorted_by_br.sort_by_key(|x|x.0);
+	sorted_by_br.reverse();
+
+	sorted_by_count.sort_by_key(|x| x.1);
+	sorted_by_count.reverse();
 
 	let mut full = "".to_owned();
-	for item in &kv {
+	for item in &sorted_by_count {
 		full.push_str(&format!("{}x {}\n", item.1, item.0.to_string()));
 	}
 
 	elem.set_inner_html(&full);
 
-	if let Some(highest_br) = &kv.get(0) {
+	if let Some(highest_br) = &sorted_by_br.get(0) {
 		let highest = document.get_element_by_id("highest_br").ok_or(JsValue::from_str("Cant find element highest_br"))?;
 		highest.set_inner_html(&highest_br.0.to_string());
 	}
