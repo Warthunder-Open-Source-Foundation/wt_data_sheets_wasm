@@ -5,6 +5,8 @@
 	<title>News</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
+	<link href="discord.css" rel="stylesheet">
+	<link href="news.css" rel="stylesheet">
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 
 	<meta content="News"
@@ -30,13 +32,36 @@
 
 	<script defer id="script" src="index.js" type="module"></script>
 	<script defer id="util_script" src="util.js" type="module"></script>
-	<script>
-		window.location.assign("https://discord.gg/WqRRu9MqZa");
-	</script>
-	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
 </head>
 <body>
-<h1>Redirecting...</h1>
-<p>If redirecting did not work, click <a href="https://discord.gg/WqRRu9MqZa" target="_blank" rel="noopener noreferrer">here</a>.</p>
+<div class="discord_like" id="discord_prompt">
+	<div id="discord_subcontainer">
+		<button
+				id="load_discord"
+				title="For EU DSGVO compliance i need to inform you that this will transfer data between your browser and 3rd party servers owned by Discord.">
+			Load embed from discord.com to join server
+		</button>
+		<br>
+		<a id="discord_policy" href="https://discord.com/privacy">The 3rd party service Discord is using cookies, visit
+			their privacy policy here</a>
+		<script>
+			if (document.cookie.includes("consent_to_discord=true")) {
+				set_discord();
+			}
+			document.getElementById("load_discord").addEventListener("click", function () {
+				set_discord();
+				document.cookie = "consent_to_discord=true";
+			})
+
+			function set_discord() {
+				document.getElementById("discord_prompt").outerHTML = "<iframe allowtransparency=\"true\" class=\"discord_like\" frameborder=\"0\" id=\"discord_embed\"\n" +
+					"\t\t\tsandbox=\"allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts\"\n" +
+					"\t\t\tsrc=\"https://discord.com/widget?id=745687786048192573&theme=dark\"\n" +
+					"\t\t\ttitle=\"My custom discord news bot invite link\"\n" +
+					"\t></iframe>";
+			}
+		</script>
+	</div>
+</div>
 </body>
 </html>
