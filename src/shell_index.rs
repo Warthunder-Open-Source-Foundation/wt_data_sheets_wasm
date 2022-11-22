@@ -3,6 +3,7 @@ use wasm_bindgen::prelude::*;
 use wt_datamine_extractor_lib::shell::shells::ShellType;
 use wt_datamine_extractor_lib::shell::shells::Shell;
 use strum::IntoEnumIterator;
+use wt_datamine_extractor_lib::shell::explosive::ExplosiveType;
 
 use crate::util::get_document;
 
@@ -52,7 +53,14 @@ pub fn make_rows_from_shell(selected: &str) -> Result<(), JsValue> {
 			let _penetration_cell_filled = penetration_cell.set_inner_html(&shell.penetration.first().unwrap_or(&(0, 0)).1.to_string());
 
 			let explosive_cell = document.create_element("td").unwrap();
-			let _explosive_cell_filled = explosive_cell.set_inner_html(&(shell.explosive.1 as f64 / 1000.0).to_string());
+			let _explosive_cell_filled = explosive_cell.set_inner_html(&(match &shell.explosive {
+				ExplosiveType::Inert => {
+					0
+				}
+				ExplosiveType::Energetic(explosive) => {
+					explosive.equiv_mass
+				}
+			}).to_string());
 
 			row.append_child(&name_cell).unwrap();
 			row.append_child(&caliber_cell).unwrap();
