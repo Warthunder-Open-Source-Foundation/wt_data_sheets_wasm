@@ -82,7 +82,7 @@ pub fn make_row_params() -> [String; 18] {
 	[
 		"name".to_string(),
 		"range".to_string(),
-		"Max Speed".to_string(),
+		"TWR".to_string(),
 		"Time to 2km".to_string(),
 		"DeltaV".to_string(),
 		"LaunchG".to_string(),
