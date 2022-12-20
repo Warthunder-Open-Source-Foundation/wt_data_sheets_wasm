@@ -6,6 +6,7 @@ use wt_ballistics_calc_lib::runner::generate;
 use crate::MISSILES;
 
 use std::str::FromStr;
+use crate::util::console_log;
 
 
 const WIDTH: u32 = 3840;
@@ -25,13 +26,13 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	let background_color = RGBColor(
 		rgb(background_split[0]),
 		rgb(background_split[1]),
-		rgb(background_split[2])
+		rgb(background_split[2]),
 	);
 
 	let text_color = RGBColor(
 		rgb(text_split[0]),
 		rgb(text_split[1]),
-		rgb(text_split[2])
+		rgb(text_split[2]),
 	);
 
 	let backend = CanvasBackend::new(id).expect("cannot find canvas");
@@ -53,20 +54,51 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		altitude,
 	}, TIMESTEP, false);
 
-	let mut v_profile: Vec<(f32, f64)> = Vec::new();
-	for i in results.profile.v.clone().iter().enumerate() {
-		v_profile.push((i.0 as f32, *i.1 as f64));
-	}
 
-	let mut a_profile: Vec<(f32, f64)> = Vec::new();
-	for i in results.profile.a.clone().iter().enumerate() {
-		a_profile.push((i.0 as f32, *i.1 as f64));
-	}
+	// Centripetal force F = mv² / r for maximum turning radius
+	// F = force newtons or ms²
+	// m = mass kg
+	// v = velocity m/s
+	// r = radius meter
 
-	let mut d_profile: Vec<(f32, f64)> = Vec::new();
-	for i in results.profile.d.clone().iter().enumerate() {
-		d_profile.push((i.0 as f32, *i.1 / DISTANCE_FACTOR as f64));
-	}
+	// Formula used below
+	// Base:
+	//		F = mv² / r
+	// Solve for r:
+	//		r = mv² / F
+	// Expand F:
+	//		r = mv² / ma
+	// Eliminate:
+	//		r = v² / m
+
+	let turning_radius = |velocity: f64| {
+		velocity.powi(2) / missile.reqaccelmax
+	};
+
+	// Velocity over time
+	let v_profile: Vec<(f32, f64)> = results.profile.v.iter()
+												.enumerate()
+												.map(|i| (i.0 as f32, *i.1 as f64))
+												.collect();
+
+	// Maximum turning radius at given velocity
+	let turn_profile: Vec<(f32, f64)> = v_profile.iter()
+											.map(|(i, velocity)| (*i, turning_radius(*velocity) / 100.0))
+											.collect();
+
+	// Acceleration over time
+	let a_profile: Vec<(f32, f64)> = results.profile.a.iter()
+												.enumerate()
+												.map(|i| (i.0 as f32, *i.1 as f64))
+												.collect();
+
+
+	// Distance over time
+	let d_profile: Vec<(f32, f64)> = results.profile.d.iter()
+												.enumerate()
+												.map(|i| (i.0 as f32, *i.1 / DISTANCE_FACTOR as f64))
+												.collect();
+
 
 	let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
 	let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
@@ -74,7 +106,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	root.fill(&background_color).unwrap();
 	let root = root.margin(50, 50, 50, 50);
 
-	let text = |size|TextStyle::from(("sans-serif", FONT_AXIS / size).into_font()).color(&text_color);
+	let text = |size| TextStyle::from(("sans-serif", FONT_AXIS / size).into_font()).color(&text_color);
 
 	// After this point, we should be able to draw construct a chart context
 	let mut chart = ChartBuilder::on(&root)
@@ -92,21 +124,21 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 			0: text_color.0,
 			1: text_color.1,
 			2: text_color.2,
-			3: 1.0
+			3: 1.0,
 		},
 		filled: true,
-		stroke_width: 1
+		stroke_width: 1,
 	};
 
-	let axis_style =ShapeStyle {
+	let axis_style = ShapeStyle {
 		color: RGBAColor {
 			0: text_color.0,
 			1: text_color.1,
 			2: text_color.2,
-			3: 1.0
+			3: 1.0,
 		},
 		filled: false,
-		stroke_width: 1
+		stroke_width: 1,
 	};
 	// Then we can draw a mesh
 	chart
@@ -148,6 +180,16 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	)).unwrap()
 		 .label(format!("Distance m / {DISTANCE_FACTOR}"))
 		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &GREEN));
+
+	// Load is 0 on some missile, making this calculation useless to display
+	if missile.reqaccelmax != 0.0 {
+		chart.draw_series(LineSeries::new(
+			turn_profile,
+			&YELLOW,
+		)).unwrap()
+			 .label(format!("Turning radius km / 10"))
+			 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &YELLOW));
+	}
 
 
 	chart.draw_series(LineSeries::new(
