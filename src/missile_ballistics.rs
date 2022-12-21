@@ -148,7 +148,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		.bold_line_style(line_style)
 		// We can customize the maximum number of labels allowed for each axis
 		.x_labels(50)
-		.y_labels(50)
+		.y_labels(25)
 		.x_desc("time in s")
 		.x_label_style(text(100))
 		.y_label_style(text(100))
