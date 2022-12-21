@@ -165,39 +165,24 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		}
 	};
 
+	let mut draw_line = |profile, caption, color| {
+		chart.draw_series(LineSeries::new(
+			profile,
+			style(color),
+		)).unwrap()
+			 .label(caption)
+			 .legend(move |(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], color));
+	};
 
-	// And we can draw something in the drawing area
-	chart.draw_series(LineSeries::new(
-		v_profile,
-		style(RED),
-	)).unwrap()
-		 .label("Velocity m/s")
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &RED));
+	draw_line(v_profile, "Velocity m/s".to_owned(), RED);
 
+	draw_line(a_profile, "Acceleration m/s²".to_owned(), BLUE);
 
-	chart.draw_series(LineSeries::new(
-		a_profile,
-		style(BLUE),
-	)).unwrap()
-		 .label("Acceleration m/s²")
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &BLUE));
-
-
-	chart.draw_series(LineSeries::new(
-		d_profile,
-		style(GREEN),
-	)).unwrap()
-		 .label(format!("Distance m / {DISTANCE_FACTOR}"))
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &GREEN));
+	draw_line(d_profile, format!("Distance m / {DISTANCE_FACTOR}"), GREEN);
 
 	// Load is 0 on some missile, making this calculation useless to display
 	if missile.reqaccelmax != 0.0 {
-		chart.draw_series(LineSeries::new(
-			turn_profile,
-			style(YELLOW)
-		)).unwrap()
-			 .label(format!("Turning radius km / {:.0}", 1000.0 / TURNING_FACTOR))
-			 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &YELLOW));
+		draw_line(turn_profile, format!("Turning radius km / {:.0}", 1000.0 / TURNING_FACTOR), YELLOW);
 	}
 
 
