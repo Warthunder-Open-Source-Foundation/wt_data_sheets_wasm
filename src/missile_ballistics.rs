@@ -16,7 +16,8 @@ const TIMESTEP: f64 = 0.1;
 
 // Scaling settings
 const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
-const DISTANCE_FACTOR: u32 = 100;
+const DISTANCE_FACTOR: f64 = 100.0;
+const TURNING_FACTOR: f64 = 100.0;
 
 #[wasm_bindgen]
 pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, canvas_background_color: &str, canvas_text_color: &str) {
@@ -83,7 +84,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 	// Maximum turning radius at given velocity
 	let turn_profile: Vec<(f32, f64)> = v_profile.iter()
-											.map(|(i, velocity)| (*i, turning_radius(*velocity) / 100.0))
+											.map(|(i, velocity)| (*i, turning_radius(*velocity) / TURNING_FACTOR))
 											.collect();
 
 	// Acceleration over time
@@ -156,11 +157,19 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		.x_label_formatter(&|x| format!("{}", x / TIMESTEP.powi(-1) as f32))
 		.draw().unwrap();
 
+	let style = |color: RGBColor| {
+		ShapeStyle {
+			color: color.to_rgba(),
+			filled: true,
+			stroke_width: 1,
+		}
+	};
+
 
 	// And we can draw something in the drawing area
 	chart.draw_series(LineSeries::new(
 		v_profile,
-		&RED,
+		style(RED),
 	)).unwrap()
 		 .label("Velocity m/s")
 		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &RED));
@@ -168,7 +177,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 	chart.draw_series(LineSeries::new(
 		a_profile,
-		&BLUE,
+		style(BLUE),
 	)).unwrap()
 		 .label("Acceleration m/s²")
 		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &BLUE));
@@ -176,7 +185,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 	chart.draw_series(LineSeries::new(
 		d_profile,
-		&GREEN,
+		style(GREEN),
 	)).unwrap()
 		 .label(format!("Distance m / {DISTANCE_FACTOR}"))
 		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &GREEN));
@@ -185,9 +194,9 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	if missile.reqaccelmax != 0.0 {
 		chart.draw_series(LineSeries::new(
 			turn_profile,
-			&YELLOW,
+			style(YELLOW)
 		)).unwrap()
-			 .label(format!("Turning radius km / 10"))
+			 .label(format!("Turning radius km / {:.0}", 1000.0 / TURNING_FACTOR))
 			 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &YELLOW));
 	}
 
