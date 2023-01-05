@@ -55,33 +55,34 @@
 						href="documentation.html">Simulation formula and documentation</a></p>
 				<button class="rounded_button" id="reset_values">Reset values</button>
 			</div>
-			<!--Altitude			-->
-			<div class="container">
+			<div class="side_by_side">
+				<!--Altitude			-->
 
-				<div class="range-slider">
-					<input class="rs-label" id="alt" type="number" min="0" max="10000" value="1000">
-					<input id="alt_slider" class="rs-range" type="range" min="0" max="10000" value="1000">
+				<div class="container">
 
+					<div class="range-slider">
+						<input class="rs-label" id="alt" type="number" min="0" max="10000" value="1000" step="100">
+						<input id="alt_slider" class="rs-range" type="range" min="0" max="10000" value="1000" step="100">
+
+					</div>
+
+					<div class="box-minmax">
+						<span>meters altitude</span>
+					</div>
 				</div>
+				<!--Speed			-->
+				<div class="container">
 
-				<div class="box-minmax">
-					<span>0</span><span>meters altitude</span><span>10000</span>
+					<div class="range-slider">
+						<input class="rs-label" id="vel" type="number" min="0" max="1000" value="343" step="10">
+						<input id="vel_slider" class="rs-range" type="range" min="0" max="1000" value="343" step="10">
+
+					</div>
+
+					<div class="box-minmax">
+						<span>m/s launch velocity</span>
+					</div>
 				</div>
-
-			</div>
-			<!--Speed			-->
-			<div class="container">
-
-				<div class="range-slider">
-					<input class="rs-label" id="vel" type="number" min="0" max="1000" value="343">
-					<input id="vel_slider" class="rs-range" type="range" min="0" max="1000" value="343">
-
-				</div>
-
-				<div class="box-minmax">
-					<span>0</span><span>m/s launch velocity</span><span>1000</span>
-				</div>
-
 			</div>
 		</td>
 	</tr>

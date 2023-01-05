@@ -22,7 +22,7 @@ async function main() {
 	function showSliderValue(slider, bullet) {
 		bullet.innerHTML = slider.value;
 		const bulletPosition = (slider.value / slider.max);
-		bullet.style.left = (bulletPosition * 578) + "px";
+		bullet.style.left = (bulletPosition * 280) + "px";
 	}
 
 	function update() {

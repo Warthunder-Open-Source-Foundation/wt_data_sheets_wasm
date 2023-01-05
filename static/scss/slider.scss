@@ -6,19 +6,23 @@
 }
 .box-minmax{
 	margin-top: 30px;
-	width: 608px;
+	width: 304px;
 	display: flex;
 	justify-content: space-between;
 	font-size: 20px;
 	color: var(--color-text);
 	span:first-child{
-		margin-left: 10px;
+		margin: 0 auto;
+	}
+	span {
+		font-size: 15px;
 	}
 }
 .rs-range {
 	margin-top: 29px;
-	width: 600px;
+	width: 300px;
 	-webkit-appearance: none;
+	appearance: none;
 	&:focus {
 		outline: none;
 	}
@@ -71,23 +75,22 @@
 	position: relative;
 	transform-origin: center center;
 	display: block;
-	width: 98px;
-	height: 98px;
+	width: 61px;
+	height: 61px;
 	background: transparent;
 	border-radius: 50%;
 	text-align: center;
 	box-sizing: border-box;
 	border: 2px solid var(--color-text);
-	margin-left: -38px;
+	margin-left: -17px;
 	color: var(--color-text);
-	padding-left: 10px;
+	padding-left: 13px;
 	font-style: normal;
 	font-weight: normal;
 	line-height: normal;
-	font-size: 30px;
+	font-size: 10px;
 	&::after {
 		display: block;
-		font-size: 15px;
 		letter-spacing: 0.07em;
 	}
 }

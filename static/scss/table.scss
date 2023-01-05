@@ -11,3 +11,9 @@
 .value_red {
 	background-color: var(--color-text-red);
 }
+
+.side_by_side {
+	display: flex;
+	padding-left: 50px;
+	padding-top: 20px;
+}
