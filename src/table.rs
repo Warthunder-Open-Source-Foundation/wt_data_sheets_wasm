@@ -47,11 +47,6 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 	let arh_table = document.query_selector(".arh_table").unwrap().unwrap();
 
 	for missile in MISSILES.iter() {
-		// Hide useless duplicates
-		// Missiles with the default keyword are the stock-counterparts to
-		if missile.name.contains("default") {
-			continue;
-		}
 		match &missile.seekertype {
 			SeekerType::Ir => {
 				let ir_missile = IrTable::from_missile(missile, parameters);

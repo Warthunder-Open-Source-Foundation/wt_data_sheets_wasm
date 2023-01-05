@@ -51,6 +51,9 @@ lazy_static! {
 	static ref MISSILES: Vec<Missile> = {
 		let json = include_str!("../wt_datamine_extractor/missile_index/all.json");
 		let mut missiles: Vec<Missile> = serde_json::from_str(json).unwrap();
+		// Hide useless duplicates
+		// Missiles with the default keyword are the stock-counterparts to
+		missiles = missiles.into_iter().filter(|m|!m.name.contains("default")).collect();
 		missiles.sort_by_key(|d| d.name.clone());
 
 		missiles
