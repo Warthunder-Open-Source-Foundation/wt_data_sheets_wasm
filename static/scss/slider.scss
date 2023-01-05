@@ -72,6 +72,7 @@
 	}
 }
 .rs-label {
+	-moz-appearance: textfield !important;
 	position: relative;
 	transform-origin: center center;
 	display: block;
@@ -84,7 +85,7 @@
 	border: 2px solid var(--color-text);
 	margin-left: -17px;
 	color: var(--color-text);
-	padding-left: 13px;
+	padding-left: 2px;
 	font-style: normal;
 	font-weight: normal;
 	line-height: normal;
@@ -92,5 +93,8 @@
 	&::after {
 		display: block;
 		letter-spacing: 0.07em;
+	}
+	&::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+		display: none;
 	}
 }
