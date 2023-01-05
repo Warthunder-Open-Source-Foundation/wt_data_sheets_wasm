@@ -3,20 +3,70 @@ import {generate_main_tables, update_tables} from "../pkg";
 
 async function main() {
 	generate_main_tables();
+	let lastMove = 0;
 
-	document.getElementById("vel").addEventListener("input", update);
-	document.getElementById("alt").addEventListener("input", update);
-	document.getElementById("run_calc").addEventListener("input", update);
+	const vel_slider = document.getElementById("vel_slider");
+	const vel_bullet = document.getElementById("vel");
+	vel_slider.addEventListener("input", update_slider, false);
+	vel_bullet.addEventListener("input", update, false);
+
+	const alt_slider = document.getElementById("alt_slider");
+	const alt_bullet = document.getElementById("alt");
+	alt_slider.addEventListener("input", update_slider, false);
+	alt_bullet.addEventListener("input", update, false);
+
+	// Sets sliders to initial positions
+	showSliderValue(alt_slider, alt_bullet);
+	showSliderValue(vel_slider, vel_bullet);
+
+	function showSliderValue(slider, bullet) {
+		bullet.innerHTML = slider.value;
+		const bulletPosition = (slider.value / slider.max);
+		bullet.style.left = (bulletPosition * 578) + "px";
+	}
 
 	function update() {
-		let alt = parseInt(document.getElementById("alt").value);
-		let vel = parseInt(document.getElementById("vel").value);
+		if(Date.now() - lastMove > 40) {
+			lastMove = Date.now();
+		} else {
+			return;
+		}
+
+		let alt = parseInt(vel_bullet.value);
+		let vel = parseInt(vel_bullet.value);
+		vel_slider.value = vel;
+		alt_slider.value = alt;
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
+		update_tables(alt, vel);
+	}
+
+	function update_slider() {
+		if(Date.now() - lastMove > 40) {
+			lastMove = Date.now();
+		} else {
+			return;
+		}
+
+		let alt = parseInt(alt_slider.value);
+		let vel = parseInt(vel_slider.value);
+		vel_bullet.value = vel;
+		alt_bullet.value = alt;
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
 		update_tables(alt, vel);
 	}
 
 	document.getElementById("reset_values").addEventListener("click", (ev) => {
-		document.getElementById("alt").value = "1000";
-		document.getElementById("vel").value = "343";
+		alt_bullet.value = "1000";
+		alt_slider.value = "1000";
+
+		vel_bullet.value = "343";
+		vel_slider.value = "343";
+
+		// Sets sliders to initial positions
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
 		update_tables(1000, 343);
 	});
 

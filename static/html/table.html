@@ -50,17 +50,37 @@
 	<tr>
 		<td colspan="99">
 			<div>
-				<label for="alt">Altitude (m)</label>
-				<input class="input_number" id="alt" min="0" type="number" value="">
-
-				<label for="vel">Velocity (m/s)</label>
-				<input class="input_number" id="vel" min="0" type="number" value="">
-
-				<button class="rounded_button" id="run_calc">Run calc</button>
+				<p>Parameters used for ballistic simulation to calculate flight range. <a
+						href="documentation.html">Simulation formula and documentation</a></p>
 				<button class="rounded_button" id="reset_values">Reset values</button>
+			</div>
+			<!--Altitude			-->
+			<div class="container">
 
-				<p>All colums with red titles are calculated values. Documentation on all values is <a
-						href="documentation.html">here</a></p>
+				<div class="range-slider">
+					<input class="rs-label" id="alt" type="number" min="0" max="10000" value="1000">
+					<input id="alt_slider" class="rs-range" type="range" min="0" max="10000" value="1000">
+
+				</div>
+
+				<div class="box-minmax">
+					<span>0</span><span>meters altitude</span><span>10000</span>
+				</div>
+
+			</div>
+			<!--Speed			-->
+			<div class="container">
+
+				<div class="range-slider">
+					<input class="rs-label" id="vel" type="number" min="0" max="1000" value="343">
+					<input id="vel_slider" class="rs-range" type="range" min="0" max="1000" value="343">
+
+				</div>
+
+				<div class="box-minmax">
+					<span>0</span><span>m/s launch velocity</span><span>1000</span>
+				</div>
+
 			</div>
 		</td>
 	</tr>
