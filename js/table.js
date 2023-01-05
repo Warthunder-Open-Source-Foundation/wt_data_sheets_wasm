@@ -32,10 +32,13 @@ async function main() {
 			return;
 		}
 
-		let alt = parseInt(vel_bullet.value);
-		let vel = parseInt(vel_bullet.value);
+		let alt = Math.min(parseInt(alt_bullet.value), 10000);
+		let vel = Math.min(parseInt(vel_bullet.value), 1000);
 		vel_slider.value = vel;
 		alt_slider.value = alt;
+		// Set values as the limiting max function prevents too large values
+		vel_bullet.value = vel;
+		alt_bullet.value = alt;
 		showSliderValue(alt_slider, alt_bullet);
 		showSliderValue(vel_slider, vel_bullet);
 		update_tables(alt, vel);

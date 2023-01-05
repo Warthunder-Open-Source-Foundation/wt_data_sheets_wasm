@@ -19,6 +19,10 @@ html {
 	--color-text-blood-red: #d30555;
 	--color-text-red: #d90a22;
 
+	--accept-red-gradient: linear-gradient(
+	120deg, var(--color-accept), var(--color-text-red)
+	);
+
 	--background-image-red: linear-gradient(
 					120deg, var(--color-background-accent), var(--color-accent));
 
