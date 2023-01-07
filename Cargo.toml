@@ -16,6 +16,17 @@ rust-version = "1.63"
 [lib]
 crate-type = ["cdylib"]
 
+[profile.dev]
+opt-level = 0
+debug = true
+debug-assertions = true
+overflow-checks = true
+lto = false
+panic = 'unwind'
+incremental = true
+codegen-units = 256
+rpath = false
+
 [profile.release]
 #option z is supposdely smaller, but S has yielded around 11kb smaller results
 opt-level = "s"
