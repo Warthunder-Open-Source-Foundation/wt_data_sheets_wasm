@@ -2,6 +2,28 @@ import {generate_main_tables, update_tables} from "../pkg";
 
 
 async function main() {
+	const urlParams = new URLSearchParams(window.location.search);
+	const ir = urlParams.get("ir");
+	const sarh = urlParams.get("sarh");
+	const arh = urlParams.get("arh");
+
+	if (ir == null && sarh == null && arh == null) {
+		// Do nothing as all should be shown
+	} else {
+		hide_if_null(ir, "ir_table");
+		hide_if_null(sarh, "sarh_table");
+		hide_if_null(arh, "arh_table");
+	}
+
+	console.log(ir, sarh, arh);
+
+
+	function hide_if_null(elem, id) {
+		if (elem !== "true") {
+			document.getElementById(id).classList.add("invisible");
+		}
+	}
+
 	generate_main_tables();
 	let lastMove = 0;
 
@@ -15,7 +37,7 @@ async function main() {
 	alt_slider.addEventListener("input", update_slider, false);
 	alt_bullet.addEventListener("input", update, false);
 
-	// Sets sliders to initial positions
+// Sets sliders to initial positions
 	showSliderValue(alt_slider, alt_bullet);
 	showSliderValue(vel_slider, vel_bullet);
 
@@ -26,7 +48,7 @@ async function main() {
 	}
 
 	function update() {
-		if(Date.now() - lastMove > 40) {
+		if (Date.now() - lastMove > 40) {
 			lastMove = Date.now();
 		} else {
 			return;
@@ -45,7 +67,7 @@ async function main() {
 	}
 
 	function update_slider() {
-		if(Date.now() - lastMove > 40) {
+		if (Date.now() - lastMove > 40) {
 			lastMove = Date.now();
 		} else {
 			return;
@@ -74,13 +96,13 @@ async function main() {
 	});
 
 
-	// Takes about 1 milliseconds to compute on a plain build
+// Takes about 1 milliseconds to compute on a plain build
 	let tables = document.getElementsByClassName("missile_table");
 	for (const table of tables) {
 		iterate_inner_child(table);
 	}
 
-	// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
+// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
 	function iterate_inner_child(parent) {
 		if (parent.tagName === "td") {
 			if (parent.innerText === "true") {
