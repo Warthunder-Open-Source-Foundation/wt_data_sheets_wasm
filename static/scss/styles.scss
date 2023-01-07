@@ -182,3 +182,54 @@ table {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+dialog {
+	z-index: 100;
+	background: var(--color-background-bright);
+	border: 2px solid var(--color-text-blood-red);
+	border-radius: 5px;
+	font-size: 35px;
+	box-shadow: 2px 2px 2px var(--color-background-accent);
+	margin: 20vh auto 0;
+	transition: opacity 2s;
+	opacity: 0;
+	padding: 20px;
+
+	&[open] {
+		opacity: 1;
+		animation: show 1s ease normal;
+	}
+
+	&::backdrop {
+		backdrop-filter: blur(3px);
+		filter: brightness(50%);
+	}
+
+	button {
+		border: 2px solid var(--color-text-blood-red);
+		border-radius: 5px;
+		color: var(--color-text);
+
+		// Ideally override this to represent interest
+		background: var(--color-background-bright);
+		box-shadow: 2px 2px 2px var(--color-background-accent);
+
+		transition: background 1s ease;
+
+		&:hover {
+			box-shadow: 4px 4px 4px var(--color-background-accent);
+			border-color: var(--color-accept);
+			cursor: pointer;
+			background: var(--color-accept);
+		}
+	}
+}
+
+@keyframes show{
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

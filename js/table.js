@@ -7,15 +7,17 @@ async function main() {
 	const sarh = urlParams.get("sarh");
 	const arh = urlParams.get("arh");
 
-	if (ir == null && sarh == null && arh == null) {
-		// Do nothing as all should be shown
-	} else {
-		hide_if_null(ir, "ir_table");
-		hide_if_null(sarh, "sarh_table");
-		hide_if_null(arh, "arh_table");
-	}
+	table_check(ir, sarh, arh);
 
-	console.log(ir, sarh, arh);
+	function table_check(ir, sarh, arh) {
+		if (ir == null && sarh == null && arh == null) {
+			document.getElementById("dialog_missiles").showModal();
+		} else {
+			hide_if_null(ir, "ir_table");
+			hide_if_null(sarh, "sarh_table");
+			hide_if_null(arh, "arh_table");
+		}
+	}
 
 
 	function hide_if_null(elem, id) {
