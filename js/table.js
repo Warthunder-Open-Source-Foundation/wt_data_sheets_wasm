@@ -2,16 +2,51 @@ import {generate_main_tables, update_tables} from "../pkg";
 
 
 async function main() {
-	const urlParams = new URLSearchParams(window.location.search);
-	const ir = urlParams.get("ir");
-	const sarh = urlParams.get("sarh");
-	const arh = urlParams.get("arh");
+	// Validate URL against referrer
+	const urlParams = new URL(window.location.href).searchParams;
+	let ir = urlParams.get("ir");
+	let sarh = urlParams.get("sarh");
+	let arh = urlParams.get("arh");
 
-	table_check(ir, sarh, arh);
+	const prompt = document.getElementById("dialog_missiles");
 
-	function table_check(ir, sarh, arh) {
+	const missile_buttons = document.getElementsByClassName("missile_class_btn");
+	for (const missileButton of missile_buttons) {
+		missileButton.addEventListener("click", () => {
+			switch (missileButton.dataset.type) {
+				case "ir":
+					ir = "true";
+					break;
+				case "sarh":
+					sarh = "true";
+					break;
+				case "arh":
+					arh = "true";
+					break;
+				default:
+					console.log("bad missile param" + missileButton.dataset.type);
+			}
+
+			// Updates URL for sharing
+			urlParams.append(missileButton.dataset.type, "true")
+			const next_url = window.location  + "?" + urlParams.toString();
+			console.log(next_url);
+			const next_title = 'Missile sheet';
+			const next_state = {additionalInformation: 'Missile category'};
+
+			window.history.replaceState(next_state, next_title, next_url);
+
+			table_check();
+			prompt.close();
+		})
+	}
+
+	table_check();
+
+	function table_check() {
+		console.log(ir, sarh, arh)
 		if (ir == null && sarh == null && arh == null) {
-			document.getElementById("dialog_missiles").showModal();
+			prompt.showModal();
 		} else {
 			hide_if_null(ir, "ir_table");
 			hide_if_null(sarh, "sarh_table");

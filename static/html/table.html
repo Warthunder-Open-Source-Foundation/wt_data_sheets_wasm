@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>FlareFlo's missile sheet</title>
+	<title>Missile sheet</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
 	<link href="table.css" rel="stylesheet">
@@ -48,25 +48,19 @@
 </script>
 
 <dialog id="dialog_missiles">
-	<p class="missile_category_table">Missile category</p>
+	<p class="missile_category_table">Missile category </p>
 	<div>
-		<button class="missile_class_btn">
-			<a href="table.html?ir=true">
-				<img alt="Infrared Homing IR"
-					 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_type_b_air_to_air.png">
-			</a>
+		<button class="missile_class_btn" data-type="ir">
+			<img alt="Infrared Homing IR"
+				 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_type_b_air_to_air.png">
 		</button>
-		<button class="missile_class_btn">
-			<a href="table.html?sarh=true">
-				<img alt="Semi Active Radar Homing ARH"
-					 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_air_to_air_midrange.png">
-			</a>
+		<button class="missile_class_btn" data-type="sarh">
+			<img alt="Semi Active Radar Homing SARH"
+				 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_air_to_air_midrange.png">
 		</button>
-		<button class="missile_class_btn">
-			<a href="table.html?arh=true">
-				<img alt="Active Radar Homing ARH"
-					 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_type_b_air_to_air_midrange.png">
-			</a>
+		<button class="missile_class_btn" data-type="arh">
+			<img alt="Active Radar Homing ARH"
+				 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_type_b_air_to_air_midrange.png">
 		</button>
 	</div>
 	<form class="missile_category_table" method="dialog">

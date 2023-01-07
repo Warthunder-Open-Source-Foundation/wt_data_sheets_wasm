@@ -20,7 +20,7 @@ html {
 	--color-text-red: #d90a22;
 
 	--accept-red-gradient: linear-gradient(
-	120deg, var(--color-accept), var(--color-text-red)
+					120deg, var(--color-accept), var(--color-text-red)
 	);
 
 	--background-image-red: linear-gradient(
@@ -214,10 +214,11 @@ dialog {
 		background: var(--color-background-bright);
 		box-shadow: 2px 2px 2px var(--color-background-accent);
 
-		transition: background 1s ease;
+		transition: background 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+		outline: none; // Acessebility crime but i am not smart enough to make it look good with outline
 
 		&:hover {
-			box-shadow: 4px 4px 4px var(--color-background-accent);
+			box-shadow: none;
 			border-color: var(--color-accept);
 			cursor: pointer;
 			background: var(--color-accept);
@@ -225,7 +226,7 @@ dialog {
 	}
 }
 
-@keyframes show{
+@keyframes show {
 	from {
 		opacity: 0;
 	}
