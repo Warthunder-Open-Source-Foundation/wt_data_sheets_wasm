@@ -214,14 +214,13 @@ dialog {
 		background: var(--color-background-bright);
 		box-shadow: 2px 2px 2px var(--color-background-accent);
 
-		transition: background 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+		transition:  0.25s ease-in-out;
 		outline: none; // Acessebility crime but i am not smart enough to make it look good with outline
 
 		&:hover {
 			box-shadow: none;
 			border-color: var(--color-accept);
 			cursor: pointer;
-			background: var(--color-accept);
 		}
 	}
 }

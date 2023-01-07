@@ -37,15 +37,49 @@
 }
 
 .missile_class_btn {
+	z-index: 101;
 	aspect-ratio: 1/1;
 	width: 120px;
-	padding-left: 10px;
-	padding-right: 10px;
+	height: 120px;
+	padding: 8px;
 	margin: 0 auto;
+	display: grid;
+	&:hover > img {
+		filter: blur(4px) brightness(50%);
+	}
+	&:hover > .missile_class_btn_text {
+		visibility: visible;
+		filter: none;
+		opacity: 1;
+	}
+}
+
+.missile_class_btn_text {
+	z-index: 102;
+	position: inherit;
+	visibility: hidden;
+	margin: auto;
+	width: fit-content;
+	height: fit-content;
+	font-size: 40px;
+	font-family: "Roboto Mono", monospace;
+	color: var(--color-text);
+	transition: opacity 0.5s ease-in-out;
+	opacity: 0;
 }
 
 .missile_category_table {
 	padding-bottom: 10px;
 	margin: 0 auto;
 	width: fit-content;
+}
+
+.stacked {
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.missile_category_box {
+	display: flex;
+	gap: 20px;
 }
