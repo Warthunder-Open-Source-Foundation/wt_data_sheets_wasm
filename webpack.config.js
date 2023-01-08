@@ -11,10 +11,12 @@ const inDev = process.env.NODE_ENV === "dev";
 
 let wasm_arg;
 let webpack_arg;
+let watch = false;
 
 if (inDev) {
 	wasm_arg = "--debug";
 	webpack_arg = "development";
+	watch = true
 } else {
 	wasm_arg = "--release";
 	webpack_arg = "production"
@@ -32,7 +34,7 @@ module.exports = {
 		syncWebAssembly: true
 	},
 	mode: webpack_arg,
-	watch: true,
+	watch: watch,
 	watchOptions: {
 		aggregateTimeout: 200,
 		poll: 1000,
