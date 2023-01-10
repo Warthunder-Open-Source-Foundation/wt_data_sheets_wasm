@@ -3,20 +3,27 @@ const CopyPlugin = require("copy-webpack-plugin");
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 const workboxPlugin = require('workbox-webpack-plugin');
 const {GenerateSW} = require("workbox-webpack-plugin");
+const WatchExternalFilesPlugin = require("webpack-watch-external-files-plugin");
 
 const dist = path.resolve(__dirname, "dist");
 
 const inDev = process.env.NODE_ENV === "dev";
 
 let wasm_arg;
+let webpack_arg;
+let watch = false;
 
 if (inDev) {
 	wasm_arg = "--debug";
+	webpack_arg = "development";
+	watch = true
 } else {
 	wasm_arg = "--release";
+	webpack_arg = "production"
 }
 
 module.exports = {
+	target: 'web',
 	performance: {
 		hints: false,
 		maxEntrypointSize: 512000,
@@ -26,7 +33,12 @@ module.exports = {
 		asyncWebAssembly: true,
 		syncWebAssembly: true
 	},
-	mode: "production",
+	mode: webpack_arg,
+	watch: watch,
+	watchOptions: {
+		aggregateTimeout: 200,
+		poll: 1000,
+	},
 	entry: {
 		index: "./js/index.js",
 		util: "./js/util.js",
@@ -53,15 +65,21 @@ module.exports = {
 			directory: path.join(__dirname, "dist")
 		},
 		host: 'localhost',
-		compress: true,
 		port: 8081,
 		client: {
+			progress: true,
 			overlay: false,
 		},
-		liveReload: false,
-		hot: false,
 	},
 	plugins: [
+		new WatchExternalFilesPlugin({
+			files: [
+				'./js',
+				'./src',
+				'./static',
+				'./Cargo.toml',
+			]
+		}),
 		new CopyPlugin([
 			{from: path.resolve(__dirname, "static/manifest.json"), to: ''},
 			{from: path.resolve(__dirname, "static/metafiles"), to: ''},

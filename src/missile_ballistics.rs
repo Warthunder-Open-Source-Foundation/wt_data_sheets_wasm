@@ -6,6 +6,7 @@ use wt_ballistics_calc_lib::runner::generate;
 use crate::MISSILES;
 
 use std::str::FromStr;
+use crate::util::console_log;
 
 
 const WIDTH: u32 = 3840;
@@ -15,7 +16,8 @@ const TIMESTEP: f64 = 0.1;
 
 // Scaling settings
 const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
-const DISTANCE_FACTOR: u32 = 100;
+const DISTANCE_FACTOR: f64 = 100.0;
+const TURNING_FACTOR: f64 = 100.0;
 
 #[wasm_bindgen]
 pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, canvas_background_color: &str, canvas_text_color: &str) {
@@ -25,13 +27,13 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	let background_color = RGBColor(
 		rgb(background_split[0]),
 		rgb(background_split[1]),
-		rgb(background_split[2])
+		rgb(background_split[2]),
 	);
 
 	let text_color = RGBColor(
 		rgb(text_split[0]),
 		rgb(text_split[1]),
-		rgb(text_split[2])
+		rgb(text_split[2]),
 	);
 
 	let backend = CanvasBackend::new(id).expect("cannot find canvas");
@@ -53,20 +55,51 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		altitude,
 	}, TIMESTEP, false);
 
-	let mut v_profile: Vec<(f32, f64)> = Vec::new();
-	for i in results.profile.v.clone().iter().enumerate() {
-		v_profile.push((i.0 as f32, *i.1 as f64));
-	}
 
-	let mut a_profile: Vec<(f32, f64)> = Vec::new();
-	for i in results.profile.a.clone().iter().enumerate() {
-		a_profile.push((i.0 as f32, *i.1 as f64));
-	}
+	// Centripetal force F = mv² / r for maximum turning radius
+	// F = force newtons or ms²
+	// m = mass kg
+	// v = velocity m/s
+	// r = radius meter
 
-	let mut d_profile: Vec<(f32, f64)> = Vec::new();
-	for i in results.profile.d.clone().iter().enumerate() {
-		d_profile.push((i.0 as f32, *i.1 / DISTANCE_FACTOR as f64));
-	}
+	// Formula used below
+	// Base:
+	//		F = mv² / r
+	// Solve for r:
+	//		r = mv² / F
+	// Expand F:
+	//		r = mv² / ma
+	// Eliminate:
+	//		r = v² / m
+
+	let turning_radius = |velocity: f64| {
+		velocity.powi(2) / missile.reqaccelmax
+	};
+
+	// Velocity over time
+	let v_profile: Vec<(f32, f64)> = results.profile.v.iter()
+												.enumerate()
+												.map(|i| (i.0 as f32, *i.1 as f64))
+												.collect();
+
+	// Maximum turning radius at given velocity
+	let turn_profile: Vec<(f32, f64)> = v_profile.iter()
+											.map(|(i, velocity)| (*i, turning_radius(*velocity) / TURNING_FACTOR))
+											.collect();
+
+	// Acceleration over time
+	let a_profile: Vec<(f32, f64)> = results.profile.a.iter()
+												.enumerate()
+												.map(|i| (i.0 as f32, *i.1 as f64))
+												.collect();
+
+
+	// Distance over time
+	let d_profile: Vec<(f32, f64)> = results.profile.d.iter()
+												.enumerate()
+												.map(|i| (i.0 as f32, *i.1 / DISTANCE_FACTOR as f64))
+												.collect();
+
 
 	let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
 	let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
@@ -74,7 +107,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	root.fill(&background_color).unwrap();
 	let root = root.margin(50, 50, 50, 50);
 
-	let text = |size|TextStyle::from(("sans-serif", FONT_AXIS / size).into_font()).color(&text_color);
+	let text = |size| TextStyle::from(("sans-serif", FONT_AXIS / size).into_font()).color(&text_color);
 
 	// After this point, we should be able to draw construct a chart context
 	let mut chart = ChartBuilder::on(&root)
@@ -92,21 +125,21 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 			0: text_color.0,
 			1: text_color.1,
 			2: text_color.2,
-			3: 1.0
+			3: 1.0,
 		},
 		filled: true,
-		stroke_width: 1
+		stroke_width: 1,
 	};
 
-	let axis_style =ShapeStyle {
+	let axis_style = ShapeStyle {
 		color: RGBAColor {
 			0: text_color.0,
 			1: text_color.1,
 			2: text_color.2,
-			3: 1.0
+			3: 1.0,
 		},
 		filled: false,
-		stroke_width: 1
+		stroke_width: 1,
 	};
 	// Then we can draw a mesh
 	chart
@@ -115,7 +148,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		.bold_line_style(line_style)
 		// We can customize the maximum number of labels allowed for each axis
 		.x_labels(50)
-		.y_labels(50)
+		.y_labels(25)
 		.x_desc("time in s")
 		.x_label_style(text(100))
 		.y_label_style(text(100))
@@ -124,30 +157,33 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		.x_label_formatter(&|x| format!("{}", x / TIMESTEP.powi(-1) as f32))
 		.draw().unwrap();
 
+	let style = |color: RGBColor| {
+		ShapeStyle {
+			color: color.to_rgba(),
+			filled: true,
+			stroke_width: 1,
+		}
+	};
 
-	// And we can draw something in the drawing area
-	chart.draw_series(LineSeries::new(
-		v_profile,
-		&RED,
-	)).unwrap()
-		 .label("Velocity m/s")
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &RED));
+	let mut draw_line = |profile, caption, color| {
+		chart.draw_series(LineSeries::new(
+			profile,
+			style(color),
+		)).unwrap()
+			 .label(caption)
+			 .legend(move |(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], color));
+	};
 
+	draw_line(v_profile, "Velocity m/s".to_owned(), RED);
 
-	chart.draw_series(LineSeries::new(
-		a_profile,
-		&BLUE,
-	)).unwrap()
-		 .label("Acceleration m/s²")
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &BLUE));
+	draw_line(a_profile, "Acceleration m/s²".to_owned(), BLUE);
 
+	draw_line(d_profile, format!("Distance m / {DISTANCE_FACTOR}"), GREEN);
 
-	chart.draw_series(LineSeries::new(
-		d_profile,
-		&GREEN,
-	)).unwrap()
-		 .label(format!("Distance m / {DISTANCE_FACTOR}"))
-		 .legend(|(x, y)| PathElement::new(vec![(x, y), (x + (WIDTH / 50) as i32, y)], &GREEN));
+	// Load is 0 on some missile, making this calculation useless to display
+	if missile.reqaccelmax != 0.0 {
+		draw_line(turn_profile, format!("Turning radius km / {:.0}", 1000.0 / TURNING_FACTOR), YELLOW);
+	}
 
 
 	chart.draw_series(LineSeries::new(

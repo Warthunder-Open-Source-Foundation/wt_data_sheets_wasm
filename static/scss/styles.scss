@@ -19,6 +19,10 @@ html {
 	--color-text-blood-red: #d30555;
 	--color-text-red: #d90a22;
 
+	--accept-red-gradient: linear-gradient(
+					120deg, var(--color-accept), var(--color-text-red)
+	);
+
 	--background-image-red: linear-gradient(
 					120deg, var(--color-background-accent), var(--color-accent));
 
@@ -177,4 +181,55 @@ table {
 .centered {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+dialog {
+	z-index: 100;
+	background: var(--color-background-bright);
+	border: 2px solid var(--color-text-blood-red);
+	border-radius: 5px;
+	font-size: 35px;
+	box-shadow: 2px 2px 2px var(--color-background-accent);
+	margin: 20vh auto 0;
+	transition: opacity 2s;
+	opacity: 0;
+	padding: 20px;
+
+	&[open] {
+		opacity: 1;
+		animation: show 1s ease normal;
+	}
+
+	&::backdrop {
+		backdrop-filter: blur(3px);
+		filter: brightness(50%);
+	}
+
+	button {
+		border: 2px solid var(--color-text-blood-red);
+		border-radius: 5px;
+		color: var(--color-text);
+
+		// Ideally override this to represent interest
+		background: var(--color-background-bright);
+		box-shadow: 2px 2px 2px var(--color-background-accent);
+
+		transition:  0.25s ease-in-out;
+		outline: none; // Acessebility crime but i am not smart enough to make it look good with outline
+
+		&:hover {
+			box-shadow: none;
+			border-color: var(--color-accept);
+			cursor: pointer;
+		}
+	}
+}
+
+@keyframes show {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

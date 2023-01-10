@@ -2,32 +2,144 @@ import {generate_main_tables, update_tables} from "../pkg";
 
 
 async function main() {
-	generate_main_tables();
+	// Validate URL against referrer
+	const urlParams = new URL(window.location.href).searchParams;
+	let ir = urlParams.get("ir");
+	let sarh = urlParams.get("sarh");
+	let arh = urlParams.get("arh");
 
-	document.getElementById("vel").addEventListener("input", update);
-	document.getElementById("alt").addEventListener("input", update);
-	document.getElementById("run_calc").addEventListener("input", update);
+	const prompt = document.getElementById("dialog_missiles");
+
+	const missile_buttons = document.getElementsByClassName("missile_class_btn");
+	for (const missileButton of missile_buttons) {
+		missileButton.addEventListener("click", () => {
+			switch (missileButton.dataset.type) {
+				case "ir":
+					ir = "true";
+					break;
+				case "sarh":
+					sarh = "true";
+					break;
+				case "arh":
+					arh = "true";
+					break;
+				default:
+					console.log("bad missile param" + missileButton.dataset.type);
+			}
+
+			// Updates URL for sharing
+			urlParams.append(missileButton.dataset.type, "true")
+			const next_url = window.location  + "?" + urlParams.toString();
+			console.log(next_url);
+			const next_title = 'Missile sheet';
+			const next_state = {additionalInformation: 'Missile category'};
+
+			window.history.replaceState(next_state, next_title, next_url);
+
+			table_check();
+			prompt.close();
+		})
+	}
+
+	table_check();
+
+	function table_check() {
+		console.log(ir, sarh, arh)
+		if (ir == null && sarh == null && arh == null) {
+			prompt.showModal();
+		} else {
+			hide_if_null(ir, "ir_table");
+			hide_if_null(sarh, "sarh_table");
+			hide_if_null(arh, "arh_table");
+		}
+	}
+
+
+	function hide_if_null(elem, id) {
+		if (elem !== "true") {
+			document.getElementById(id).classList.add("invisible");
+		}
+	}
+
+	generate_main_tables();
+	let lastMove = 0;
+
+	const vel_slider = document.getElementById("vel_slider");
+	const vel_bullet = document.getElementById("vel");
+	vel_slider.addEventListener("input", update_slider, false);
+	vel_bullet.addEventListener("input", update, false);
+
+	const alt_slider = document.getElementById("alt_slider");
+	const alt_bullet = document.getElementById("alt");
+	alt_slider.addEventListener("input", update_slider, false);
+	alt_bullet.addEventListener("input", update, false);
+
+// Sets sliders to initial positions
+	showSliderValue(alt_slider, alt_bullet);
+	showSliderValue(vel_slider, vel_bullet);
+
+	function showSliderValue(slider, bullet) {
+		bullet.innerHTML = slider.value;
+		const bulletPosition = (slider.value / slider.max);
+		bullet.style.left = (bulletPosition * 280) + "px";
+	}
 
 	function update() {
-		let alt = parseInt(document.getElementById("alt").value);
-		let vel = parseInt(document.getElementById("vel").value);
+		if (Date.now() - lastMove > 40) {
+			lastMove = Date.now();
+		} else {
+			return;
+		}
+
+		let alt = Math.min(parseInt(alt_bullet.value), 10000);
+		let vel = Math.min(parseInt(vel_bullet.value), 1000);
+		vel_slider.value = vel;
+		alt_slider.value = alt;
+		// Set values as the limiting max function prevents too large values
+		vel_bullet.value = vel;
+		alt_bullet.value = alt;
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
+		update_tables(alt, vel);
+	}
+
+	function update_slider() {
+		if (Date.now() - lastMove > 40) {
+			lastMove = Date.now();
+		} else {
+			return;
+		}
+
+		let alt = parseInt(alt_slider.value);
+		let vel = parseInt(vel_slider.value);
+		vel_bullet.value = vel;
+		alt_bullet.value = alt;
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
 		update_tables(alt, vel);
 	}
 
 	document.getElementById("reset_values").addEventListener("click", (ev) => {
-		document.getElementById("alt").value = "1000";
-		document.getElementById("vel").value = "343";
+		alt_bullet.value = "1000";
+		alt_slider.value = "1000";
+
+		vel_bullet.value = "343";
+		vel_slider.value = "343";
+
+		// Sets sliders to initial positions
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
 		update_tables(1000, 343);
 	});
 
 
-	// Takes about 1 milliseconds to compute on a plain build
+// Takes about 1 milliseconds to compute on a plain build
 	let tables = document.getElementsByClassName("missile_table");
 	for (const table of tables) {
 		iterate_inner_child(table);
 	}
 
-	// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
+// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
 	function iterate_inner_child(parent) {
 		if (parent.tagName === "td") {
 			if (parent.innerText === "true") {

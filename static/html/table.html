@@ -2,10 +2,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>FlareFlo's missile sheet</title>
+	<title>Missile sheet</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<link href="styles.css" rel="stylesheet">
 	<link href="table.css" rel="stylesheet">
+	<link href="slider.css" rel="stylesheet">
 	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
 
 	<meta content="A complete table of all air to air missiles"
@@ -45,25 +46,72 @@
 			oldelem.parentNode.replaceChild(newelem, oldelem);
 		})
 </script>
-<table class="main_table missile_table">
-	<thead>
-	<tr>
-		<td colspan="99">
-			<div>
-				<label for="alt">Altitude (m)</label>
-				<input class="input_number" id="alt" min="0" type="number" value="">
 
-				<label for="vel">Velocity (m/s)</label>
-				<input class="input_number" id="vel" min="0" type="number" value="">
+<dialog id="dialog_missiles">
+	<p class="missile_category_table">Missile category </p>
+	<div class="missile_category_box">
+		<button class="missile_class_btn" data-type="ir">
+			<img alt="Infrared Homing IR"
+				 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_type_b_air_to_air.png"
+				 class="stacked">
+			<p class="missile_class_btn_text stacked">IR</p>
+		</button>
+		<button class="missile_class_btn" data-type="sarh">
+			<img alt="Semi Active Radar Homing SARH"
+				 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_air_to_air_midrange.png"
+				 class="stacked">
+			<p class="missile_class_btn_text stacked">SARH</p>
+		</button>
+		<button class="missile_class_btn" data-type="arh">
+			<img alt="Active Radar Homing ARH"
+				 src="https://raw.githubusercontent.com/gszabi99/War-Thunder-Datamine/master/atlases.vromfs.bin_u/gameuiskin/missile_type_b_air_to_air_midrange.png"
+				 class="stacked">
+			<p class="missile_class_btn_text stacked">ARH</p>
+		</button>
+	</div>
+	<form class="missile_category_table" method="dialog">
+		<button>Show all</button>
+	</form>
+</dialog>
 
-				<button class="rounded_button" id="run_calc">Run calc</button>
-				<button class="rounded_button" id="reset_values">Reset values</button>
+<div class="top_header">
+	<div>
+		<p>Parameters used for ballistic simulation to calculate flight range. <a
+				href="documentation.html">Simulation formula and documentation</a></p>
+		<button class="rounded_button" id="reset_values" style="display: none">Reset values</button>
+	</div>
+	<div class="side_by_side">
+		<!--Altitude			-->
 
-				<p>All colums with red titles are calculated values. Documentation on all values is <a
-						href="documentation.html">here</a></p>
+		<div class="container">
+
+			<div class="range-slider">
+				<input class="rs-label" id="alt" type="number" min="0" max="10000" value="1000" step="100">
+				<input id="alt_slider" class="rs-range" type="range" min="0" max="10000" value="1000" step="100">
+
 			</div>
-		</td>
-	</tr>
+
+			<div class="box-minmax">
+				<span>meters altitude</span>
+			</div>
+		</div>
+		<!--Speed			-->
+		<div class="container">
+
+			<div class="range-slider">
+				<input class="rs-label" id="vel" type="number" min="0" max="1000" value="343" step="10">
+				<input id="vel_slider" class="rs-range" type="range" min="0" max="1000" value="343" step="10">
+
+			</div>
+
+			<div class="box-minmax">
+				<span>m/s launch velocity</span>
+			</div>
+		</div>
+	</div>
+</div>
+<table class="main_table missile_table" id="ir_table">
+	<thead>
 	<tr class="top-tr" id="ir_index">
 		<td>
 			<a href="documentation.html#name">Name</a></td>
@@ -127,7 +175,7 @@
 	</tr>
 	</thead>
 </table>
-<table class="sarh_table missile_table">
+<table class="sarh_table missile_table" id="sarh_table">
 	<thead>
 	<tr class="top-tr" id="sarh_index">
 		<td>
@@ -167,7 +215,7 @@
 	</tr>
 	</thead>
 </table>
-<table class="arh_table missile_table">
+<table class="arh_table missile_table" id="arh_table">
 	<thead>
 	<tr class="top-tr" id="arh_index">
 		<td>
