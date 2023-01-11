@@ -35,7 +35,7 @@ jobs:
 
       # Prepares rustup for wasm compiler
       - name: Add wasm-target
-        run: rustup target add nightly-wasm32-unknown-unknown
+        run: rustup target add wasm32-unknown-unknown
 
       # Pulls in git dependencies
       - uses: actions/checkout@v2
