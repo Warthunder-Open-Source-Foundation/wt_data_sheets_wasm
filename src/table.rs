@@ -1,5 +1,6 @@
+use std::cmp::Ordering;
 use std::str::FromStr;
-use bevy_reflect::Reflect;
+use bevy_reflect::{GetField, Reflect};
 
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
@@ -10,7 +11,7 @@ use wt_ballistics_calc_lib::runner::generate;
 use wt_datamine_extractor_lib::missile::missile::SeekerType;
 use crate::{MISSILES};
 
-use crate::util::get_document;
+use crate::util::{console_log, get_document};
 
 #[wasm_bindgen]
 #[allow(clippy::missing_panics_doc)]
@@ -27,7 +28,9 @@ pub fn update_tables(alt: u32, vel: u32) {
 
 #[wasm_bindgen]
 #[allow(clippy::missing_errors_doc, clippy::missing_panics_doc)]
-pub fn generate_main_tables() -> Result<(), JsValue> {
+pub fn generate_main_tables(is_ascending: Option<bool>, row_to_sort_by: &str) -> Result<(), JsValue> {
+
+	console_log(&format!("{:?} {}", is_ascending, row_to_sort_by));
 	let document = get_document();
 
 	let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 1000);
@@ -35,22 +38,24 @@ pub fn generate_main_tables() -> Result<(), JsValue> {
 	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string())?;
 	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string())?;
 
-	make_table(&parameters)
+	make_table(&parameters, is_ascending, row_to_sort_by)
 }
 
 #[allow(clippy::module_name_repetitions, clippy::missing_errors_doc, clippy::missing_panics_doc)]
-pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
+pub fn make_table(parameters: &LaunchParameter, is_ascending: Option<bool>, row_to_sort_by: &str) -> Result<(), JsValue> {
 	let document = get_document();
 
 	let ir_table = document.query_selector(".main_table").unwrap().unwrap();
 	let sarh_table = document.query_selector(".sarh_table").unwrap().unwrap();
 	let arh_table = document.query_selector(".arh_table").unwrap().unwrap();
 
+	let mut ir = vec![];
+
 	for missile in MISSILES.iter() {
 		match &missile.seekertype {
 			SeekerType::Ir => {
 				let ir_missile = IrTable::from_missile(missile, parameters);
-				ir_table.append_child(&ir_missile.to_html_row(missile, parameters)).unwrap();
+				ir.push((ir_missile, missile));
 			}
 			SeekerType::Sarh => {
 				let sarh_missiles = SarhTable::from_missile(missile, parameters);
@@ -62,6 +67,23 @@ pub fn make_table(parameters: &LaunchParameter) -> Result<(), JsValue> {
 			}
 		}
 	}
+
+	if let Some(is_ascending) = is_ascending {
+		ir.sort_by(|(lhs,_), (rhs,_)| {
+			let lhs_field: f64 = *lhs.get_field(row_to_sort_by).unwrap();
+			let rhs_field: f64 = *rhs.get_field(row_to_sort_by).unwrap();
+			if is_ascending {
+				lhs_field.total_cmp(&rhs_field)
+			} else {
+				rhs_field.total_cmp(&lhs_field)
+			}
+		});
+	}
+
+	for (ir_missile, missile) in ir {
+		ir_table.append_child(&ir_missile.to_html_row(missile, parameters)).unwrap();
+	}
+
 	Ok(())
 }
 
