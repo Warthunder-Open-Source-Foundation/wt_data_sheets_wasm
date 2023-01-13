@@ -8,7 +8,7 @@ use web_sys::Element;
 use wt_ballistics_calc_lib;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
-use wt_datamine_extractor_lib::missile::missile::SeekerType;
+use wt_datamine_extractor_lib::missile::missile::{Missile, SeekerType};
 use crate::{MISSILES};
 
 use crate::util::{console_log, get_document};
@@ -28,9 +28,8 @@ pub fn update_tables(alt: u32, vel: u32) {
 
 #[wasm_bindgen]
 #[allow(clippy::missing_errors_doc, clippy::missing_panics_doc)]
-pub fn generate_main_tables(is_ascending: Option<bool>, row_to_sort_by: &str) -> Result<(), JsValue> {
-
-	console_log(&format!("{:?} {}", is_ascending, row_to_sort_by));
+pub fn generate_main_tables(is_ascending: Option<bool>, row_to_sort_by: &str, target_table_to_sort: &str) -> Result<(), JsValue> {
+	std::panic::set_hook(Box::new(console_error_panic_hook::hook));
 	let document = get_document();
 
 	let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 1000);
@@ -38,11 +37,11 @@ pub fn generate_main_tables(is_ascending: Option<bool>, row_to_sort_by: &str) ->
 	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string())?;
 	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string())?;
 
-	make_table(&parameters, is_ascending, row_to_sort_by)
+	make_table(&parameters, is_ascending, row_to_sort_by, target_table_to_sort)
 }
 
 #[allow(clippy::module_name_repetitions, clippy::missing_errors_doc, clippy::missing_panics_doc)]
-pub fn make_table(parameters: &LaunchParameter, is_ascending: Option<bool>, row_to_sort_by: &str) -> Result<(), JsValue> {
+pub fn make_table(parameters: &LaunchParameter, is_ascending: Option<bool>, row_to_sort_by: &str, target_table_to_sort: &str) -> Result<(), JsValue> {
 	let document = get_document();
 
 	let ir_table = document.query_selector(".main_table").unwrap().unwrap();
@@ -50,6 +49,8 @@ pub fn make_table(parameters: &LaunchParameter, is_ascending: Option<bool>, row_
 	let arh_table = document.query_selector(".arh_table").unwrap().unwrap();
 
 	let mut ir = vec![];
+	let mut sarh = vec![];
+	let mut arh = vec![];
 
 	for missile in MISSILES.iter() {
 		match &missile.seekertype {
@@ -58,30 +59,70 @@ pub fn make_table(parameters: &LaunchParameter, is_ascending: Option<bool>, row_
 				ir.push((ir_missile, missile));
 			}
 			SeekerType::Sarh => {
-				let sarh_missiles = SarhTable::from_missile(missile, parameters);
-				sarh_table.append_child(&sarh_missiles.to_html_row(missile, parameters)).unwrap();
+				let sarh_missile = SarhTable::from_missile(missile, parameters);
+				sarh.push((sarh_missile, missile));
 			}
 			SeekerType::Arh => {
-				let arh_missiles = ArhTable::from_missile(missile, parameters);
-				arh_table.append_child(&arh_missiles.to_html_row(missile, parameters)).unwrap();
+				let arh_missile = ArhTable::from_missile(missile, parameters);
+				arh.push((arh_missile, missile));
 			}
 		}
 	}
 
 	if let Some(is_ascending) = is_ascending {
-		ir.sort_by(|(lhs,_), (rhs,_)| {
-			let lhs_field: f64 = *lhs.get_field(row_to_sort_by).unwrap();
-			let rhs_field: f64 = *rhs.get_field(row_to_sort_by).unwrap();
-			if is_ascending {
-				lhs_field.total_cmp(&rhs_field)
-			} else {
-				rhs_field.total_cmp(&lhs_field)
+		match target_table_to_sort {
+			"ir_table" => {
+				ir.sort_by(|(lhs, _), (rhs, _)| {
+					let lhs_field: f64 = *lhs.get_field(row_to_sort_by).unwrap();
+					let rhs_field: f64 = *rhs.get_field(row_to_sort_by).unwrap();
+					if is_ascending {
+						lhs_field.total_cmp(&rhs_field)
+					} else {
+						rhs_field.total_cmp(&lhs_field)
+					}
+				});
 			}
-		});
+			"sarh_table" => {
+				sarh.sort_by(|(lhs, _), (rhs, _)| {
+					let lhs_field: f64 = *lhs.get_field(row_to_sort_by).unwrap();
+					let rhs_field: f64 = *rhs.get_field(row_to_sort_by).unwrap();
+					if is_ascending {
+						lhs_field.total_cmp(&rhs_field)
+					} else {
+						rhs_field.total_cmp(&lhs_field)
+					}
+				});
+			}
+			"arh_table" => {
+				if target_table_to_sort == "ir_table" {
+					arh.sort_by(|(lhs, _), (rhs, _)| {
+						let lhs_field: f64 = *lhs.get_field(row_to_sort_by).unwrap();
+						let rhs_field: f64 = *rhs.get_field(row_to_sort_by).unwrap();
+						if is_ascending {
+							lhs_field.total_cmp(&rhs_field)
+						} else {
+							rhs_field.total_cmp(&lhs_field)
+						}
+					});
+				}
+			}
+			_ => {}
+		}
 	}
 
-	for (ir_missile, missile) in ir {
-		ir_table.append_child(&ir_missile.to_html_row(missile, parameters)).unwrap();
+	for (h_table, missile) in ir {
+		let table = h_table.to_html_row(missile, parameters);
+		ir_table.append_child(&table).unwrap();
+	}
+
+	for (h_table, missile) in sarh {
+		let table = h_table.to_html_row(missile, parameters);
+		sarh_table.append_child(&table).unwrap();
+	}
+
+	for (h_table, missile) in arh {
+		let table = h_table.to_html_row(missile, parameters);
+		arh_table.append_child(&table).unwrap();
 	}
 
 	Ok(())
@@ -137,7 +178,7 @@ impl IrTable {
 			work_time: m.worktime,
 			time_out: m.timeout,
 			uncage: m.cageable,
-			allow_radar_slave: m.allow_radar_slave
+			allow_radar_slave: m.allow_radar_slave,
 		}
 	}
 }
@@ -227,7 +268,7 @@ impl ArhTable {
 impl ToHtmlTable for ArhTable {}
 
 pub trait ToHtmlTable: bevy_reflect::Struct {
-	fn to_html_row(self, missile: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
+	fn to_html_row(&self, missile: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
 		let document = get_document();
 
 		let row = document.create_element("tr").unwrap();

@@ -77,20 +77,20 @@ async function main() {
 					reset_sortable();
 					target.innerText = up_arrow;
 					clear_tables();
-					generate_main_tables(true, target.parentElement.dataset.type);
+					generate_main_tables(true, target.parentElement.dataset.type, target.parentElement.parentElement.parentElement.parentElement.id);
 					break;
 				case up_arrow:
 					reset_sortable();
 					target.innerText = down_arrow;
 					clear_tables();
-					generate_main_tables(false, target.parentElement.dataset.type);
+					generate_main_tables(false, target.parentElement.dataset.type, target.parentElement.parentElement.parentElement.parentElement.id);
 
 					break;
 				case down_arrow:
 					reset_sortable();
 					target.innerText = up_arrow;
 					clear_tables();
-					generate_main_tables(true, target.parentElement.dataset.type);
+					generate_main_tables(true, target.parentElement.dataset.type, target.parentElement.parentElement.parentElement.parentElement.id);
 					break;
 			}
 
@@ -120,7 +120,7 @@ async function main() {
 	}
 
 
-	generate_main_tables(null, "");
+	generate_main_tables(null, "", "");
 	let lastMove = 0;
 
 	const vel_slider = document.getElementById("vel_slider");
