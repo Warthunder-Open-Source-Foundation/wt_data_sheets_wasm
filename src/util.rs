@@ -44,7 +44,7 @@ pub fn get_document() -> Document {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 18] {
+pub fn make_row(m: &Missile, parameters: &LaunchParameter) -> [String; 21] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);
@@ -52,7 +52,8 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 18] {
 	let range = results.distance_flown.round();
 
 	[
-		m.name.to_string(),
+		m.localized.to_string(),
+		m.seekertype.to_string(),
 		range.to_string(),
 		format!("{:.1}", (m.force0 / 9.807) / m.mass),
 		if m.endspeed == 0.0 {
@@ -74,13 +75,16 @@ pub fn make_row_ir(m: &Missile, parameters: &LaunchParameter) -> [String; 18] {
 		m.warmuptime.to_string(),
 		m.worktime.to_string(),
 		m.cageable.to_string(),
+		m.allow_radar_slave.to_string(),
+		m.has_data_link.to_string(),
 	]
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row_params() -> [String; 18] {
+pub fn make_row_params() -> [String; 21] {
 	[
 		"name".to_string(),
+		"Seeker".to_string(),
 		"range".to_string(),
 		"TWR".to_string(),
 		"Time to 2km".to_string(),
@@ -98,5 +102,7 @@ pub fn make_row_params() -> [String; 18] {
 		"WarmUpTime".to_string(),
 		"WorkTime".to_string(),
 		"Uncage".to_string(),
+		"Radar slave".to_string(),
+		"Datalink".to_string(),
 	]
 }

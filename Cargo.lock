@@ -2116,7 +2116,7 @@ dependencies = [
 [[package]]
 name = "wt_datamine_extractor"
 version = "0.4.0"
-source = "git+https://github.com/FlareFlo/wt_datamine_extractor#e929f2d19c153e9fde498d587705d6229efea6f5"
+source = "git+https://github.com/FlareFlo/wt_datamine_extractor#96085dfdbec27a95b5109de50a4c1c3e1a17ea4b"
 dependencies = [
  "const-gen",
  "csv",
