@@ -1,4 +1,4 @@
-import {render_bombs, render_calc, render_nations} from "../pkg";
+import {main_js, render_bombs, render_calc, render_nations} from "../pkg";
 import {sort_universal_number} from "./util";
 
 
@@ -28,4 +28,5 @@ function set_listeners_add() {
 		})
 	}
 }
+main_js()
 main()

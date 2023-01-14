@@ -1,3 +1,4 @@
+import {main_js} from "../pkg";
 
 
 async function main() {
@@ -16,5 +17,5 @@ async function main() {
 		await sleep(1000);
 	}
 }
-
+main_js()
 main()

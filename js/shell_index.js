@@ -1,4 +1,4 @@
-import {make_rows_from_shell, make_shell_options} from "../pkg";
+import {main_js, make_rows_from_shell, make_shell_options} from "../pkg";
 import {sort_universal_number, sort_universal_string} from "./util";
 
 async function main() {
@@ -21,5 +21,5 @@ async function main() {
 		})
 	}
 }
-
+main_js()
 main()

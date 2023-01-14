@@ -1,4 +1,4 @@
-import {generate_main_tables, update_tables} from "../pkg";
+import {generate_main_tables, main_js, update_tables} from "../pkg";
 
 
 async function main() {
@@ -216,5 +216,5 @@ async function main() {
 		update_tables(alt, vel);
 	}
 }
-
+main_js()
 main()
