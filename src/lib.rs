@@ -3,6 +3,7 @@ use lazy_static::lazy_static;
 use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use std::collections::HashMap;
+use wt_sensor::Radar;
 
 
 use wt_datamine_extractor_lib::bombs::bombs::Bomb;
@@ -24,6 +25,7 @@ pub mod battle_rating_statistics;
 pub mod fm;
 pub mod utils;
 pub mod localhost;
+pub mod radar;
 
 pub const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 pub const BATTLE_RATINGS_RAW: &str = include_str!("../wt_datamine_extractor/battle_rating/all.json");
@@ -57,6 +59,12 @@ lazy_static! {
 		missiles.sort_by_key(|d| d.name.clone());
 
 		missiles
+	};
+
+	static ref RADAR: Radar = {
+		let json = include_str!("../wt_datamine_extractor/sensors/us_an_apg_66.txt");
+		let  radar = Radar::from_str("us_an_apg_66".to_owned(), json);
+		radar
 	};
 }
 

@@ -1,4 +1,4 @@
 # wt_data_sheets_wasm
 
-![example workflow](https://img.shields.io/github/workflow/status/FlareFlo/wt_data_sheets_wasm/Rust/master?label=Master)
-![example workflow](https://img.shields.io/github/workflow/status/FlareFlo/wt_data_sheets_wasm/Rust/nightly?label=Nightly)
+[![Nightly](https://github.com/Warthunder-Open-Source-Foundation/wt_data_sheets_wasm/actions/workflows/rust_nightly.yml/badge.svg?branch=nightly)](https://github.com/Warthunder-Open-Source-Foundation/wt_data_sheets_wasm/actions/workflows/rust_nightly.yml)
+[![Master](https://github.com/Warthunder-Open-Source-Foundation/wt_data_sheets_wasm/actions/workflows/rust_master.yml/badge.svg?branch=master)](https://github.com/Warthunder-Open-Source-Foundation/wt_data_sheets_wasm/actions/workflows/rust_master.yml)

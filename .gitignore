@@ -6,8 +6,6 @@ pkg
 dist
 static/css
 
-Cargo.lock
-package-lock.json
 
 /.idea/
 /buildstamp.json

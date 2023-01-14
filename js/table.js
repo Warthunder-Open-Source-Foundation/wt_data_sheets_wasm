@@ -30,7 +30,6 @@ async function main() {
 			// Updates URL for sharing
 			urlParams.append(missileButton.dataset.type, "true")
 			const next_url = window.location  + "?" + urlParams.toString();
-			console.log(next_url);
 			const next_title = 'Missile sheet';
 			const next_state = {additionalInformation: 'Missile category'};
 
@@ -44,7 +43,6 @@ async function main() {
 	table_check();
 
 	function table_check() {
-		console.log(ir, sarh, arh)
 		if (ir == null && sarh == null && arh == null) {
 			prompt.showModal();
 		} else {
@@ -61,7 +59,68 @@ async function main() {
 		}
 	}
 
-	generate_main_tables();
+	// Add sorting buttons and icons to sortable rows
+
+	const up_arrow = "↑";
+	const down_arrow = "↓";
+	const sortables = document.getElementsByClassName("sort");
+	for (const sortable of sortables) {
+		let node = document.createElement('p');
+		node.classList.add("sortable_button")
+		node.innerText = "-";
+
+		node.addEventListener("click", (e) => {
+			const target = e.target;
+
+			switch (target.innerText) {
+				case "-":
+					reset_sortable();
+					target.innerText = up_arrow;
+					clear_tables();
+					generate_main_tables(true, target.parentElement.dataset.type, target.parentElement.parentElement.parentElement.parentElement.id);
+					break;
+				case up_arrow:
+					reset_sortable();
+					target.innerText = down_arrow;
+					clear_tables();
+					generate_main_tables(false, target.parentElement.dataset.type, target.parentElement.parentElement.parentElement.parentElement.id);
+
+					break;
+				case down_arrow:
+					reset_sortable();
+					target.innerText = up_arrow;
+					clear_tables();
+					generate_main_tables(true, target.parentElement.dataset.type, target.parentElement.parentElement.parentElement.parentElement.id);
+					break;
+			}
+
+
+		});
+		sortable.appendChild(node);
+	}
+
+	function reset_sortable() {
+		for (const elem of document.getElementsByClassName("sortable_button")) {
+			elem.innerText = "-";
+		}
+	}
+
+	function clear_tables() {
+		clear_table(document.getElementById("ir_table"));
+		clear_table(document.getElementById("sarh_table"));
+		clear_table(document.getElementById("arh_table"));
+	}
+
+	function clear_table(table) {
+		let tableHeaderRowCount = 1;
+		let rowCount = table.rows.length;
+		for (let i = tableHeaderRowCount; i < rowCount; i++) {
+			table.deleteRow(tableHeaderRowCount);
+		}
+	}
+
+
+	generate_main_tables(null, "", "");
 	let lastMove = 0;
 
 	const vel_slider = document.getElementById("vel_slider");
@@ -74,9 +133,47 @@ async function main() {
 	alt_slider.addEventListener("input", update_slider, false);
 	alt_bullet.addEventListener("input", update, false);
 
-// Sets sliders to initial positions
+	// Sets sliders to initial positions
 	showSliderValue(alt_slider, alt_bullet);
 	showSliderValue(vel_slider, vel_bullet);
+
+	document.getElementById("reset_values").addEventListener("click", (ev) => {
+		alt_bullet.value = "1000";
+		alt_slider.value = "1000";
+
+		vel_bullet.value = "343";
+		vel_slider.value = "343";
+
+		// Sets sliders to initial positions
+		showSliderValue(alt_slider, alt_bullet);
+		showSliderValue(vel_slider, vel_bullet);
+		update_tables(1000, 343);
+	});
+
+
+	// Takes about 1 milliseconds to compute on a plain build
+	let tables = document.getElementsByClassName("missile_table");
+	for (const table of tables) {
+		iterate_inner_child(table);
+	}
+
+	// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
+	function iterate_inner_child(parent) {
+		if (parent.tagName === "td") {
+			if (parent.innerText === "true") {
+				parent.classList.add("value_green");
+			} else if (parent.innerText === "false") {
+				parent.classList.add("value_red");
+			}
+		} else {
+			let children = parent.children;
+			if (children.length !== 0) {
+				for (let i = 0; i < children.length; i++) {
+					iterate_inner_child(children[i]);
+				}
+			}
+		}
+	}
 
 	function showSliderValue(slider, bullet) {
 		bullet.innerHTML = slider.value;
@@ -117,44 +214,6 @@ async function main() {
 		showSliderValue(alt_slider, alt_bullet);
 		showSliderValue(vel_slider, vel_bullet);
 		update_tables(alt, vel);
-	}
-
-	document.getElementById("reset_values").addEventListener("click", (ev) => {
-		alt_bullet.value = "1000";
-		alt_slider.value = "1000";
-
-		vel_bullet.value = "343";
-		vel_slider.value = "343";
-
-		// Sets sliders to initial positions
-		showSliderValue(alt_slider, alt_bullet);
-		showSliderValue(vel_slider, vel_bullet);
-		update_tables(1000, 343);
-	});
-
-
-// Takes about 1 milliseconds to compute on a plain build
-	let tables = document.getElementsByClassName("missile_table");
-	for (const table of tables) {
-		iterate_inner_child(table);
-	}
-
-// Iterates over children nodes of an element using recursion, sets their class to green or red given their boolean text value
-	function iterate_inner_child(parent) {
-		if (parent.tagName === "td") {
-			if (parent.innerText === "true") {
-				parent.classList.add("value_green");
-			} else if (parent.innerText === "false") {
-				parent.classList.add("value_red");
-			}
-		} else {
-			let children = parent.children;
-			if (children.length !== 0) {
-				for (let i = 0; i < children.length; i++) {
-					iterate_inner_child(children[i]);
-				}
-			}
-		}
 	}
 }
 

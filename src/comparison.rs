@@ -2,7 +2,7 @@ use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 
 use crate::{make_missile_option_inputs, MISSILES};
-use crate::util::{get_document, make_row_ir, make_row_params};
+use crate::util::{get_document, make_row, make_row_params};
 
 #[wasm_bindgen]
 pub fn run_compare() {
@@ -20,10 +20,10 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 	let ref_missile = &MISSILES[reference];
 	let contrary_missile = &MISSILES[contrary];
 
-	let ref_row = make_row_ir(&ref_missile, &LaunchParameter::new_from_default_hor());
-	let con_row = make_row_ir(&contrary_missile, &LaunchParameter::new_from_default_hor());
+	let ref_row = make_row(&ref_missile, &LaunchParameter::new_from_default_hor());
+	let con_row = make_row(&contrary_missile, &LaunchParameter::new_from_default_hor());
 	let params = make_row_params();
-	for i in 0..17 {
+	for i in 0..20 {
 		let tr = document.create_element("tr").unwrap();
 
 		let ref_value = ref_row[i].clone();
