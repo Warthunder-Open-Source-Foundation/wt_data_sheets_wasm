@@ -57,6 +57,18 @@ jobs:
       - name: Install sass
         run: npm install -g sass
 
+      # Loads cargo cache
+      - uses: actions/cache@v3
+        name: Pull Cargo cache
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
       # Builds wasm setup
       - name: Build
         run: cargo build --release --target wasm32-unknown-unknown
