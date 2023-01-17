@@ -152,6 +152,7 @@ pub struct IrTable {
 	pub uncage: bool,
 	pub allow_radar_slave: bool,
 	pub has_datalink: bool,
+	pub has_inertial_navigation: bool,
 }
 
 impl IrTable {
@@ -181,6 +182,7 @@ impl IrTable {
 			uncage: m.cageable,
 			allow_radar_slave: m.allow_radar_slave,
 			has_datalink: m.has_data_link,
+			has_inertial_navigation: m.has_inertial_navigation,
 		}
 	}
 }
@@ -203,6 +205,7 @@ pub struct SarhTable {
 	pub work_time: f64,
 	pub uncage: bool,
 	pub has_datalink: bool,
+	pub has_inertial_navigation: bool,
 }
 
 impl SarhTable {
@@ -224,6 +227,7 @@ impl SarhTable {
 			work_time: m.worktime,
 			uncage: m.cageable,
 			has_datalink: m.has_data_link,
+			has_inertial_navigation: m.has_inertial_navigation,
 		}
 	}
 }
@@ -246,6 +250,7 @@ pub struct ArhTable {
 	pub work_time: f64,
 	pub uncage: bool,
 	pub has_datalink: bool,
+	pub has_inertial_navigation: bool,
 }
 
 impl ArhTable {
@@ -267,6 +272,7 @@ impl ArhTable {
 			work_time: m.worktime,
 			uncage: m.cageable,
 			has_datalink: m.has_data_link,
+			has_inertial_navigation: m.has_inertial_navigation,
 		}
 	}
 }
