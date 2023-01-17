@@ -1,6 +1,4 @@
-import {main_js,} from "../pkg";
 import {load_goatcounter} from "./util";
-import {set_dialog_ready} from "./localhost";
 
 async function main() {
 	let refreshing;
@@ -24,7 +22,7 @@ async function main() {
 		document.querySelector("html").style.setProperty("--color-background", "url(WIP.png)");
 	}
 
-	main_js();
+	// main_js();
 }
 
 main();

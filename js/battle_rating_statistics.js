@@ -1,5 +1,5 @@
 import {sleep} from "./util";
-import {display_br} from "../pkg";
+import {display_br, main_js} from "../pkg";
 
 
 async function main() {
@@ -32,5 +32,5 @@ async function main() {
 		await sleep(1000);
 	}
 }
-
+main_js()
 main()

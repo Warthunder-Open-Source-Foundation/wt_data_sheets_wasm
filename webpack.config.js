@@ -2,7 +2,6 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
 const workboxPlugin = require('workbox-webpack-plugin');
-const {GenerateSW} = require("workbox-webpack-plugin");
 
 const dist = path.resolve(__dirname, "dist");
 
@@ -70,17 +69,22 @@ module.exports = {
 		},
 	},
 	plugins: [
-		new CopyPlugin([
-			{from: path.resolve(__dirname, "static/manifest.json"), to: ''},
-			{from: path.resolve(__dirname, "static/metafiles"), to: ''},
-			{from: path.resolve(__dirname, "static/css"), to: ''},
-			{from: path.resolve(__dirname, "static/html"), to: ''},
-			{from: path.resolve(__dirname, "static/roboto_mono"), to: ''},
-			{from: path.resolve(__dirname, "node_modules/mathjax"), to: 'mathjax'},
-			{from: path.resolve(__dirname, "static/js"), to: 'js'},
-			{from: path.resolve(__dirname, "static/robots.txt"), to: ''},
-			{from: path.resolve(__dirname, "static/img/"), to: 'img'},
-		]),
+		new CopyPlugin({
+			patterns: [
+				{from: path.resolve(__dirname, "static/manifest.json"), to: ''},
+				{from: path.resolve(__dirname, "static/metafiles"), to: ''},
+				{from: path.resolve(__dirname, "static/css"), to: ''},
+				{from: path.resolve(__dirname, "static/html"), to: ''},
+				{from: path.resolve(__dirname, "static/font/roboto_mono"), to: ''},
+				// {from: path.resolve(__dirname, "node_modules/mathjax"), to: 'mathjax'},
+				{from: path.resolve(__dirname, "static/js"), to: 'js'},
+				{from: path.resolve(__dirname, "static/robots.txt"), to: ''},
+				{from: path.resolve(__dirname, "static/img/"), to: 'img'},
+			],
+			options: {
+				concurrency: 1,
+			},
+		}),
 
 		new WasmPackPlugin({
 			crateDirectory: __dirname,

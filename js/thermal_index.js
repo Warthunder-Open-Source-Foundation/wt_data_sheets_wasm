@@ -1,4 +1,4 @@
-import {generate_tank_list, generate_thermal_options} from "../pkg";
+import {generate_tank_list, generate_thermal_options, main_js} from "../pkg";
 import {input_manager, set_value_enter, sort_universal_string} from "./util";
 
 async function main() {
@@ -106,5 +106,5 @@ function sort_row_thermals(selector, ascending) {
 		table.appendChild(total[i]);
 	}
 }
-
+main_js()
 main()

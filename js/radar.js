@@ -1,4 +1,4 @@
-import {run_proto} from "../pkg";
+import {main_js, run_proto} from "../pkg";
 
 async function main() {
 	let c = 0;
@@ -8,5 +8,5 @@ async function main() {
 		c++;
 	}, timer);
 }
-
+main_js()
 main()

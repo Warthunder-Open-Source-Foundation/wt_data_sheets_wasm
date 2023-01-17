@@ -308,7 +308,8 @@ pub trait ToHtmlTable: bevy_reflect::Struct {
 						}
 					}
 					if let Some(value) = i.1.downcast_ref::<bool>() {
-						cell.set_text_content(Some(&value.to_string()));
+						cell.set_text_content(Some(if *value { "✔" } else { "☓" }));
+						cell.set_class_name(&value.to_string());
 					}
 					if let Some(value) = i.1.downcast_ref::<String>() {
 						cell.set_text_content(Some(&value));
