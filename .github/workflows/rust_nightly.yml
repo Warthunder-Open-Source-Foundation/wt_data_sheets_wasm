@@ -48,6 +48,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      # Load NPM cache
+      - name: Pull node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       # Loads NPM modules for webpack
       - name: Install NPM depends
         run: npm install
