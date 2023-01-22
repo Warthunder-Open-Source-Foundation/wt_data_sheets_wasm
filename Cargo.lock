@@ -53,17 +53,6 @@ checksum = "9e1b586273c5702936fe7b7d6896644d8be71e6314cfe09d3167c95f712589e8"
 
 [[package]]
 name = "bevy_macro_utils"
-version = "0.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "43fb5137e5198302d7c6c33d1e454cf48a586e7c6fd12f4860f12863951e16b9"
-dependencies = [
- "quote 1.0.23",
- "syn 1.0.107",
- "toml",
-]
-
-[[package]]
-name = "bevy_macro_utils"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "022bb69196deeea691b6997414af85bbd7f2b34a8914c4aa7a7ff4dfa44f7677"
@@ -75,32 +64,9 @@ dependencies = [
 
 [[package]]
 name = "bevy_ptr"
-version = "0.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9960c19e582b43cebe1894b6679520a4f50802d1cc5b6fa432f8d685ed232f09"
-
-[[package]]
-name = "bevy_ptr"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ec44f7655039546bc5d34d98de877083473f3e9b2b81d560c528d6d74d3eff4"
-
-[[package]]
-name = "bevy_reflect"
-version = "0.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3fc689dd7a7df3b3768884a4754711d406aa302ea48da483c03b52715fa95045"
-dependencies = [
- "bevy_ptr 0.8.1",
- "bevy_reflect_derive 0.8.1",
- "bevy_utils 0.8.1",
- "downcast-rs",
- "erased-serde",
- "once_cell",
- "parking_lot",
- "serde",
- "thiserror",
-]
 
 [[package]]
 name = "bevy_reflect"
@@ -108,28 +74,15 @@ version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6deae303a7f69dc243b2fa35b5e193cc920229f448942080c8eb2dbd9de6d37a"
 dependencies = [
- "bevy_ptr 0.9.1",
- "bevy_reflect_derive 0.9.1",
- "bevy_utils 0.9.1",
+ "bevy_ptr",
+ "bevy_reflect_derive",
+ "bevy_utils",
  "downcast-rs",
  "erased-serde",
  "once_cell",
  "parking_lot",
  "serde",
  "thiserror",
-]
-
-[[package]]
-name = "bevy_reflect_derive"
-version = "0.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c36fa5100832c787c10558d31632ddc454c221e8dfacbbef836938f59614754"
-dependencies = [
- "bevy_macro_utils 0.8.1",
- "proc-macro2 1.0.50",
- "quote 1.0.23",
- "syn 1.0.107",
- "uuid",
 ]
 
 [[package]]
@@ -138,25 +91,11 @@ version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2bf4cb9cd5acb4193f890f36cb63679f1502e2de025e66a63b194b8b133d018"
 dependencies = [
- "bevy_macro_utils 0.9.1",
+ "bevy_macro_utils",
  "bit-set",
  "proc-macro2 1.0.50",
  "quote 1.0.23",
  "syn 1.0.107",
- "uuid",
-]
-
-[[package]]
-name = "bevy_utils"
-version = "0.8.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f6e9aa1866c1cf7ee000f281ce9e90d02d701f5c7380a107252017e58e2f5246"
-dependencies = [
- "ahash",
- "getrandom",
- "hashbrown",
- "instant",
- "tracing",
  "uuid",
 ]
 
@@ -1816,9 +1755,9 @@ checksum = "9e79c4d996edb816c91e4308506774452e55e95c3c9de07b6729e17e15a5ef81"
 
 [[package]]
 name = "unicode-bidi"
-version = "0.3.9"
+version = "0.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0046be40136ef78dc325e0edefccf84ccddacd0afcc1ca54103fa3c61bbdab1d"
+checksum = "d54675592c1dbefd78cbd98db9bacd89886e1ca50692a0692baefffdeb92dd58"
 
 [[package]]
 name = "unicode-ident"
@@ -2163,7 +2102,7 @@ name = "wt_data_sheets_wasm"
 version = "0.1.0"
 dependencies = [
  "average",
- "bevy_reflect 0.8.1",
+ "bevy_reflect",
  "build_timestamp",
  "chrono",
  "console_error_panic_hook",
@@ -2211,9 +2150,9 @@ dependencies = [
 [[package]]
 name = "wt_sensor"
 version = "0.0.1"
-source = "git+https://github.com/Warthunder-Open-Source-Foundation/wt_sensor#b7c1174b4b4cadf0b37d93fdbb3bf98da58f9928"
+source = "git+https://github.com/Warthunder-Open-Source-Foundation/wt_sensor#ebbc0670a0f63a886b05cc95724eb97d3eb4f77b"
 dependencies = [
- "bevy_reflect 0.9.1",
+ "bevy_reflect",
  "serde_json",
  "wt_blk",
 ]

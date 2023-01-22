@@ -57,7 +57,7 @@ wt_sensor = { git = "https://github.com/Warthunder-Open-Source-Foundation/wt_sen
 serde_json = "1.*"
 serde = "1.*"
 chrono = "0.4.19"
-bevy_reflect = "^0.8.1"
+bevy_reflect = "0.9.1"
 average = "^0.13.1"
 csv = "^1.1.6"
 build_timestamp = "^0.1.0"
