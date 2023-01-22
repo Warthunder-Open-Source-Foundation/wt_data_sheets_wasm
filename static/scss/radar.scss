@@ -20,6 +20,11 @@
 	width: fit-content;
 }
 
+.boxed_container {
+	border: 1px var(--color-text) solid;
+	width: fit-content;
+}
+
 .inline {
 	display: flex;
 }

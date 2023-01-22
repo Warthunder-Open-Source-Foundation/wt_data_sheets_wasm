@@ -1,4 +1,4 @@
-import {main_js} from "../pkg";
+import {main_js, render_table} from "../pkg";
 
 async function main() {
 	// let c = 0;
@@ -7,6 +7,7 @@ async function main() {
 	// 	run_proto(c);
 	// 	c++;
 	// }, timer);
+	render_table();
 
 
 }

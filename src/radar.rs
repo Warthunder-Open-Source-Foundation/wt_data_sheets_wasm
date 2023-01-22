@@ -3,14 +3,38 @@ use std::sync::atomic::Ordering::Relaxed;
 use wasm_bindgen::prelude::*;
 use plotters::prelude::*;
 use plotters_canvas::CanvasBackend;
-use crate::util::console_log;
+use crate::RADAR;
+use crate::util::{console_log, get_document, panic_debug};
 
 const RADAR_POS: AtomicI32 = AtomicI32::new(0);
 const INVERT: AtomicBool = AtomicBool::new(false);
 
 #[wasm_bindgen]
 pub fn render_table() {
+	panic_debug();
+	let document = get_document();
 
+	let radar_name = document.get_element_by_id("r_name").unwrap();
+	radar_name.set_inner_html(&RADAR.localized);
+
+	// Set scan ranges
+	let scan_ranges = document.get_element_by_id("scan_ranges").unwrap();
+	console_log("&i.to_string()");
+
+
+	for i in &RADAR.scope_range_sets.common {
+		let elem = document.create_element("p").unwrap();
+		elem.set_inner_html(&((i * 0.001).to_string() + " km"));
+		scan_ranges.append_child(&elem).unwrap();
+	}
+
+	let boresight_ranges = document.get_element_by_id("boresight_ranges").unwrap();
+
+	for i in &RADAR.scope_range_sets.boresight_lock {
+		let elem = document.create_element("p").unwrap();
+		elem.set_inner_html(&((i * 0.001).to_string() + " km"));
+		boresight_ranges.append_child(&elem).unwrap();
+	}
 }
 
 #[wasm_bindgen]
