@@ -9,6 +9,11 @@ const RADAR_POS: AtomicI32 = AtomicI32::new(0);
 const INVERT: AtomicBool = AtomicBool::new(false);
 
 #[wasm_bindgen]
+pub fn render_table() {
+
+}
+
+#[wasm_bindgen]
 pub fn run_proto(step: i32) {
 	let mut radar_pos = RADAR_POS.load(Ordering::Relaxed);
 	let mut invert = INVERT.load(Relaxed);
