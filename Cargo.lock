@@ -2150,7 +2150,7 @@ dependencies = [
 [[package]]
 name = "wt_sensor"
 version = "0.0.1"
-source = "git+https://github.com/Warthunder-Open-Source-Foundation/wt_sensor#b5fc26a6efcfcc9b8e1199fedb5f47bb155bff41"
+source = "git+https://github.com/Warthunder-Open-Source-Foundation/wt_sensor#d4bf798c4689e4a20f4cb97d9ac4cc0382af2b13"
 dependencies = [
  "bevy_reflect",
  "serde_json",
