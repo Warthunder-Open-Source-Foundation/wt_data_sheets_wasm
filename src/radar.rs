@@ -23,63 +23,71 @@ pub fn render_table() {
 	let radar_name = document.get_element_by_id("r_name").unwrap();
 	radar_name.set_inner_html(&RADAR.localized);
 
-	// Set scan ranges
-	let scan_ranges = document.get_element_by_id("scan_ranges").unwrap();
+	// Scan ranges
+	{
+		let scan_ranges = document.get_element_by_id("scan_ranges").unwrap();
 
-	for i in &RADAR.scope_range_sets.common {
-		let elem = document.create_element("p").unwrap();
-		elem.set_inner_html(&((i * 0.001).to_string() + " km"));
-		scan_ranges.append_child(&elem).unwrap();
-	}
-
-	let boresight_ranges = document.get_element_by_id("boresight_ranges").unwrap();
-
-	for i in &RADAR.scope_range_sets.boresight_lock {
-		let elem = document.create_element("p").unwrap();
-		elem.set_inner_html(&((i * 0.001).to_string() + " km"));
-		boresight_ranges.append_child(&elem).unwrap();
-	}
-
-	let submode_rows = document.get_element_by_id("submode_rows").unwrap();
-
-	for mode in &RADAR.submode {
-		let row = document.create_element("tr").unwrap();
-		for iter_field in mode.iter_fields() {
-			let elem = document.create_element("td").unwrap();
-			if let Some(val) = iter_field.downcast_ref::<Option<f64>>() {
-				elem.set_inner_html(&if let Some(out) = val {
-					out.to_string()
-				} else {
-					"-".to_owned()
-				});
-			}
-			if let Some(val) = iter_field.downcast_ref::<Option<bool>>() {
-				elem.set_inner_html(&if let Some(out) = val {
-					out.to_string()
-				} else {
-					"-".to_owned()
-				});
-			}
-			if let Some(val) = iter_field.downcast_ref::<Option<u8>>() {
-				elem.set_inner_html(&if let Some(out) = val {
-					out.to_string()
-				} else {
-					"-".to_owned()
-				});
-			}
-			if let Some(val) = iter_field.downcast_ref::<Pattern>() {
-				elem.set_inner_html(&val.to_string());
-				;
-			}
-			if let Some(val) = iter_field.downcast_ref::<SubmodeCategory>() {
-				elem.set_inner_html(&val.to_string());
-			}
-			if let Some(val) = iter_field.downcast_ref::<Limits>() {
-				elem.set_inner_html(&format!("{:?} {:?}", val.azimuth, val.elevation));
-			}
-			row.append_child(&elem);
+		for i in &RADAR.scope_range_sets.common {
+			let elem = document.create_element("p").unwrap();
+			elem.set_inner_html(&((i * 0.001).to_string() + " km"));
+			scan_ranges.append_child(&elem).unwrap();
 		}
-		submode_rows.append_child(&row);
+
+		let boresight_ranges = document.get_element_by_id("boresight_ranges").unwrap();
+
+		for i in &RADAR.scope_range_sets.boresight_lock {
+			let elem = document.create_element("p").unwrap();
+			elem.set_inner_html(&((i * 0.001).to_string() + " km"));
+			boresight_ranges.append_child(&elem).unwrap();
+		}
+	}
+
+	// Submodes
+	{
+		let submode_rows = document.get_element_by_id("submode_rows").unwrap();
+
+		for mode in &RADAR.submode {
+			let row = document.create_element("tr").unwrap();
+			for iter_field in mode.iter_fields() {
+				let elem = document.create_element("td").unwrap();
+				if let Some(val) = iter_field.downcast_ref::<Option<f64>>() {
+					elem.set_inner_html(&if let Some(out) = val {
+						out.to_string()
+					} else {
+						"-".to_owned()
+					});
+				}
+				if let Some(val) = iter_field.downcast_ref::<Option<bool>>() {
+					elem.set_inner_html(&if let Some(out) = val {
+						out.to_string()
+					} else {
+						"-".to_owned()
+					});
+				}
+				if let Some(val) = iter_field.downcast_ref::<Option<u8>>() {
+					elem.set_inner_html(&if let Some(out) = val {
+						out.to_string()
+					} else {
+						"-".to_owned()
+					});
+				}
+				if let Some(val) = iter_field.downcast_ref::<Pattern>() {
+					elem.set_inner_html(&val.to_string());
+					;
+				}
+				if let Some(val) = iter_field.downcast_ref::<SubmodeCategory>() {
+					elem.set_inner_html(&val.to_string());
+				}
+				if let Some(val) = iter_field.downcast_ref::<Limits>() {
+					elem.set_inner_html(&format!("{}/{} {}/{}",
+												 val.azimuth.start(), val.azimuth.end(),
+												 val.elevation.start(), val.elevation.end(),
+					));
+				}
+				row.append_child(&elem);
+			}
+			submode_rows.append_child(&row);
+		}
 	}
 }
 
