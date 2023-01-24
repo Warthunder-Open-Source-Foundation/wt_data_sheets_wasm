@@ -46,7 +46,7 @@ pub fn render_table() {
 	{
 		let submode_rows = document.get_element_by_id("submode_rows").unwrap();
 
-		for mode in &RADAR.submode {
+		for (i, mode) in RADAR.submode.iter().enumerate() {
 			let row = document.create_element("tr").unwrap();
 			for iter_field in mode.iter_fields() {
 				let elem = document.create_element("td").unwrap();
@@ -86,26 +86,41 @@ pub fn render_table() {
 				}
 				row.append_child(&elem);
 			}
+
+			let canvas = document.create_element("canvas").unwrap();
+			canvas.set_id(&format!("canvas_{i}"));
+			canvas.set_class_name("canvas_scan");
+			canvas.set_attribute("width", "100").unwrap();
+			canvas.set_attribute("height", "100").unwrap();
+
+			row.append_child(&canvas).unwrap();
+
 			submode_rows.append_child(&row);
 		}
 	}
 }
 
+
 #[wasm_bindgen]
-pub fn run_proto(step: i32) {
+pub fn run_proto(step: i32, id: &str) {
+	const WIDTH: usize = 100;
+	const HEIGHT: usize = 100;
+
 	let mut radar_pos = RADAR_POS.load(Ordering::Relaxed);
 	let mut invert = INVERT.load(Relaxed);
-	let mut backend = CanvasBackend::new("radar_pattern").expect("cannot find canvas");
-	draw_rectangle(&mut backend, (0, 0), (1000, 1000), &RGBAColor(0, 0, 0, 1.0));
+	let mut backend = CanvasBackend::new(id).expect("cannot find canvas");
+	draw_rectangle(&mut backend, (0, 0), (WIDTH as i32, HEIGHT as i32), &RGBAColor(0, 0, 0, 1.0)); // prefill black
 
 	let counter = (step * 10) % 1000;
 
+	let beam_width = 5;
+	let speed = 20.0; // Lower faster
+	let radar_angle = (((step as f64 / speed).sin() + 1.0) * WIDTH as f64 * 0.5) - beam_width as f64 * 0.5;
 
-	let radar_angle = (((step as f64 / 25.0).sin() + 1.0) * 500.0) - 25.0;
-
-	// console_log(&format!("{} {}", radar_angle, counter));
-
-	draw_rectangle(&mut backend, (radar_angle as i32, 0), (radar_angle as i32 + 50, 1000), &RGBAColor(0, 128, 0, 1.0));
+	draw_rectangle(&mut backend,
+				   (radar_angle as i32, 0), // Top left
+				   (radar_angle as i32 + beam_width, HEIGHT as i32), // Bottom right
+				   &RGBAColor(0, 128, 0, 1.0));
 
 	RADAR_POS.store(radar_pos, Relaxed);
 	INVERT.store(invert, Relaxed);
