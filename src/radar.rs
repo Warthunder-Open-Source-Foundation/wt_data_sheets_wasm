@@ -8,6 +8,7 @@ use wasm_bindgen::prelude::*;
 use wt_sensor::scanning::scan_pattern::SubmodeCategory;
 use wt_sensor::scanning::scan_type::Pattern;
 use wt_sensor::util::Limits;
+use std::str::FromStr;
 
 use crate::RADAR;
 use crate::util::{console_log, get_document, panic_debug};
@@ -90,6 +91,7 @@ pub fn render_table() {
 			let canvas = document.create_element("canvas").unwrap();
 			canvas.set_id(&format!("canvas_{i}"));
 			canvas.set_class_name("canvas_scan");
+			canvas.set_attribute("data-pattern", &mode.pattern.to_string());
 			canvas.set_attribute("width", "100").unwrap();
 			canvas.set_attribute("height", "100").unwrap();
 
@@ -103,6 +105,8 @@ pub fn render_table() {
 
 #[wasm_bindgen]
 pub fn run_proto(step: i32, id: &str) {
+	let pattern = &RADAR.submode[usize::from_str(id.split("_").last().unwrap()).unwrap()];
+
 	const WIDTH: usize = 100;
 	const HEIGHT: usize = 100;
 
