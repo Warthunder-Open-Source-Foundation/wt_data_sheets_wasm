@@ -13,9 +13,6 @@ use std::str::FromStr;
 use crate::RADAR;
 use crate::util::{console_log, get_document, panic_debug};
 
-const RADAR_POS: AtomicI32 = AtomicI32::new(0);
-const INVERT: AtomicBool = AtomicBool::new(false);
-
 #[wasm_bindgen]
 pub fn render_table() {
 	panic_debug();
@@ -110,24 +107,17 @@ pub fn run_proto(step: i32, id: &str) {
 	const WIDTH: usize = 100;
 	const HEIGHT: usize = 100;
 
-	let mut radar_pos = RADAR_POS.load(Ordering::Relaxed);
-	let mut invert = INVERT.load(Relaxed);
 	let mut backend = CanvasBackend::new(id).expect("cannot find canvas");
 	draw_rectangle(&mut backend, (0, 0), (WIDTH as i32, HEIGHT as i32), &RGBAColor(0, 0, 0, 1.0)); // prefill black
 
-	let counter = (step * 10) % 1000;
-
 	let beam_width = 5;
-	let speed = 20.0; // Lower faster
+	let speed = pattern.period.unwrap_or(0.0) * 10.0; // higher faster
 	let radar_angle = (((step as f64 / speed).sin() + 1.0) * WIDTH as f64 * 0.5) - beam_width as f64 * 0.5;
 
 	draw_rectangle(&mut backend,
 				   (radar_angle as i32, 0), // Top left
 				   (radar_angle as i32 + beam_width, HEIGHT as i32), // Bottom right
 				   &RGBAColor(0, 128, 0, 1.0));
-
-	RADAR_POS.store(radar_pos, Relaxed);
-	INVERT.store(invert, Relaxed);
 }
 
 fn draw_rectangle(backend: &mut CanvasBackend, lhs: (i32, i32), rhs: (i32, i32), style: &RGBAColor) {
