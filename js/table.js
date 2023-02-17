@@ -216,5 +216,5 @@ async function main() {
 		update_tables(alt, vel);
 	}
 }
-main_js()
-main()
+main_js();
+main();
