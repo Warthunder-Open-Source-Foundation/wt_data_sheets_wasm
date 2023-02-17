@@ -2,7 +2,6 @@ import init, {generate_main_tables, main_js, update_tables} from "../pkg";
 
 
 async function main() {
-
 	// Validate URL against referrer
 	const urlParams = new URL(window.location.href).searchParams;
 	let ir = urlParams.get("ir");
