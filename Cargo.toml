@@ -46,7 +46,7 @@ rpath = false
 [dependencies]
 # The `wasm-bindgen` crate provides the bare minimum functionality needed
 # to interact with JavaScript.
-wasm-bindgen = "0.2.80"
+wasm-bindgen = "0.2.84"
 
 wt_ballistics_calc = { git = "https://github.com/FlareFlo/wt_ballistics_calc" }
 
