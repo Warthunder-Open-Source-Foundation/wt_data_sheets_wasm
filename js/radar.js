@@ -1,4 +1,4 @@
-import {main_js, render_table, run_proto} from "../pkg";
+import init, {main_js, render_table, run_proto} from "../pkg";
 
 async function main() {
 	render_table();
@@ -12,5 +12,7 @@ async function main() {
 		c++;
 	}, 10);
 }
-main_js()
-main()
+init().finally(() => {
+	main_js()
+	main()
+});

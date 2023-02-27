@@ -1,4 +1,4 @@
-import {initiate_calc, main_js, plot, run_compare} from "../pkg";
+import init, {initiate_calc, main_js, plot, run_compare} from "../pkg";
 import {input_manager, set_value_enter, sleep} from "./util";
 
 async function main() {
@@ -158,5 +158,7 @@ function call_ballistics() {
 function hex_to_rgb(hex) {
 	return ['0x' + hex[1] + hex[2] | 0, '0x' + hex[3] + hex[4] | 0, '0x' + hex[5] + hex[6] | 0];
 }
-main_js()
-main();
+init().finally(() => {
+	main_js()
+	main()
+});

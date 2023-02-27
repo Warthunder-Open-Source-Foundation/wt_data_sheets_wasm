@@ -1,4 +1,4 @@
-import {compare, main_js, run_compare} from "../pkg";
+import init, {compare, main_js, run_compare} from "../pkg";
 import {input_manager, set_value_enter} from "./util";
 
 async function main() {
@@ -74,5 +74,7 @@ async function main() {
 	});
 }
 
-main_js()
-main()
+init().finally(() => {
+	main_js()
+	main()
+});

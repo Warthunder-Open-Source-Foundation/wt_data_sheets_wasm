@@ -12,14 +12,14 @@ let webpack_arg;
 let watch = false;
 
 if (inDev) {
-	wasm_arg = "--debug --target web";
+	wasm_arg = "--debug";
 	webpack_arg = "development";
 } else {
-	wasm_arg = "--release --target web";
+	wasm_arg = "--release";
 	webpack_arg = "production"
 }
 
-wasm_arg += " --target bundler";
+wasm_arg += " --target web";
 
 module.exports = {
 	target: 'web',
@@ -92,6 +92,7 @@ module.exports = {
 		new WasmPackPlugin({
 			crateDirectory: __dirname,
 			extraArgs: wasm_arg,
+			target: "web",
 		}),
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',

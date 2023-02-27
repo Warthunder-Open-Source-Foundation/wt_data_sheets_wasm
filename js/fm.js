@@ -1,4 +1,4 @@
-import {core_loop, main_js} from "../pkg";
+import init, {core_loop, main_js} from "../pkg";
 import {get_indicators, get_state, set_dialog_ready} from "./localhost";
 
 async function main() {
@@ -26,5 +26,7 @@ async function main() {
 
 	}, timeout);
 }
-main_js()
-main()
+init().finally(() => {
+	main_js()
+	main()
+});

@@ -22,7 +22,6 @@
       "mathjax": "^3.2.0",
       "node-sass": "^8.0.0",
       "webpack-watch-external-files-plugin": "^1.0.0",
-      "workbox-cli": "^6.5.4",
-      "wt-datasheets-wasm": "./pkg"
+      "workbox-cli": "^6.5.4"
    }
 }
