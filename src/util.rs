@@ -49,12 +49,14 @@ pub fn get_document() -> Document {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row(m: &Missile, parameters: &LaunchParameter) -> [String; 21] {
+pub fn make_row(m: &Missile, parameters: &LaunchParameter) -> [String; 24] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);
 
 	let range = results.distance_flown.round();
+
+	let visband = m.bands.clone().unwrap();
 
 	[
 		m.localized.to_string(),
@@ -69,12 +71,15 @@ pub fn make_row(m: &Missile, parameters: &LaunchParameter) -> [String; 21] {
 		m.deltav.to_string(),
 		m.loadfactormax.to_string(),
 		m.reqaccelmax.to_string(),
-		m.bands[0].to_string(),
-		m.bands[1].to_string(),
-		m.bands[2].to_string(),
-		m.bands[3].to_string(),
-		m.fov.to_string(),
-		m.gate.to_string(),
+		visband.rear_aspect().to_string(),
+		visband.all_aspect().to_string(),
+		visband.flares().to_string(),
+		visband.ircm().to_string(),
+		visband.sun_and_misc().to_string(),
+		visband.dircm().to_string(),
+		visband.afterburner_plume().to_string(),
+		m.fov.unwrap().to_string(),
+		m.gate.unwrap().to_string(),
 		m.lockanglemax.to_string(),
 		m.anglemax.to_string(),
 		m.warmuptime.to_string(),

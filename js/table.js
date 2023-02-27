@@ -1,7 +1,8 @@
-import {generate_main_tables, main_js, update_tables} from "../pkg";
+import init, {generate_main_tables, main_js, update_tables} from "../pkg";
 
 
 async function main() {
+
 	// Validate URL against referrer
 	const urlParams = new URL(window.location.href).searchParams;
 	let ir = urlParams.get("ir");
@@ -216,5 +217,8 @@ async function main() {
 		update_tables(alt, vel);
 	}
 }
-main_js()
-main()
+
+init().finally(() => {
+	main_js()
+	main()
+});

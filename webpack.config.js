@@ -12,10 +12,10 @@ let webpack_arg;
 let watch = false;
 
 if (inDev) {
-	wasm_arg = "--debug";
+	wasm_arg = "--debug --target web";
 	webpack_arg = "development";
 } else {
-	wasm_arg = "--release";
+	wasm_arg = "--release --target web";
 	webpack_arg = "production"
 }
 

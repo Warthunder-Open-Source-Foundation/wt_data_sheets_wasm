@@ -142,6 +142,9 @@ pub struct IrTable {
 	pub all_aspect: f64,
 	pub ir_decoys: f64,
 	pub ircm: f64,
+	pub sun_misc: f64,
+	pub dircm: f64,
+	pub afterburner: f64,
 	pub fov: f64,
 	pub gate: f64,
 	pub launch_fov: f64,
@@ -160,6 +163,7 @@ impl IrTable {
 		let results = generate(m, parameters, 0.1, false);
 
 		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
+		let bands = m.bands.clone().unwrap();
 		Self {
 			name: m.name.to_owned(),
 			range,
@@ -168,12 +172,15 @@ impl IrTable {
 			delta_v: m.deltav,
 			launch_g: m.loadfactormax,
 			flight_g: m.reqaccelmax,
-			rear_aspect: m.bands[0],
-			all_aspect: m.bands[1],
-			ir_decoys: m.bands[2],
-			ircm: m.bands[3],
-			fov: m.fov,
-			gate: m.gate,
+			rear_aspect: bands.rear_aspect() as f64,
+			all_aspect: bands.rear_aspect() as f64,
+			ir_decoys: bands.flares() as f64,
+			ircm: bands.ircm() as f64,
+			sun_misc: bands.sun_and_misc() as f64,
+			dircm: bands.dircm() as f64,
+			afterburner: bands.afterburner_plume() as f64,
+			fov: m.fov.unwrap(),
+			gate: m.gate.unwrap_or(0.0),
 			launch_fov: m.lockanglemax,
 			flight_fov: m.anglemax,
 			warm_up_time: m.warmuptime,
