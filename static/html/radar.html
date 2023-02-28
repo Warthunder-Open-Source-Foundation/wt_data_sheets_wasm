@@ -46,9 +46,42 @@
 		})
 </script>
 
-<div id="canvas_container">
-	<canvas id="radar_pattern" width="1000" height="1000"></canvas>
+<!--<div id="canvas_container">-->
+<!--	<canvas id="radar_pattern" width="1000" height="1000"></canvas>-->
+<!--</div>-->
 
+<p class="centered">This is a proof of concept, for the APG-66, more will be added later</p>
+
+<div id="radar_container">
+	<div class="inline">Name: <p id="r_name"></p></div>
+	<div class="boxed_container">Scan ranges
+		<div id="scan_ranges"></div>
+	</div>
+	<div class="boxed_container">Boresight ranges
+		<div id="boresight_ranges"></div>
+	</div>
+	<table id="submode_table">
+		<thead>
+			<tr>
+				<td>pattern</td>
+				<td>category</td>
+				<td>-azimuth/azimuth+ -elevation/elevation+</td>
+				<td>roll stab limits</td>
+				<td>pitch stab limits</td>
+				<td>period</td>
+				<td>width</td>
+				<td>bar height</td>
+				<td>bar count</td>
+				<td>row major</td>
+				<td>elevation offset</td>
+				<td>indicate</td>
+				<td>pattern</td>
+			</tr>
+		</thead>
+		<tbody id="submode_rows">
+
+		</tbody>
+	</table>
 </div>
 
 <script id="replace_with_footer">

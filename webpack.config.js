@@ -19,6 +19,8 @@ if (inDev) {
 	webpack_arg = "production"
 }
 
+wasm_arg += " --target web";
+
 module.exports = {
 	target: 'web',
 	performance: {
@@ -28,7 +30,8 @@ module.exports = {
 	},
 	experiments: {
 		asyncWebAssembly: true,
-		syncWebAssembly: true
+		syncWebAssembly: true,
+		topLevelAwait: true,
 	},
 	mode: webpack_arg,
 	watchOptions: {
@@ -89,6 +92,7 @@ module.exports = {
 		new WasmPackPlugin({
 			crateDirectory: __dirname,
 			extraArgs: wasm_arg,
+			target: "web",
 		}),
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',

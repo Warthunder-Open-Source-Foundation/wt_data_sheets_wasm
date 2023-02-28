@@ -14,3 +14,21 @@
 	aspect-ratio: 1/1;
 	border: var(--color-text) 1px solid;
 }
+
+#radar_container {
+	margin: 0 auto;
+	width: fit-content;
+}
+
+.boxed_container {
+	border: 1px var(--color-text) solid;
+	width: fit-content;
+}
+
+.inline {
+	display: flex;
+}
+
+#submode_rows > tr > td {
+	text-align: center;
+}

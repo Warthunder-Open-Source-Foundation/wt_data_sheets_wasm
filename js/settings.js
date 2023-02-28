@@ -1,5 +1,5 @@
 import {indexed_db} from "./util"
-import {main_js} from "../pkg";
+import init, {main_js} from "../pkg";
 
 async function main() {
 	let openRequest = window.indexedDB.open(indexed_db(), 1);
@@ -32,5 +32,7 @@ async function main() {
 		// continue working with database using db object
 	};
 }
-main_js()
-main()
+init().finally(() => {
+	main_js()
+	main()
+});

@@ -1,4 +1,4 @@
-import {initiate_calc, main_js, run_compare} from "../pkg";
+import init, {initiate_calc, main_js, run_compare} from "../pkg";
 import {input_manager, set_value_enter, sleep} from "./util";
 
 async function main() {
@@ -36,5 +36,7 @@ async function main() {
 		await sleep(16);
 	}
 }
-main_js()
-main()
+init().finally(() => {
+	main_js()
+	main()
+});
