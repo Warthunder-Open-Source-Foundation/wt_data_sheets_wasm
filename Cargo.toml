@@ -54,6 +54,8 @@ wt_datamine_extractor = { git = "https://github.com/FlareFlo/wt_datamine_extract
 
 wt_sensor = { git = "https://github.com/Warthunder-Open-Source-Foundation/wt_sensor", features = ["reflect"] }
 
+wt_blk = "0.1.2"
+
 serde_json = "1.*"
 serde = "1.*"
 chrono = "0.4.19"
