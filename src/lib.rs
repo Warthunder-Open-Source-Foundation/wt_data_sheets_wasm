@@ -26,6 +26,7 @@ pub mod fm;
 pub mod utils;
 pub mod localhost;
 pub mod radar;
+pub mod blk_proto;
 
 pub const GAME_VER: &str = include_str!("../wt_datamine_extractor/meta_index/version.txt");
 pub const BATTLE_RATINGS_RAW: &str = include_str!("../wt_datamine_extractor/battle_rating/all.json");

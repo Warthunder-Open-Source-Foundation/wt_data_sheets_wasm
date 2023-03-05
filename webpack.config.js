@@ -53,7 +53,8 @@ module.exports = {
 		settings: "./js/settings.js",
 		fm: "./js/fm.js",
 		localhost: "./js/localhost.js",
-		radar: "./js/radar.js"
+		radar: "./js/radar.js",
+		blk_proto: "./js/blk_proto.js"
 	},
 	output: {
 		path: dist,

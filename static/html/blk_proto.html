@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>BLK parsing prototype</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="blk_proto.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content=""
+		  property="og:title"/>
+
+	<meta content=""
+		  name="description"/>
+
+	<meta content=""
+		  property="og:description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="https://wt.flareflo.dev/blk_proto.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer src="blk_proto.js" type="module"></script>
+	<script defer src="util.js" type="module"></script>
+	<script defer src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+
+<dialog id="dialog">
+	<p>Files</p>
+	<form>
+		<input type="file" id="raw_blk_upload">
+	</form>
+</dialog>
+
+
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>
