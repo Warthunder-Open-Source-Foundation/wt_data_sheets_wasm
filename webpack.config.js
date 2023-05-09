@@ -22,6 +22,9 @@ if (inDev) {
 wasm_arg += " --target web";
 
 module.exports = {
+	optimization: {
+		minimize: false
+	},
 	target: 'web',
 	performance: {
 		hints: false,
