@@ -1,5 +1,5 @@
-import init, {generate_main_tables, main_js, update_tables} from "../pkg";
-
+import init from "../pkg";
+import {generate_main_tables, main_js, update_tables} from "../pkg";
 
 async function main() {
 	// Validate URL against referrer

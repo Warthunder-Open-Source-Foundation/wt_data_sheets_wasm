@@ -84,8 +84,7 @@ pub fn main_js() -> Result<(), JsValue> {
 pub fn make_footer_data() {
 	let document = get_document();
 	if let Some(ver) = document.get_element_by_id("game_ver") {
-		ver.set_inner_html(&format!("{} {}", ver.inner_html(), GAME_VER));
-		ver.set_inner_html(&format!("{} last updated on {}", ver.inner_html(), BUILD_TIME));
+		ver.set_inner_html(&format!("{} last updated on {}", GAME_VER, BUILD_TIME));
 		console_log(&format!("Game version set to {}, with timestamp {}", GAME_VER, BUILD_TIME));
 	} else {
 		console_log(&format!("Cant display game version {}", GAME_VER));
