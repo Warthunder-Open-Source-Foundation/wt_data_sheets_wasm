@@ -42,11 +42,10 @@ jobs:
       - name: Pull git depends
         run: git submodule update --init --recursive --remote
 
-      # Prepares node js
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      # Prepares bun
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          bun-version: latest
 
       # Load NPM cache
       - name: Pull node_modules
@@ -58,11 +57,11 @@ jobs:
 
       # Loads NPM modules for webpack
       - name: Install NPM depends
-        run: npm install
+        run: bun install
 
       # Loads sass from NPM
       - name: Install sass
-        run: npm install -g sass
+        run: bun install -g sass
 
       # Loads cargo cache
       - uses: actions/cache@v3
@@ -82,7 +81,7 @@ jobs:
 
       # Finishes bundle
       - name: Bundle + Build
-        run: npm run build
+        run: bun run build
 
       # Get goatcounter js for self hosting
       - name: Download count.js

@@ -42,6 +42,7 @@ jobs:
       - name: Pull git depends
         run: git submodule update --init --recursive --remote
 
+      # Prepare bun
       - uses: oven-sh/setup-bun@v1
         with:
          bun-version: latest
