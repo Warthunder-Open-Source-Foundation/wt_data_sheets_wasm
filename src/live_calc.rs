@@ -22,14 +22,14 @@ pub fn constant_calc(velocity: f64, alt: u32, missile_select: usize, do_splash: 
 	let mut parameters = LaunchParameter::new_from_parameters(false, velocity / 3.6, 0.0, velocity / 3.6, alt);
 
 	let missile = &MISSILES[missile_select];
-	let mut results = generate(&missile, &parameters, 0.1, false);
+	let mut results = generate(&missile, parameters, 0.1, false);
 
 	parameters.distance_to_target = results.distance_flown.round();
 	results.splash.splash = false;
 
 	if do_splash {
 		while !results.splash.splash {
-			results = generate(&missile, &parameters, 0.1, false);
+			results = generate(&missile, parameters, 0.1, false);
 			parameters.distance_to_target -= 10.0;
 		}
 		Ok(

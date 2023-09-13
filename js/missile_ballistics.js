@@ -1,4 +1,4 @@
-import init, {initiate_calc, main_js, plot, run_compare} from "../pkg";
+import init, {export_zip, main_js, plot, run_compare} from "../pkg";
 import {input_manager, set_value_enter, sleep} from "./util";
 
 async function main() {
@@ -33,6 +33,43 @@ async function main() {
 	document.getElementById("velocity").addEventListener("input", () => {
 		document.getElementById("velocity_value").innerText = "Launch velocity (meters/second): " + document.getElementById("velocity").value;
 		call_ballistics();
+	});
+
+	document.getElementById("export_zip").addEventListener("click", () => {
+		call_ballistics();
+		console.log("called");
+		const downloadBlob = function(data, fileName, mimeType) {
+			var blob, url;
+			blob = new Blob([data], {
+				type: mimeType
+			});
+			url = window.URL.createObjectURL(blob);
+			downloadURL(url, fileName);
+			setTimeout(function() {
+				return window.URL.revokeObjectURL(url);
+			}, 1000);
+		};
+
+		const downloadURL = function(data, fileName) {
+			var a;
+			a = document.createElement('a');
+			a.href = data;
+			a.download = fileName;
+			document.body.appendChild(a);
+			a.style = 'display: none';
+			a.click();
+			a.remove();
+		};
+
+		let canvas = document.getElementById("ballistics");
+		canvas.toBlob((blob) => {
+			blob.arrayBuffer().then((buf) => {
+				const bytes = new Uint8Array(buf);
+				const zip = export_zip(bytes);
+				downloadBlob(zip, "missile_sim.zip", "application/zip")
+			})
+		}, "png");
+
 	});
 
 	let canvas_scale = 1;
