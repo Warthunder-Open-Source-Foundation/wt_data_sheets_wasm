@@ -1,11 +1,15 @@
+use std::cell::Cell;
 use plotters::prelude::*;
 use plotters_canvas::CanvasBackend;
 use wasm_bindgen::prelude::*;
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
-use wt_ballistics_calc_lib::runner::generate;
+use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use crate::MISSILES;
 
 use std::str::FromStr;
+use std::sync::Mutex;
+use js_sys::ArrayBuffer;
+use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
 use crate::util::console_log;
 
 
@@ -18,6 +22,8 @@ const TIMESTEP: f64 = 0.1;
 const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
 const DISTANCE_FACTOR: f64 = 100.0;
 const TURNING_FACTOR: f64 = 100.0;
+
+static LAST_RESULTS: Mutex<Option<LaunchResults>> = Mutex::new(None);
 
 #[wasm_bindgen]
 pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, canvas_background_color: &str, canvas_text_color: &str) {
@@ -47,7 +53,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		}
 	};
 
-	let results = generate(&missile, &LaunchParameter {
+	let results = generate(&missile, LaunchParameter {
 		use_gravity: false,
 		start_velocity,
 		distance_to_target: 0.0,
@@ -103,6 +109,9 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 	let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
 	let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
+
+	// Save once all data has been copied out of results
+	*LAST_RESULTS.try_lock().unwrap() = Some(results);
 
 	root.fill(&background_color).unwrap();
 	let root = root.margin(50, 50, 50, 50);
@@ -209,4 +218,11 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 		 .legend_area_size(WIDTH / 40)
 		 .label_font(text(50))
 		 .draw().unwrap();
+}
+
+#[wasm_bindgen]
+pub fn export_zip(plot_png: &[u8]) -> Vec<u8> {
+	let res = LAST_RESULTS.try_lock().unwrap().clone();
+	let file = res.unwrap().as_csv(Some(plot_png));
+	file.unwrap()
 }

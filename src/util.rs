@@ -49,7 +49,7 @@ pub fn get_document() -> Document {
 }
 
 #[allow(clippy::must_use_candidate)]
-pub fn make_row(m: &Missile, parameters: &LaunchParameter) -> [String; 24] {
+pub fn make_row(m: &Missile, parameters: LaunchParameter) -> [String; 24] {
 	// let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 0);
 
 	let results = generate(m, parameters, 0.1, false);

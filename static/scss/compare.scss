@@ -44,26 +44,6 @@ label {
 	}
 }
 
-.button {
-	background-image: var(--background-image-blue);
-	border: none;
-	color: var(--color-text);
-	text-align: center;
-	text-decoration: none;
-	display: inline;
-	width: fit-content;
-	height: 30px;
-	font-size: 1rem;
-	border-radius: 4px;
-	transition: 0.25s;
-
-	&:hover {
-		background-size: 400%;
-		animation: rainbow_animation 2s ease-in-out infinite;
-		transform: scale(1.1);
-	}
-}
-
 #dropdown {
 	width: min(75vw, 500px);
 	margin: 0 auto;

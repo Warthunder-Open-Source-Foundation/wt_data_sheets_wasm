@@ -20,7 +20,7 @@ pub fn update_tables(alt: u32, vel: u32) {
 
 	for missile in MISSILES.iter() {
 		let parameters = LaunchParameter::new_from_parameters(false, f64::from(vel), 0.0, 0.0, alt);
-		let results = generate(missile, &parameters, 0.1, false);
+		let results = generate(missile, parameters, 0.1, false);
 		let cell = document.get_element_by_id(&format!("range_{}", &missile.name)).unwrap();
 		cell.set_inner_html(&results.distance_flown.round().to_string());
 	}
@@ -37,11 +37,11 @@ pub fn generate_main_tables(is_ascending: Option<bool>, row_to_sort_by: &str, ta
 	document.get_element_by_id("alt").unwrap().set_attribute("value", &parameters.altitude.to_string())?;
 	document.get_element_by_id("vel").unwrap().set_attribute("value", &parameters.start_velocity.to_string())?;
 
-	make_table(&parameters, is_ascending, row_to_sort_by, target_table_to_sort)
+	make_table(parameters, is_ascending, row_to_sort_by, target_table_to_sort)
 }
 
 #[allow(clippy::module_name_repetitions, clippy::missing_errors_doc, clippy::missing_panics_doc)]
-pub fn make_table(parameters: &LaunchParameter, is_ascending: Option<bool>, row_to_sort_by: &str, target_table_to_sort: &str) -> Result<(), JsValue> {
+pub fn make_table(parameters: LaunchParameter, is_ascending: Option<bool>, row_to_sort_by: &str, target_table_to_sort: &str) -> Result<(), JsValue> {
 	let document = get_document();
 
 	let ir_table = document.query_selector(".main_table").unwrap().unwrap();
@@ -159,7 +159,7 @@ pub struct IrTable {
 }
 
 impl IrTable {
-	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
+	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: LaunchParameter) -> Self {
 		let results = generate(m, parameters, 0.1, false);
 
 		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
@@ -216,7 +216,7 @@ pub struct SarhTable {
 }
 
 impl SarhTable {
-	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
+	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: LaunchParameter) -> Self {
 		let results = generate(m, parameters, 0.1, false);
 
 		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
@@ -261,7 +261,7 @@ pub struct ArhTable {
 }
 
 impl ArhTable {
-	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Self {
+	pub fn from_missile(m: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: LaunchParameter) -> Self {
 		let results = generate(m, parameters, 0.1, false);
 
 		let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
@@ -287,7 +287,7 @@ impl ArhTable {
 impl ToHtmlTable for ArhTable {}
 
 pub trait ToHtmlTable: bevy_reflect::Struct {
-	fn to_html_row(&self, missile: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: &LaunchParameter) -> Element where Self: Sized {
+	fn to_html_row(&self, missile: &wt_datamine_extractor_lib::missile::missile::Missile, parameters: LaunchParameter) -> Element where Self: Sized {
 		let document = get_document();
 
 		let row = document.create_element("tr").unwrap();

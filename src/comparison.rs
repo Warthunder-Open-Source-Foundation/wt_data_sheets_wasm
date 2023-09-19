@@ -20,8 +20,8 @@ pub fn compare(reference: usize, contrary: usize, show_equal: bool, diff_mode: b
 	let ref_missile = &MISSILES[reference];
 	let contrary_missile = &MISSILES[contrary];
 
-	let ref_row = make_row(&ref_missile, &LaunchParameter::new_from_default_hor());
-	let con_row = make_row(&contrary_missile, &LaunchParameter::new_from_default_hor());
+	let ref_row = make_row(&ref_missile, LaunchParameter::new_from_default_hor());
+	let con_row = make_row(&contrary_missile, LaunchParameter::new_from_default_hor());
 	let params = make_row_params();
 	for i in 0..20 {
 		let tr = document.create_element("tr").unwrap();
