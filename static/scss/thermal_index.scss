@@ -31,23 +31,33 @@ p {
 	cursor: pointer;
 }
 
+// Lowest resolution 500x300
 .one {
 	background: var(--background-image-blood-red);
 	background-size: 400%;
 }
 
+// Either 1024x768 or 1080x720
 .heli {
 	background: var(--background-image-turquoise);
 	background-size: 400%;
 }
 
+// 800x600
 .two {
 	background: var(--background-image-blue);
 	background-size: 400%;
 }
 
+// 1200x800
 .three {
 	background: var(--background-image-green);
+	background-size: 400%;
+}
+
+// 1920x1080
+.hires {
+	background: var(--color-background-accent);
 	background-size: 400%;
 }
 
