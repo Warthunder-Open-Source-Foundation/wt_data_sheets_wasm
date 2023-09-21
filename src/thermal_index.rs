@@ -38,8 +38,11 @@ pub fn generate_tank_list() -> Result<(), JsValue> {
 				1200 => {
 					"three"
 				}
-				1024 => {
+				1024 | 1080 => {
 					"heli"
+				}
+				1920 => {
+					"hires"
 				}
 				_ => {
 					"unknown"
