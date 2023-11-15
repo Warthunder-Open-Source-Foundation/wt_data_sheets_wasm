@@ -8,9 +8,7 @@ use crate::MISSILES;
 
 use std::str::FromStr;
 use std::sync::Mutex;
-use js_sys::ArrayBuffer;
-use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
-use crate::util::console_log;
+use wt_datamine_extractor_lib::missile::missile::Missile;
 
 
 const WIDTH: u32 = 3840;
@@ -23,7 +21,7 @@ const FONT_AXIS: u32 = ((WIDTH + HEIGHT) / 2) as u32;
 const DISTANCE_FACTOR: f64 = 100.0;
 const TURNING_FACTOR: f64 = 100.0;
 
-static LAST_RESULTS: Mutex<Option<LaunchResults>> = Mutex::new(None);
+static LAST_RESULTS: Mutex<Option<(LaunchResults, Missile)>> = Mutex::new(None);
 
 #[wasm_bindgen]
 pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, canvas_background_color: &str, canvas_text_color: &str) {
@@ -111,7 +109,7 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 	let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
 
 	// Save once all data has been copied out of results
-	*LAST_RESULTS.try_lock().unwrap() = Some(results);
+	*LAST_RESULTS.try_lock().unwrap() = Some((results, missile.clone()));
 
 	root.fill(&background_color).unwrap();
 	let root = root.margin(50, 50, 50, 50);
@@ -222,7 +220,10 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 #[wasm_bindgen]
 pub fn export_zip(plot_png: &[u8]) -> Vec<u8> {
-	let res = LAST_RESULTS.try_lock().unwrap().clone();
-	let file = res.unwrap().as_csv(Some(plot_png));
+	let (res, missile) = LAST_RESULTS.try_lock()
+		.unwrap()
+		.clone()
+		.unwrap();
+	let file = res.as_csv(Some(plot_png), missile);
 	file.unwrap()
 }
