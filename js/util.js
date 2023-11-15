@@ -6,87 +6,62 @@ export async function load_goatcounter() {
 	document.head.appendChild(script);
 }
 
+function sort_universal(event, cmp) {
+	let table = document.getElementById("tbody");
+	let rows = Array.from(table.rows);
+	
+	let isSorted = rows.every((e, i, a) => {
+		return !i || cmp(a[i - 1], e) <= 0;
+	}) || rows.every((e, i, a) => {
+		return !i || cmp(a[i - 1], e) >= 0;
+	});
+
+	if (isSorted) {
+		rows = rows.reverse();
+	} else {
+		rows.sort(cmp);
+	}
+
+	rows.forEach((a) => {
+		table.appendChild(a);
+	});
+
+}
+
 export function sort_universal_number(event) {
 	if (event.target.getAttribute("class") !== "sortable_n") {
 		return;
 	}
 	let n = event.target.cellIndex;
-	let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	table = document.getElementById("tbody");
-	switching = true;
-	dir = "asc";
-	while (switching) {
-		switching = false;
-		rows = table.rows;
-		for (i = 0; i < (rows.length - 1); i++) {
-			shouldSwitch = false;
-			x = rows[i].getElementsByTagName("TD")[n];
-			y = rows[i + 1].getElementsByTagName("TD")[n];
-			if (dir === "asc") {
-				if (Number(x.innerHTML) > Number(y.innerHTML)) {
-					shouldSwitch = true;
-					break;
-				}
-			} else if (dir === "desc") {
-				if (Number(x.innerHTML) < Number(y.innerHTML)) {
-					shouldSwitch = true;
-					break;
-				}
-			}
-		}
-		if (shouldSwitch) {
-			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-			switching = true;
-			switchcount++;
-		} else {
-			if (switchcount === 0 && dir === "asc") {
-				dir = "desc";
-				switching = true;
-			}
-		}
-	}
+
+	let cmp = (a, b) => {
+		let aVal = Number(a.getElementsByTagName("TD")[n].innerHTML);
+		let bVal = Number(b.getElementsByTagName("TD")[n].innerHTML);
+
+		if (aVal < bVal) return -1;
+		if (aVal > bVal) return 1;
+		return 0;
+	};
+
+	sort_universal(event, cmp);
 }
 
 export function sort_universal_string(event, id) {
 	if (event.target.getAttribute("class") !== "sortable_str") {
-		console.log("Target is not a sortable_str");
 		return;
 	}
 	let n = event.target.cellIndex;
-	let table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	table = document.getElementById(id);
-	switching = true;
-	dir = "asc";
-	while (switching) {
-		switching = false;
-		rows = table.rows;
-		for (i = 0; i < (rows.length - 1); i++) {
-			shouldSwitch = false;
-			x = rows[i].getElementsByTagName("TD")[n];
-			y = rows[i + 1].getElementsByTagName("TD")[n];
-			if (dir === "asc") {
-				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-					shouldSwitch = true;
-					break;
-				}
-			} else if (dir === "desc") {
-				if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-					shouldSwitch = true;
-					break;
-				}
-			}
-		}
-		if (shouldSwitch) {
-			rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-			switching = true;
-			switchcount++;
-		} else {
-			if (switchcount === 0 && dir === "asc") {
-				dir = "desc";
-				switching = true;
-			}
-		}
-	}
+
+	let cmp = (a, b) => {
+		let aVal = a.getElementsByTagName("TD")[n].innerHTML.toLowerCase();
+		let bVal = b.getElementsByTagName("TD")[n].innerHTML.toLowerCase();
+
+		if (aVal < bVal) return -1;
+		if (aVal > bVal) return 1;
+		return 0;
+	};
+
+	sort_universal(event, cmp);
 }
 
 export function sleep(ms) {

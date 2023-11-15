@@ -33,15 +33,13 @@ pub fn constant_calc(velocity: f64, alt: u32, missile_select: usize, do_splash: 
 			parameters.distance_to_target -= 10.0;
 		}
 		Ok(
-			[JsString::from_str(&results.splash.at.round().to_string()).unwrap(),
-				JsString::from_str(&results.distance_flown.round().to_string()).unwrap()].to_vec()
+			[JsString::from_str(&results.distance_flown.round().to_string()).unwrap(), JsString::from_str(&results.splash.at.round().to_string()).unwrap()].to_vec()
 		)
 		// splash_at_element.set_inner_html(&results.splash.at.round().to_string());
 
 	} else {
 		Ok(
-			[JsString::from_str("-").unwrap(),
-			JsString::from_str(&results.distance_flown.round().to_string()).unwrap()].to_vec()
+			[JsString::from_str(&results.distance_flown.round().to_string()).unwrap(), JsString::from_str("-").unwrap()].to_vec()
 		)
 		// Ok(JsString::from_str(&("-".to_owned() + " aaaa " + &results.distance_flown.round().to_string())).unwrap())
 		// splash_at_element.set_inner_html("-");
