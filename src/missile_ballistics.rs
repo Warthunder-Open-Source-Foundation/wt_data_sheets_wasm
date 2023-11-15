@@ -223,7 +223,10 @@ pub fn plot(id: &str, target_missile: &str, altitude: u32, start_velocity: f64, 
 
 #[wasm_bindgen]
 pub fn export_zip(plot_png: &[u8]) -> Vec<u8> {
-	let (res, missile) = LAST_RESULTS.try_lock().unwrap().clone().unwrap();
+	let (res, missile) = LAST_RESULTS.try_lock()
+		.unwrap()
+		.clone()
+		.unwrap();
 	let file = res.as_csv(Some(plot_png), missile);
 	file.unwrap()
 }
