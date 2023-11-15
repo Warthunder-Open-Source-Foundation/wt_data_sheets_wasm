@@ -8,10 +8,7 @@ use crate::MISSILES;
 
 use std::str::FromStr;
 use std::sync::Mutex;
-use js_sys::ArrayBuffer;
-use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
 use wt_datamine_extractor_lib::missile::missile::Missile;
-use crate::util::console_log;
 
 
 const WIDTH: u32 = 3840;
