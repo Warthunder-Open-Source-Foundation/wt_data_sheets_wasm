@@ -76,8 +76,8 @@ js-sys = "0.3.*"
 reqwest-wasm = "0.11.*"
 
 # Updating these two breaks things, and i cannot understand why
-strum = "^0.24.1"
-strum_macros = "^0.24.3"
+strum = "^0.25"
+strum_macros = "^0.25"
 
 lazy_static = "^1.4.0"
 
