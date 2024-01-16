@@ -5,6 +5,7 @@ use web_sys::{console, Document, Window};
 use wt_ballistics_calc_lib::launch_parameters::LaunchParameter;
 use wt_ballistics_calc_lib::runner::generate;
 use wt_datamine_extractor_lib::missile::missile::Missile;
+use wt_datamine_extractor_lib::missile::visbands::Visband;
 use crate::MISSILES;
 
 pub fn panic_debug() {
@@ -56,7 +57,16 @@ pub fn make_row(m: &Missile, parameters: LaunchParameter) -> [String; 24] {
 
 	let range = results.distance_flown.round();
 
-	let visband = m.bands.clone().unwrap();
+	let visband = m.bands.clone().unwrap_or(Visband {
+		range_band0: 0,
+		range_band1: 0,
+		range_band2: 0,
+		range_band3: 0,
+		range_band4: 0,
+		range_band6: 0,
+		range_band7: 0,
+		range_max: 0,
+	});
 
 	[
 		m.localized.to_string(),
@@ -78,8 +88,8 @@ pub fn make_row(m: &Missile, parameters: LaunchParameter) -> [String; 24] {
 		visband.sun_and_misc().to_string(),
 		visband.dircm().to_string(),
 		visband.afterburner_plume().to_string(),
-		m.fov.unwrap().to_string(),
-		m.gate.unwrap().to_string(),
+		m.fov.unwrap_or_default().to_string(),
+		m.gate.unwrap_or_default().to_string(),
 		m.lockanglemax.to_string(),
 		m.anglemax.to_string(),
 		m.warmuptime.to_string(),
