@@ -7,7 +7,7 @@
       "start": "rimraf dist pkg && webpack-dev-server --mode development --node-env=dev",
       "start_sass": "sass --no-source-map --watch static/scss:static/css",
       "test": "cargo test && wasm-pack test --headless",
-      "update": "cargo update; git submodule update --remote; git pull"
+      "update": "cargo update;git submodule update --remote;git pull"
    },
    "devDependencies": {
       "@wasm-tool/wasm-pack-plugin": "^1.6.0",
