@@ -8,6 +8,7 @@ use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 
 use std::str::FromStr;
 use std::sync::Mutex;
+use js_sys::Math::min;
 use wt_datamine_extractor_lib::missile::missile::Missile;
 
 const WIDTH: u32 = 3840;
@@ -244,4 +245,29 @@ pub fn export_zip(plot_png: &[u8]) -> Vec<u8> {
     let (res, missile) = LAST_RESULTS.try_lock().unwrap().clone().unwrap();
     let file = res.as_csv(Some(plot_png), missile);
     file.unwrap()
+}
+
+#[wasm_bindgen]
+pub fn export_all_to_zip(altitude: u32, start_velocity: f64) -> Vec<u8> {
+    let mut zip = None;
+    for missile in MISSILES.iter() {
+        let results = generate(
+            missile,
+            LaunchParameter {
+                use_gravity: false,
+                start_velocity,
+                distance_to_target: 0.0,
+                target_speed: 0.0,
+                altitude,
+            },
+            TIMESTEP,
+            false,
+        );
+        if zip.is_none() {
+            zip = Some(results.start_csv(None, missile.clone()));
+        } else {
+            results.write_into_zip(None, missile.clone(), zip.as_mut().unwrap()).unwrap();
+        }
+    }
+    LaunchResults::finish_zip(zip.unwrap()).unwrap()
 }

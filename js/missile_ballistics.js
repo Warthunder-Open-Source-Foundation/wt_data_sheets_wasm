@@ -1,4 +1,4 @@
-import init, {export_zip, main_js, plot, run_compare} from "../pkg";
+import init, {export_zip, main_js, plot, run_compare, export_all_to_zip} from "../pkg";
 import {input_manager, set_value_enter, sleep} from "./util";
 
 async function main() {
@@ -69,6 +69,39 @@ async function main() {
 				downloadBlob(zip, "missile_sim.zip", "application/zip")
 			})
 		}, "png");
+
+	});
+
+	document.getElementById("export_all_zip").addEventListener("click", () => {
+		const downloadBlob = function(data, fileName, mimeType) {
+			var blob, url;
+			blob = new Blob([data], {
+				type: mimeType
+			});
+			url = window.URL.createObjectURL(blob);
+			downloadURL(url, fileName);
+			setTimeout(function() {
+				return window.URL.revokeObjectURL(url);
+			}, 1000);
+		};
+
+		const downloadURL = function(data, fileName) {
+			var a;
+			a = document.createElement('a');
+			a.href = data;
+			a.download = fileName;
+			document.body.appendChild(a);
+			a.style = 'display: none';
+			a.click();
+			a.remove();
+		};
+
+		const bytes = new Uint8Array();
+		const zip = export_all_to_zip(
+			parseInt(document.getElementById("altitude").value),
+			parseInt(document.getElementById("velocity").value)
+		);
+		downloadBlob(zip, "missile_sim.zip", "application/zip");
 
 	});
 
