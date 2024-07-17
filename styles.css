@@ -1,0 +1,215 @@
+@import url("RobotoMono-VariableFont_wght.ttf");
+html {
+  --color-text: #ffffff;
+  --color-text-anti: #000000;
+  --color-text-link: #00ffdf;
+  --color-text-dark: #9b9b9b;
+  --color-background: #282828;
+  --color-background-bright: #3d3d3d;
+  --color-background-accent: #6e10d2;
+  --color-accent: #c70a4b;
+  --color-accept: #42bd16;
+  --color-text-green: var(--color-accept);
+  --color-text-blood-red: #d30555;
+  --color-text-red: #d90a22;
+  --accept-red-gradient: linear-gradient(
+  				120deg, var(--color-accept), var(--color-text-red)
+  );
+  --background-image-red: linear-gradient(
+  				120deg, var(--color-background-accent), var(--color-accent));
+  --background-image-blue: linear-gradient(
+  				120deg, #6ab5ff 0%, #1e90f8 100%);
+  --background-image-blood-red: linear-gradient(
+  				120deg, var(--color-text-red) 0%, var(--color-text-blood-red) 100%);
+  --background-image-green: linear-gradient(
+  				120deg, var(--color-accept) 0%, #5ae556 100%);
+  --background-image-turquoise: linear-gradient(
+  				120deg, #16bda4 0%, #56d4e5 100%);
+  --rainbow-gradient: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
+  --global-font: "Roboto Mono", monospace;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--global-font);
+  font-weight: 200;
+  font-size: 15px;
+}
+
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--color-background-bright);
+}
+
+*::-webkit-scrollbar {
+  width: 20px;
+  background-color: var(--color-background-bright);
+}
+
+*::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--color-background-accent);
+}
+
+@keyframes rainbow_animation {
+  0%, 100% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 0;
+  }
+}
+p {
+  color: var(--color-text);
+  margin: 0;
+}
+
+a {
+  color: var(--color-text);
+}
+a:hover {
+  color: var(--color-text-link);
+}
+
+.rounded_button {
+  background-image: var(--background-image-blue);
+  border: none;
+  color: var(--color-text);
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  width: 7em;
+  font-size: 1rem;
+  border-radius: 4px;
+  height: 20px;
+}
+.rounded_button:hover {
+  background-image: var(--background-image-blue);
+  background-size: 400%;
+  animation: rainbow_animation 1s ease-in-out infinite;
+}
+
+.link {
+  cursor: pointer;
+}
+
+td {
+  border: 1px solid var(--color-text-dark);
+  padding: 3px;
+  color: var(--color-text);
+}
+
+label {
+  color: var(--color-text);
+}
+
+.input_number {
+  appearance: none;
+  outline: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-image: var(--background-image-blue);
+  color: var(--color-text);
+  width: 4rem;
+  height: 0.1rem;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 0 auto 10px auto;
+  text-align: center;
+  font-size: 15px;
+  transition-duration: 0.25s;
+  font-weight: 300;
+}
+.input_number:hover {
+  background-color: var(--color-background-accent);
+}
+.input_number:focus {
+  background-color: var(--color-background-accent);
+  color: var(--color-text);
+}
+
+.main_table, .sarh_table, .arh_table {
+  color: var(--color-text);
+  border-collapse: collapse;
+  margin: 10px;
+}
+.main_table tr:hover, .sarh_table tr:hover, .arh_table tr:hover {
+  background-image: var(--background-image-red);
+}
+
+table tr:nth-child(even) {
+  background-color: var(--color-background-bright);
+}
+table tr:nth-child(odd) {
+  background-color: var(--color-background);
+}
+
+.sortable_n, .sortable_str {
+  cursor: pointer;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+.button {
+  background-image: var(--background-image-blue);
+  border: none;
+  color: var(--color-text);
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  width: fit-content;
+  height: 30px;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: 0.25s;
+}
+.button:hover {
+  background-size: 400%;
+  animation: rainbow_animation 2s ease-in-out infinite;
+  transform: scale(1.1);
+}
+
+dialog {
+  z-index: 100;
+  background: var(--color-background-bright);
+  border: 2px solid var(--color-text-blood-red);
+  border-radius: 5px;
+  font-size: 35px;
+  box-shadow: 2px 2px 2px var(--color-background-accent);
+  margin: 20vh auto 0;
+  transition: opacity 2s;
+  opacity: 0;
+  padding: 20px;
+}
+dialog[open] {
+  opacity: 1;
+  animation: show 1s ease normal;
+}
+dialog::backdrop {
+  backdrop-filter: blur(3px);
+  filter: brightness(50%);
+}
+dialog button {
+  border: 2px solid var(--color-text-blood-red);
+  border-radius: 5px;
+  color: var(--color-text);
+  background: var(--color-background-bright);
+  box-shadow: 2px 2px 2px var(--color-background-accent);
+  transition: 0.25s ease-in-out;
+  outline: none;
+}
+dialog button:hover {
+  box-shadow: none;
+  border-color: var(--color-accept);
+  cursor: pointer;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

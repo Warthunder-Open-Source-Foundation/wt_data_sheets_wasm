@@ -1,0 +1,69 @@
+html {
+  --show-heli: table-row;
+  --show-aircraft: table-row;
+  --show-tank: table-row;
+}
+
+p {
+  width: fit-content;
+  padding: 0;
+  margin: 0 auto;
+}
+
+#table, #div_input {
+  margin: 0;
+  width: fit-content;
+}
+
+#dropdown {
+  width: 50vw;
+}
+
+#main {
+  width: fit-content;
+}
+
+#main, #dropdown {
+  margin: 0 auto;
+}
+
+#column_1, #column_0 {
+  cursor: pointer;
+}
+
+.one {
+  background: var(--background-image-blood-red);
+  background-size: 400%;
+}
+
+.heli {
+  background: var(--background-image-turquoise);
+  background-size: 400%;
+}
+
+.two {
+  background: var(--background-image-blue);
+  background-size: 400%;
+}
+
+.three {
+  background: var(--background-image-green);
+  background-size: 400%;
+}
+
+.hires {
+  background: var(--color-background-accent);
+  background-size: 400%;
+}
+
+.Tank {
+  display: var(--show-tank);
+}
+
+.Helicopter {
+  display: var(--show-heli);
+}
+
+.Aircraft {
+  display: var(--show-aircraft);
+}

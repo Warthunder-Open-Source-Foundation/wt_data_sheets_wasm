@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Radar WIP</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="radar.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="Radar WIP"
+		  property="og:title"/>
+
+	<meta content="Radar WIP"
+		  name="description"/>
+
+	<meta content="Radar WIP"
+		  property="og:description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="https://wt.flareflo.dev/radar.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer id="script" src="util.js" type="module"></script>
+	<script defer id="script" src="index.js" type="module"></script>
+	<script defer id="script" src="radar.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+
+<!--<div id="canvas_container">-->
+<!--	<canvas id="radar_pattern" width="1000" height="1000"></canvas>-->
+<!--</div>-->
+
+<p class="centered">This is a proof of concept, for the APG-66, more will be added later</p>
+
+<div id="radar_container">
+	<div class="inline">Name: <p id="r_name"></p></div>
+	<div class="boxed_container">Scan ranges
+		<div id="scan_ranges"></div>
+	</div>
+	<div class="boxed_container">Boresight ranges
+		<div id="boresight_ranges"></div>
+	</div>
+	<table id="submode_table">
+		<thead>
+			<tr>
+				<td>pattern</td>
+				<td>category</td>
+				<td>-azimuth/azimuth+ -elevation/elevation+</td>
+				<td>roll stab limits</td>
+				<td>pitch stab limits</td>
+				<td>period</td>
+				<td>width</td>
+				<td>bar height</td>
+				<td>bar count</td>
+				<td>row major</td>
+				<td>elevation offset</td>
+				<td>indicate</td>
+				<td>pattern</td>
+			</tr>
+		</thead>
+		<tbody id="submode_rows">
+
+		</tbody>
+	</table>
+</div>
+
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-minmax {
+  margin-top: 30px;
+  width: 304px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  color: var(--color-text);
+}
+.box-minmax span:first-child {
+  margin: 0 auto;
+}
+.box-minmax span {
+  font-size: 15px;
+}
+
+.rs-range {
+  margin-top: 29px;
+  width: 300px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.rs-range:focus {
+  outline: none;
+}
+.rs-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: none;
+  background: var(--color-text-gradient);
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+.rs-range::-moz-range-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: none;
+  background: var(--color-text);
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+.rs-range::-webkit-slider-thumb {
+  border: 0px solid var(--color-text);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  height: 32px;
+  width: 22px;
+  border-radius: 22px;
+  background: var(--color-text);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -15px;
+}
+.rs-range::-moz-range-thumb {
+  border: 0px solid var(--color-text);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  height: 32px;
+  width: 22px;
+  border-radius: 22px;
+  background: var(--color-text);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -15px;
+}
+.rs-range::-moz-focus-outer {
+  border: 0;
+}
+
+.rs-label {
+  -moz-appearance: textfield !important;
+  position: relative;
+  transform-origin: center center;
+  display: block;
+  width: 61px;
+  height: 61px;
+  background: transparent;
+  border-radius: 50%;
+  text-align: center;
+  box-sizing: border-box;
+  border: 2px solid var(--color-text);
+  margin-left: -17px;
+  color: var(--color-text);
+  padding-left: 2px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 10px;
+}
+.rs-label::after {
+  display: block;
+  letter-spacing: 0.07em;
+}
+.rs-label::-webkit-outer-spin-button, .rs-label::-webkit-inner-spin-button {
+  display: none;
+}

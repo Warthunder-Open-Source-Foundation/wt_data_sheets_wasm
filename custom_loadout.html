@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Custom loadout</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="custom_loadout.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="Create and view custom loadouts"
+		  property="og:title"/>
+
+	<meta content="Using datamined contents this tool lets one model custom loadouts from all aircraft"
+		  property="og:description"/>
+
+	<meta content="Using datamined contents this tool lets one model custom loadouts from all aircraft"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="https://wt.flareflo.dev/custom_loadout.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer id="script" src="util.js" type="module"></script>
+	<script defer id="script" src="custom_loadout.js" type="module"></script>
+	<script defer id="script" src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body id="body">
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+
+<div>
+	<select id="aircraft" class="centered"></select>
+	<button id="apply_choices">Show result</button>
+	<button id="reset_choices">Reset changes</button>
+	<table id="fm_params">
+		<tr>
+			<td>Max load</td>
+			<td>Max imbalance</td>
+			<td>Max wing loads</td>
+		</tr>
+		<tr>
+			<td id="fm_max_load"></td>
+			<td id="fm_max_imbalance"></td>
+			<td id="fm_max_wing_load"></td>
+		</tr>
+	</table>
+
+	<div id="cl_result"></div>
+
+	<table id="loadout_screen" class="centered"></table>
+</div>
+
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>

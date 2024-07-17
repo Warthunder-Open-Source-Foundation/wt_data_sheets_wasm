@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Live calculation</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="live_calc.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="Live calculation for any air to air missiles range and hit probability"
+		  property="og:title"/>
+
+	<meta content="No download or installation required, just start the game and watch the magic happen"
+		  property="og:description"/>
+
+	<meta content="No download or installation required, just start the game and watch the magic happen"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="https://wt.flareflo.dev/live_calc.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer id="script" src="util.js" type="module"></script>
+	<script defer id="script" src="live_calc.js" type="module"></script>
+	<script defer id="script" src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body>
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+<script id="add_missile_select">
+</script>
+<table class="main_table" id="calc-table">
+	<tr class="bright-tr">
+		<td>Total flight range</td>
+		<td id="range">-</td>
+	</tr>
+	<tr>
+		<td>Projected impact at current speed (same speed+alt target)</td>
+		<td id="splash_at">-</td>
+	</tr>
+</table>
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>

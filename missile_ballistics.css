@@ -1,0 +1,96 @@
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 90%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: var(--color-background-bright); /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: var(--color-accent); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: var(--color-accent); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+#canvas_container {
+  margin-top: 30px;
+  position: relative;
+  width: 90vw;
+  margin: 0 auto;
+  aspect-ratio: 16/9;
+  border: var(--color-text) 1px solid;
+}
+
+#ballistics {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+}
+
+#zoom_in {
+  position: absolute;
+  left: 0;
+  width: 25px;
+}
+
+#zoom_reset {
+  position: absolute;
+  left: 25px;
+  width: 50px;
+}
+
+#zoom_out {
+  position: absolute;
+  left: 75px;
+  width: 25px;
+}
+
+.on_canvas {
+  z-index: 9;
+}
+
+#ul_input {
+  z-index: 10;
+}
+
+#main_container {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+#dropdown {
+  margin: 0 auto;
+  width: max(400px, 75vw);
+}
+
+#div_input {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+#config {
+  margin: 0 auto;
+  width: 80vw;
+}

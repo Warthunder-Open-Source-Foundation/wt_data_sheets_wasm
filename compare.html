@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Missile comparison</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="styles.css" rel="stylesheet">
+	<link href="compare.css" rel="stylesheet">
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+
+	<meta content="Compare any air to air missile from warthunder"
+		  property="og:title"/>
+
+	<meta content="A tool designed to quickly contrast two different air to air weapon systems"
+		  property="og:description"/>
+
+	<meta content="A tool designed to quickly contrast two different air to air weapon systems"
+		  name="description"/>
+
+	<meta content="website"
+		  property="og:type"/>
+
+	<meta content="https://wt.flareflo.dev/compare.html"
+		  property="og:url"/>
+
+	<!--	<meta content="" -->
+	<!--		  property="og:image"/>-->
+	<!--	-->
+	<meta content="#6e10d2"
+		  name="theme-color">
+
+	<script defer id="script" src="util.js" type="module"></script>
+	<script defer id="script" src="compare.js" type="module"></script>
+	<script defer id="script" src="index.js" type="module"></script>
+	<!--	<script data-goatcounter="https://wt-flareflo.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>-->
+</head>
+<body id="body">
+<script id="replace_with_navbar">
+	fetch('navbar.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_navbar");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+<div class="settings">
+	<table class="main_table" id="settings">
+		<thead>
+		<tr>
+			<td>
+				Settings
+			</td>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="input_td">
+				<input class="checkbox" id="show_identical" type="checkbox" value="false">
+				<label class="un_checked" for="show_identical" id="label_show_identical">Show identical values</label>
+			</td>
+		</tr>
+		<tr>
+			<td class="input_td">
+				<input class="checkbox" id="show_diff" type="checkbox" value="false">
+				<label class="un_checked" for="show_diff" id="label_show_diff">Show relative differences</label>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+<div class="selection_area" id="selection_area">
+	<script id="select_0"></script>
+	<button class="button" id="lock">Select a reference missile</button>
+	<button class="button" id="reset">Reset selections</button>
+	<table class="main_table" id="comparison"></table>
+</div>
+<script id="replace_with_footer">
+	fetch('footer.html')
+		.then(res => res.text())
+		.then(text => {
+			let oldelem = document.querySelector("script#replace_with_footer");
+			let newelem = document.createElement("div");
+			newelem.innerHTML = text;
+			oldelem.parentNode.replaceChild(newelem, oldelem);
+		})
+</script>
+</body>
+</html>
