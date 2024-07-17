@@ -87,13 +87,7 @@ jobs:
       - name: Download count.js
         run: wget "https://gc.zgo.at/count.js" -P dist/
 
-      # Create dummy file for successful removal of any file
-      - name: Create dummy file
-        run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'cd /var/www/flo_wt_calc; touch placeholder.txt'
-
-      # Clean up dist folder before pushing new set
-      - name: Prepare server for rsync
-        run: ssh flareflo-github@${{ secrets.CAVE_IP }} 'rm -rf /var/www/flo_wt_calc/*'
-
-      - name: Deploy with rsync
-        run: rsync -avz ./dist/ flareflo-github@${{ secrets.CAVE_IP }}:/var/www/flo_wt_calc/dist
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # The folder the action should deploy.
