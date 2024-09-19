@@ -55,7 +55,7 @@ pub fn make_row(m: &Missile, parameters: LaunchParameter) -> [String; 24] {
 
     let results = generate(m, parameters, 0.1, false);
 
-    let range = results.distance_flown.round();
+    let range = results.distance_flown.to_meters().round();
 
     let visband = m.bands.clone().unwrap_or(Visband {
         range_band0: 0,

@@ -9,6 +9,8 @@ use wt_ballistics_calc_lib::runner::{generate, LaunchResults};
 use std::str::FromStr;
 use std::sync::Mutex;
 use js_sys::Math::min;
+use simple_si_units::base::Distance;
+use simple_si_units::mechanical::Velocity;
 use wt_datamine_extractor_lib::missile::missile::Missile;
 
 const WIDTH: u32 = 3840;
@@ -58,10 +60,10 @@ pub fn plot(
         &missile,
         LaunchParameter {
             use_gravity: false,
-            start_velocity,
-            distance_to_target: 0.0,
-            target_speed: 0.0,
-            altitude,
+            start_velocity: Velocity::from_mps(start_velocity),
+            distance_to_target: Distance::from_m(0.0),
+            target_speed: Velocity::from_mps(0.0),
+            altitude: Distance::from_m(altitude as _),
         },
         TIMESTEP,
         false,
@@ -91,7 +93,7 @@ pub fn plot(
         .v
         .iter()
         .enumerate()
-        .map(|i| (i.0 as f32, *i.1 as f64))
+        .map(|i| (i.0 as f32, i.1.to_mps()))
         .collect();
 
     // Maximum turning radius at given velocity
@@ -106,7 +108,7 @@ pub fn plot(
         .a
         .iter()
         .enumerate()
-        .map(|i| (i.0 as f32, *i.1 as f64))
+        .map(|i| (i.0 as f32, i.1.to_mps2()))
         .collect();
 
     // Distance over time
@@ -115,11 +117,11 @@ pub fn plot(
         .d
         .iter()
         .enumerate()
-        .map(|i| (i.0 as f32, *i.1 / DISTANCE_FACTOR as f64))
+        .map(|i| (i.0 as f32, i.1.to_meters() / DISTANCE_FACTOR))
         .collect();
 
     let x_dim = 0f32..results.profile.sim_len as f32 * 1.1;
-    let y_dim = -(results.min_a.abs() + 50.0).round()..(results.max_v + 50.0).round();
+    let y_dim = -(results.min_a.to_mps2().abs() + 50.0).round()..(results.max_v.to_mps() + 50.0).round();
 
     // Save once all data has been copied out of results
     *LAST_RESULTS.try_lock().unwrap() = Some((results, missile.clone()));
@@ -255,10 +257,10 @@ pub fn export_all_to_zip(altitude: u32, start_velocity: f64) -> Vec<u8> {
             missile,
             LaunchParameter {
                 use_gravity: false,
-                start_velocity,
-                distance_to_target: 0.0,
-                target_speed: 0.0,
-                altitude,
+                start_velocity: Velocity::from_mps(start_velocity),
+                distance_to_target: Distance::from_m(0.0),
+                target_speed: Velocity::from_mps(0.0),
+                altitude: Distance::from_m(altitude as f64),
             },
             TIMESTEP,
             false,
