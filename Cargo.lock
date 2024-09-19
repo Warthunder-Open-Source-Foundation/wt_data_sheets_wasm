@@ -2439,7 +2439,7 @@ checksum = "16905f154f353035a05927b3829fe7eec34d06468fa2a4c6b6669c3dfcacc1d4"
 [[package]]
 name = "wt_ballistics_calc"
 version = "0.1.0"
-source = "git+https://github.com/FlareFlo/wt_ballistics_calc#393a4117d54ee2c7bc26bd24e594118e0297d150"
+source = "git+https://github.com/FlareFlo/wt_ballistics_calc#d54fc35f6f6a6bdbaf2683416aee2b870ae96905"
 dependencies = [
  "pad",
  "serde",
