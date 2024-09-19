@@ -87,6 +87,7 @@ lazy_static = "^1.4.0"
 # in debug mode.
 #[target."cfg(debug)".dependencies]
 console_error_panic_hook = "0.1.*"
+simple-si-units = "1.1.1"
 
 # The `web-sys` crate allows you to interact with the various browser APIs,
 # like the DOM.

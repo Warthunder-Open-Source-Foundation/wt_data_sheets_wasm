@@ -19,12 +19,12 @@ pub fn update_tables(alt: u32, vel: u32) {
     let document = get_document();
 
     for missile in MISSILES.iter() {
-        let parameters = LaunchParameter::new_from_parameters(false, f64::from(vel), 0.0, 0.0, alt);
+        let parameters = LaunchParameter::new_from_parameters(false, f64::from(vel), 0.0, 0.0, alt as _);
         let results = generate(missile, parameters, 0.1, false);
         let cell = document
             .get_element_by_id(&format!("range_{}", &missile.name))
             .unwrap();
-        cell.set_inner_html(&results.distance_flown.round().to_string());
+        cell.set_inner_html(&results.distance_flown.to_meters().round().to_string());
     }
 }
 
@@ -38,7 +38,7 @@ pub fn generate_main_tables(
     std::panic::set_hook(Box::new(console_error_panic_hook::hook));
     let document = get_document();
 
-    let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 1000);
+    let parameters = LaunchParameter::new_from_parameters(false, 343.0, 0.0, 0.0, 1000.0);
 
     document
         .get_element_by_id("alt")
@@ -189,7 +189,7 @@ impl IrTable {
     ) -> Self {
         let results = generate(m, parameters, 0.1, false);
 
-        let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
+        let range = results.distance_flown.to_meters();
         let bands = m.bands.clone().unwrap();
         Self {
             name: m.name.to_owned(),
@@ -249,7 +249,7 @@ impl SarhTable {
     ) -> Self {
         let results = generate(m, parameters, 0.1, false);
 
-        let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
+        let range = results.distance_flown.to_meters();
         Self {
             name: m.name.to_owned(),
             range,
@@ -297,7 +297,7 @@ impl ArhTable {
     ) -> Self {
         let results = generate(m, parameters, 0.1, false);
 
-        let range = f64::from_str(&format!("{:.1}", results.distance_flown)).unwrap();
+        let range = results.distance_flown.to_meters();
         Self {
             name: m.name.to_owned(),
             range,
@@ -345,7 +345,7 @@ pub trait ToHtmlTable: bevy_reflect::Struct {
                 1 => {
                     let results = generate(missile, parameters, 0.1, false);
 
-                    let range = results.distance_flown.round().to_string();
+                    let range = results.distance_flown.to_meters().round().to_string();
 
                     cell.set_attribute("id", &format!("range_{}", &missile.name))
                         .unwrap();
